@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.rasifix.trainings</groupId>
+  <artifactId>trainings-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>../com.github.rasifix.trainings.core</module>
+  	<module>../com.github.rasifix.trainings.integration</module>
+  	<module>../com.github.rasifix.trainings.format.tcx</module>
+  	<module>../com.github.rasifix.trainings.format.json</module>
+  	<module>../com.github.rasifix.trainings.common.processors</module>
+  	<module>../com.github.rasifix.trainings.growl</module>
+  	<module>../com.github.rasifix.trainings.notifier.growl</module>
+  	<module>../com.github.rasifix.trainings.couchdb</module>
+  	<module>../com.github.rasifix.trainings.fileinbound</module>
+  </modules>
+</project>

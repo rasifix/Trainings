@@ -1,0 +1,2 @@
+- move net.sf.trainings.integration.resource
+  - it has nothing to do with integration per se

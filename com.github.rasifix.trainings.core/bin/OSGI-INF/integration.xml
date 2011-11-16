@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="Integrator">
+   <implementation class="net.sf.trainings.internal.Integrator"/>
+   <reference bind="setChannel" cardinality="1..1" interface="net.sf.trainings.integration.SubscribableChannel" name="SubscribableChannel" policy="static"/>
+   <reference bind="setImporter" cardinality="1..1" interface="net.sf.trainings.integration.transformer.Transformer" name="Importer" policy="static" target="(net.sf.trainings.transformer=importer)"/>
+   <reference bind="setExporter" cardinality="1..1" interface="net.sf.trainings.integration.transformer.Transformer" name="Exporter" policy="static" target="(net.sf.trainings.transformer=exporter)"/>
+   <reference bind="setProcessor" cardinality="1..1" interface="net.sf.trainings.integration.transformer.Transformer" name="Processor" policy="static" target="(net.sf.trainings.transformer=processor)"/>
+   <reference cardinality="1..1" interface="net.sf.trainings.Notifier" name="Notifier" policy="static" bind="setNotifier"/>>
+</scr:component>

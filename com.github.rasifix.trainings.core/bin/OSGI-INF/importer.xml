@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="ImportEngine">
+   <implementation class="net.sf.trainings.internal.importer.ImportEngine"/>
+   <reference bind="addFormat" cardinality="0..n" interface="net.sf.trainings.format.Format" name="Format" policy="dynamic" unbind="removeFormat"/>
+   <service>
+      <provide interface="net.sf.trainings.integration.transformer.Transformer"/>
+   </service>
+   <property name="net.sf.trainings.transformer" type="String" value="importer"/>
+</scr:component>

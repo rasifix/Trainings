@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="ProcessorEngine">
+   <implementation class="net.sf.trainings.internal.processors.ProcessorEngine"/>
+   <service>
+      <provide interface="net.sf.trainings.integration.transformer.Transformer"/>
+   </service>
+   <property name="net.sf.trainings.transformer" type="String" value="processor"/>
+   <reference bind="addProcessor" cardinality="0..n" interface="net.sf.trainings.ActivityProcessor" name="ActivityProcessor" policy="dynamic" unbind="removeProcessor"/>
+</scr:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="CouchActivityRepository">
+   <implementation class="com.github.rasifix.trainings.couchdb.CouchActivityRepository"/>
+   <service>
+      <provide interface="com.github.rasifix.trainings.ActivityRepository"/>
+      <provide interface="com.github.rasifix.trainings.ActivityExporter"/>
+   </service>
+   <property name="host" type="String" value="localhost"/>
+   <property name="port" type="String" value="5984"/>
+</scr:component>

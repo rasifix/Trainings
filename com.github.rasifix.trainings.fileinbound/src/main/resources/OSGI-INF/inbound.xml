@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" enabled="true" immediate="true" name="FileInbound">
+   <implementation class="com.github.rasifix.trainings.fileinbound.FileInbound"/>
+   <property name="directory" type="String" value="~/.inbound"/>
+   <reference bind="setInbound" cardinality="1..1" interface="com.github.rasifix.trainings.integration.MessageChannel" name="MessageChannel" policy="static"/>
+</scr:component>

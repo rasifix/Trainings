@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-Version: 0.0.1
+Bundle-Name: Integration
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.github.rasifix.trainings.integration
+Export-Package: com.github.rasifix.trainings.integration,
+ com.github.rasifix.trainings.integration.channel,
+ com.github.rasifix.trainings.integration.message,
+ com.github.rasifix.trainings.integration.resource,
+ com.github.rasifix.trainings.integration.transformer
+Bundle-ClassPath: .
