@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="InboundChannel">
-   <implementation class="net.sf.trainings.integration.channel.SimpleSubscribableChannel"/>
-   <property name="net.sf.trainings.integration.channelName" type="String" value="inbound"/>
-   <service>
-      <provide interface="net.sf.trainings.integration.SubscribableChannel"/>
-      <provide interface="net.sf.trainings.integration.MessageChannel"/>
-   </service>
-</scr:component>
