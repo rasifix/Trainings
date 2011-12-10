@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bundle-Version: 0.0.1
+Bundle-Version: 1.0.0
 Bundle-Name: Growl Notifier
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.github.rasifix.trainings.notifier.growl

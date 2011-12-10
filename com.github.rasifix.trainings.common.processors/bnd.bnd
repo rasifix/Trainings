@@ -1,0 +1,3 @@
+-buildpath: com.github.rasifix.trainings.core;version=latest,\
+	osgi.cmpn
+Private-Package: com.github.rasifix.trainings.common.processors.internal

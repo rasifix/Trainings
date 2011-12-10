@@ -1,0 +1,6 @@
+Private-Package: com.github.rasifix.trainings.notifier.growl
+Import-Package: org.osgi.service.component,\
+	*
+-buildpath: com.github.rasifix.trainings.growl;version=latest,\
+	com.github.rasifix.trainings.core;version=latest,\
+	osgi.cmpn

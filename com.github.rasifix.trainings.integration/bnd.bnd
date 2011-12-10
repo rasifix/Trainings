@@ -1,0 +1,6 @@
+Export-Package: com.github.rasifix.trainings.integration;version=1.0.0,\
+	com.github.rasifix.trainings.integration.channel;version=1.0.0,\
+	com.github.rasifix.trainings.integration.message;version=1.0.0,\
+	com.github.rasifix.trainings.integration.resource;version=1.0.0,\
+	com.github.rasifix.trainings.integration.transformer;version=1.0.0
+Bundle-Version: 1.0.0

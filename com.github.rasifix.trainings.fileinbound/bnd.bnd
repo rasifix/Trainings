@@ -1,0 +1,7 @@
+-buildpath: com.github.rasifix.trainings.integration;version=latest,\
+	osgi.cmpn
+Private-Package: com.github.rasifix.trainings.fileinbound,\
+	com.github.rasifix.trainings.fileinbound.fs,\
+	com.github.rasifix.trainings.fileinbound.fs.impl,\
+	com.github.rasifix.trainings.fileinbound.watcher,\
+	com.github.rasifix.trainings.fileinbound.watcher.impl

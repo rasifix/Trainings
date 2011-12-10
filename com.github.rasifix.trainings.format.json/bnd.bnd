@@ -1,0 +1,6 @@
+-buildpath: com.springsource.org.joda.time,\
+	javax.measure,\
+	com.github.rasifix.saj
+Bundle-Version: 1.0.0
+Private-Package: com.github.rasifix.trainings.format.json.internal
+Export-Package: com.github.rasifix.trainings.format.json;version=1.0.0
