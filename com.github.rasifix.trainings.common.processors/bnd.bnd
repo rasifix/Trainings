@@ -1,3 +1,5 @@
 -buildpath: com.github.rasifix.trainings.core;version=latest,\
 	osgi.cmpn
 Private-Package: com.github.rasifix.trainings.common.processors.internal
+Service-Component: OSGI-INF/*.xml
+Include-Resource: OSGI-INF=src/main/resources/OSGI-INF

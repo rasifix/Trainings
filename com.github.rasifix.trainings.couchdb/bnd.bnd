@@ -6,3 +6,5 @@
 	org.apache.httpcomponents.httpcore
 Private-Package: com.github.rasifix.trainings.couchdb.internal
 Export-Package: com.github.rasifix.trainings.couchdb
+Service-Component: OSGI-INF/*.xml
+Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
