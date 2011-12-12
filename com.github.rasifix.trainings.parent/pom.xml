@@ -16,6 +16,10 @@
 		<module>../com.github.rasifix.trainings.couchdb</module>
 		<module>../com.github.rasifix.trainings.fileinbound</module>
 	</modules>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>

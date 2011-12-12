@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-Version: 0.0.1
-Bundle-Name: Growl
-Bundle-ManifestVersion: 2
-Bundle-SymbolicName: com.github.rasifix.trainings.growl
-Export-Package: com.github.rasifix.trainings.growl
-Bundle-ClassPath: .
