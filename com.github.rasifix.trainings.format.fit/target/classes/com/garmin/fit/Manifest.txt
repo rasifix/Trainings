@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Name: com/garmin/fit
+Specification-Title: FIT File Format Library
+Specification-Version: 1.0.1.50
+Specification-Vendor: Garmin
+Implementation-Title: FIT File Format Library
+Implementation-Version: 1.0.1.50
+Implementation-Vendor: Garmin
+Package-Title: com.garmin.fit
+Package-Version: 1.0.1.50
+Package-Vendor: Garmin

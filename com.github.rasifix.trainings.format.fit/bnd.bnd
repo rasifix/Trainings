@@ -1,0 +1,8 @@
+Private-Package: com.garmin.fit,\
+	com.garmin.fit.csv,\
+	com.garmin.fit.examples,\
+	com.garmin.fit.test
+-buildpath: com.github.rasifix.trainings.core;version=latest,\
+	com.springsource.org.joda.time
+Service-Component: OSGI-INF/*.xml
+Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
