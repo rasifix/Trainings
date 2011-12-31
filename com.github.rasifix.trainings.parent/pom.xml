@@ -10,6 +10,7 @@
 		<module>../com.github.rasifix.trainings.integration</module>
 		<module>../com.github.rasifix.trainings.format.tcx</module>
 		<module>../com.github.rasifix.trainings.format.json</module>
+		<module>../com.github.rasifix.trainings.format.fit</module>
 		<module>../com.github.rasifix.trainings.common.processors</module>
 		<module>../com.github.rasifix.trainings.growl</module>
 		<module>../com.github.rasifix.trainings.notifier.growl</module>
