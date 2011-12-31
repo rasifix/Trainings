@@ -86,7 +86,7 @@ public class JsonActivityReader implements ActivityReader {
 			for (int j = 0; j < trackpoints.size(); j++) {
 				JsonObject jsonTrackpoint = trackpoints.getObject(j);
 
-				double elapsedTime = jsonTrackpoint.getDouble("elapsed");
+				long elapsedTime = (long) jsonTrackpoint.getDouble("elapsed");
 				Trackpoint trackpoint = new Trackpoint(elapsedTime);
 
 				if (jsonTrackpoint.containsKey("pos")) {

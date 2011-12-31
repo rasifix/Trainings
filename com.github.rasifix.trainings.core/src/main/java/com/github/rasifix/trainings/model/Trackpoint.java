@@ -38,7 +38,7 @@ public class Trackpoint {
 	
 	private Measure<Duration> elapsedTime;
 
-	public Trackpoint(final double elapsedTime) {
+	public Trackpoint(final long elapsedTime) {
 		this(Measure.valueOf(elapsedTime, SI.MILLI(SI.SECOND)));
 	}
 	

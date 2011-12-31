@@ -40,6 +40,10 @@ public class Track {
 	
 	private String sport;
 	
+	public Track(long startTime) {
+		this(new DateTime(startTime));
+	}
+	
 	public Track(DateTime startTime) {
 		if (startTime == null) {
 			throw new IllegalArgumentException("startTime cannot be null");

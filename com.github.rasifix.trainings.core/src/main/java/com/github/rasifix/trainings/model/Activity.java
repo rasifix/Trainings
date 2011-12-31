@@ -27,6 +27,10 @@ public class Activity {
 	
 	private DateTime startTime;
 	
+	public Activity(final long startTime) {
+		this(new DateTime(startTime));
+	}
+	
 	public Activity(final DateTime startTime) {
 		this.startTime = startTime;
 	}
