@@ -15,28 +15,20 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Length;
-import javax.measure.unit.SI;
-
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class DistanceAttribute implements TrackpointAttribute {
 
-	private final Measure<Length> distance;
+	private final double distance;
 
 	public DistanceAttribute(double distanceInMeters) {
-		this(Measure.valueOf(distanceInMeters, SI.METER));
-	}
-	
-	public DistanceAttribute(Measure<Length> distance) {
-		this.distance = distance;
+		this.distance = distanceInMeters;
 	}
 	
 	@Override
 	public Double getValue() {
-		return distance.doubleValue(SI.METER);
+		return distance;
 	}
 
 }

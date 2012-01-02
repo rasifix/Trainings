@@ -17,19 +17,11 @@ package com.github.rasifix.trainings.format.tcx;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.measure.Measure;
-import javax.measure.quantity.Frequency;
-import javax.measure.quantity.Length;
-import javax.measure.quantity.Velocity;
-import javax.measure.unit.SI;
-
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.format.tcx.internal.TcxReader;
@@ -73,11 +65,11 @@ public class TcxActivityReader implements ActivityReader {
 	}
 	
 	protected Activity convert(final TcxActivity source) {
-		DateTime dateTime = getDate(source.getId());
-		Activity activity = new Activity(dateTime);
+		Date Date = getDate(source.getId());
+		Activity activity = new Activity(Date);
 		String sport = source.getSport();
 		
-		Track current = new Track(dateTime);
+		Track current = new Track(Date);
 		current.setSport(sport);
 		
 		activity.addTrack(current);
@@ -86,7 +78,7 @@ public class TcxActivityReader implements ActivityReader {
 		for (final TcxLap lap : source.getLaps()) {
 			for (final TcxTrack track : lap.getTracks()) {
 				if (hasGap(previous, track)) {
-					current = new Track(new DateTime(track.getFirstTrackpoint().getTime()));
+					current = new Track(new Date(track.getFirstTrackpoint().getTime().getTime()));
 					current.setSport(sport);
 					activity.addTrack(current);
 				}
@@ -105,9 +97,13 @@ public class TcxActivityReader implements ActivityReader {
 		return activity;
 	}
 
-	private DateTime getDate(String value) {
-		DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		return format.parseDateTime(value);
+	private Date getDate(String value) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		try {
+			return format.parse(value);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	private boolean hasGap(TcxTrack t1, TcxTrack t2) {
@@ -121,18 +117,16 @@ public class TcxActivityReader implements ActivityReader {
 	}
 	
 	private Trackpoint convert(Track track, TcxTrackpoint source) {
-		long elapsedTime = source.getTime().getTime() - track.getStartTime().toInstant().getMillis();
+		long elapsedTime = source.getTime().getTime() - track.getStartTime().getTime();
 		
-		Trackpoint result = new Trackpoint(Measure.valueOf(elapsedTime, SI.MILLI(SI.SECOND)));
+		Trackpoint result = new Trackpoint(elapsedTime);
 		
 		if (source.getDistance() != null) {
-			Measure<Length> distance = Measure.valueOf(source.getDistance(), SI.METER);
-			result.addAttribute(new DistanceAttribute(distance));
+			result.addAttribute(new DistanceAttribute(source.getDistance()));
 		}
 		
 		if (source.getAltitude() != null) {
-			Measure<Length> altitude = Measure.valueOf(source.getAltitude(), SI.METER);
-			result.addAttribute(new AltitudeAttribute(altitude));
+			result.addAttribute(new AltitudeAttribute(source.getAltitude()));
 		}
 		
 		if (source.getPosition() != null) {
@@ -140,22 +134,18 @@ public class TcxActivityReader implements ActivityReader {
 		}
 		
 		if (source.getHeartRate() != null) {
-			Measure<Frequency> heartRate = Measure.valueOf(source.getHeartRate(), SI.HERTZ.times(60));
-			result.addAttribute(new HeartRateAttribute(heartRate));
+			result.addAttribute(new HeartRateAttribute(source.getHeartRate()));
 		}
 		
 		if (source.getBikeCadence() != null) {
-			Measure<Frequency> cadence = Measure.valueOf(source.getBikeCadence(), SI.HERTZ.times(60));
-			result.addAttribute(new CadenceAttribute(cadence));
+			result.addAttribute(new CadenceAttribute((double) source.getBikeCadence()));
 			
 		} else if (source.getRunCadence() != null) {
-			Measure<Frequency> cadence = Measure.valueOf(source.getRunCadence(), SI.HERTZ.times(60));
-			result.addAttribute(new CadenceAttribute(cadence));
+			result.addAttribute(new CadenceAttribute((double) source.getRunCadence()));
 		}
 		
 		if (source.getSpeed() != null) {
-			Measure<Velocity> speed = Measure.valueOf(source.getSpeed(), SI.METERS_PER_SECOND);
-			result.addAttribute(new SpeedAttribute(speed));
+			result.addAttribute(new SpeedAttribute(source.getSpeed()));
 		}
 		
 		return result;

@@ -26,22 +26,10 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>1.6</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.github.rasifix</groupId>
 			<artifactId>saj</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.measure</groupId>
-			<artifactId>jsr-275</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

@@ -17,15 +17,9 @@ package com.github.rasifix.trainings.model;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.measure.Measure;
-import javax.measure.quantity.Duration;
-import javax.measure.unit.SI;
-
-
-import org.joda.time.DateTime;
 
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
 
@@ -36,13 +30,9 @@ public class Trackpoint {
 	
 	private Track track;
 	
-	private Measure<Duration> elapsedTime;
+	private long elapsedTime;
 
 	public Trackpoint(final long elapsedTime) {
-		this(Measure.valueOf(elapsedTime, SI.MILLI(SI.SECOND)));
-	}
-	
-	public Trackpoint(final Measure<Duration> elapsedTime) {
 		this.elapsedTime = elapsedTime;
 	}
 	
@@ -54,12 +44,12 @@ public class Trackpoint {
 		this.track = track;
 	}
 
-	public Measure<Duration> getElapsedTime() {
+	public long getElapsedTime() {
 		return elapsedTime;
 	}
 	
-	public DateTime getTime() {
-		return track.getStartTime().plus(elapsedTime.longValue(SI.MILLI(SI.SECOND)));
+	public Date getTime() {
+		return new Date(track.getStartTime().getTime() + elapsedTime);
 	}
 
 	public Position getPosition() {
@@ -91,7 +81,7 @@ public class Trackpoint {
 	
 	@Override
 	public String toString() {
-		return "Trackpoint[elapsedTime=" + getElapsedTime().intValue(SI.SECOND) + "]";
+		return "Trackpoint[elapsedTime=" + getElapsedTime() + "]";
 	}
 	
 }

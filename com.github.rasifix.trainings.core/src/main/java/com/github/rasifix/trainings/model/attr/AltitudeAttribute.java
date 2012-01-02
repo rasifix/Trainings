@@ -15,32 +15,24 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Length;
-import javax.measure.unit.SI;
-
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class AltitudeAttribute implements TrackpointAttribute {
 	
-	private final Measure<Length> altitude;
+	private final double altitude;
 	
 	public AltitudeAttribute(double altitudeInMeters) {
-		this(Measure.valueOf(altitudeInMeters, SI.METER));
-	}
-	
-	public AltitudeAttribute(Measure<Length> altitude) {
-		this.altitude = altitude;
+		this.altitude = altitudeInMeters;
 	}
 
-	public Measure<Length> getAltitude() {
+	public double getAltitude() {
 		return altitude;
 	}
 	
 	@Override
 	public Double getValue() {
-		return altitude.doubleValue(SI.METER);
+		return altitude;
 	}
 	
 	@Override

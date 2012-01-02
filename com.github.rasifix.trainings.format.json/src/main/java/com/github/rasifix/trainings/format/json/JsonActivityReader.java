@@ -18,13 +18,11 @@ package com.github.rasifix.trainings.format.json;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.github.rasifix.saj.JsonReader;
 import com.github.rasifix.saj.dom.JsonArray;
@@ -71,14 +69,14 @@ public class JsonActivityReader implements ActivityReader {
 		}
 		json = json.getObject("activity");
 
-		DateTime startTime = parse(json.getString("date"));
+		Date startTime = parse(json.getString("date"));
 
 		Activity activity = new Activity(startTime);
 
 		JsonArray tracks = json.getArray("tracks");
 		for (int i = 0; i < tracks.size(); i++) {
 			JsonObject jsonTrack = tracks.getObject(i);
-			DateTime trackStart = parse(jsonTrack.getString("startTime"));
+			Date trackStart = parse(jsonTrack.getString("startTime"));
 
 			Track track = new Track(trackStart);
 
@@ -134,10 +132,14 @@ public class JsonActivityReader implements ActivityReader {
 		return activity;
 	}
 
-	private DateTime parse(String text) {
-		final DateTimeFormatter format = DateTimeFormat
-				.forPattern("yyyy-MM-dd HH:mm:ss");
-		return format.parseDateTime(text);
+	private Date parse(String text) {
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		format.setLenient(false);
+		try {
+			return format.parse(text);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("invalid date: " + text);
+		}
 	}
 
 }

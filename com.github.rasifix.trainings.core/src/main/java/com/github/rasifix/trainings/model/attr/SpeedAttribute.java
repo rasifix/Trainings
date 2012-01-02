@@ -15,28 +15,20 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Velocity;
-import javax.measure.unit.SI;
-
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class SpeedAttribute implements TrackpointAttribute {
 
-	private final Measure<Velocity> speed;
+	private final double speed;
 
 	public SpeedAttribute(double speedInMetersPerSecond) {
-		this(Measure.valueOf(speedInMetersPerSecond, SI.METERS_PER_SECOND));
-	}
-	
-	public SpeedAttribute(Measure<Velocity> speed) {
-		this.speed = speed;
+		this.speed = speedInMetersPerSecond;
 	}
 	
 	@Override
 	public Double getValue() {
-		return speed.doubleValue(SI.METERS_PER_SECOND);
+		return speed;
 	}
 
 }

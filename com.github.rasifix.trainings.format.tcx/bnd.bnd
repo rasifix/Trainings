@@ -1,7 +1,5 @@
 -buildpath: com.github.rasifix.trainings.core;version=latest,\
 	com.github.rasifix.trainings.integration;version=latest,\
-	com.springsource.org.joda.time,\
-	javax.measure,\
 	com.springsource.org.jdom
 Private-Package: com.github.rasifix.trainings.format.tcx.internal,\
 	com.github.rasifix.trainings.format.tcx.internal.model,\

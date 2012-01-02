@@ -15,28 +15,20 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Frequency;
-import javax.measure.unit.SI;
-
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class CadenceAttribute implements TrackpointAttribute {
 
-	private final Measure<Frequency> cadence;
+	private final double cadence;
 
 	public CadenceAttribute(double cadenceInRpm) {
-		this(Measure.valueOf(cadenceInRpm, SI.HERTZ.times(60)));
-	}
-	
-	public CadenceAttribute(Measure<Frequency> cadence) {
-		this.cadence = cadence;
+		this.cadence = cadenceInRpm;
 	}
 
 	@Override
-	public Integer getValue() {
-		return cadence.intValue(SI.HERTZ.times(60));
+	public Double getValue() {
+		return cadence;
 	}
 	
 }

@@ -19,15 +19,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.measure.unit.SI;
-
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.github.rasifix.saj.JsonContentHandler;
 import com.github.rasifix.saj.JsonWriter;
@@ -157,7 +152,7 @@ public class JsonActivityWriter implements ActivityWriter {
 	private void output(final JsonContentHandler writer, final Trackpoint trackpoint) {
 		writer.startObject();
 		
-		member(writer, "elapsed", trackpoint.getElapsedTime().longValue(SI.MILLI(SI.SECOND)));
+		member(writer, "elapsed", trackpoint.getElapsedTime());
 		
 		if (trackpoint.hasAttribute(PositionAttribute.class)) {
 			writer.startMember("pos");
@@ -213,13 +208,13 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.endMember();
 	}
 	
-	private String format(DateTime time) {
+	private String format(Date time) {
 		if (time == null) {
 			throw new IllegalArgumentException("cannot format null time");
 		}
 		
-		DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-		return format.print(time);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(time);
 	}
 	
 }

@@ -15,28 +15,20 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Frequency;
-import javax.measure.unit.SI;
-
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class HeartRateAttribute implements TrackpointAttribute {
 
-	private final Measure<Frequency> heartRate;
+	private final int heartRate;
 
 	public HeartRateAttribute(int beatsPerMinute) {
-		this(Measure.valueOf(beatsPerMinute, SI.HERTZ.times(60)));
-	}
-	
-	public HeartRateAttribute(Measure<Frequency> heartRate) {
-		this.heartRate = heartRate;
+		this.heartRate = beatsPerMinute;
 	}
 	
 	@Override
 	public Integer getValue() {
-		return heartRate.intValue(SI.HERTZ.times(60));
+		return heartRate;
 	}
 
 }

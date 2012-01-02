@@ -17,13 +17,9 @@ package com.github.rasifix.trainings.format.tcx;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
-
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.format.tcx.internal.TcxWriter;
@@ -57,7 +53,7 @@ public class TcxActivityWriter implements ActivityWriter {
 		TcxActivity tcxActivity = new TcxActivity(generateId(activity.getStartTime()), getSport(activity));
 		
 		for (Track track : activity.getTracks()) {
-			TcxLap tcxLap = new TcxLap(convert(track.getStartTime()));
+			TcxLap tcxLap = new TcxLap(track.getStartTime());
 			tcxLap.setDistance(track.getDistance());
 			tcxLap.setIntensity(Intensity.Active);
 			tcxLap.setTotalTime(track.getTotalTime());
@@ -72,7 +68,7 @@ public class TcxActivityWriter implements ActivityWriter {
 				TcxTrackpoint tcxTrackpoint = new TcxTrackpoint();
 				tcxTrack.addTrackpoint(tcxTrackpoint);
 				
-				tcxTrackpoint.setTime(convert(trackpoint.getTime()));
+				tcxTrackpoint.setTime(trackpoint.getTime());
 				tcxTrackpoint.setSensorState(SensorState.Absent);
 				
 				if (trackpoint.hasAttribute(PositionAttribute.class)) {
@@ -105,17 +101,13 @@ public class TcxActivityWriter implements ActivityWriter {
 		return tcxActivity;
 	}
 
-	private static String generateId(DateTime startTime) {
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-		return formatter.print(startTime);
+	private static String generateId(Date startTime) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		return formatter.format(startTime);
 	}
 
 	private static String getSport(Activity activity) {
 		return activity.getTrack(0).getSport();
-	}
-
-	private static Date convert(DateTime time) {
-		return new Date(time.getMillis());
 	}
 
 }

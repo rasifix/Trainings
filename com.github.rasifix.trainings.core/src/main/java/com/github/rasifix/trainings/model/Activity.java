@@ -16,26 +16,25 @@
 package com.github.rasifix.trainings.model;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.joda.time.DateTime;
 
 public class Activity {
 
 	private final List<Track> tracks = new LinkedList<Track>();
 	
-	private DateTime startTime;
+	private Date startTime;
 	
 	public Activity(final long startTime) {
-		this(new DateTime(startTime));
+		this(new Date(startTime));
 	}
 	
-	public Activity(final DateTime startTime) {
+	public Activity(final Date startTime) {
 		this.startTime = startTime;
 	}
 	
-	public DateTime getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 	

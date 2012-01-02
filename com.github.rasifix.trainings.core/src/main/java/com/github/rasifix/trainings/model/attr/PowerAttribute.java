@@ -15,28 +15,20 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Power;
-import javax.measure.unit.SI;
-
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class PowerAttribute implements TrackpointAttribute {
 	
-	private final Measure<Power> power;
+	private final double power;
 	
 	public PowerAttribute(double powerInWatts) {
-		this(Measure.valueOf(powerInWatts, SI.WATT));
-	}
-	
-	public PowerAttribute(Measure<Power> power) {
-		this.power = power;
+		this.power = powerInWatts;
 	}
 	
 	@Override
 	public Double getValue() {
-		return power.doubleValue(SI.WATT);
+		return power;
 	}
 	
 }

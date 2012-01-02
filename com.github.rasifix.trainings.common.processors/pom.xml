@@ -21,10 +21,5 @@
 			<artifactId>trainings-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.measure</groupId>
-			<artifactId>jsr-275</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 	</dependencies>
 </project>

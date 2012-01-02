@@ -1,15 +1,10 @@
 package com.github.rasifix.trainings.format.json;
 
 import java.io.StringWriter;
+import java.util.Date;
 
-import javax.measure.Measure;
-import javax.measure.unit.SI;
-
-
-import org.joda.time.DateTime;
 import org.junit.Test;
 
-import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
@@ -25,19 +20,19 @@ public class JsonActivityWriterTest {
 	public void testShouldWork() throws Exception {
 		JsonActivityWriter out = new JsonActivityWriter();
 		
-		DateTime startTime = new DateTime();
+		Date startTime = new Date();
 		Activity activity = new Activity(startTime);
 		
 		Track t1 = new Track(startTime);
 		
-		Trackpoint tp1 = new Trackpoint(Measure.valueOf(0, SI.MILLI(SI.SECOND)));
+		Trackpoint tp1 = new Trackpoint(0);
 		tp1.addAttribute(new HeartRateAttribute(120));
 		tp1.addAttribute(new PositionAttribute(47, 7));
 		tp1.addAttribute(new AltitudeAttribute(500));
 		tp1.addAttribute(new DistanceAttribute(0));
 		t1.addTrackpoint(tp1);
 		
-		Trackpoint tp2 = new Trackpoint(Measure.valueOf(10, SI.MILLI(SI.SECOND)));
+		Trackpoint tp2 = new Trackpoint(10);
 		tp2.addAttribute(new HeartRateAttribute(124));
 		tp2.addAttribute(new PositionAttribute(47, 7.001));
 		tp2.addAttribute(new AltitudeAttribute(500));

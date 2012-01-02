@@ -1,7 +1,5 @@
 Bundle-Version: 1.0.0
--buildpath: com.github.rasifix.trainings.integration;version=latest,\
-	com.springsource.org.joda.time,\
-	javax.measure
+-buildpath: com.github.rasifix.trainings.integration;version=latest
 Export-Package: com.github.rasifix.trainings.format,\
 	com.github.rasifix.trainings.model,\
 	com.github.rasifix.trainings.model.attr,\

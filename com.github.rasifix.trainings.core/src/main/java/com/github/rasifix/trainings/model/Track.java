@@ -16,15 +16,11 @@
 package com.github.rasifix.trainings.model;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import javax.measure.unit.SI;
-
-
-import org.joda.time.DateTime;
 
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
@@ -36,15 +32,15 @@ public class Track {
 	
 	private Activity activity;
 	
-	private DateTime startTime;
+	private Date startTime;
 	
 	private String sport;
 	
 	public Track(long startTime) {
-		this(new DateTime(startTime));
+		this(new Date(startTime));
 	}
 	
-	public Track(DateTime startTime) {
+	public Track(Date startTime) {
 		if (startTime == null) {
 			throw new IllegalArgumentException("startTime cannot be null");
 		}
@@ -69,7 +65,7 @@ public class Track {
 	 * 
 	 * @return the start time of the track
 	 */
-	public DateTime getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 	
@@ -134,8 +130,8 @@ public class Track {
 		return hasHr ? result / getTotalTime() : null;
 	}
 	
-	private static double delta(DateTime current, DateTime last) {
-		return (current.toDate().getTime() - last.toDate().getTime()) / 1000.0;
+	private static double delta(Date current, Date last) {
+		return (current.getTime() - last.getTime()) / 1000.0;
 	}
 	
 	/**
@@ -186,7 +182,7 @@ public class Track {
 		for (Trackpoint trackpoint : trackpoints) {
 			AltitudeAttribute attr = trackpoint.getAttribute(AltitudeAttribute.class);
 			if (attr != null) {
-				double altitude = attr.getAltitude().doubleValue(SI.METER);
+				double altitude = attr.getAltitude();
 				if (lastValue != null && Math.abs(lastValue - altitude) >= 3) {
 					if (altitude - lastValue > 0) {
 						result += altitude - lastValue;
@@ -206,7 +202,7 @@ public class Track {
 		for (Trackpoint trackpoint : trackpoints) {
 			AltitudeAttribute attr = trackpoint.getAttribute(AltitudeAttribute.class);
 			if (attr != null) {
-				double altitude = attr.getAltitude().doubleValue(SI.METER);
+				double altitude = attr.getAltitude();
 				if (lastValue != null && Math.abs(lastValue - altitude) >= 3) {
 					if (altitude - lastValue < 0) {
 						result += lastValue - altitude;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="JsonFormat">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="FitFormat">
    <implementation class="com.github.rasifix.trainings.format.fit.internal.FitFormat"/>
    <service>
       <provide interface="com.github.rasifix.trainings.format.Format"/>
