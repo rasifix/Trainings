@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" name="ImportApplication">
+   <implementation class="com.github.rasifix.trainings.cli.ImportApplication"/>
+   <reference bind="setInbound" cardinality="1..1" interface="com.github.rasifix.trainings.integration.MessageChannel" name="MessageChannel" policy="static"/>
+   <service>
+      <provide interface="com.github.rasifix.trainings.application.Application"/>
+   </service>
+   <property name="appid" type="String" value="import"/>
+</scr:component>

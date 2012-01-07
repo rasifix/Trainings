@@ -1,0 +1,5 @@
+-buildpath: com.github.rasifix.trainings.application;version=latest,\
+  com.github.rasifix.trainings.integration;version=latest
+Private-Package: com.github.rasifix.trainings.cli
+Service-Component: OSGI-INF/*.xml
+Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
