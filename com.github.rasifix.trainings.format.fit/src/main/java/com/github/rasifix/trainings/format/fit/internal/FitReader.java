@@ -166,7 +166,7 @@ public class FitReader implements ActivityReader {
 			// - totalStrides
 			// - totalTimerTime
 			State next = state.lapEnd(this, mesg);
-			updateState(next, mesg.getTimestamp().getTimestamp());
+			updateState(next, mesg.getTimestamp().getDate().getTime());
 		}
 
 		@Override
@@ -184,12 +184,12 @@ public class FitReader implements ActivityReader {
 
 		@Override
 		public void onMesg(EventMesg mesg) {
-			long timestamp = mesg.getTimestamp().getTimestamp();
+			long timestamp = mesg.getTimestamp().getDate().getTime();
 			if (mesg.getEvent() == Event.TIMER && mesg.getEventType() == EventType.START) {
-				State next = state.startTimer(this, mesg.getTimestamp().getTimestamp());
+				State next = state.startTimer(this, timestamp);
 				updateState(next, timestamp);
 			} else if (mesg.getEvent() == Event.TIMER && mesg.getEventType() == EventType.STOP_ALL) {
-				State next = state.stopTimer(this, mesg.getTimestamp().getTimestamp());
+				State next = state.stopTimer(this, timestamp);
 				updateState(next, timestamp);
 			}
 		}
@@ -254,7 +254,7 @@ public class FitReader implements ActivityReader {
 
 		@Override
 		public State record(StateContext context, RecordMesg mesg) {
-			long timestamp = mesg.getTimestamp().getTimestamp();
+			long timestamp = mesg.getTimestamp().getDate().getTime();
 			
 			Trackpoint trackpoint = new Trackpoint(timestamp - trackStart);
 			

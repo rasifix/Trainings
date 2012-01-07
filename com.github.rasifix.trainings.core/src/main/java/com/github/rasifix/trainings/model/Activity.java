@@ -38,6 +38,26 @@ public class Activity {
 		return startTime;
 	}
 	
+	public Date getEndTime() {
+		double result = 0;
+		for (Track track : tracks) {
+			result += track.getTotalTime();
+		}
+		return new Date(startTime.getTime() + (long) (result * 1000));
+	}
+
+	public String getSport() {
+		String sport = null;
+		for (Track track : tracks) {
+			if (sport == null) {
+				sport = track.getSport();
+			} else if (!sport.equals(track.getSport())) {
+				sport = "Multisport";
+			}
+		}
+		return sport;
+	}
+	
 	public void addTrack(Track track) {
 		if (track.getActivity() != null) {
 			track.getActivity().removeTrack(track);

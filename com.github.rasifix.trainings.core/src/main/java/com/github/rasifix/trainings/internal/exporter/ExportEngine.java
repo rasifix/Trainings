@@ -49,7 +49,10 @@ public class ExportEngine implements Transformer {
 		Activity activity = (Activity) input;
 		for (ActivityExporter exporter : services) {
 			try {
-				urls.add(exporter.exportActivity(activity));
+				URL url = exporter.exportActivity(activity);
+				if (url != null) {
+					urls.add(url);
+				}
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}

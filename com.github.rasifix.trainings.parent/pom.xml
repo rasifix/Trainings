@@ -15,7 +15,11 @@
 		<module>../com.github.rasifix.trainings.growl</module>
 		<module>../com.github.rasifix.trainings.notifier.growl</module>
 		<module>../com.github.rasifix.trainings.couchdb</module>
+		<module>../com.github.rasifix.trainings.ical</module>
 		<module>../com.github.rasifix.trainings.fileinbound</module>
+		<module>../com.github.rasifix.trainings.application</module>
+		<module>../com.github.rasifix.trainings.cli</module>
+		<module>../com.github.rasifix.trainings.launcher</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
