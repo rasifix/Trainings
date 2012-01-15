@@ -16,6 +16,8 @@
 package com.github.rasifix.trainings;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 import com.github.rasifix.trainings.model.Activity;
 
@@ -25,5 +27,20 @@ public interface ActivityRepository {
 	ActivityKey addActivity(Activity activity) throws IOException;
 
 	Activity getActivity(String activityId);
+
+	List<ActivityOverview> findActivities(Date startDate, Date endDate);
+	
+	
+	interface ActivityOverview {
+		
+		Date getDate();
+		
+		String getSport();
+		
+		long getDuration();
+		
+		int getDistance();
+		
+	}
 	
 }

@@ -4,4 +4,5 @@
    <service>
       <provide interface="com.github.rasifix.trainings.ActivityExporter"/>
    </service>
+   <property name="exporter" type="String" value="ical"/>
 </scr:component>

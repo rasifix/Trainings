@@ -344,7 +344,13 @@ public class FitReader implements ActivityReader {
 	
 	public static void main(String[] args) throws Exception {
 		FitReader reader = new FitReader();
-		reader.readActivities(new FileInputStream("test/Activity_Real.fit"));
+		List<Activity> activities = reader.readActivities(new FileInputStream("test/20120104-063846-1-1345-ANTFS-4.fit"));
+		for (Activity activity : activities) {
+			for (Track track : activity.getTracks()) {
+				System.out.println(track.getDistance());
+				System.out.println(track.getTotalTimeInSeconds());
+			}
+		}
 	}
 
 }

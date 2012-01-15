@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <?xml-stylesheet type='text/xsl' href='http://www.osgi.org/www/obr2html.xsl'?>
 
-<repository lastmodified='20111211132012.931' name='Local Repository'>
+<repository lastmodified='20120115220201.400' name='Local Repository'>
   <resource id='biz.aQute.bnd/1.51.1' presentationname='bnd' symbolicname='biz.aQute.bnd' uri='biz.aQute.bnd/biz.aQute.bnd-1.51.1.jar' version='1.51.1'>
     <description>
       A utility and plugin to wrap, build, print, or otherwise manipulate
@@ -477,7 +477,7 @@
   </resource>
   <resource id='com.github.rasifix.saj/0.0.1' presentationname='Simple API for JSON processing' symbolicname='com.github.rasifix.saj' uri='com.github.rasifix.saj/com.github.rasifix.saj-0.0.1.jar' version='0.0.1'>
     <size>
-      35262
+      32584
     </size>
     <capability name='bundle'>
       <p n='manifestversion' v='2'/>
@@ -499,6 +499,24 @@
     </require>
     <require extend='false' filter='(|(ee=JavaSE-1.6))' multiple='false' name='ee' optional='false'>
       Execution Environment (|(ee=JavaSE-1.6))
+    </require>
+  </resource>
+  <resource id='com.springsource.jline/0.9.94' presentationname='Read/Edit Line Input for Java' symbolicname='com.springsource.jline' uri='com.springsource.jline/com.springsource.jline-0.9.94.jar' version='0.9.94'>
+    <size>
+      88254
+    </size>
+    <capability name='bundle'>
+      <p n='manifestversion' v='2'/>
+      <p n='presentationname' v='Read/Edit Line Input for Java'/>
+      <p n='symbolicname' v='com.springsource.jline'/>
+      <p n='version' t='version' v='0.9.94'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='jline'/>
+      <p n='version' t='version' v='0.9.94'/>
+    </capability>
+    <require extend='false' filter='(&amp;(package=javax.swing)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.swing
     </require>
   </resource>
   <resource id='com.springsource.org.jdom/1.0.0' presentationname='JDOM DOM Processor' symbolicname='com.springsource.org.jdom' uri='com.springsource.org.jdom/com.springsource.org.jdom-1.0.0.jar' version='1.0.0'>

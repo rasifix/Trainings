@@ -79,6 +79,7 @@ public class JsonActivityReader implements ActivityReader {
 			Date trackStart = parse(jsonTrack.getString("startTime"));
 
 			Track track = new Track(trackStart);
+			track.setSport(jsonTrack.getString("sport"));
 
 			JsonArray trackpoints = jsonTrack.getArray("trackpoints");
 			for (int j = 0; j < trackpoints.size(); j++) {

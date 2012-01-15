@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.github.rasifix.saj.JsonContentHandler;
+import com.github.rasifix.saj.JsonOutputHandler;
 import com.github.rasifix.saj.JsonWriter;
 import com.github.rasifix.saj.dom.JsonModelBuilder;
 import com.github.rasifix.trainings.format.ActivityWriter;
@@ -40,6 +40,12 @@ import com.github.rasifix.trainings.model.attr.PowerAttribute;
 import com.github.rasifix.trainings.model.attr.SpeedAttribute;
 
 public class JsonActivityWriter implements ActivityWriter {
+
+	private static final int POWER_PRECISION = 1;
+	private static final int SPEED_PRECISION = 2;
+	private static final int DISTANCE_PRECISION = 1;
+	private static final int ALTITUDE_PRECISION = 1;
+	private static final int LAT_LON_PRECISION = 6;
 
 	@Override
 	public void writeActivity(Activity activity, OutputStream outputStream) throws IOException {
@@ -61,12 +67,14 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.close();
 	}
 	
-	protected void writeActivity(Activity activity, JsonContentHandler writer) {
+	protected void writeActivity(Activity activity, JsonOutputHandler writer) {
 		writer.startObject();
 		
-		writer.startMember("date");
-		writer.value(format(activity.getStartTime()));
-		writer.endMember();
+		writer.member("date", format(activity.getStartTime()));
+		
+		if (activity.getSport() != null) {
+			writer.member("sport", activity.getSport().toUpperCase());
+		}
 		
 		writer.startMember("tracks");
 		output(writer, activity.getTracks());
@@ -75,7 +83,7 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.endObject();
 	}
 	
-	private void output(final JsonContentHandler writer, final List<Track> tracks) {
+	private void output(final JsonOutputHandler writer, final List<Track> tracks) {
 		writer.startArray();
 		
 		for (final Track track : tracks) {
@@ -85,15 +93,13 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.endArray();
 	}
 
-	private void output(final JsonContentHandler writer, final Track track) {
+	private void output(final JsonOutputHandler writer, final Track track) {
 		writer.startObject();
 		
-		member(writer, "startTime", format(track.getStartTime()));
+		writer.member("startTime", format(track.getStartTime()));
 		
 		if (track.getSport() != null) {
-			writer.startMember("sport");
-			writer.value(track.getSport());
-			writer.endMember();
+			writer.member("sport", track.getSport());
 		}
 		
 		outputTrackSummary(writer, track);
@@ -109,103 +115,85 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.endObject();
 	}
 
-	private void outputTrackSummary(final JsonContentHandler writer, final Track track) {
+	private void outputTrackSummary(final JsonOutputHandler writer, final Track track) {
 		writer.startMember("summary");
 		writer.startObject();
 		
-		if (track.getTotalTime() != null) {
-			writer.startMember("totalTime");
-			writer.value(track.getTotalTime());
-			writer.endMember();
+		if (track.getSport() != null) {
+			writer.member("sport", track.getSport());
+		}
+		
+		if (track.getTotalTimeInSeconds() != null) {
+			writer.member("totalTime", Math.round(track.getTotalTimeInSeconds() * 1000));
 		}
 		
 		if (track.getDistance() != null) {
-			writer.startMember("distance");
-			writer.value(track.getDistance());
-			writer.endMember();
+			writer.member("distance", track.getDistance(), DISTANCE_PRECISION);
 		}
 		
 		if (track.getSpeed() != null) {
-			writer.startMember("speed");
-			writer.value(track.getSpeed());
-			writer.endMember();
+			writer.member("speed", track.getSpeed(), SPEED_PRECISION);
 		}
 		
 		if (track.getAverageHeartRate() != null) {
-			writer.startMember("avgHr");
-			writer.value(track.getAverageHeartRate());
-			writer.endMember();
+			writer.member("avgHr", roundToInt(track.getAverageHeartRate()));
 		}
 		
-		writer.startMember("altGain");
-		writer.value(track.getAltitudeGain());
-		writer.endMember();
-
-		writer.startMember("altLoss");
-		writer.value(track.getAltitudeLoss());
-		writer.endMember();
+		writer.member("altGain", track.getAltitudeGain(), ALTITUDE_PRECISION);
+		writer.member("altLoss", track.getAltitudeLoss(), ALTITUDE_PRECISION);
 
 		writer.endObject();
 		writer.endMember();
 	}
 
-	private void output(final JsonContentHandler writer, final Trackpoint trackpoint) {
+	private static final int roundToInt(double average) {
+		return (int) Math.round(average);
+	}
+
+	private void output(final JsonOutputHandler writer, final Trackpoint trackpoint) {
 		writer.startObject();
 		
-		member(writer, "elapsed", trackpoint.getElapsedTime());
+		writer.member("elapsed", trackpoint.getElapsedTime());
 		
 		if (trackpoint.hasAttribute(PositionAttribute.class)) {
 			writer.startMember("pos");
 			writer.startObject();
-			member(writer, "lat", trackpoint.getPosition().getLatitude());
-			member(writer, "lng", trackpoint.getPosition().getLongitude());
+			writer.member("lat", trackpoint.getPosition().getLatitude(), LAT_LON_PRECISION);
+			writer.member("lng", trackpoint.getPosition().getLongitude(), LAT_LON_PRECISION);
 			writer.endObject();
 			writer.endMember();
 		}
 		
 		if (trackpoint.hasAttribute(AltitudeAttribute.class)) {
-			member(writer, "alt", trackpoint.getAttribute(AltitudeAttribute.class).getValue());
+			Double altitude = trackpoint.getAttribute(AltitudeAttribute.class).getValue();
+			writer.member("alt", altitude, ALTITUDE_PRECISION);
 		}
 		
 		if (trackpoint.hasAttribute(HeartRateAttribute.class)) {
-			member(writer, "hr", trackpoint.getAttribute(HeartRateAttribute.class).getValue());
+			writer.member("hr", trackpoint.getAttribute(HeartRateAttribute.class).getValue());
 		}
 		
 		if (trackpoint.hasAttribute(DistanceAttribute.class)) {
-			member(writer, "distance", trackpoint.getAttribute(DistanceAttribute.class).getValue());
+			Double distance = trackpoint.getAttribute(DistanceAttribute.class).getValue();
+			writer.member("distance", distance, DISTANCE_PRECISION);
 		}
 		
 		if (trackpoint.hasAttribute(SpeedAttribute.class)) {
-			member(writer, "speed", trackpoint.getAttribute(SpeedAttribute.class).getValue());
+			Double speed = trackpoint.getAttribute(SpeedAttribute.class).getValue();
+			writer.member("speed", speed, SPEED_PRECISION);
 		}
 		
 		if (trackpoint.hasAttribute(PowerAttribute.class)) {
-			member(writer, "power", trackpoint.getAttribute(PowerAttribute.class).getValue());
+			Double power = trackpoint.getAttribute(PowerAttribute.class).getValue();
+			writer.member("power", power, POWER_PRECISION);
 		}
 		
 		if (trackpoint.hasAttribute(CadenceAttribute.class)) {
-			member(writer, "cadence", trackpoint.getAttribute(CadenceAttribute.class).getValue());
+			Double cadence = trackpoint.getAttribute(CadenceAttribute.class).getValue();
+			writer.member("cadence", roundToInt(cadence));
 		}
 		
 		writer.endObject();
-	}
-	
-	private void member(JsonContentHandler writer, String member, long value) {
-		writer.startMember(member);
-		writer.value(value);
-		writer.endMember();
-	}
-	
-	private void member(JsonContentHandler writer, String member, double value) {
-		writer.startMember(member);
-		writer.value(value);
-		writer.endMember();
-	}
-	
-	private void member(JsonContentHandler writer, String member, String value) {
-		writer.startMember(member);
-		writer.value(value);
-		writer.endMember();
 	}
 	
 	private String format(Date time) {

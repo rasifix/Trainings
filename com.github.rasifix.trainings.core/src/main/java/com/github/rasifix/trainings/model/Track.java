@@ -79,21 +79,26 @@ public class Track {
 
 	public Double getDistance() {
 		if (trackpoints.size() >= 2) {
-			final Trackpoint first = trackpoints.get(0);
-			final Trackpoint last = trackpoints.get(trackpoints.size() - 1);
+			Trackpoint first = trackpoints.get(0);
 			
-			final DistanceAttribute firstDistanceAttr = first.getAttribute(DistanceAttribute.class);
-			final Double firstDistance = firstDistanceAttr.getValue();
+			DistanceAttribute firstDistanceAttr = first.getAttribute(DistanceAttribute.class);
+			Double firstDistance = firstDistanceAttr.getValue();
 			
-			final DistanceAttribute lastDistanceAttribute = last.getAttribute(DistanceAttribute.class);
-			final Double lastDistance = lastDistanceAttribute.getValue();
-			
-			return lastDistance - firstDistance;
+			int index = trackpoints.size() - 1;
+			while (index > 0) {
+				Trackpoint trackpoint = trackpoints.get(index);
+				if (trackpoint.hasAttribute(DistanceAttribute.class)) {
+					DistanceAttribute lastDistanceAttribute = trackpoint.getAttribute(DistanceAttribute.class);
+					Double lastDistance = lastDistanceAttribute.getValue();
+					return lastDistance - firstDistance;
+				}
+				index -= 1;
+			}
 		}
 		return null;
 	}
 	
-	public Double getTotalTime() {
+	public Double getTotalTimeInSeconds() {
 		if (trackpoints.size() >= 2) {
 			final Trackpoint first = trackpoints.get(0);
 			final Trackpoint last = trackpoints.get(trackpoints.size() - 1);
@@ -104,7 +109,7 @@ public class Track {
 
 	public Double getSpeed() {
 		if (trackpoints.size() >= 2) {
-			return getDistance() / getTotalTime();
+			return getDistance() / getTotalTimeInSeconds();
 		}
 		return null;
 	}
@@ -127,7 +132,7 @@ public class Track {
 			}
 		} 
 		
-		return hasHr ? result / getTotalTime() : null;
+		return hasHr ? result / getTotalTimeInSeconds() : null;
 	}
 	
 	private static double delta(Date current, Date last) {

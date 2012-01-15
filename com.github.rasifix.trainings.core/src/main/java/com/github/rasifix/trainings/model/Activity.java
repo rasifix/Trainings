@@ -41,7 +41,7 @@ public class Activity {
 	public Date getEndTime() {
 		double result = 0;
 		for (Track track : tracks) {
-			result += track.getTotalTime();
+			result += track.getTotalTimeInSeconds();
 		}
 		return new Date(startTime.getTime() + (long) (result * 1000));
 	}
@@ -56,6 +56,22 @@ public class Activity {
 			}
 		}
 		return sport;
+	}
+
+	public long getTotalTime() {
+		int result = 0;
+		for (Track track : tracks) {
+			result += track.getTotalTimeInSeconds();
+		}
+		return result;
+	}
+
+	public int getTotalDistance() {
+		int result = 0;
+		for (Track track : tracks) {
+			result += track.getDistance();
+		}
+		return result;
 	}
 	
 	public void addTrack(Track track) {
