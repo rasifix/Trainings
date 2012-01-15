@@ -3,11 +3,15 @@ package com.github.rasifix.trainings.couchdb;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.osgi.service.component.ComponentContext;
 
+import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.ActivityKey;
 import com.github.rasifix.trainings.ActivityRepository;
@@ -38,6 +42,26 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		Document doc = toDocument(activity);
 		db.put(doc);
 		return new CouchActivityKey(new URL("http", host, port, "/trainings"), doc.getString("_id"));
+	}
+	
+	@Override
+	public List<ActivityOverview> findActivities(Date startDate, Date endDate) {
+		CouchServer server = new CouchServerImpl(host, port);
+		CouchDatabase db = server.getDatabase("trainings");
+		CouchQuery view = db.createQuery("trainings", "overview");
+		view.setStartKey(format(startDate));
+		view.setEndKey(format(endDate));
+		return view.query(new RowMapper<ActivityOverview>() {
+			@Override
+			public ActivityOverview mapRow(JsonObject row) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+	}
+
+	private String format(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 
 	private Document toDocument(Activity activity) {

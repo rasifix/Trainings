@@ -10,4 +10,6 @@ public interface CouchDatabase {
 	
 	void delete(Document doc);
 	
+	CouchQuery createQuery(String designDocument, String viewName);
+	
 }
