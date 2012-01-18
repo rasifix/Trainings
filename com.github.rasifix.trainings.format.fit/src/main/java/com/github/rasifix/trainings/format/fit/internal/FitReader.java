@@ -105,7 +105,9 @@ public class FitReader implements ActivityReader {
 		
 		@Override
 		public void endTrack(long timestamp) {
-			this.activity.addTrack(currentTrack);
+			if (currentTrack.getTrackpointCount() >= 2) {
+				this.activity.addTrack(currentTrack);
+			}
 		}
 		
 		@Override
@@ -344,7 +346,7 @@ public class FitReader implements ActivityReader {
 	
 	public static void main(String[] args) throws Exception {
 		FitReader reader = new FitReader();
-		List<Activity> activities = reader.readActivities(new FileInputStream("test/20120104-063846-1-1345-ANTFS-4.fit"));
+		List<Activity> activities = reader.readActivities(new FileInputStream("20120117-061239-1-1345-ANTFS-4.FIT"));
 		for (Activity activity : activities) {
 			for (Track track : activity.getTracks()) {
 				System.out.println(track.getDistance());

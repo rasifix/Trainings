@@ -4,12 +4,14 @@ import java.io.IOException;
 
 public interface CouchDatabase {
 	
-	Document getById(String id);
+	Document getById(String id) throws IOException;
 	
 	void put(Document doc) throws IOException;
 	
-	void delete(Document doc);
+	void delete(Document doc) throws IOException;
 	
-	CouchQuery createQuery(String designDocument, String viewName);
+	void delete(String id, String revision) throws IOException;
+	
+	CouchQuery createQuery(String designDocument, String viewName) throws IOException;
 	
 }

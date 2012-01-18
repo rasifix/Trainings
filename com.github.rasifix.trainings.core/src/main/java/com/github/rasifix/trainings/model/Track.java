@@ -98,13 +98,13 @@ public class Track {
 		return null;
 	}
 	
-	public Double getTotalTimeInSeconds() {
+	public double getTotalTimeInSeconds() {
 		if (trackpoints.size() >= 2) {
 			final Trackpoint first = trackpoints.get(0);
 			final Trackpoint last = trackpoints.get(trackpoints.size() - 1);
 			return delta(last.getTime(), first.getTime());
 		}
-		return null;
+		return 0.0;
 	}
 
 	public Double getSpeed() {

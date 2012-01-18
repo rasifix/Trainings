@@ -123,8 +123,8 @@ public class JsonActivityWriter implements ActivityWriter {
 			writer.member("sport", track.getSport());
 		}
 		
-		if (track.getTotalTimeInSeconds() != null) {
-			writer.member("totalTime", Math.round(track.getTotalTimeInSeconds() * 1000));
+		if (track.getTotalTimeInSeconds() != 0.0) {
+			writer.member("totalTime", Math.round(track.getTotalTimeInSeconds()));
 		}
 		
 		if (track.getDistance() != null) {

@@ -1,5 +1,7 @@
 package com.github.rasifix.trainings.shell.internal.commands;
 
+import java.io.IOException;
+
 import jline.Completor;
 import jline.NullCompletor;
 
@@ -36,8 +38,12 @@ public class LoadCommand implements Command {
 	@Override
 	public Object execute(CommandContext context) {
 		String activityId = context.getArguments()[0];
-		Activity activity = repository.getActivity(activityId);
-		return activity;
+		try {
+			return repository.getActivity(activityId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return context.getCurrent();
 	}
 
 }

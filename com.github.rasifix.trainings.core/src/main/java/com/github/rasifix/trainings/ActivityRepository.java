@@ -26,10 +26,11 @@ public interface ActivityRepository {
 	
 	ActivityKey addActivity(Activity activity) throws IOException;
 
-	Activity getActivity(String activityId);
-
-	List<ActivityOverview> findActivities(Date startDate, Date endDate);
+	void removeActivity(String activityId, String revision) throws IOException;
 	
+	Activity getActivity(String activityId) throws IOException;
+
+	List<ActivityOverview> findActivities(Date startDate, Date endDate) throws IOException;
 	
 	interface ActivityOverview {
 		
@@ -40,6 +41,8 @@ public interface ActivityRepository {
 		long getDuration();
 		
 		int getDistance();
+
+		String getActivityId();
 		
 	}
 	

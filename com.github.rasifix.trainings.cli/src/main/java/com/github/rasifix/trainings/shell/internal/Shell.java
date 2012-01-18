@@ -102,7 +102,7 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 				String commandName = parts[0]; 
 				reader.printString("executing " + commandName);
 				reader.printNewline();
-				
+
 				Command command = getCommand(commandName);
 				if (command == null) {
 					reader.printString("invalid command '" + commandName + "'");
@@ -113,8 +113,12 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 				reader.printString("command class = " + command.getClass().getName());
 				reader.printNewline();
 				
-				arguments = Arrays.asList(parts).subList(1, parts.length).toArray(new String[0]);
-				current = command.execute((CommandContext) this);
+				try {
+					arguments = Arrays.asList(parts).subList(1, parts.length).toArray(new String[0]);
+					current = command.execute((CommandContext) this);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 
 			debug.close();

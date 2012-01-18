@@ -67,11 +67,17 @@ public class JsonActivityReader implements ActivityReader {
 		if (!"activity".equals(type)) {
 			throw new IllegalArgumentException("json input is not an activity");
 		}
+		
+		String id = json.getString("_id");
+		String rev = json.getString("_rev");
+		
 		json = json.getObject("activity");
 
 		Date startTime = parse(json.getString("date"));
 
 		Activity activity = new Activity(startTime);
+		activity.setId(id);
+		activity.setRevision(rev);
 
 		JsonArray tracks = json.getArray("tracks");
 		for (int i = 0; i < tracks.size(); i++) {

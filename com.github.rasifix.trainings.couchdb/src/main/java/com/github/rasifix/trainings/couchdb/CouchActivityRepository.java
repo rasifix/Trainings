@@ -3,6 +3,7 @@ package com.github.rasifix.trainings.couchdb;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +25,12 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 
 	private String host;
 	private int port;
+	private CouchServerImpl server;
 
 	public void activate(ComponentContext context) {
 		this.host = (String) context.getProperties().get("host");
 		this.port = Integer.parseInt((String) context.getProperties().get("port"));
+		this.server = new CouchServerImpl(host, port);
 	}
 	
 	@Override
@@ -37,7 +40,6 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	
 	@Override
 	public ActivityKey addActivity(Activity activity) throws IOException {
-		CouchServer server = new CouchServerImpl(host, port);
 		CouchDatabase db = server.getDatabase("trainings");
 		Document doc = toDocument(activity);
 		db.put(doc);
@@ -45,23 +47,74 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	}
 	
 	@Override
-	public List<ActivityOverview> findActivities(Date startDate, Date endDate) {
-		CouchServer server = new CouchServerImpl(host, port);
+	public List<ActivityOverview> findActivities(Date startDate, Date endDate) throws IOException {
 		CouchDatabase db = server.getDatabase("trainings");
 		CouchQuery view = db.createQuery("trainings", "overview");
 		view.setStartKey(format(startDate));
 		view.setEndKey(format(endDate));
 		return view.query(new RowMapper<ActivityOverview>() {
 			@Override
-			public ActivityOverview mapRow(JsonObject row) {
-				// TODO Auto-generated method stub
-				return null;
+			public ActivityOverview mapRow(String id, Object key, Object value) {
+				Date date = parseDate((String) key);
+				return new ActivityOverviewImpl(id, date, (JsonObject) value);
 			}
 		});
 	}
+	
+	public void removeActivity(String activityId, String revision) throws IOException {
+		CouchDatabase db = server.getDatabase("trainings");
+		db.delete(activityId, revision);
+	}
+	
+	protected static class ActivityOverviewImpl implements ActivityOverview {
 
-	private String format(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+		private final String id;
+		private final Date date;
+		private final JsonObject value;
+
+		public ActivityOverviewImpl(String id, Date date, JsonObject value) {
+			this.id = id;
+			this.date = date;
+			this.value = value;
+		}
+		
+		@Override
+		public String getActivityId() {
+			return id;
+		}
+
+		@Override
+		public Date getDate() {
+			return date;
+		}
+
+		@Override
+		public String getSport() {
+			return value.getString("sport");
+		}
+
+		@Override
+		public long getDuration() {
+			return value.getInt("totalTime");
+		}
+
+		@Override
+		public int getDistance() {
+			return (int) Math.round(value.getDouble("distance"));
+		}
+		
+	}
+
+	private static Date parseDate(String dateString) {
+		try {
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	private static String format(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
 	}
 
 	private Document toDocument(Activity activity) {
@@ -74,7 +127,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	}
 	
 	@Override
-	public Activity getActivity(String activityId) {
+	public Activity getActivity(String activityId) throws IOException {
 		CouchServer server = new CouchServerImpl("localhost", 5984);
 		CouchDatabase db = server.getDatabase("trainings");
 		Document doc = db.getById(activityId);

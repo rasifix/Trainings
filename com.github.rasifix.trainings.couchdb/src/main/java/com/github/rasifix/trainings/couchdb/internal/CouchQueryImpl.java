@@ -67,10 +67,10 @@ class CouchQueryImpl implements CouchQuery {
 		
 		List<NameValuePair> qparams = new ArrayList<NameValuePair>();
 		if (startKey != null) {
-			qparams.add(new BasicNameValuePair("startkey", startKey));
+			qparams.add(new BasicNameValuePair("startkey", '"' + startKey + '"'));
 		}		
 		if (endKey != null) {
-			qparams.add(new BasicNameValuePair("endkey", endKey));
+			qparams.add(new BasicNameValuePair("endkey", '"' + endKey + '"'));
 		}
 		
 		try {
@@ -88,11 +88,14 @@ class CouchQueryImpl implements CouchQuery {
 			
 			JsonObject viewResult = (JsonObject) builder.getResult();
 			JsonArray rows = (JsonArray) viewResult.get("rows");
-			
+
 			List<T> result = new LinkedList<T>();
 			for (Object row : rows) {
 				JsonObject rowObject = (JsonObject) row;
-				result.add(mapper.mapRow(rowObject));
+				String id = rowObject.getString("id");
+				Object key = rowObject.get("key");
+				Object value = rowObject.get("value");
+				result.add(mapper.mapRow(id, key, value));
 			}
 			return result;
 

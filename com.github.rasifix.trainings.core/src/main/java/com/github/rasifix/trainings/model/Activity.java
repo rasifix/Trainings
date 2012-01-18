@@ -25,6 +25,10 @@ public class Activity {
 	private final List<Track> tracks = new LinkedList<Track>();
 	
 	private Date startTime;
+
+	private String activityId;
+
+	private String revision;
 	
 	public Activity(final long startTime) {
 		this(new Date(startTime));
@@ -32,6 +36,22 @@ public class Activity {
 	
 	public Activity(final Date startTime) {
 		this.startTime = startTime;
+	}
+
+	public String getId() {
+		return activityId;
+	}
+	
+	public void setId(String id) {
+		this.activityId = id;
+	}
+
+	public String getRevision() {
+		return revision;
+	}
+	
+	public void setRevision(String revision) {
+		this.revision = revision;
 	}
 	
 	public Date getStartTime() {
