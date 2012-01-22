@@ -4,7 +4,7 @@ import jline.Completor;
 
 public interface Command {
 	
-	Object execute(CommandContext context);
+	Object execute(CommandContext context) throws Exception;
 
 	String getName();
 

@@ -20,6 +20,7 @@
 		<module>../com.github.rasifix.trainings.application</module>
 		<module>../com.github.rasifix.trainings.cli</module>
 		<module>../com.github.rasifix.trainings.launcher</module>
+		<module>../com.github.rasifix.trainings.geodeployer</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

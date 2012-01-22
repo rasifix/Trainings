@@ -1,0 +1,7 @@
+-buildpath: com.github.rasifix.trainings.application;version=latest,\
+	com.github.rasifix.trainings.core;version=latest,\
+	biz.aQute.bnd.annotation,\
+	osgi.cmpn,\
+	osgi.core
+Private-Package: com.github.rasifix.trainings.geodeployer.internal
+Service-Component: com.github.rasifix.trainings.geodeployer.internal.*

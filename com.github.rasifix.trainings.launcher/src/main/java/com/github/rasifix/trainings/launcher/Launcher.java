@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +25,7 @@ import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 
 import com.github.rasifix.trainings.application.Application;
+import com.github.rasifix.trainings.application.Deployer;
 
 public class Launcher {
 	
@@ -65,18 +68,23 @@ public class Launcher {
 		return framework;
 	}
 
-	private static void installBundles(BundleContext bundleContext) throws BundleException {
+	private static void installBundles(BundleContext bundleContext) throws Exception {
 		File[] files = new File("/Users/sir/.trainings/bundles/").listFiles(new FileFilter() {
 			public boolean accept(File file) {
-				return file.getName().endsWith(".jar");
+				return !file.getName().startsWith(".");
 			}
 		});
 		
-		if (files != null) {
-			System.out.println("... installing " + files.length + " bundles");
+		List<File> autodeploy = new LinkedList<File>();
+		if (files != null) {			
+			System.out.println("... installing " + files.length + " files");
 			for (File file : files) {
 				System.out.println("    " + file.getName());
-				bundleContext.installBundle(file.toURI().toString());
+				if (file.getName().endsWith(".jar")) {
+					bundleContext.installBundle(file.toURI().toString());
+				} else {
+					autodeploy.add(file);
+				}
 			}
 		}
 		
@@ -87,7 +95,31 @@ public class Launcher {
 			}
 		}
 		
+		for (File file : autodeploy) {
+			Deployer deployer = getDeployer(bundleContext, file);
+			System.out.println("found deployer for " + file.getName() + "? " + deployer);
+			if (deployer != null) {
+				deployer.deploy(file);
+			}
+		}
+		
         waitForBundles(bundleContext);
+	}
+
+	private static Deployer getDeployer(BundleContext bundleContext, File file) {
+		try {
+			Collection<ServiceReference<Deployer>> references = bundleContext.getServiceReferences(Deployer.class, null);
+			System.out.println("found " + references.size() + " deployers");
+			for (ServiceReference<Deployer> reference : references) {
+				Deployer deployer = bundleContext.getService(reference);
+				if (deployer != null && deployer.canDeploy(file)) {
+					return deployer;
+				}
+			}
+			return null;
+		} catch (InvalidSyntaxException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	private static void waitForBundles(final BundleContext bundleContext) {

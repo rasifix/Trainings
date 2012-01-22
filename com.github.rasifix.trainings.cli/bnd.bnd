@@ -10,7 +10,8 @@ Private-Package: com.github.rasifix.trainings.cli,\
 	com.github.rasifix.trainings.shell.internal,\
 	com.github.rasifix.trainings.shell.internal.commands,\
 	com.github.rasifix.trainings.shell.internal.commands.edit,\
-	com.github.rasifix.trainings.shell.internal.commands.repository
+	com.github.rasifix.trainings.shell.internal.commands.repository,\
+	com.github.rasifix.trainings.shell.internal.commands.osgi
 Service-Component: com.github.rasifix.trainings.*
 Export-Package: com.github.rasifix.trainings.shell
 Import-Package: !org.junit*,\
