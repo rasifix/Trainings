@@ -103,6 +103,11 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 			return (int) Math.round(value.getDouble("distance"));
 		}
 		
+		@Override
+		public int getAverageHeartRate() {
+			return value.getInt("avgHr");
+		}
+		
 	}
 
 	private static Date parseDate(String dateString) {
@@ -121,6 +126,12 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		JsonActivityWriter writer = new JsonActivityWriter();
 		Map<String, Object> jsonActivity = writer.writeActivity(activity);
 		Document doc = new Document(generateUUID());
+		if (activity.getId() != null) {
+			doc.put("_id", activity.getId());
+		}
+		if (activity.getRevision() != null) {
+			doc.put("_rev", activity.getRevision());
+		}
 		doc.put("type", "activity");
 		doc.put("activity", jsonActivity);
 		return doc;
@@ -130,7 +141,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	public Activity getActivity(String activityId) throws IOException {
 		CouchServer server = new CouchServerImpl("localhost", 5984);
 		CouchDatabase db = server.getDatabase("trainings");
-		Document doc = db.getById(activityId);
+		Document doc = db.get(activityId);
 		return fromDocument(doc);
 	}
 	

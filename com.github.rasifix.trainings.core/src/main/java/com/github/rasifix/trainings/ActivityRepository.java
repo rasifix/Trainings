@@ -43,6 +43,8 @@ public interface ActivityRepository {
 		int getDistance();
 
 		String getActivityId();
+
+		int getAverageHeartRate();
 		
 	}
 	

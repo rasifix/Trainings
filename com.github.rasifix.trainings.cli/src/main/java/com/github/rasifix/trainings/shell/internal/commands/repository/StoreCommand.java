@@ -1,4 +1,4 @@
-package com.github.rasifix.trainings.shell.internal.commands;
+package com.github.rasifix.trainings.shell.internal.commands.repository;
 
 import java.io.IOException;
 import java.util.List;

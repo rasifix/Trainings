@@ -1,10 +1,13 @@
 package com.github.rasifix.trainings.couchdb;
 
 import java.io.IOException;
+import java.util.Collection;
 
 public interface CouchDatabase {
 	
-	Document getById(String id) throws IOException;
+	Collection<DocumentRevision> getAllDesignDocuments() throws IOException;
+	
+	Document get(String id) throws IOException;
 	
 	void put(Document doc) throws IOException;
 	

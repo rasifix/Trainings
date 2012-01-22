@@ -5,10 +5,10 @@ import java.util.Date;
 
 import jline.Completor;
 import jline.NullCompletor;
-
 import aQute.bnd.annotation.component.Component;
 
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.shell.Command;
 import com.github.rasifix.trainings.shell.CommandContext;
 
@@ -30,8 +30,19 @@ public class SummaryCommand implements Command {
 			System.out.println(format(activity.getStartTime()) + " " + activity.getSport());
 			System.out.println("total time     = " + activity.getTotalTime());
 			System.out.println("total distance = " + activity.getTotalDistance());
+			System.out.println();
+			System.out.println(pluralize(activity.getTrackCount(), "track", "tracks"));
+			for (Track track : activity.getTracks()) {
+				System.out.println(format(track.getStartTime()) + " " + track.getSport());
+				System.out.println("total time     = " + track.getTotalTimeInSeconds());
+				System.out.println("total distance = " + track.getDistance());
+			}
 		}
 		return current;
+	}
+
+	private static String pluralize(int number, String singular, String plural) {
+		return number + " " + (number == 1 ? singular : plural);
 	}
 
 	private String format(Date date) {

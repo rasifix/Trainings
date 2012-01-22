@@ -1,4 +1,4 @@
-package com.github.rasifix.trainings.shell.internal.commands;
+package com.github.rasifix.trainings.shell.internal.commands.repository;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -8,7 +8,6 @@ import java.util.List;
 
 import jline.Completor;
 import jline.NullCompletor;
-
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
@@ -48,45 +47,23 @@ public class ActivityListCommand implements Command {
 			
 			System.out.println(activities.size() + " activities found");
 			for (ActivityOverview overview : activities) {
-				System.out.println(
-						format(overview.getDate()) 
-						+ "\t" + overview.getSport() 
-						+ "\t" + formatDistance(overview.getDistance()) 
-						+ "\t" + formatTime((int) overview.getDuration())
-						+ "\t(" + overview.getActivityId() + ")");
+				double speed = 1.0 * overview.getDistance() / overview.getDuration();
+				System.out.format("%1$tY-%1$tm-%1$td %1$tH:%1$tM  %2$15s  %3$7s  %4$8s  %5$d  %6$14s  (%7$s)\n", 
+						overview.getDate(), 
+						overview.getSport(),
+						FormatUtils.formatDistance(overview.getDistance()), 
+						FormatUtils.formatTime((int) overview.getDuration()),
+						overview.getAverageHeartRate(),
+						"CYCLING".equals(overview.getSport())
+								? FormatUtils.formatSpeedInKmh(speed)
+								: FormatUtils.formatSpeedAsPace(speed),
+						overview.getActivityId());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		return context.getCurrent();
-	}
-	
-	private String formatDistance(int distance) {
-		int km = distance / 1000;
-		int dkm = (distance / 100 % 10);
-		return km + "." + dkm;
-	}
-
-	private String formatTime(int duration) {
-		int hours = duration / 3600;
-		int minutes = (duration - hours * 3600) / 60;
-		int seconds = duration % 60;
-		return pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-	}
-
-	private String pad(int value) {
-		if (value < 0) {
-			throw new IllegalArgumentException("negative time");
-		} else if (value < 10) {
-			return "0" + value;
-		} else {
-			return "" + value;
-		}
-	}
-
-	private String format(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
 	}
 
 	private Date parseDate(String dateString) {

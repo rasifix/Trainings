@@ -5,20 +5,25 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import com.github.rasifix.saj.JsonReader;
@@ -28,8 +33,11 @@ import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.couchdb.CouchDatabase;
 import com.github.rasifix.trainings.couchdb.CouchQuery;
 import com.github.rasifix.trainings.couchdb.Document;
+import com.github.rasifix.trainings.couchdb.DocumentRevision;
 import com.github.rasifix.trainings.couchdb.NotFoundException;
+import com.github.rasifix.trainings.couchdb.RowMapper;
 import com.github.rasifix.trainings.couchdb.UpdateConflictException;
+import com.github.rasifix.trainings.couchdb.ViewResult;
 
 public class CouchDatabaseImpl implements CouchDatabase {
 
@@ -62,7 +70,7 @@ public class CouchDatabaseImpl implements CouchDatabase {
 	}
 
 	@Override
-	public Document getById(String id) throws IOException {		
+	public Document get(String id) throws IOException {		
 		try {
 			URI uri = createURI(id, null);
 			HttpGet request = new HttpGet(uri);
@@ -98,10 +106,7 @@ public class CouchDatabaseImpl implements CouchDatabase {
 			HttpEntity responseEntitity = response.getEntity();
 			if (responseEntitity != null) {
 				String responseString = EntityUtils.toString(responseEntitity);
-				JsonModelBuilder builder = new JsonModelBuilder();
-				JsonReader reader = new JsonReader(builder);
-				reader.parseJson(responseString);
-				JsonObject result = (JsonObject) builder.getResult();
+				JsonObject result = parseJson(responseString);
 				doc.put("_rev", result.getString("rev"));
 			}
 			
@@ -110,6 +115,22 @@ public class CouchDatabaseImpl implements CouchDatabase {
 		} catch (URISyntaxException e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	protected static JsonObject parseJson(HttpResponse response) throws IOException {
+		HttpEntity responseEntitity = response.getEntity();
+		if (responseEntitity != null) {
+			return parseJson(EntityUtils.toString(responseEntitity));
+		}
+		return null;
+		
+	}
+
+	private static JsonObject parseJson(String responseString) throws IOException {
+		JsonModelBuilder builder = new JsonModelBuilder();
+		JsonReader reader = new JsonReader(builder);
+		reader.parseJson(responseString);
+		return (JsonObject) builder.getResult();
 	}
 
 	private String toString(Document doc) {
@@ -152,6 +173,34 @@ public class CouchDatabaseImpl implements CouchDatabase {
 		return new CouchQueryImpl(this, designDocumentName, viewName);
 	}
 	
+	@Override
+	public Collection<DocumentRevision> getAllDesignDocuments() throws IOException {
+		List<NameValuePair> params = new LinkedList<NameValuePair>();
+		params.add(new BasicNameValuePair("startkey", "\"_design/\""));
+		params.add(new BasicNameValuePair("endkey", "\"_design0\""));
+		try {
+			HttpGet request = new HttpGet(createURI("_all_docs", URLEncodedUtils.format(params, null)));
+			ViewResult result = client.execute(request, new ResponseHandler<ViewResult>() {
+				@Override
+				public ViewResult handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+					HttpEntity responseEntitity = response.getEntity();
+					if (responseEntitity != null) {
+						return new ViewResult(parseJson(EntityUtils.toString(responseEntitity)));
+					}
+					return null;
+				}
+			});
+			return result.map(new RowMapper<DocumentRevision>() {
+				@Override
+				public DocumentRevision mapRow(String id, Object key, Object value) {
+					return new DocumentRevision(id, ((JsonObject) value).getString("rev"));
+				}
+			});
+		} catch (URISyntaxException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 //		CouchDatabaseImpl db = new CouchDatabaseImpl("localhost", 5984, "trainings");
 //		CouchQuery query = db.createQuery("trainings", "overview");
@@ -165,14 +214,19 @@ public class CouchDatabaseImpl implements CouchDatabase {
 //		
 //		System.out.println(result);
 		
-		HttpClient client = new DefaultHttpClient();
-		HttpHead head = new HttpHead("http://localhost:5984/trainings/1888af4523cc43189388d2d00eb76180");
-		HttpResponse response = client.execute(head);
-		System.out.println(response.getStatusLine().getStatusCode());
-		System.out.println(response.getStatusLine().getReasonPhrase());
+//		HttpClient client = new DefaultHttpClient();
+//		HttpHead head = new HttpHead("http://localhost:5984/trainings/1888af4523cc43189388d2d00eb76180");
+//		HttpResponse response = client.execute(head);
+//		System.out.println(response.getStatusLine().getStatusCode());
+//		System.out.println(response.getStatusLine().getReasonPhrase());
+//		
+//		for (Header header : response.getAllHeaders()) {
+//			System.out.println(header.getName() + "\t" + header.getValue());
+//		}
 		
-		for (Header header : response.getAllHeaders()) {
-			System.out.println(header.getName() + "\t" + header.getValue());
+		CouchDatabaseImpl db = new CouchDatabaseImpl("localhost", 5984, "trainings");
+		for (DocumentRevision revision : db.getAllDesignDocuments()) {
+			System.out.println(revision.getId() + " @ " + revision.getRevision());
 		}
 
 	}
