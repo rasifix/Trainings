@@ -3,6 +3,8 @@ package com.github.rasifix.trainings.shell;
 
 public interface CommandContext {
 	
+	String getArgument(int idx);
+	
 	String[] getArguments();
 	
 	Object getCurrent();

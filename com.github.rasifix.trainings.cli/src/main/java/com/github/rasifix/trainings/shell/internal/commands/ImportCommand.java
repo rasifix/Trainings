@@ -2,12 +2,10 @@ package com.github.rasifix.trainings.shell.internal.commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 import jline.Completor;
 import jline.FileNameCompletor;
-
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
@@ -41,28 +39,22 @@ public class ImportCommand implements Command {
 	}
 
 	@Override
-	public Object execute(CommandContext context) {
+	public Object execute(CommandContext context) throws IOException {
 		for (String arg : context.getArguments()) {
-			try {
-				System.out.println(arg);
-				if (arg.startsWith("~/")) {
-					arg = System.getProperty("user.home") + arg.substring(1);
-				}
-				File file = new File(arg);
-				if (!file.exists()) {
-					System.err.println(file.getAbsolutePath() + " does not exist");
-				}
-				Resource resource = new FileResource(file);
-				List<Activity> activities = importer.importActivities(resource);
-				if (activities.size() == 1) {
-					return activities.get(0);
-				}
-				return activities;
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			System.out.println(arg);
+			if (arg.startsWith("~/")) {
+				arg = System.getProperty("user.home") + arg.substring(1);
 			}
+			File file = new File(arg);
+			if (!file.exists()) {
+				System.err.println(file.getAbsolutePath() + " does not exist");
+			}
+			Resource resource = new FileResource(file);
+			List<Activity> activities = importer.importActivities(resource);
+			if (activities.size() == 1) {
+				return activities.get(0);
+			}
+			return activities;
 		}
 		return null;
 	}

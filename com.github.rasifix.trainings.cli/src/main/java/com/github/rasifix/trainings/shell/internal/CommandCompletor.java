@@ -16,7 +16,7 @@ public class CommandCompletor implements Completor {
 	}
 	
 	@Override
-	public int complete(String buf, int cursor, List candidates) {
+	public int complete(String buf, int cursor, @SuppressWarnings("rawtypes") List candidates) {
 		buf = buf == null ? "" : buf;
 		
 		int firstDelimiter = buf.indexOf(' ');

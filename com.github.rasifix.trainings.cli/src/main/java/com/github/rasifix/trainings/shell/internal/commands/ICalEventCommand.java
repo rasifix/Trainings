@@ -37,15 +37,11 @@ public class ICalEventCommand implements Command {
 	}
 
 	@Override
-	public Object execute(CommandContext context) {
+	public Object execute(CommandContext context) throws IOException {
 		Object current = context.getCurrent();
 		if (current instanceof Activity) {
-			try {
-				URL result = exporter.exportActivity((Activity) current);
-				System.out.println(result);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			URL result = exporter.exportActivity((Activity) current);
+			System.out.println(result);
 		}
 		return current;
 	}

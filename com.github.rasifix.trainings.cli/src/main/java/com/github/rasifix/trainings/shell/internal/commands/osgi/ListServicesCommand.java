@@ -34,7 +34,7 @@ public class ListServicesCommand implements Command {
 
 	@Override
 	public Object execute(CommandContext context) throws Exception {
-		String serviceClass = context.getArguments()[0];
+		String serviceClass = context.getArguments().length == 0 ? null : context.getArguments()[0];
 		ServiceReference[] references = this.context.getBundleContext().getAllServiceReferences(serviceClass, null);
 		for (ServiceReference reference : references) {
 			System.out.println(reference.getBundle().getSymbolicName() + " - " + this.context.getBundleContext().getService(reference));

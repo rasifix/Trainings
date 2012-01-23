@@ -44,7 +44,7 @@ public class TotalsCommand implements Command {
 	}
 
 	@Override
-	public Object execute(CommandContext context) {
+	public Object execute(CommandContext context) throws IOException {
 		if (context.getArguments().length < 2) {
 			System.out.println("usage: repo:totals [start-date|last|this] [week|month|year]");
 		}
@@ -60,24 +60,20 @@ public class TotalsCommand implements Command {
 			startDate = parseDate(spec);
 		}
 		Date endDate = period.getEndDate(startDate);
-		try {
-			List<ActivityOverview> activities = repository.findActivities(startDate, endDate);
-			System.out.println(activities.size() + " activities");
+
+		List<ActivityOverview> activities = repository.findActivities(startDate, endDate);
+		System.out.println(activities.size() + " activities");
 			
-			Map<String, List<ActivityOverview>> groups = groupBySport(activities);
-			for (Entry<String, List<ActivityOverview>> entry : groups.entrySet()) {
-				System.out.println(entry.getKey() + " - " + entry.getValue().size() + " activities");
-				System.out.println("  " + totalTime(entry.getValue()));
-				System.out.println("  " + totalDistance(entry.getValue()));
-				if (entry.getKey().equals("CYCLING")) {
-					System.out.println("  " + averageSpeed(entry.getValue()));
-				} else {
-					System.out.println("  " + averagePace(entry.getValue()));
-				}
+		Map<String, List<ActivityOverview>> groups = groupBySport(activities);
+		for (Entry<String, List<ActivityOverview>> entry : groups.entrySet()) {
+			System.out.println(entry.getKey() + " - " + entry.getValue().size() + " activities");
+			System.out.println("  " + totalTime(entry.getValue()));
+			System.out.println("  " + totalDistance(entry.getValue()));
+			if (entry.getKey().equals("CYCLING")) {
+				System.out.println("  " + averageSpeed(entry.getValue()));
+			} else {
+				System.out.println("  " + averagePace(entry.getValue()));
 			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		return context.getCurrent();

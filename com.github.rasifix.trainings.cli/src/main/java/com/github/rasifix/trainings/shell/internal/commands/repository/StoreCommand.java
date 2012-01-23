@@ -38,21 +38,17 @@ public class StoreCommand implements Command {
 	}
 
 	@Override
-	public Object execute(CommandContext context) {
+	public Object execute(CommandContext context) throws IOException {
 		Object current = context.getCurrent();
-		try {
-			if (current instanceof Activity) {
-				ActivityKey key = repository.addActivity((Activity) current);
-				System.out.println(key.toURL());
-			} else if (current instanceof List<?>) {
-				for (Object next : (List<?>) current) {
-					if (next instanceof Activity) {
-						repository.addActivity((Activity) next);
-					}
+		if (current instanceof Activity) {
+			ActivityKey key = repository.addActivity((Activity) current);
+			System.out.println(key.toURL());
+		} else if (current instanceof List<?>) {
+			for (Object next : (List<?>) current) {
+				if (next instanceof Activity) {
+					repository.addActivity((Activity) next);
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return current;
 	}

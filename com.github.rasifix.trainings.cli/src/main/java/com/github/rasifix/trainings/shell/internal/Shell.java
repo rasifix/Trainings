@@ -75,6 +75,11 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	}
 	
 	@Override
+	public String getArgument(int idx) {
+		return arguments[idx];
+	}
+	
+	@Override
 	public String[] getArguments() {
 		return arguments;
 	}

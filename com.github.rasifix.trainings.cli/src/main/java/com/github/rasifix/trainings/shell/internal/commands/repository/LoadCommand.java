@@ -4,12 +4,10 @@ import java.io.IOException;
 
 import jline.Completor;
 import jline.NullCompletor;
-
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
 import com.github.rasifix.trainings.ActivityRepository;
-import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.shell.Command;
 import com.github.rasifix.trainings.shell.CommandContext;
 
@@ -36,14 +34,9 @@ public class LoadCommand implements Command {
 	}
 
 	@Override
-	public Object execute(CommandContext context) {
+	public Object execute(CommandContext context) throws IOException {
 		String activityId = context.getArguments()[0];
-		try {
-			return repository.getActivity(activityId);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return context.getCurrent();
+		return repository.getActivity(activityId);
 	}
 
 }

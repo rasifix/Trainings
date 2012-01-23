@@ -75,7 +75,7 @@ public class ExportCommand implements Command {
 	}
 
 	@Override
-	public Object execute(CommandContext context) {
+	public Object execute(CommandContext context) throws IOException {
 		Object current = context.getCurrent();
 		if (current instanceof Activity) {
 			Activity activity = (Activity) current;
@@ -92,11 +92,7 @@ public class ExportCommand implements Command {
 				Format format = (Format) this.context.getBundleContext().getService(reference);
 				if (format != null) {
 					ActivityWriter writer = format.createWriter();
-					try {
-						writer.writeActivity(activity, new FileOutputStream(file));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					writer.writeActivity(activity, new FileOutputStream(file));
 				}
 			}
 		}
