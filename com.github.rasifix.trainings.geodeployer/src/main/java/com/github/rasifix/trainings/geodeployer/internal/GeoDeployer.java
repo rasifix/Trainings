@@ -30,7 +30,6 @@ public class GeoDeployer implements Deployer {
 	
 	@Override
 	public boolean canDeploy(File file) {
-		System.out.println("can deploy?");
 		return file.getName().toLowerCase().endsWith(".agr");
 	}
 

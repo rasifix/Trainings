@@ -97,7 +97,6 @@ public class Launcher {
 		
 		for (File file : autodeploy) {
 			Deployer deployer = getDeployer(bundleContext, file);
-			System.out.println("found deployer for " + file.getName() + "? " + deployer);
 			if (deployer != null) {
 				deployer.deploy(file);
 			}
@@ -109,7 +108,6 @@ public class Launcher {
 	private static Deployer getDeployer(BundleContext bundleContext, File file) {
 		try {
 			Collection<ServiceReference<Deployer>> references = bundleContext.getServiceReferences(Deployer.class, null);
-			System.out.println("found " + references.size() + " deployers");
 			for (ServiceReference<Deployer> reference : references) {
 				Deployer deployer = bundleContext.getService(reference);
 				if (deployer != null && deployer.canDeploy(file)) {
