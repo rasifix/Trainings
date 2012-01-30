@@ -15,12 +15,17 @@
  */
 package com.github.rasifix.trainings.model;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Activity {
+import com.github.rasifix.trainings.model.attr.AttributeSummary;
+
+
+public class Activity implements HasSummary {
 
 	private final List<Track> tracks = new LinkedList<Track>();
 	
@@ -29,6 +34,8 @@ public class Activity {
 	private String activityId;
 
 	private String revision;
+
+	private final Collection<Equipment> equipments = new HashSet<Equipment>();
 	
 	public Activity(final long startTime) {
 		this(new Date(startTime));
@@ -59,13 +66,39 @@ public class Activity {
 	}
 	
 	public Date getEndTime() {
-		double result = 0;
-		for (Track track : tracks) {
-			result += track.getTotalTimeInSeconds();
-		}
-		return new Date(startTime.getTime() + (long) (result * 1000));
+		return new Date(startTime.getTime() + (long) (getDuration() * 1000));
 	}
-
+	
+	// --> start of HasSummary <--
+	
+	@Override
+	public int getDistance() {
+		int distance = 0;
+		for (Track track : tracks) {
+			distance += track.getDistance();
+		}
+		return distance;
+	}
+	
+	@Override
+	public int getDuration() {
+		int duration = 0;
+		for (Track track : tracks) {
+			duration += track.getDuration();
+		}
+		return duration;
+	}
+	
+	@Override
+	public Double getSpeed() {
+		double resultSum = 0;
+		for (Track track : tracks) {
+			resultSum += track.getSpeed() * track.getDuration();
+		}
+		return resultSum / getDuration();
+	}
+	
+	@Override
 	public String getSport() {
 		String sport = null;
 		for (Track track : tracks) {
@@ -77,7 +110,24 @@ public class Activity {
 		}
 		return sport;
 	}
+	
+	@Override
+	public <T extends AttributeSummary<T>> T getSummary(AttributeSummaryBuilder<T> builder) {
+		T result = null;
+		for (Track track : tracks) {
+			T trackSummary = track.getSummary(builder);
+			if (result == null) {
+				result = trackSummary;
+			} else {
+				result = result.merge(trackSummary);
+			}
+		}
+		return result;
+	}
+	
+	// --> end of HasSummary <--
 
+	@Deprecated
 	public long getTotalTime() {
 		int result = 0;
 		for (Track track : tracks) {
@@ -86,7 +136,8 @@ public class Activity {
 		return result;
 	}
 
-	public int getTotalDistance() {
+	@Deprecated
+	public Integer getTotalDistance() {
 		int result = 0;
 		for (Track track : tracks) {
 			result += track.getDistance();
@@ -120,6 +171,18 @@ public class Activity {
 
 	public Track getTrack(int idx) {
 		return tracks.get(idx);
+	}
+
+	public void addEquipment(Equipment equipment) {
+		equipments.add(equipment);
+	}
+	
+	public void removeEquipment(Equipment equipment) {
+		equipments.remove(equipment);
+	}
+
+	public Collection<Equipment> getEquipments() {
+		return equipments;
 	}
 	
 }

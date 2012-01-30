@@ -37,6 +37,10 @@ public class ListServicesCommand implements Command {
 	public Object execute(CommandContext context) throws Exception {
 		String serviceClass = context.getArguments().length == 0 ? null : context.getArguments()[0];
 		ServiceReference[] references = this.context.getBundleContext().getAllServiceReferences(serviceClass, null);
+		if (references == null) {
+			return context.getCurrent();
+		}
+		
 		for (ServiceReference reference : references) {
 			Long serviceId = (Long) reference.getProperty("service.id");
 			String[] objectClass = (String[]) reference.getProperty("objectClass");

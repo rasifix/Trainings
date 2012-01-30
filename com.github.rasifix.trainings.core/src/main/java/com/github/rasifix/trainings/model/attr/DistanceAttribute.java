@@ -30,5 +30,10 @@ public class DistanceAttribute implements TrackpointAttribute {
 	public Double getValue() {
 		return distance;
 	}
+	
+	@Override
+	public String toString() {
+		return "DistanceAttribute[" + distance + "m]";
+	}
 
 }

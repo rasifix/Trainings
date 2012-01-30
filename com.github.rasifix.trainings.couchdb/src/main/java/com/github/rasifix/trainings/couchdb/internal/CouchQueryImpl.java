@@ -32,6 +32,8 @@ class CouchQueryImpl implements CouchQuery {
 	private final String viewName;
 	private String startKey;
 	private String endKey;
+	private String key;
+	private boolean descending;
 
 	CouchQueryImpl(CouchDatabaseImpl database, String designDocumentName, String viewName) {
 		this.database = database;
@@ -52,6 +54,11 @@ class CouchQueryImpl implements CouchQuery {
 	}
 	
 	@Override
+	public void key(String key) {
+		this.key = key;
+	}
+	
+	@Override
 	public void setStartKey(String startKey) {
 		this.startKey = startKey;
 	}
@@ -59,6 +66,11 @@ class CouchQueryImpl implements CouchQuery {
 	@Override
 	public void setEndKey(String endKey) {
 		this.endKey = endKey;
+	}
+	
+	@Override
+	public void descending() {
+		this.descending = true;
 	}
 
 	@Override
@@ -71,6 +83,12 @@ class CouchQueryImpl implements CouchQuery {
 		}		
 		if (endKey != null) {
 			qparams.add(new BasicNameValuePair("endkey", '"' + endKey + '"'));
+		}
+		if (key != null) {
+			qparams.add(new BasicNameValuePair("key", '"' + key + '"'));
+		}
+		if (descending) {
+			qparams.add(new BasicNameValuePair("descending", "true"));
 		}
 		
 		try {

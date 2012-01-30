@@ -1,6 +1,5 @@
 package com.github.rasifix.trainings.format.fit.internal;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -82,6 +81,8 @@ public class FitReader implements ActivityReader {
 
 		private Activity activity;
 		
+		private List<Track> tracks = new LinkedList<Track>();
+		
 		private Track currentTrack;
 		
 		private State state = new StoppedState();
@@ -101,6 +102,9 @@ public class FitReader implements ActivityReader {
 				this.activity = new Activity(timestamp);
 			}
 			this.currentTrack = new Track(timestamp);
+			
+			// keep reference to tracks so we can set the sport on session end
+			this.tracks.add(currentTrack);
 		}
 		
 		@Override
@@ -145,7 +149,13 @@ public class FitReader implements ActivityReader {
 			// - avg / max cadence / hr / power / runningCadence / speed
 			
 			// session end does not need to go through the state (we ignore it)
-			this.currentTrack.setSport(mesg.getSport().name());
+			
+			for (Track track : tracks) {
+				track.setSport(mesg.getSport().name());
+			}
+			
+			// session ended, new one will follow
+			tracks.clear();
 		}
 
 		@Override
@@ -281,7 +291,7 @@ public class FitReader implements ActivityReader {
 			}
 			
 			if (mesg.getCadence() != null) {
-				trackpoint.addAttribute(new CadenceAttribute(mesg.getCadence().doubleValue()));
+				trackpoint.addAttribute(new CadenceAttribute(mesg.getCadence().intValue()));
 			}
 			
 			if (mesg.getAccumulatedPower() != null) {
@@ -322,7 +332,7 @@ public class FitReader implements ActivityReader {
 		
 		@Override
 		public State startTimer(StateContext context, Long timestamp) {
-			context.startTrack(timestamp);
+//			context.startTrack(timestamp);
 			return new RunningState();
 		}
 
@@ -342,17 +352,6 @@ public class FitReader implements ActivityReader {
 			throw new IllegalStateException("timer already stopped");
 		}
 		
-	}
-	
-	public static void main(String[] args) throws Exception {
-		FitReader reader = new FitReader();
-		List<Activity> activities = reader.readActivities(new FileInputStream("20120117-061239-1-1345-ANTFS-4.FIT"));
-		for (Activity activity : activities) {
-			for (Track track : activity.getTracks()) {
-				System.out.println(track.getDistance());
-				System.out.println(track.getTotalTimeInSeconds());
-			}
-		}
 	}
 
 }

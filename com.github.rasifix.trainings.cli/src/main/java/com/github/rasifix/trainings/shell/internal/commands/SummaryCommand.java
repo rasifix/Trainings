@@ -9,6 +9,9 @@ import aQute.bnd.annotation.component.Component;
 
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
+import com.github.rasifix.trainings.model.Trackpoint;
+import com.github.rasifix.trainings.model.attr.DistanceAttribute;
+import com.github.rasifix.trainings.model.attr.SpeedAttribute;
 import com.github.rasifix.trainings.shell.Command;
 import com.github.rasifix.trainings.shell.CommandContext;
 
@@ -36,6 +39,17 @@ public class SummaryCommand implements Command {
 				System.out.println(format(track.getStartTime()) + " " + track.getSport());
 				System.out.println("total time     = " + track.getTotalTimeInSeconds());
 				System.out.println("total distance = " + track.getDistance());
+				int tpWithoutSpeed = 0;
+				for (Trackpoint trackpoint : track.getTrackpoints()) {
+					if (trackpoint.hasAttribute(SpeedAttribute.class)) {
+						SpeedAttribute speed = trackpoint.getAttribute(SpeedAttribute.class);
+						if (speed.getValue() < 0.1) {
+							tpWithoutSpeed += 1;
+							System.out.println(trackpoint.getAttribute(DistanceAttribute.class).getValue());
+						}
+					}
+				}
+				System.out.println("without speed = " + tpWithoutSpeed);
 			}
 		}
 		return current;

@@ -12,21 +12,29 @@ import java.util.UUID;
 
 import org.osgi.service.component.ComponentContext;
 
+import aQute.bnd.annotation.component.Activate;
+import aQute.bnd.annotation.component.Component;
+
+import com.github.rasifix.saj.dom.JsonModelBuilder;
 import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.ActivityKey;
 import com.github.rasifix.trainings.ActivityRepository;
 import com.github.rasifix.trainings.couchdb.internal.CouchServerImpl;
+import com.github.rasifix.trainings.equipment.EquipmentRepository;
 import com.github.rasifix.trainings.format.json.JsonActivityReader;
 import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.Equipment;
 
-public class CouchActivityRepository implements ActivityRepository, ActivityExporter {
+@Component(properties={ "host=localhost", "port=5984" })
+public class CouchActivityRepository implements ActivityRepository, ActivityExporter, EquipmentRepository {
 
 	private String host;
 	private int port;
 	private CouchServerImpl server;
 
+	@Activate
 	public void activate(ComponentContext context) {
 		this.host = (String) context.getProperties().get("host");
 		this.port = Integer.parseInt((String) context.getProperties().get("port"));
@@ -50,8 +58,12 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	public List<ActivityOverview> findActivities(Date startDate, Date endDate) throws IOException {
 		CouchDatabase db = server.getDatabase("trainings");
 		CouchQuery view = db.createQuery("trainings", "overview");
-		view.setStartKey(format(startDate));
-		view.setEndKey(format(endDate));
+		if (startDate != null) {
+			view.setStartKey(format(startDate));
+		}
+		if (endDate != null) {
+			view.setEndKey(format(endDate));
+		}
 		return view.query(new RowMapper<ActivityOverview>() {
 			@Override
 			public ActivityOverview mapRow(String id, Object key, Object value) {
@@ -104,8 +116,14 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		}
 		
 		@Override
-		public int getAverageHeartRate() {
-			return value.getInt("avgHr");
+		public Integer getAverageHeartRate() {
+			if (value.containsKey("avgHr")) {
+				return value.getInt("avgHr");
+			} else if (value.containsKey("hr")) {
+				JsonObject hr = value.getObject("hr");
+				return hr.getInt("avg");
+			}
+			return null;
 		}
 		
 	}
@@ -119,7 +137,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	}
 
 	private static String format(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 
 	private Document toDocument(Activity activity) {
@@ -139,7 +157,6 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	
 	@Override
 	public Activity getActivity(String activityId) throws IOException {
-		CouchServer server = new CouchServerImpl("localhost", 5984);
 		CouchDatabase db = server.getDatabase("trainings");
 		Document doc = db.get(activityId);
 		return fromDocument(doc);
@@ -173,6 +190,86 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 			}
 		}
 		
+	}
+	
+	@Override
+	public String addEquipment(Equipment equipment) throws IOException {
+		CouchDatabase db = server.getDatabase("trainings");
+		Document doc = toDocument(equipment);
+		db.put(doc);
+		equipment.setRevision(doc.getRev());
+		return doc.getId();
+	}
+	
+	@Override
+	public Equipment getEquipment(String id) throws IOException {
+		CouchDatabase db = server.getDatabase("trainings");
+		Document doc = db.get(id);
+		return fromEquipmentDocument(doc);
+	}
+	
+	@Override
+	public List<Equipment> getAllEquipments() throws IOException {
+		CouchDatabase db = server.getDatabase("trainings");
+		CouchQuery view = db.createQuery("trainings", "equipments");
+		return view.query(new RowMapper<Equipment>() {
+			@Override
+			public Equipment mapRow(String id, Object key, Object value) {
+				JsonObject jsonObject = (JsonObject) value;
+				return parseEquipment(id, jsonObject.getString("_rev"), jsonObject);
+			}
+		});
+	}
+
+	private Document toDocument(Equipment equipment) {
+		Document document = new Document(generateUUID());
+		document.put("type", "equipment");
+		if (equipment.getId() != null) {
+			document.put("_id", equipment.getId());
+		}
+		if (equipment.getRevision() != null) {
+			document.put("_rev", equipment.getRevision());
+		}
+		
+		JsonModelBuilder builder = new JsonModelBuilder();
+		builder.startObject();
+		builder.member("name", equipment.getName());
+		builder.member("brand", equipment.getBrand());
+		builder.member("dateOfPurchase", format(equipment.getDateOfPurchase()));
+		builder.endObject();
+		
+		document.put("equipment", builder.getResult());
+		
+		return document;
+	}
+	
+	private Equipment fromEquipmentDocument(Document document) {
+		String type = document.getString("type");
+		if (!"equipment".equals(type)) {
+			throw new IllegalArgumentException("given document is not an equipment document");
+		}
+		
+		JsonObject jsonObject = document.getObject("equipment");
+		
+		return parseEquipment(document.getId(), document.getRev(), jsonObject);
+	}
+
+	private Equipment parseEquipment(String id, String rev, JsonObject jsonObject) {
+		Equipment equipment = new Equipment();
+		equipment.setId(id);
+		equipment.setRevision(rev);
+		
+		equipment.setName(jsonObject.getString("name"));
+		equipment.setBrand(jsonObject.getString("brand"));
+		if (jsonObject.get("dateOfPurchase") != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				equipment.setDateOfPurchase(format.parse(jsonObject.getString("dateOfPurchase")));
+			} catch (ParseException e) {
+				throw new IllegalArgumentException("cannot parse date", e);
+			}
+		}
+		return equipment;
 	}
 
 }

@@ -30,6 +30,7 @@ import com.github.rasifix.saj.dom.JsonModelBuilder;
 import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.Equipment;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
@@ -79,6 +80,19 @@ public class JsonActivityReader implements ActivityReader {
 		activity.setId(id);
 		activity.setRevision(rev);
 
+		JsonArray equipments = json.getArray("equipments");
+		if (equipments != null) {
+			for (int i = 0; i < equipments.size(); i++) {
+				JsonObject jsonEquipment = equipments.getObject(i);
+				Equipment equipment = new Equipment();
+				equipment.setId(jsonEquipment.getString("id"));
+				equipment.setName(jsonEquipment.getString("name"));
+				equipment.setBrand(jsonEquipment.getString("brand"));
+				equipment.setDateOfPurchase(parseDate(jsonEquipment.getString("dateOfPurchase")));
+				activity.addEquipment(equipment);
+			}
+		}
+		
 		JsonArray tracks = json.getArray("tracks");
 		for (int i = 0; i < tracks.size(); i++) {
 			JsonObject jsonTrack = tracks.getObject(i);
@@ -141,6 +155,16 @@ public class JsonActivityReader implements ActivityReader {
 
 	private Date parse(String text) {
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		format.setLenient(false);
+		try {
+			return format.parse(text);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("invalid date: " + text);
+		}
+	}
+
+	private Date parseDate(String text) {
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		format.setLenient(false);
 		try {
 			return format.parse(text);

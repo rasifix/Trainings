@@ -44,7 +44,7 @@ public interface ActivityRepository {
 
 		String getActivityId();
 
-		int getAverageHeartRate();
+		Integer getAverageHeartRate();
 		
 	}
 	

@@ -3,8 +3,8 @@
 	com.github.rasifix.trainings.format.json;version=latest,\
 	osgi.cmpn,\
 	org.apache.httpcomponents.httpclient,\
-	org.apache.httpcomponents.httpcore
+	org.apache.httpcomponents.httpcore,\
+	biz.aQute.bnd.annotation
 Private-Package: com.github.rasifix.trainings.couchdb.internal
 Export-Package: com.github.rasifix.trainings.couchdb
-Service-Component: OSGI-INF/*.xml
-Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
+Service-Component: com.github.rasifix.trainings.couchdb.*

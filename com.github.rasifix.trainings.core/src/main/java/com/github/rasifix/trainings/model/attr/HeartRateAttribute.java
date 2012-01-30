@@ -15,6 +15,7 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
+import com.github.rasifix.trainings.model.AttributeSummaryBuilder;
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
@@ -29,6 +30,10 @@ public class HeartRateAttribute implements TrackpointAttribute {
 	@Override
 	public Integer getValue() {
 		return heartRate;
+	}
+	
+	public static AttributeSummaryBuilder<AvgMaxSummary> getDefaultSummaryBuilder() {
+		return new AvgMaxSummaryBuilder(HeartRateAttribute.class);
 	}
 
 }

@@ -15,7 +15,10 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
+import com.github.rasifix.trainings.model.AttributeSummaryBuilder;
+import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.TrackpointAttribute;
+import com.github.rasifix.trainings.model.TrackpointSequence;
 
 
 public class AltitudeAttribute implements TrackpointAttribute {
@@ -52,6 +55,61 @@ public class AltitudeAttribute implements TrackpointAttribute {
 	@Override
 	public int hashCode() {
 		return getValue().hashCode();
+	}
+
+	public static AttributeSummaryBuilder<AltitudeSummary> getDefaultSummaryBuilder() {
+		return new AttributeSummaryBuilder<AltitudeSummary>() {
+			@Override
+			public Class<? extends TrackpointAttribute> getAttributeType() {
+				return AltitudeAttribute.class;
+			}
+			@Override
+			public AltitudeSummary buildSummary(TrackpointSequence trackpoints) {
+				if (trackpoints.isEmpty()) {
+					return null;
+				}
+				
+				int start = (int) Math.round(getAltitude(trackpoints.getFirst()));
+				int end = (int) Math.round(getAltitude(trackpoints.getLast()));
+				
+				int min = Integer.MAX_VALUE;
+				int max = Integer.MIN_VALUE;
+				double sum = 0;
+				int time = 0;
+				int gain = 0;
+				int loss = 0;
+				
+				Double last = null;
+				for (Trackpoint trackpoint : trackpoints) {
+					double altitude = getAltitude(trackpoint);
+					if (last != null) {
+						if (last < altitude) {
+							gain += Math.round(altitude - last);
+						} else if (altitude < last) {
+							loss += Math.round(last - altitude);
+						}
+					}
+					if (!trackpoints.isLast(trackpoint)) {
+						int elapsed = (int) (trackpoint.getElapsedTime() - trackpoints.next(trackpoint).getElapsedTime());
+						time += elapsed;
+						sum += elapsed * altitude;
+					}
+					
+					min = Math.min(min, (int) Math.round(altitude));
+					max = Math.max(max, (int) Math.round(altitude));
+					
+					last = Double.valueOf(altitude);
+				}
+				
+				int avg = (int) Math.round(1f * sum / time);
+				
+				return new AltitudeSummary(time, min, avg, max, gain, loss, start, end);
+			}
+			
+			private double getAltitude(Trackpoint trackpoint) {
+				return trackpoint.getAttribute(AltitudeAttribute.class).getAltitude();
+			}
+		};
 	}
 	
 }

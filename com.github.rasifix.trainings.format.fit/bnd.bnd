@@ -6,3 +6,5 @@ Private-Package: com.github.rasifix.trainings.format.fit.internal,\
 Service-Component: OSGI-INF/*.xml
 Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
 Export-Package: com.garmin.fit
+Import-Package: !org.junit*,\
+	*

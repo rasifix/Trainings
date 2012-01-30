@@ -15,20 +15,25 @@
  */
 package com.github.rasifix.trainings.model.attr;
 
+import com.github.rasifix.trainings.model.AttributeSummaryBuilder;
 import com.github.rasifix.trainings.model.TrackpointAttribute;
 
 
 public class CadenceAttribute implements TrackpointAttribute {
 
-	private final double cadence;
+	private final int cadence;
 
-	public CadenceAttribute(double cadenceInRpm) {
+	public CadenceAttribute(int cadenceInRpm) {
 		this.cadence = cadenceInRpm;
 	}
 
 	@Override
-	public Double getValue() {
+	public Integer getValue() {
 		return cadence;
+	}
+	
+	public static AttributeSummaryBuilder<AvgMaxSummary> getDefaultSummaryBuilder() {
+		return new AvgMaxSummaryBuilder(CadenceAttribute.class);
 	}
 	
 }

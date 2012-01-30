@@ -18,17 +18,18 @@ package com.github.rasifix.trainings.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
+import com.github.rasifix.trainings.model.attr.AttributeSummary;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
 import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
 
-public class Track {
+public class Track implements HasSummary {
 	
-	private final List<Trackpoint> trackpoints = new LinkedList<Trackpoint>(); 
+//	private final List<Trackpoint> trackpoints = new LinkedList<Trackpoint>(); 
+	private final TrackpointSequence trackpoints = new LinkedTrackpointSequence(); 
 	
 	private Activity activity;
 	
@@ -76,28 +77,53 @@ public class Track {
 	public void setSport(String sport) {
 		this.sport = sport;
 	}
+	
+	// --> start of HasSummary <--
 
-	public Double getDistance() {
-		if (trackpoints.size() >= 2) {
-			Trackpoint first = trackpoints.get(0);
+	public int getDistance() {
+		TrackpointSequence filtered = trackpoints.select(DistanceAttribute.class);
+		if (filtered.size() >= 2) {
+			Trackpoint first = filtered.getFirst();
+			Trackpoint last = filtered.getLast();
 			
 			DistanceAttribute firstDistanceAttr = first.getAttribute(DistanceAttribute.class);
 			Double firstDistance = firstDistanceAttr.getValue();
-			
-			int index = trackpoints.size() - 1;
-			while (index > 0) {
-				Trackpoint trackpoint = trackpoints.get(index);
-				if (trackpoint.hasAttribute(DistanceAttribute.class)) {
-					DistanceAttribute lastDistanceAttribute = trackpoint.getAttribute(DistanceAttribute.class);
-					Double lastDistance = lastDistanceAttribute.getValue();
-					return lastDistance - firstDistance;
-				}
-				index -= 1;
-			}
+
+			DistanceAttribute lastDistanceAttr = last.getAttribute(DistanceAttribute.class);
+			Double lastDistance = lastDistanceAttr.getValue();
+			return (int) Math.round(lastDistance - firstDistance);
+		}
+		
+		return Integer.valueOf(0);
+	}
+	
+	@Override
+	public int getDuration() {
+		if (trackpoints.size() >= 2) {
+			final Trackpoint first = trackpoints.get(0);
+			final Trackpoint last = trackpoints.get(trackpoints.size() - 1);
+			return (int) Math.round(delta(last.getTime(), first.getTime()));
+		}
+		return Integer.valueOf(0);
+	}
+
+	public Double getSpeed() {
+		if (trackpoints.size() >= 2) {
+			return 1.0 * getDistance() / getDuration();
 		}
 		return null;
 	}
 	
+	public <T extends AttributeSummary<T>> T getSummary(AttributeSummaryBuilder<T> builder) {
+		// power    - avg / median? / max
+		// speed    - avg / median? / max
+		TrackpointSequence filtered = trackpoints.select(builder.getAttributeType());
+		return builder.buildSummary(filtered);
+	}
+	
+	// --> end of HasSummary <--
+	
+	@Deprecated
 	public double getTotalTimeInSeconds() {
 		if (trackpoints.size() >= 2) {
 			final Trackpoint first = trackpoints.get(0);
@@ -105,13 +131,6 @@ public class Track {
 			return delta(last.getTime(), first.getTime());
 		}
 		return 0.0;
-	}
-
-	public Double getSpeed() {
-		if (trackpoints.size() >= 2) {
-			return getDistance() / getTotalTimeInSeconds();
-		}
-		return null;
 	}
 	
 	public Double getAverageHeartRate() {

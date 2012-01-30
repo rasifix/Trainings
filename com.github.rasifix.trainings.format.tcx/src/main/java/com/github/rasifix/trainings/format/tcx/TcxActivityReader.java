@@ -138,10 +138,10 @@ public class TcxActivityReader implements ActivityReader {
 		}
 		
 		if (source.getBikeCadence() != null) {
-			result.addAttribute(new CadenceAttribute((double) source.getBikeCadence()));
+			result.addAttribute(new CadenceAttribute(source.getBikeCadence()));
 			
 		} else if (source.getRunCadence() != null) {
-			result.addAttribute(new CadenceAttribute((double) source.getRunCadence()));
+			result.addAttribute(new CadenceAttribute(source.getRunCadence()));
 		}
 		
 		if (source.getSpeed() != null) {

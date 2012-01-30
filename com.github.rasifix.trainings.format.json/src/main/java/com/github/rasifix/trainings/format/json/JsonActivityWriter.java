@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +30,13 @@ import com.github.rasifix.saj.JsonWriter;
 import com.github.rasifix.saj.dom.JsonModelBuilder;
 import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.Equipment;
+import com.github.rasifix.trainings.model.HasSummary;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
+import com.github.rasifix.trainings.model.attr.AltitudeSummary;
+import com.github.rasifix.trainings.model.attr.AvgMaxSummary;
 import com.github.rasifix.trainings.model.attr.CadenceAttribute;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
 import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
@@ -76,14 +81,97 @@ public class JsonActivityWriter implements ActivityWriter {
 			writer.member("sport", activity.getSport().toUpperCase());
 		}
 		
+		outputSummary(writer, activity);
+		
+		writer.startMember("equipments");
+		outputEquipments(writer, activity.getEquipments());
+		writer.endMember();
+		
 		writer.startMember("tracks");
-		output(writer, activity.getTracks());
+		outputTracks(writer, activity.getTracks());
 		writer.endMember();
 		
 		writer.endObject();
 	}
 	
-	private void output(final JsonOutputHandler writer, final List<Track> tracks) {
+	private void outputSummary(JsonOutputHandler writer, HasSummary summary) {
+		writer.startMember("summary");
+		writer.startObject();
+		
+		if (summary.getSport() != null) {
+			writer.member("sport", summary.getSport());
+		}
+		
+		if (summary.getDuration() != 0) {
+			writer.member("totalTime", Math.round(summary.getDuration()));
+		}
+		
+		if (summary.getDistance() != 0) {
+			writer.member("distance", summary.getDistance());
+		}
+		
+		if (summary.getSpeed() != null) {
+			writer.member("speed", summary.getSpeed(), SPEED_PRECISION);
+		}
+
+		AvgMaxSummary hrSummary = summary.getSummary(HeartRateAttribute.getDefaultSummaryBuilder());
+		if (hrSummary != null) {
+			writer.startMember("hr");
+			writeAvgMaxSummary(writer, hrSummary);
+			writer.endMember();
+		}
+		
+		AvgMaxSummary cadenceSummary = summary.getSummary(CadenceAttribute.getDefaultSummaryBuilder());
+		if (cadenceSummary != null) {
+			writer.startMember("cadence");
+			writeAvgMaxSummary(writer, cadenceSummary);
+			writer.endMember();
+		}
+		
+		AltitudeSummary altSummary = summary.getSummary(AltitudeAttribute.getDefaultSummaryBuilder());
+		if (altSummary != null) {
+			writer.startMember("alt");
+			outputAltitudeSummary(writer, altSummary);
+			writer.endMember();
+		}
+
+		writer.endObject();
+		writer.endMember();
+	}
+
+	private void outputAltitudeSummary(JsonOutputHandler writer, AltitudeSummary altSummary) {
+		writer.startObject();
+		writer.member("min", altSummary.getMin());
+		writer.member("avg", altSummary.getAvg());
+		writer.member("max", altSummary.getMax());
+		writer.member("gain", altSummary.getAltGain());
+		writer.member("loss", altSummary.getAltLoss());
+		writer.member("start", altSummary.getStartAltitude());
+		writer.member("end", altSummary.getEndAltitude());
+		writer.endObject();
+	}
+
+	private void writeAvgMaxSummary(JsonOutputHandler writer, AvgMaxSummary summary) {
+		writer.startObject();
+		writer.member("avg", summary.getAvg());
+		writer.member("max", summary.getMax());
+		writer.endObject();
+	}
+
+	private void outputEquipments(JsonOutputHandler writer, Collection<Equipment> equipments) {
+		writer.startArray();
+		for (Equipment equipment : equipments) {
+			writer.startObject();
+			writer.member("id", equipment.getId());
+			writer.member("name", equipment.getName());
+			writer.member("brand", equipment.getBrand());
+			writer.member("dateOfPurchase", formatDate(equipment.getDateOfPurchase()));
+			writer.endObject();
+		}
+		writer.endArray();
+	}
+	
+	private void outputTracks(final JsonOutputHandler writer, final List<Track> tracks) {
 		writer.startArray();
 		
 		for (final Track track : tracks) {
@@ -102,7 +190,7 @@ public class JsonActivityWriter implements ActivityWriter {
 			writer.member("sport", track.getSport());
 		}
 		
-		outputTrackSummary(writer, track);
+		outputSummary(writer, track);
 		
 		writer.startMember("trackpoints");
 		writer.startArray();
@@ -113,41 +201,6 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.endMember();
 		
 		writer.endObject();
-	}
-
-	private void outputTrackSummary(final JsonOutputHandler writer, final Track track) {
-		writer.startMember("summary");
-		writer.startObject();
-		
-		if (track.getSport() != null) {
-			writer.member("sport", track.getSport());
-		}
-		
-		if (track.getTotalTimeInSeconds() != 0.0) {
-			writer.member("totalTime", Math.round(track.getTotalTimeInSeconds()));
-		}
-		
-		if (track.getDistance() != null) {
-			writer.member("distance", track.getDistance(), DISTANCE_PRECISION);
-		}
-		
-		if (track.getSpeed() != null) {
-			writer.member("speed", track.getSpeed(), SPEED_PRECISION);
-		}
-		
-		if (track.getAverageHeartRate() != null) {
-			writer.member("avgHr", roundToInt(track.getAverageHeartRate()));
-		}
-		
-		writer.member("altGain", track.getAltitudeGain(), ALTITUDE_PRECISION);
-		writer.member("altLoss", track.getAltitudeLoss(), ALTITUDE_PRECISION);
-
-		writer.endObject();
-		writer.endMember();
-	}
-
-	private static final int roundToInt(double average) {
-		return (int) Math.round(average);
 	}
 
 	private void output(final JsonOutputHandler writer, final Trackpoint trackpoint) {
@@ -189,8 +242,8 @@ public class JsonActivityWriter implements ActivityWriter {
 		}
 		
 		if (trackpoint.hasAttribute(CadenceAttribute.class)) {
-			Double cadence = trackpoint.getAttribute(CadenceAttribute.class).getValue();
-			writer.member("cadence", roundToInt(cadence));
+			Integer cadence = trackpoint.getAttribute(CadenceAttribute.class).getValue();
+			writer.member("cadence", cadence);
 		}
 		
 		writer.endObject();
@@ -202,6 +255,15 @@ public class JsonActivityWriter implements ActivityWriter {
 		}
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(time);
+	}
+	
+	private String formatDate(Date time) {
+		if (time == null) {
+			throw new IllegalArgumentException("cannot format null date");
+		}
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(time);
 	}
 	
