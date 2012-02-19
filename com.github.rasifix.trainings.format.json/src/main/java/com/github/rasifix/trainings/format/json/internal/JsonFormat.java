@@ -34,6 +34,11 @@ public class JsonFormat implements Format {
 	public ActivityReader createReader() {
 		return new JsonActivityReader();
 	}
+	
+	@Override
+	public boolean canWrite() {
+		return true;
+	}
 
 	@Override
 	public ActivityWriter createWriter() {

@@ -18,6 +18,7 @@ package com.github.rasifix.trainings.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,10 +26,10 @@ import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.AttributeSummary;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
 import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
+import com.github.rasifix.trainings.model.attr.PlaceNameAttribute;
 
 public class Track implements HasSummary {
 	
-//	private final List<Trackpoint> trackpoints = new LinkedList<Trackpoint>(); 
 	private final TrackpointSequence trackpoints = new LinkedTrackpointSequence(); 
 	
 	private Activity activity;
@@ -121,6 +122,18 @@ public class Track implements HasSummary {
 		return builder.buildSummary(filtered);
 	}
 	
+	@Override
+	public List<String> getPlaces() {
+		LinkedList<String> result = new LinkedList<String>();
+		for (Trackpoint trackpoint : getTrackpoints().select(PlaceNameAttribute.class)) {
+			String placeName = trackpoint.getAttribute(PlaceNameAttribute.class).getPlaceName();
+			if (result.isEmpty() || !result.getLast().equals(placeName)) {
+				result.addLast(placeName);
+			}
+		}
+		return result;
+	}
+	
 	// --> end of HasSummary <--
 	
 	@Deprecated
@@ -196,7 +209,7 @@ public class Track implements HasSummary {
 		return trackpoints.size();
 	}
 	
-	public List<Trackpoint> getTrackpoints() {
+	public TrackpointSequence getTrackpoints() {
 		return trackpoints;
 	}
 

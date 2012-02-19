@@ -26,6 +26,8 @@ public interface Format {
 
 	ActivityReader createReader();
 	
+	boolean canWrite();
+	
 	ActivityWriter createWriter();
 	
 }

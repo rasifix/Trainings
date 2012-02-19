@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import com.garmin.fit.ActivityMesg;
 import com.garmin.fit.ActivityMesgListener;
@@ -27,6 +28,7 @@ import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
+import com.github.rasifix.trainings.model.TrackpointSequence;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.CadenceAttribute;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
@@ -88,6 +90,23 @@ public class FitReader implements ActivityReader {
 		private State state = new StoppedState();
 		
 		public Activity getActivity() {
+			double distanceCorrection = 0;
+			for (int i = 1; i < activity.getTracks().size(); i++) {
+				Track current = activity.getTracks().get(i);
+				TrackpointSequence trackpoints = current.getTrackpoints().select(DistanceAttribute.class);
+				ListIterator<Trackpoint> it = trackpoints.listIterator();
+				if (it.hasNext()) {
+					Trackpoint first = it.next();
+					double startDistance = first.getAttribute(DistanceAttribute.class).getValue();
+					while (it.hasNext()) {
+						Trackpoint next = it.next();
+						double distance = next.getAttribute(DistanceAttribute.class).getValue();
+						next.addAttribute(new DistanceAttribute(distance - startDistance - distanceCorrection));
+					}
+					distanceCorrection += startDistance;
+				}
+			}
+			
 			return activity;
 		}
 		
@@ -332,7 +351,6 @@ public class FitReader implements ActivityReader {
 		
 		@Override
 		public State startTimer(StateContext context, Long timestamp) {
-//			context.startTrack(timestamp);
 			return new RunningState();
 		}
 

@@ -37,6 +37,7 @@ import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.CadenceAttribute;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
 import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
+import com.github.rasifix.trainings.model.attr.PlaceNameAttribute;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
 import com.github.rasifix.trainings.model.attr.PowerAttribute;
 import com.github.rasifix.trainings.model.attr.SpeedAttribute;
@@ -142,6 +143,10 @@ public class JsonActivityReader implements ActivityReader {
 				if (jsonTrackpoint.containsKey("cadence")) {
 					trackpoint.addAttribute(new CadenceAttribute(jsonTrackpoint
 							.getInt("cadence")));
+				}
+				
+				if (jsonTrackpoint.containsKey("place")) {
+					trackpoint.addAttribute(new PlaceNameAttribute(jsonTrackpoint.getString("place")));
 				}
 
 				track.addTrackpoint(trackpoint);

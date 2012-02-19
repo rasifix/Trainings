@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <?xml-stylesheet type='text/xsl' href='http://www.osgi.org/www/obr2html.xsl'?>
 
-<repository lastmodified='20120115220201.400' name='Local Repository'>
+<repository lastmodified='20120219104343.610' name='Local Repository'>
   <resource id='biz.aQute.bnd/1.51.1' presentationname='bnd' symbolicname='biz.aQute.bnd' uri='biz.aQute.bnd/biz.aQute.bnd-1.51.1.jar' version='1.51.1'>
     <description>
       A utility and plugin to wrap, build, print, or otherwise manipulate
@@ -1880,6 +1880,1102 @@
     </require>
     <require extend='false' filter='(|(ee=J2SE-1.4)(ee=CDC-1.0/Foundation-1.0)(ee=J2SE-1.3))' multiple='false' name='ee' optional='false'>
       Execution Environment (|(ee=J2SE-1.4)(ee=CDC-1.0/Foundation-1.0)(ee=J2SE-1.3))
+    </require>
+  </resource>
+  <resource id='org.geotools/2.7.4' presentationname='org.geotools' symbolicname='org.geotools' uri='org.geotools/org.geotools-2.7.4.jar' version='2.7.4'>
+    <size>
+      6654227
+    </size>
+    <capability name='bundle'>
+      <p n='manifestversion' v='2'/>
+      <p n='presentationname' v='org.geotools'/>
+      <p n='symbolicname' v='org.geotools'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.coverage.processing'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.parameter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.factory'/>
+      <p n='uses' v='org.geotools.util,org.opengis.metadata.citation,org.opengis.referencing.datum,org.geotools.metadata.iso.citation,org.geotools.resources.i18n,org.opengis.util,org.opengis.parameter,org.opengis.metadata.extent,org.opengis.referencing.cs,javax.measure.unit,org.opengis.referencing.operation,org.opengis.referencing.crs,org.opengis.referencing,org.apache.commons.pool,org.apache.commons.pool.impl,org.geotools.factory,javax.naming,org.geotools.util.logging,javax.sql,org.opengis.metadata,org.geotools.referencing,org.geotools.resources,javax.measure.quantity,javax.swing.tree,org.geotools.referencing.cs,org.geotools.referencing.wkt,javax.imageio.spi,org.geotools.referencing.crs,org.geotools.referencing.operation,org.geotools.referencing.datum'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile.shp.xml'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,org.geotools.data.shapefile,org.jdom.input,org.jdom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.maintenance'/>
+      <p n='uses' v='org.opengis.metadata.maintenance,org.opengis.temporal,org.opengis.metadata.citation,org.geotools.metadata.iso,org.opengis.util,org.opengis.feature.type'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.xml.transform'/>
+      <p n='uses' v='org.xml.sax.ext,org.xml.sax.helpers,org.xml.sax,javax.xml.transform,javax.xml.transform.stream,javax.xml.transform.sax'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.geom.prep'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.prep,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.distance'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.coverage'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,org.opengis.geometry,org.opengis.referencing.crs,javax.measure.unit,org.opengis.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.awt'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile.indexed.attribute'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.data.shapefile,org.geotools.data,org.geotools.data.shapefile.dbf'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.filter.identity'/>
+      <p n='uses' v='org.opengis.annotation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.union'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.util,com.vividsolutions.jts.geom,com.vividsolutions.jts.index.strtree,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.operation.overlay'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.directory'/>
+      <p n='uses' v='org.geotools.util,org.geotools.data,org.opengis.feature.simple,org.geotools.data.simple,org.geotools.feature,org.opengis.filter,org.opengis.feature.type,org.geotools.geometry.jts,org.opengis.filter.identity,org.geotools.util.logging'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.opimage'/>
+      <p n='uses' v='javax.media.jai,com.sun.media.jai.util,javax.media.jai.util,javax.media.jai.operator,javax.media.jai.registry,javax.media.jai.iterator'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.geomgraph.index'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geomgraph,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.memory'/>
+      <p n='uses' v='org.geotools.feature,org.opengis.filter.capability,org.opengis.filter,org.opengis.referencing.crs,org.opengis.feature.type,org.geotools.data,org.opengis.feature.simple,org.opengis.feature,org.geotools.feature.simple,org.geotools.geometry.jts,com.vividsolutions.jts.geom,org.opengis.geometry,org.geotools.data.simple,org.opengis.util,org.geotools.util,org.geotools.feature.visitor,org.geotools.feature.collection'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.function'/>
+      <p n='uses' v='org.opengis.filter.capability,org.geotools.filter,org.geotools.util,org.geotools.factory,org.opengis.filter.expression,org.opengis.filter,org.opengis.feature.simple,org.geotools.util.logging,org.geotools.filter.visitor,org.opengis.feature,org.opengis.util,org.geotools.feature,org.geotools.feature.visitor,org.opengis.feature.type,org.geotools.data.simple,com.vividsolutions.jts.geom,org.geotools.geometry.jts,org.opengis.referencing.crs,org.opengis.filter.identity,com.vividsolutions.jts.io,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.feature.visitor'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,org.opengis.feature.simple,org.geotools.data.simple,org.geotools.filter,org.geotools.factory,org.opengis.filter.expression,org.opengis.filter,org.opengis.feature,org.opengis.feature.type,org.geotools.geometry.jts,org.opengis.geometry,org.geotools.filter.visitor,org.geotools.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.mlib'/>
+      <p n='uses' v='com.sun.media.jai.opimage,com.sun.media.jai.util,javax.media.jai,javax.media.jai.util,javax.media.jai.operator'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.measure.quantity'/>
+      <p n='uses' v='javax.measure.unit'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.spatial'/>
+      <p n='uses' v='org.geotools.metadata.iso,org.opengis.metadata.spatial,org.opengis.geometry.primitive,org.opengis.util,org.opengis.metadata.citation,org.geotools.referencing.operation.transform,org.geotools.util,org.geotools.referencing.operation.matrix,org.opengis.referencing.datum,org.opengis.referencing.operation,org.geotools.resources.i18n,org.geotools.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.operation.transform'/>
+      <p n='uses' v='org.geotools.util,org.opengis.referencing.operation,org.opengis.geometry,org.geotools.resources.i18n,org.geotools.referencing.wkt,org.opengis.referencing,org.opengis.parameter,org.geotools.resources,org.geotools.referencing.operation.matrix,org.geotools.resources.geometry,javax.vecmath,org.opengis.metadata,org.geotools.geometry,org.geotools.referencing.operation,org.opengis.util,org.geotools.factory,org.geotools.referencing,org.geotools.parameter,org.opengis.metadata.citation,org.geotools.metadata.iso.citation,javax.measure.unit,javax.measure.converter,org.opengis.referencing.datum,javax.measure.quantity,org.geotools.referencing.datum,org.geotools.measure,org.geotools.referencing.operation.builder,javax.media.jai,org.geotools.util.logging'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile.prj'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.data.shapefile,org.geotools.factory,org.opengis.referencing.crs,org.geotools.referencing,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.geomgraph,com.vividsolutions.jts.geomgraph.index'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.sweepline'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.visitor'/>
+      <p n='uses' v='org.geotools.filter,org.geotools.util.logging,org.opengis.filter.expression,org.opengis.filter,org.opengis.filter.spatial,org.xml.sax.helpers,org.geotools.factory,org.opengis.feature.type,org.geotools.geometry.jts,com.vividsolutions.jts.geom,org.opengis.referencing.crs,org.opengis.filter.identity,org.opengis.filter.capability,org.opengis.feature.simple'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.geom.util'/>
+      <p n='uses' v='com.vividsolutions.jts.util,com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.iterator'/>
+      <p n='uses' v='com.sun.media.jai.util,com.sun.media.jai.iterator'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.geometry'/>
+      <p n='uses' v='org.opengis.geometry.complex,org.opengis.annotation,org.opengis.referencing.operation,org.opengis.referencing.crs,org.opengis.geometry.coordinate,org.opengis.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.valid'/>
+      <p n='uses' v='com.vividsolutions.jts.util,com.vividsolutions.jts.operation.overlay,com.vividsolutions.jts.geom,com.vividsolutions.jts.geomgraph,com.vividsolutions.jts.geomgraph.index,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.operation.relate,com.vividsolutions.jts.index.strtree,com.vividsolutions.jts.index,com.vividsolutions.jts.index.quadtree,com.vividsolutions.jts.index.sweepline'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.technique'/>
+      <p n='uses' v='com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.precision'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geom.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.index.quadtree'/>
+      <p n='uses' v='org.geotools.data.shapefile.shp,com.vividsolutions.jts.geom,org.geotools.index,org.geotools.util.logging'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.intervalrtree'/>
+      <p n='uses' v='com.vividsolutions.jts.index,com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.io'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.resources.i18n'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.util,org.opengis.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.remote'/>
+      <p n='uses' v='javax.media.jai'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.feature.collection'/>
+      <p n='uses' v='org.geotools.geometry.jts,org.geotools.data.simple,org.geotools.util,org.opengis.filter.sort,org.opengis.util,org.opengis.feature,org.opengis.feature.simple,org.geotools.feature,org.opengis.filter,org.opengis.feature.type,org.geotools.data,org.geotools.data.store,org.geotools.data.collection,com.vividsolutions.jts.geom,org.geotools.data.sort,org.geotools.factory,org.geotools.feature.visitor,org.opengis.filter.identity,org.opengis.filter.expression'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.rmi'/>
+      <p n='uses' v='javax.media.jai,com.sun.media.jai.util,javax.media.jai.remote,javax.media.jai.util,javax.media.jai.tilecodec,javax.media.jai.registry,com.sun.media.jai.remote'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.planargraph.algorithm'/>
+      <p n='uses' v='com.vividsolutions.jts.planargraph'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.kdtree'/>
+      <p n='uses' v='com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.crs'/>
+      <p n='uses' v='org.geotools.factory,org.opengis.referencing.crs,org.geotools.feature.simple,org.opengis.feature.simple,org.geotools.feature,org.opengis.feature.type,org.opengis.feature,org.geotools.data,org.geotools.geometry.jts,com.vividsolutions.jts.geom,org.geotools.feature.collection,org.geotools.data.simple,org.opengis.referencing.operation,org.geotools.referencing,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.factory'/>
+      <p n='uses' v='org.geotools.util,org.geotools.resources,org.opengis.metadata.citation,org.geotools.io,javax.imageio.spi,org.geotools.resources.i18n,org.opengis.util,org.opengis.referencing,org.opengis.referencing.datum,org.opengis.referencing.cs,org.opengis.geometry.coordinate,org.opengis.referencing.operation,org.opengis.filter,org.opengis.geometry.primitive,org.opengis.referencing.crs,org.geotools.referencing,org.opengis.feature.type,org.geotools.filter,org.geotools.styling,org.opengis.feature,org.opengis.filter.expression,org.geotools.feature,org.geotools.data,org.geotools.util.logging,javax.naming,javax.swing.event,javax.sql'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.cs'/>
+      <p n='uses' v='org.geotools.util,org.geotools.resources,org.geotools.referencing.operation.matrix,org.geotools.resources.i18n,org.opengis.util,org.geotools.measure,org.opengis.referencing.cs,javax.measure.converter,javax.measure.unit,org.opengis.referencing.operation,org.opengis.geometry,org.geotools.referencing.wkt,org.geotools.referencing,org.opengis.referencing,org.opengis.metadata.citation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.style'/>
+      <p n='uses' v='org.opengis.filter.expression,org.opengis.annotation,org.opengis.util,javax.swing,org.opengis.metadata.citation,org.opengis.filter,org.opengis.feature.type,javax.measure.unit,javax.measure.quantity'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.constraint'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.referencing.datum'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,org.opengis.metadata.extent,org.opengis.referencing,javax.measure.unit,javax.measure.quantity'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.overlay.snap'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.operation.overlay,com.vividsolutions.jts.precision,com.vividsolutions.jts.geom.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.noding'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.io,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.index.chain,com.vividsolutions.jts.index.strtree,com.vividsolutions.jts.index,com.vividsolutions.jts.geom.impl,com.vividsolutions.jts.util,com.vividsolutions.jts.geom.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.citation'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.geotools.metadata.iso,org.opengis.util,org.geotools.util,org.opengis.metadata,org.geotools.util.logging'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.tilecodec'/>
+      <p n='uses' v='com.sun.media.jai.util,javax.media.jai.util,javax.media.jai.tilecodec,javax.media.jai,javax.media.jai.remote'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.predicate'/>
+      <p n='uses' v='com.vividsolutions.jts.algorithm.locate,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.text.commons'/>
+      <p n='uses' v='org.geotools.filter.text.cql2,org.geotools.factory,org.opengis.filter,org.geotools.filter,org.opengis.filter.expression,com.vividsolutions.jts.io,com.vividsolutions.jts.geom,org.opengis.filter.spatial,org.geotools.referencing.crs,org.geotools.filter.text.ecql,org.geotools.filter.text.generated.parsers'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.operation.linemerge'/>
+      <p n='uses' v='com.vividsolutions.jts.operation.linemerge,com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.algorithm.match'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm.distance'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.util.logging'/>
+      <p n='uses' v='org.apache.commons.logging,org.apache.commons.logging.impl,org.apache.log4j,org.geotools.resources,org.geotools.resources.i18n,org.geotools.util,org.geotools.io'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.operation.polygonize'/>
+      <p n='uses' v='com.vividsolutions.jts.operation.polygonize,com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.ows'/>
+      <p n='uses' v='org.geotools.util.logging,org.geotools.ows,org.geotools.data,org.jdom,org.opengis.metadata.citation,org.jdom.input'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.linearref'/>
+      <p n='uses' v='com.vividsolutions.jts.io,com.vividsolutions.jts.geom,com.vividsolutions.jts.linearref'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.geomgraph'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.util,com.vividsolutions.jts.geomgraph.index,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.algorithm.locate,com.vividsolutions.jts.noding'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.parameter'/>
+      <p n='uses' v='org.geotools.util,org.geotools.io,org.geotools.resources.i18n,org.geotools.referencing.wkt,org.opengis.referencing,org.opengis.parameter,org.geotools.referencing,org.opengis.metadata.citation,javax.measure.unit,org.opengis.util,org.geotools.resources,javax.measure.converter,javax.media.jai,org.geotools.metadata,org.geotools.metadata.iso.citation,javax.media.jai.util,org.opengis.coverage.grid,org.geotools.referencing.operation.matrix,org.opengis.referencing.operation,org.geotools.measure,org.opengis.metadata,org.geotools.util.logging'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.quality'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.metadata.citation,org.opengis.util,org.opengis.metadata.lineage,org.opengis.metadata,javax.measure.unit,org.opengis.metadata.maintenance,org.opengis.metadata.extent'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.remote'/>
+      <p n='uses' v='com.sun.media.jai.rmi,javax.media.jai,javax.media.jai.util,com.sun.media.jai.util,javax.media.jai.registry,javax.media.jai.tilecodec'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.filter.sort'/>
+      <p n='uses' v='org.opengis.filter.expression,org.opengis.annotation,org.opengis.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.crs'/>
+      <p n='uses' v='org.geotools.util,org.geotools.resources,org.geotools.resources.i18n,org.opengis.util,org.geotools.measure,org.opengis.referencing.cs,javax.measure.unit,org.opengis.geometry,org.opengis.referencing.crs,org.geotools.referencing.cs,org.geotools.referencing,org.geotools.referencing.wkt,org.opengis.referencing,org.opengis.referencing.datum,org.geotools.referencing.operation,org.opengis.referencing.operation,org.geotools.referencing.datum,org.geotools.metadata.iso.extent,org.opengis.metadata.extent,javax.measure.quantity,org.opengis.parameter,javax.measure.converter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.text.generated.parsers'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.feature.simple'/>
+      <p n='uses' v='org.geotools.feature.type,org.geotools.util,org.opengis.feature,org.opengis.feature.simple,org.geotools.filter.identity,org.geotools.util.logging,org.geotools.factory,com.vividsolutions.jts.geom,org.opengis.feature.type,org.geotools.data,org.opengis.filter.identity,org.geotools.geometry.jts,org.opengis.geometry,org.opengis.referencing.crs,org.geotools.feature,org.opengis.util,org.opengis.filter,org.geotools.referencing,javax.xml.namespace'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.identification'/>
+      <p n='uses' v='org.geotools.metadata.iso,org.opengis.util,org.opengis.metadata.identification,org.opengis.metadata.citation,org.opengis.metadata.spatial,org.opengis.metadata.extent,org.opengis.metadata.maintenance,org.opengis.metadata.distribution,org.opengis.metadata.constraint,org.geotools.resources.i18n'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.precision'/>
+      <p n='uses' v='com.vividsolutions.jts.precision,com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile'/>
+      <p n='uses' v='org.geotools.util,org.geotools.resources,org.geotools.util.logging,org.geotools.data,org.geotools.data.shapefile.indexed,org.geotools.renderer,org.geotools.data.shapefile.shp,com.vividsolutions.jts.geom,org.geotools.data.shapefile.dbf,org.opengis.feature.type,org.geotools.geometry.jts,org.geotools.data.shapefile.prj,org.geotools.feature.type,org.geotools.data.shapefile.shp.xml,org.geotools.filter.visitor,org.opengis.feature.simple,org.geotools.feature,org.opengis.filter,org.geotools.data.simple,org.geotools.filter,org.geotools.feature.simple,org.geotools.factory,org.opengis.referencing.crs,org.opengis.referencing,org.geotools.data.directory,org.opengis.feature,javax.swing,org.opengis.filter.sort'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.overlay'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geomgraph,com.vividsolutions.jts.geomgraph.index,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.util,com.vividsolutions.jts.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.vecmath'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.factory.epsg'/>
+      <p n='uses' v='org.geotools.referencing.factory,org.geotools.util.logging,org.opengis.referencing.operation,org.geotools.resources.i18n,org.opengis.metadata.citation,org.opengis.referencing.datum,org.opengis.referencing.crs,org.geotools.referencing,org.opengis.referencing,org.opengis.metadata,org.geotools.metadata,org.geotools.util,org.geotools.io,org.geotools.metadata.iso.extent,org.geotools.metadata.iso.citation,org.geotools.metadata.iso.quality,org.opengis.util,javax.measure.converter,org.opengis.referencing.cs,javax.measure.unit,org.geotools.parameter,javax.naming,org.geotools.resources,org.opengis.metadata.quality,org.geotools.referencing.operation,org.geotools.measure,org.opengis.metadata.extent,org.opengis.parameter,javax.sql,org.geotools.factory,org.geotools.referencing.cs,org.geotools.referencing.datum'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.geometry.jts'/>
+      <p n='uses' v='org.geotools.util.logging,com.vividsolutions.jts.geom,org.opengis.referencing.operation,org.opengis.geometry,org.geotools.factory,com.vividsolutions.jts.geom.impl,org.opengis.referencing.crs,org.geotools.resources,org.geotools.resources.i18n,org.geotools.referencing.crs,org.geotools.referencing.operation,org.opengis.referencing.cs,org.opengis.geometry.coordinate,org.geotools.resources.geometry,org.geotools.referencing.operation.projection,org.geotools.referencing,org.opengis.referencing,org.geotools.geometry,javax.imageio.spi,org.geotools.referencing.operation.matrix,com.vividsolutions.jts.util,com.vividsolutions.jts.io'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.util'/>
+      <p n='uses' v='com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.geometry.text'/>
+      <p n='uses' v='org.opengis.geometry.coordinate,org.opengis.geometry.aggregate,org.opengis.geometry.primitive,org.opengis.geometry,org.geotools.geometry'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.buffer'/>
+      <p n='uses' v='com.vividsolutions.jts.noding,com.vividsolutions.jts.operation.overlay,com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.geomgraph,com.vividsolutions.jts.noding.snapround,com.vividsolutions.jts.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.opengis.metadata,org.opengis.util,org.opengis.metadata.content,org.geotools.metadata.iso.content,org.opengis.metadata.maintenance,org.opengis.metadata.distribution,org.opengis.metadata.constraint,org.opengis.metadata.quality,org.opengis.metadata.spatial,org.opengis.metadata.identification,org.opengis.referencing,org.geotools.metadata,org.geotools.resources.i18n'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.iterator'/>
+      <p n='uses' v='com.sun.media.jai.util,javax.media.jai,javax.media.jai.iterator'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.algorithm.distance'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.io'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.quality'/>
+      <p n='uses' v='org.opengis.metadata.quality,org.opengis.metadata.citation,org.opengis.util,org.geotools.metadata.iso,org.opengis.metadata.lineage,org.geotools.resources.i18n,org.opengis.metadata,org.geotools.util,org.geotools.metadata.iso.citation,javax.measure.unit,org.opengis.metadata.maintenance,org.opengis.metadata.extent'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.feature'/>
+      <p n='uses' v='org.opengis.feature.type,org.opengis.filter.identity,org.opengis.geometry,org.opengis.feature.simple,org.opengis.referencing.crs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.quadtree'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.util,com.vividsolutions.jts.index'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.densify'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.util,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.triangulate.quadedge'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.io,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile.shp'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.util.logging,org.geotools.data.shapefile,com.vividsolutions.jts.geom.impl,org.geotools.factory,com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,org.opengis.feature.type,org.geotools.geometry.jts.coordinatesequence,org.geotools.data,org.geotools.renderer'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index'/>
+      <p n='uses' v='com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.triangulate'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.util,com.vividsolutions.jts.triangulate.quadedge,com.vividsolutions.jts.geom,com.vividsolutions.jts.util,com.vividsolutions.jts.index.kdtree,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.io'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.opengis.annotation,org.opengis.util,org.opengis.metadata.maintenance,org.opengis.metadata.distribution,org.opengis.metadata.constraint,org.opengis.metadata.quality,org.opengis.metadata.spatial,org.opengis.metadata.identification,org.opengis.metadata.content,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.factory.wms'/>
+      <p n='uses' v='org.opengis.parameter,org.geotools.metadata,org.geotools.util,org.geotools.referencing.factory,org.opengis.metadata.citation,org.geotools.factory,org.geotools.metadata.iso.citation,org.opengis.referencing.crs,org.opengis.util,org.opengis.referencing,org.geotools.resources.i18n,org.opengis.referencing.cs,org.opengis.referencing.operation,org.geotools.referencing.operation,org.geotools.referencing.crs,org.geotools.referencing.cs,org.opengis.referencing.datum,org.geotools.referencing,org.geotools.referencing.datum'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.text.cql2'/>
+      <p n='uses' v='org.geotools.filter,javax.xml.transform,org.opengis.filter.expression,org.opengis.filter,org.geotools.filter.text.commons,org.geotools.factory,org.opengis.filter.spatial,org.geotools.filter.text.generated.parsers,org.geotools.util.logging,com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.resources'/>
+      <p n='uses' v='org.geotools.resources.i18n,org.geotools.metadata.iso.extent,org.geotools.referencing.operation,org.geotools.referencing.crs,org.geotools.measure,org.opengis.metadata.extent,org.opengis.referencing.cs,org.geotools.factory,org.opengis.referencing.operation,org.opengis.geometry,org.opengis.referencing.crs,org.geotools.referencing,org.geotools.geometry,org.opengis.referencing,org.geotools.util,org.opengis.referencing.datum,javax.measure.unit,org.geotools.referencing.cs,org.geotools.referencing.datum,org.geotools.referencing.wkt,org.geotools.io,org.geotools.util.logging,org.opengis.util,javax.swing.event,javax.swing.tree,javax.swing,org.w3c.dom,javax.swing.border,org.geotools.math'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.sql'/>
+      <p n='uses' v='org.geotools.util.logging,org.geotools.util,org.opengis.util,org.opengis.metadata'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.geometry.aggregate'/>
+      <p n='uses' v='org.opengis.geometry,org.opengis.annotation,org.opengis.geometry.primitive'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.store'/>
+      <p n='uses' v='org.geotools.data.simple,org.opengis.feature,org.opengis.feature.simple,org.geotools.util.logging,org.geotools.feature,org.opengis.filter,com.vividsolutions.jts.geom,org.opengis.feature.type,org.geotools.data,org.geotools.geometry.jts,org.geotools.filter,org.opengis.filter.sort,org.opengis.util,org.geotools.feature.simple,org.opengis.geometry,org.opengis.referencing.crs,org.geotools.util,org.geotools.factory,org.geotools.data.crs,org.opengis.filter.identity,org.geotools.filter.identity,org.geotools.feature.collection,org.geotools.data.collection,org.opengis.referencing.operation,org.geotools.referencing,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.linearref'/>
+      <p n='uses' v='com.vividsolutions.jts.util,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.operation'/>
+      <p n='uses' v='org.geotools.referencing.wkt,org.geotools.referencing,org.opengis.referencing,org.geotools.util,org.opengis.metadata.quality,org.geotools.resources.i18n,org.geotools.metadata.iso.quality,org.geotools.referencing.crs,org.opengis.util,org.opengis.metadata.extent,javax.measure.converter,org.opengis.referencing.cs,javax.measure.unit,org.opengis.referencing.operation,org.opengis.referencing.crs,org.opengis.metadata,org.opengis.metadata.citation,org.geotools.metadata.iso.citation,org.geotools.referencing.operation.transform,org.geotools.resources,org.geotools.referencing.factory,org.opengis.parameter,org.geotools.factory,org.geotools.referencing.cs,org.opengis.referencing.datum,org.geotools.referencing.datum,org.geotools.referencing.operation.matrix,javax.vecmath,javax.measure.quantity,javax.imageio.spi,org.geotools.parameter,org.opengis.geometry'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.annotation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.noding.snapround'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.util,com.vividsolutions.jts.noding,com.vividsolutions.jts.geom,com.vividsolutions.jts.util,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.index.chain,com.vividsolutions.jts.index,com.vividsolutions.jts.index.strtree'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.measure'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.util,org.geotools.util.logging,org.geotools.resources.i18n,org.geotools.math,org.opengis.referencing.datum,org.geotools.referencing.crs,javax.measure.converter,org.opengis.referencing.cs,javax.measure.unit,org.opengis.geometry,org.opengis.referencing.crs,org.geotools.referencing,javax.measure.quantity'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.gml'/>
+      <p n='uses' v='org.xml.sax,org.geotools.util.logging,org.xml.sax.helpers,org.opengis.feature.simple,org.geotools.feature.simple,org.geotools.feature,com.vividsolutions.jts.geom,org.geotools.data.simple,org.opengis.feature,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.geom.impl'/>
+      <p n='uses' v='com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.resources.geometry'/>
+      <p n='uses' v='org.geotools.resources'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.view'/>
+      <p n='uses' v='org.geotools.geometry.jts,org.opengis.feature.simple,org.opengis.referencing.crs,org.opengis.feature.type,org.geotools.data,org.geotools.data.simple,org.opengis.filter.sort,org.geotools.util.logging,org.geotools.feature,org.geotools.data.crs,org.geotools.factory,org.opengis.filter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing'/>
+      <p n='uses' v='org.opengis.referencing,org.opengis.util,org.geotools.util,org.opengis.metadata.citation,org.geotools.metadata.iso.citation,org.geotools.resources.i18n,org.opengis.parameter,org.geotools.util.logging,javax.measure.unit,org.geotools.referencing.wkt,org.opengis.metadata,org.opengis.metadata.extent,org.opengis.referencing.operation,org.opengis.referencing.crs,javax.swing.event,org.geotools.referencing.operation.transform,org.geotools.referencing.factory,org.opengis.referencing.datum,org.geotools.metadata.iso.extent,org.opengis.referencing.cs,org.opengis.geometry,org.geotools.referencing.operation.projection,org.geotools.geometry,org.geotools.resources,org.geotools.referencing.operation,org.geotools.referencing.crs,org.geotools.resources.geometry,org.geotools.factory,org.geotools.referencing.cs,org.geotools.io,org.geotools.referencing.datum,org.geotools.measure,javax.imageio.spi,org.opengis.geometry.coordinate,org.opengis.metadata.quality'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.datum'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.util,org.opengis.referencing.datum,org.geotools.resources.i18n,org.geotools.referencing.wkt,org.opengis.util,org.geotools.referencing,org.opengis.metadata.extent,org.opengis.referencing,org.geotools.referencing.operation.matrix,org.opengis.referencing.operation,org.geotools.measure,javax.measure.converter,javax.measure.unit,org.opengis.geometry,javax.measure.quantity,org.geotools.geometry,org.opengis.metadata.citation,org.geotools.metadata.iso.citation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata'/>
+      <p n='uses' v='javax.swing.tree,org.geotools.util.logging,org.geotools.resources.i18n,org.geotools.util,org.geotools.resources,org.opengis.util,org.opengis.annotation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.lineage'/>
+      <p n='uses' v='org.geotools.metadata.iso,org.opengis.metadata.lineage,org.opengis.util,org.opengis.metadata.citation,org.opengis.referencing,org.opengis.metadata.identification,org.opengis.metadata.extent'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.polygonize'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.planargraph,com.vividsolutions.jts.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.strtree'/>
+      <p n='uses' v='com.vividsolutions.jts.util,com.vividsolutions.jts.index,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.overlay.validate'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.operation.overlay.snap,com.vividsolutions.jts.operation.overlay'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.util'/>
+      <p n='uses' v='org.opengis.annotation,javax.swing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.renderer'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,org.opengis.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.measure.unit'/>
+      <p n='uses' v='javax.measure.converter,javax.measure.quantity'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.filter'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.filter.expression,org.opengis.filter.identity,org.opengis.filter.capability,org.opengis.geometry,org.opengis.filter.sort,org.opengis.filter.spatial,org.xml.sax.helpers,org.opengis.feature.type'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.geometry'/>
+      <p n='uses' v='org.opengis.referencing.cs,org.geotools.util,org.geotools.resources,org.geotools.resources.i18n,org.opengis.geometry,org.opengis.referencing.crs,org.opengis.referencing,org.opengis.util,org.opengis.referencing.datum,org.geotools.referencing.crs,org.opengis.metadata.extent,javax.measure.converter,org.geotools.resources.geometry,javax.measure.unit,org.opengis.referencing.operation,org.opengis.coverage.grid,org.geotools.metadata.iso.spatial,org.geotools.referencing,org.opengis.geometry.aggregate,org.opengis.geometry.coordinate,org.opengis.geometry.complex,org.geotools.factory,org.opengis.geometry.primitive,javax.imageio.spi'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.operation.matrix'/>
+      <p n='uses' v='org.geotools.util,org.opengis.referencing.operation,org.geotools.resources.i18n,org.geotools.resources,org.geotools.io,org.opengis.referencing.cs,javax.vecmath,org.opengis.geometry,org.geotools.math'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.citation'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,org.opengis.metadata,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.distribution'/>
+      <p n='uses' v='org.opengis.metadata.distribution,org.opengis.metadata.citation,org.geotools.metadata.iso,org.opengis.util,javax.measure.unit'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.spatial'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,org.opengis.geometry.primitive,org.opengis.metadata.citation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.styling.visitor'/>
+      <p n='uses' v='org.geotools.styling,org.geotools.factory,org.opengis.filter.expression,javax.measure.unit,org.opengis.filter,org.opengis.util,org.opengis.style,org.geotools.filter.visitor,org.geotools.util,javax.measure.converter,javax.measure.quantity'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.temporal'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,javax.measure.unit,org.opengis.metadata.extent,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.geometry.complex'/>
+      <p n='uses' v='org.opengis.geometry,org.opengis.geometry.primitive,org.opengis.annotation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.capability'/>
+      <p n='uses' v='org.opengis.filter.capability'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.filter.expression'/>
+      <p n='uses' v='org.opengis.annotation,org.xml.sax.helpers'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.nature'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.referencing.operation'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.referencing.crs,org.opengis.metadata.quality,org.opengis.util,org.opengis.metadata.extent,org.opengis.referencing,org.opengis.parameter,org.opengis.geometry,org.opengis.referencing.cs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.bintree'/>
+      <p n='uses' v='com.vividsolutions.jts.index.quadtree,com.vividsolutions.jts.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.console'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.io,org.geotools.resources.i18n'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.extent'/>
+      <p n='uses' v='org.opengis.geometry,org.opengis.metadata.extent,org.geotools.metadata.iso,org.opengis.util,org.geotools.util,org.opengis.referencing.operation,org.geotools.resources.i18n,org.opengis.metadata,org.opengis.temporal,org.opengis.referencing.crs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.index.quadtree.fs'/>
+      <p n='uses' v='org.geotools.index.quadtree,org.geotools.data.shapefile.shp,com.vividsolutions.jts.geom,org.geotools.util.logging,org.geotools.resources'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.measure.converter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.referencing.cs'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,javax.measure.unit,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.widget'/>
+      <p n='uses' v='javax.media.jai,com.sun.media.jai.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.lineage'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,org.opengis.metadata.citation,org.opengis.referencing,org.opengis.metadata.identification,org.opengis.metadata.extent'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.spatial'/>
+      <p n='uses' v='org.opengis.filter.expression,com.vividsolutions.jts.geom,org.geotools.filter,com.vividsolutions.jts.geom.prep,org.opengis.filter,org.opengis.feature.simple,org.opengis.geometry,org.opengis.referencing.crs,org.opengis.filter.spatial,org.geotools.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.geom'/>
+      <p n='uses' v='com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.function.string'/>
+      <p n='uses' v='org.opengis.filter.capability,org.geotools.filter,org.opengis.filter.expression'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.measure'/>
+      <p n='uses' v='javax.measure.converter,javax.measure.unit'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.geom'/>
+      <p n='uses' v='com.vividsolutions.jts.util,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.operation,com.vividsolutions.jts.operation.union,com.vividsolutions.jts.operation.buffer,com.vividsolutions.jts.operation.overlay.snap,com.vividsolutions.jts.io,com.vividsolutions.jts.operation.predicate,com.vividsolutions.jts.operation.distance,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.operation.relate,com.vividsolutions.jts.operation.valid,com.vividsolutions.jts.geom.impl'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.referencing.crs'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.referencing,org.opengis.referencing.cs,org.opengis.referencing.datum,org.opengis.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.feature.type'/>
+      <p n='uses' v='org.opengis.feature,org.opengis.referencing.crs,org.opengis.feature.simple,org.opengis.filter,org.opengis.util,org.opengis.annotation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.wkt'/>
+      <p n='uses' v='org.geotools.resources,org.geotools.util.logging,org.opengis.referencing,org.geotools.util,org.opengis.metadata.citation,org.opengis.referencing.operation,org.geotools.resources.i18n,org.opengis.parameter,org.geotools.metadata.iso.citation,org.opengis.referencing.datum,org.opengis.util,org.geotools.math,org.opengis.referencing.cs,javax.measure.converter,javax.measure.unit,javax.measure.quantity,org.opengis.metadata,org.geotools.measure,org.geotools.referencing,org.geotools.factory,org.geotools.referencing.factory,org.geotools.referencing.operation,org.opengis.referencing.crs,org.geotools.referencing.cs,org.geotools.referencing.datum,org.geotools.io'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.planargraph'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.geomgraph'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.sort'/>
+      <p n='uses' v='org.opengis.feature.simple,org.geotools.feature.simple,com.vividsolutions.jts.io,com.vividsolutions.jts.geom,org.opengis.feature.type,org.geotools.data.simple,org.opengis.feature,org.opengis.filter.sort,org.opengis.filter.expression,org.geotools.factory,org.geotools.data.collection,org.geotools.data'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.feature.type'/>
+      <p n='uses' v='org.opengis.feature.simple,org.geotools.feature.simple,org.geotools.util.logging,org.opengis.feature.type,org.geotools.util,org.opengis.filter,org.opengis.util,org.geotools.resources,org.geotools.feature,org.opengis.feature,org.opengis.referencing.crs,org.opengis.filter.identity'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.styling'/>
+      <p n='uses' v='org.opengis.filter.expression,org.geotools.factory,javax.measure.unit,org.opengis.filter,javax.measure.quantity,org.opengis.style,org.geotools.filter,org.geotools.util,org.geotools.util.logging,org.opengis.util,org.opengis.metadata.citation,javax.swing,org.geotools.feature,org.opengis.feature.type,org.geotools.filter.visitor,org.geotools.styling.visitor,org.opengis.feature.simple,com.vividsolutions.jts.geom,org.geotools.data,org.opengis.feature,org.w3c.dom,org.geotools.feature.simple,org.geotools.data.memory,org.opengis.referencing.crs,org.geotools.referencing,javax.xml.parsers,org.geotools.resources.i18n,org.xml.sax,org.geotools.xml.transform,org.geotools.gml.producer,org.geotools.data.simple,org.xml.sax.helpers,org.opengis.referencing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.buffer.validate'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.operation.distance,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.algorithm.distance,com.vividsolutions.jts.io'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.text.ecql'/>
+      <p n='uses' v='org.geotools.filter.text.cql2,org.opengis.filter.expression,org.opengis.filter,org.geotools.filter.text.commons,org.geotools.filter,org.opengis.filter.identity,org.geotools.filter.text.generated.parsers,com.vividsolutions.jts.geom,org.opengis.filter.spatial'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.io'/>
+      <p n='uses' v='javax.swing.filechooser,org.geotools.util,org.geotools.resources,org.geotools.resources.i18n'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.ows'/>
+      <p n='uses' v='org.xml.sax'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.io.gml2'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,org.xml.sax.helpers,org.xml.sax,javax.xml.parsers,com.vividsolutions.jts.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.constraint'/>
+      <p n='uses' v='org.opengis.metadata.constraint,org.geotools.metadata.iso,org.opengis.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai'/>
+      <p n='uses' v='com.sun.media.jai.util,javax.media.jai.util,javax.media.jai.registry,javax.media.jai.remote,javax.media.jai.tilecodec,javax.media.jai.iterator,com.sun.media.jai.rmi'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile.indexed'/>
+      <p n='uses' v='org.geotools.index,org.geotools.util.logging,org.geotools.data.shapefile,org.geotools.data.shapefile.shp,org.geotools.resources,org.geotools.data,org.geotools.renderer,com.vividsolutions.jts.geom,org.geotools.data.shapefile.dbf,org.opengis.feature.type,org.opengis.filter.identity,org.geotools.geometry.jts,org.geotools.util,org.geotools.index.quadtree.fs,org.opengis.feature,org.opengis.util,org.geotools.filter.visitor,org.opengis.feature.simple,org.geotools.feature,org.opengis.filter,org.geotools.index.quadtree,org.geotools.filter,org.geotools.feature.simple,org.geotools.factory,org.geotools.feature.visitor,org.opengis.referencing.crs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.feature'/>
+      <p n='uses' v='org.geotools.feature.simple,org.opengis.feature.simple,org.opengis.filter.identity,org.opengis.geometry.coordinate,org.geotools.factory,org.opengis.filter,org.opengis.referencing.crs,org.opengis.feature.type,org.opengis.feature,org.geotools.feature.type,org.geotools.util,org.geotools.resources,org.geotools.filter,org.opengis.util,org.opengis.filter.expression,com.vividsolutions.jts.geom,org.geotools.data,org.opengis.geometry,org.geotools.data.simple,org.geotools.geometry.jts,org.opengis.filter.sort,org.geotools.feature.collection,org.geotools.util.logging,org.opengis.referencing.operation,javax.xml.namespace'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.geometry.primitive'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.geometry.coordinate,org.opengis.util,org.opengis.geometry.complex,org.opengis.geometry,org.opengis.referencing.crs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.filter.spatial'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.filter.expression,org.opengis.filter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.operation.projection'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.geotools.metadata.iso.citation,org.opengis.referencing.operation,org.geotools.resources.i18n,org.opengis.util,org.geotools.referencing,org.opengis.referencing,org.opengis.parameter,org.geotools.measure,javax.measure.unit,org.geotools.referencing.operation.transform,org.geotools.util,org.geotools.referencing.operation,org.geotools.math,org.geotools.util.logging,org.geotools.parameter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.relate'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geomgraph,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.util,com.vividsolutions.jts.geomgraph.index,com.vividsolutions.jts.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data'/>
+      <p n='uses' v='org.geotools.factory,org.opengis.filter,org.opengis.referencing.crs,org.opengis.filter.sort,org.opengis.feature.type,org.opengis.feature.simple,org.geotools.data.simple,org.geotools.geometry.jts,org.opengis.feature,org.geotools.util.logging,org.geotools.feature,org.geotools.parameter,org.opengis.parameter,org.opengis.filter.identity,com.vividsolutions.jts.geom,org.opengis.geometry,org.geotools.data.store,org.geotools.filter.identity,org.geotools.util,org.opengis.util,javax.imageio.spi,org.geotools.feature.simple,org.opengis.filter.expression,org.geotools.feature.type,org.geotools.metadata.iso.citation,org.geotools.filter.visitor,org.opengis.coverage.grid,org.geotools.filter,org.opengis.metadata.citation,org.geotools.resources.i18n,org.geotools.data.collection,org.geotools.data.view,org.geotools.referencing,org.opengis.referencing,org.geotools.data.crs,org.opengis.referencing.operation,com.vividsolutions.jts.index.quadtree,com.vividsolutions.jts.index,org.opengis.filter.spatial,javax.swing.event,org.geotools.resources,org.geotools.referencing.operation.transform,org.geotools.referencing.operation.matrix,org.geotools.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.maintenance'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.util,org.opengis.temporal,org.opengis.metadata.citation,org.opengis.feature.type'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter'/>
+      <p n='uses' v='org.opengis.feature.simple,org.geotools.util.logging,org.opengis.filter,org.opengis.filter.expression,com.vividsolutions.jts.geom,org.geotools.util,org.geotools.filter.expression,org.geotools.factory,org.xml.sax.helpers,org.opengis.feature.type,org.geotools.geometry.jts,org.opengis.referencing.crs,org.geotools.filter.capability,org.opengis.filter.capability,org.opengis.filter.spatial,org.geotools.filter.visitor,org.w3c.dom,org.xml.sax,org.opengis.filter.identity,org.opengis.feature,org.opengis.geometry,org.geotools.filter.spatial,org.opengis.filter.sort,org.geotools.filter.identity,org.geotools.referencing,org.geotools.gml,org.geotools.xml.transform,org.geotools.gml.producer,javax.xml.transform,org.geotools.feature'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.geom.prep'/>
+      <p n='uses' v='com.vividsolutions.jts.noding,com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.algorithm.locate,com.vividsolutions.jts.operation.predicate'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.function.math'/>
+      <p n='uses' v='org.geotools.filter,org.opengis.filter.expression'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.operation.distance'/>
+      <p n='uses' v='com.vividsolutions.jts.operation.distance,com.vividsolutions.jts.io,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.registry'/>
+      <p n='uses' v='javax.media.jai,javax.media.jai.util,com.sun.media.jai.util,javax.media.jai.remote,javax.media.jai.tilecodec'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.index'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,org.geotools.index.quadtree,org.geotools.data.shapefile.shp'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jtsexample.io.gml2'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.io.gml2,org.xml.sax.helpers,org.xml.sax,org.apache.xerces.parsers'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.parameter'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.referencing,org.opengis.util,javax.measure.unit'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.geometry.jts.coordinatesequence'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.algorithm,com.vividsolutions.jts.geom.impl,org.opengis.geometry,org.opengis.referencing.crs,org.geotools.geometry.jts,org.opengis.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.util'/>
+      <p n='uses' v='org.geotools.resources.i18n,org.opengis.util,org.geotools.factory,org.geotools.resources,org.geotools.util.logging,javax.imageio.spi,javax.measure.converter,javax.measure.unit,javax.measure.quantity,com.vividsolutions.jts.io,com.vividsolutions.jts.geom,org.opengis.referencing.crs,org.opengis.metadata,org.opengis.metadata.citation,org.geotools.metadata.iso.citation,javax.xml.datatype'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.expression'/>
+      <p n='uses' v='org.opengis.filter.expression,org.geotools.util,org.geotools.filter,org.opengis.feature.type,org.opengis.feature,org.geotools.factory,org.opengis.feature.simple,org.xml.sax.helpers,org.geotools.feature,com.vividsolutions.jts.geom'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.util'/>
+      <p n='uses' v='com.sun.media.jai.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.feature.simple'/>
+      <p n='uses' v='org.opengis.feature.type,org.opengis.feature'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.geometry.coordinatesequence'/>
+      <p n='uses' v='org.geotools.geometry.jts.coordinatesequence'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.operation.linemerge'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.planargraph,com.vividsolutions.jts.util,com.vividsolutions.jts.planargraph.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.filter.identity'/>
+      <p n='uses' v='org.opengis.filter.identity,org.opengis.feature'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.geometry.coordinate'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.geometry,org.opengis.geometry.primitive,org.opengis.util,org.opengis.geometry.aggregate,org.opengis.referencing.crs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.util'/>
+      <p n='uses' v='javax.media.jai,javax.media.jai.util,javax.media.jai.remote'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.metadata.iso.content'/>
+      <p n='uses' v='org.opengis.metadata.content,javax.measure.unit,org.geotools.metadata.iso,org.opengis.util,org.opengis.metadata.citation,org.opengis.metadata'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.coverage.grid'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.parameter,org.opengis.util,org.opengis.coverage,org.opengis.referencing.operation'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.algorithm'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.util,com.vividsolutions.jts.io,com.vividsolutions.jts.index.chain,com.vividsolutions.jts.index.bintree'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.sun.media.jai.widget'/>
+      <p n='uses' v='javax.swing'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.tilecodec'/>
+      <p n='uses' v='javax.media.jai,javax.media.jai.util,com.sun.media.jai.util,javax.media.jai.remote,com.sun.media.jai.tilecodec'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.referencing.operation.builder'/>
+      <p n='uses' v='org.geotools.referencing.operation.transform,org.geotools.referencing.operation.matrix,org.opengis.referencing.operation,javax.vecmath,org.opengis.geometry,org.geotools.referencing.operation,org.opengis.referencing,org.opengis.referencing.cs,org.opengis.referencing.datum,org.geotools.referencing.datum,org.geotools.geometry,org.geotools.util,org.geotools.resources.i18n,org.opengis.referencing.crs,org.opengis.coverage.grid,org.opengis.metadata.citation,org.geotools.metadata.iso.citation,org.geotools.referencing,org.opengis.parameter,org.geotools.util.logging,org.geotools.io,org.geotools.metadata,org.geotools.metadata.iso.extent,org.geotools.metadata.iso.quality,org.opengis.util,javax.measure.unit,org.geotools.resources,org.opengis.metadata.quality,org.geotools.math,org.opengis.metadata.extent,org.geotools.factory,org.geotools.referencing.cs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.simplify'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geom.util,com.vividsolutions.jts.index.quadtree,com.vividsolutions.jts.index,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.gml.producer'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.impl,com.vividsolutions.jts.geom,org.xml.sax.helpers,org.xml.sax,org.geotools.geometry.jts,org.geotools.data.simple,org.geotools.feature.type,org.opengis.filter.identity,org.opengis.feature,org.opengis.feature.simple,org.opengis.referencing.cs,org.geotools.xml.transform,org.geotools.feature,org.opengis.geometry,org.opengis.referencing.crs,org.opengis.feature.type,org.geotools.data,org.geotools.util.logging,org.geotools.filter,org.opengis.filter.expression,org.opengis.filter'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.simple'/>
+      <p n='uses' v='org.opengis.feature.simple,org.geotools.feature,org.geotools.data.collection,org.opengis.feature.type,org.geotools.data,org.opengis.filter,org.opengis.filter.sort'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.distribution'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.opengis.annotation,org.opengis.util,javax.measure.unit'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.algorithm.locate'/>
+      <p n='uses' v='com.vividsolutions.jts.geom.util,com.vividsolutions.jts.index.intervalrtree,com.vividsolutions.jts.geom,com.vividsolutions.jts.index,com.vividsolutions.jts.algorithm'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='javax.media.jai.operator'/>
+      <p n='uses' v='javax.media.jai,com.sun.media.jai.util,javax.media.jai.util'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.shapefile.dbf'/>
+      <p n='uses' v='org.geotools.data,org.geotools.resources,org.geotools.util.logging,org.geotools.data.shapefile'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.identification'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.opengis.annotation,org.opengis.metadata,org.opengis.util,org.opengis.metadata.spatial,org.opengis.metadata.extent,org.opengis.metadata.maintenance,org.opengis.metadata.distribution,org.opengis.metadata.constraint'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.extent'/>
+      <p n='uses' v='org.opengis.geometry,org.opengis.annotation,org.opengis.util,org.opengis.metadata,org.opengis.temporal,org.opengis.referencing.crs'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.math'/>
+      <p n='uses' v='org.opengis.util,javax.vecmath,org.geotools.resources,org.geotools.io,org.geotools.resources.i18n'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.metadata.content'/>
+      <p n='uses' v='javax.measure.unit,javax.measure.quantity,org.opengis.annotation,org.opengis.util,org.opengis.metadata.citation,org.opengis.metadata'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.vividsolutions.jts.index.chain'/>
+      <p n='uses' v='com.vividsolutions.jts.geom,com.vividsolutions.jts.geomgraph'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.geotools.data.collection'/>
+      <p n='uses' v='org.geotools.geometry.jts,org.opengis.feature.simple,org.geotools.feature,org.geotools.data,org.geotools.data.simple,org.opengis.feature,org.opengis.filter,com.vividsolutions.jts.geom,org.opengis.referencing.crs,org.opengis.feature.type,org.opengis.filter.sort,org.geotools.feature.collection,org.geotools.data.store,org.geotools.feature.simple,org.opengis.geometry,com.vividsolutions.jts.index,org.opengis.util,org.geotools.util,com.vividsolutions.jts.index.strtree,org.geotools.util.logging,org.geotools.factory,org.opengis.filter.expression,org.opengis.filter.spatial'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.filter.capability'/>
+      <p n='uses' v='org.opengis.annotation,org.opengis.feature.type'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.opengis.referencing'/>
+      <p n='uses' v='org.opengis.metadata.citation,org.opengis.annotation,org.opengis.util,org.opengis.metadata,org.opengis.metadata.extent'/>
+      <p n='version' t='version' v='2.7.4'/>
+    </capability>
+    <require extend='false' filter='(&amp;(package=javax.imageio.spi)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.imageio.spi
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.naming)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.naming
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.sql)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.sql
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.swing
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing.border)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.swing.border
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing.event)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.swing.event
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing.filechooser)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.swing.filechooser
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing.tree)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.swing.tree
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.datatype)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.xml.datatype
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.namespace)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.xml.namespace
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.parsers)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.xml.parsers
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.transform)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.xml.transform
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.transform.sax)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.xml.transform.sax
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.transform.stream)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package javax.xml.transform.stream
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.commons.logging)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.apache.commons.logging
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.commons.logging.impl)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.apache.commons.logging.impl
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.commons.pool)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.apache.commons.pool
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.commons.pool.impl)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.apache.commons.pool.impl
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.log4j)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.apache.log4j
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.xerces.parsers)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.apache.xerces.parsers
+    </require>
+    <require extend='false' filter='(&amp;(package=org.jdom)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.jdom
+    </require>
+    <require extend='false' filter='(&amp;(package=org.jdom.input)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.jdom.input
+    </require>
+    <require extend='false' filter='(&amp;(package=org.w3c.dom)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.w3c.dom
+    </require>
+    <require extend='false' filter='(&amp;(package=org.xml.sax)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.xml.sax
+    </require>
+    <require extend='false' filter='(&amp;(package=org.xml.sax.ext)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.xml.sax.ext
+    </require>
+    <require extend='false' filter='(&amp;(package=org.xml.sax.helpers)(version&gt;=0.0.0))' multiple='false' name='package' optional='false'>
+      Import package org.xml.sax.helpers
     </require>
   </resource>
   <resource id='org.mockito.mockito-all/1.8.5' presentationname='Mockito Mock Library for Java. Hamcrest-core &amp; Objenesis included in the bundle.' symbolicname='org.mockito.mockito-all' uri='org.mockito.mockito-all/org.mockito.mockito-all-1.8.5.jar' version='1.8.5'>

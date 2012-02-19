@@ -52,6 +52,11 @@ public class TcxFormat implements Format {
 	public ActivityReader createReader() {
 		return new TcxActivityReader();
 	}
+	
+	@Override
+	public boolean canWrite() {
+		return true;
+	}
 
 	@Override
 	public ActivityWriter createWriter() {

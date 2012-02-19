@@ -89,7 +89,7 @@ public class Launcher {
 		}
 		
 		for (Bundle bundle : bundleContext.getBundles()) {
-			if (bundle.getState() != Bundle.ACTIVE) {
+			if (bundle.getState() != Bundle.ACTIVE && bundle.getHeaders().get(Constants.FRAGMENT_HOST) == null) {
 		    	System.out.println("... starting " + bundle.getSymbolicName());
 		    	bundle.start();
 			}
@@ -155,7 +155,7 @@ public class Launcher {
     		Iterator<Bundle> bundlesIt = bundles.iterator();
     		while (bundlesIt.hasNext()) {
     			Bundle next = bundlesIt.next();
-    			if (next.getState() == Bundle.ACTIVE) {
+    			if (next.getState() == Bundle.ACTIVE || next.getHeaders().get(Constants.FRAGMENT_HOST) != null) {
     				bundlesIt.remove();
     			}
     		}

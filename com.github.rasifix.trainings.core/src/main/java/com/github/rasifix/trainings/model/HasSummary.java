@@ -1,5 +1,7 @@
 package com.github.rasifix.trainings.model;
 
+import java.util.List;
+
 import com.github.rasifix.trainings.model.attr.AttributeSummary;
 
 public interface HasSummary {
@@ -31,5 +33,12 @@ public interface HasSummary {
 	Double getSpeed();
 	
 	<T extends AttributeSummary<T>> T getSummary(AttributeSummaryBuilder<T> builder);
+
+	/**
+	 * Gets a list of place names that this activity visited.
+	 * 
+	 * @return the visited places
+	 */
+	List<String> getPlaces();
 	
 }

@@ -45,10 +45,17 @@ public class TotalsCommand implements Command {
 
 	@Override
 	public Object execute(CommandContext context) throws IOException {
+		/*
+		 * repo:totals this month
+		 * repo:totals last 4 weeks
+		 * repo:totals RUNNING this month
+		 */
+		
 		if (context.getArguments().length < 2) {
 			System.out.println("usage: repo:totals [start-date|last|this] [week|month|year]");
 			return context.getCurrent();
 		}
+		
 		TimePeriod period = TimePeriod.valueOf(context.getArguments()[1].toUpperCase());
 		
 		String spec = context.getArguments()[0];

@@ -21,6 +21,11 @@ public class FitFormat implements Format {
 	}
 	
 	@Override
+	public boolean canWrite() {
+		return false;
+	}
+	
+	@Override
 	public ActivityWriter createWriter() {
 		throw new UnsupportedOperationException();
 	}

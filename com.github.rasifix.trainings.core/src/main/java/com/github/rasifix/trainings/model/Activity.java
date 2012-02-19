@@ -125,6 +125,24 @@ public class Activity implements HasSummary {
 		return result;
 	}
 	
+	@Override
+	public List<String> getPlaces() {
+		LinkedList<String> result = new LinkedList<String>();
+		for (Track track : tracks) {
+			List<String> places = track.getPlaces();
+			if (places.isEmpty()) {
+				// skip
+			} else if (result.isEmpty()) {
+				result.addAll(places);
+			} else if (result.getLast().equals(places.get(0))) {
+				result.addAll(places.subList(1, places.size()));
+			} else {
+				result.addAll(places);
+			}
+		}
+		return result;
+	}
+	
 	// --> end of HasSummary <--
 
 	@Deprecated

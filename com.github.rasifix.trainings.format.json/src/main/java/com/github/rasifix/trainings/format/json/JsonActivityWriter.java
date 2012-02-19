@@ -40,6 +40,7 @@ import com.github.rasifix.trainings.model.attr.AvgMaxSummary;
 import com.github.rasifix.trainings.model.attr.CadenceAttribute;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
 import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
+import com.github.rasifix.trainings.model.attr.PlaceNameAttribute;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
 import com.github.rasifix.trainings.model.attr.PowerAttribute;
 import com.github.rasifix.trainings.model.attr.SpeedAttribute;
@@ -112,6 +113,16 @@ public class JsonActivityWriter implements ActivityWriter {
 		
 		if (summary.getSpeed() != null) {
 			writer.member("speed", summary.getSpeed(), SPEED_PRECISION);
+		}
+		
+		if (!summary.getPlaces().isEmpty()) {
+			writer.startMember("places");
+			writer.startArray();
+			for (String place : summary.getPlaces()) {
+				writer.value(place);
+			}
+			writer.endArray();
+			writer.endMember();
 		}
 
 		AvgMaxSummary hrSummary = summary.getSummary(HeartRateAttribute.getDefaultSummaryBuilder());
@@ -195,7 +206,7 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.startMember("trackpoints");
 		writer.startArray();
 		for (final Trackpoint trackpoint : track.getTrackpoints()) {
-			output(writer, trackpoint);
+			outputTrackpoint(writer, trackpoint);
 		}
 		writer.endArray();
 		writer.endMember();
@@ -203,7 +214,7 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.endObject();
 	}
 
-	private void output(final JsonOutputHandler writer, final Trackpoint trackpoint) {
+	private void outputTrackpoint(final JsonOutputHandler writer, final Trackpoint trackpoint) {
 		writer.startObject();
 		
 		writer.member("elapsed", trackpoint.getElapsedTime());
@@ -244,6 +255,11 @@ public class JsonActivityWriter implements ActivityWriter {
 		if (trackpoint.hasAttribute(CadenceAttribute.class)) {
 			Integer cadence = trackpoint.getAttribute(CadenceAttribute.class).getValue();
 			writer.member("cadence", cadence);
+		}
+		
+		if (trackpoint.hasAttribute(PlaceNameAttribute.class)) {
+			String placeName = trackpoint.getAttribute(PlaceNameAttribute.class).getValue();
+			writer.member("place", placeName);
 		}
 		
 		writer.endObject();

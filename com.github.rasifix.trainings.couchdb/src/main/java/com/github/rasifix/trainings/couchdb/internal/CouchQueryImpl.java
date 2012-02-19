@@ -34,6 +34,9 @@ class CouchQueryImpl implements CouchQuery {
 	private String endKey;
 	private String key;
 	private boolean descending;
+	private Boolean reduce;
+	private Integer limit;
+	private Integer skip;
 
 	CouchQueryImpl(CouchDatabaseImpl database, String designDocumentName, String viewName) {
 		this.database = database;
@@ -54,23 +57,45 @@ class CouchQueryImpl implements CouchQuery {
 	}
 	
 	@Override
-	public void key(String key) {
+	public CouchQuery key(String key) {
 		this.key = key;
+		return this;
 	}
 	
 	@Override
-	public void setStartKey(String startKey) {
+	public CouchQuery setStartKey(String startKey) {
 		this.startKey = startKey;
+		return this;
 	}
 
 	@Override
-	public void setEndKey(String endKey) {
+	public CouchQuery setEndKey(String endKey) {
 		this.endKey = endKey;
+		return this;
 	}
 	
 	@Override
-	public void descending() {
+	public CouchQuery descending() {
 		this.descending = true;
+		return this;
+	}
+	
+	@Override
+	public CouchQuery reduce(boolean reduce) {
+		this.reduce = Boolean.valueOf(reduce);
+		return this;
+	}
+	
+	@Override
+	public CouchQuery limit(int limit) {
+		this.limit = Integer.valueOf(limit);
+		return this;
+	}
+	
+	@Override
+	public CouchQuery skip(int skip) {
+		this.skip = Integer.valueOf(skip);
+		return this;
 	}
 
 	@Override
@@ -89,6 +114,15 @@ class CouchQueryImpl implements CouchQuery {
 		}
 		if (descending) {
 			qparams.add(new BasicNameValuePair("descending", "true"));
+		}
+		if (reduce != null) {
+			qparams.add(new BasicNameValuePair("reduce", reduce.toString()));
+		}
+		if (limit != null) {
+			qparams.add(new BasicNameValuePair("limit", limit.toString()));
+		}
+		if (skip != null) {
+			qparams.add(new BasicNameValuePair("skip", skip.toString()));
 		}
 		
 		try {
