@@ -56,7 +56,7 @@ public class TcxActivityWriter implements ActivityWriter {
 			TcxLap tcxLap = new TcxLap(track.getStartTime());
 			tcxLap.setDistance(track.getDistance());
 			tcxLap.setIntensity(Intensity.Active);
-			tcxLap.setTotalTime(track.getTotalTimeInSeconds());
+			tcxLap.setTotalTime(track.getDuration());
 			tcxLap.setAverageHeartRate(track.getAverageHeartRate().intValue());
 			
 			tcxActivity.addLap(tcxLap);

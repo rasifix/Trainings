@@ -31,13 +31,13 @@ public class SummaryCommand implements Command {
 		if (current instanceof Activity) {
 			Activity activity = (Activity) current;
 			System.out.println(format(activity.getStartTime()) + " " + activity.getSport());
-			System.out.println("total time     = " + activity.getTotalTime());
-			System.out.println("total distance = " + activity.getTotalDistance());
+			System.out.println("total time     = " + activity.getDuration());
+			System.out.println("total distance = " + activity.getDistance());
 			System.out.println();
 			System.out.println(pluralize(activity.getTrackCount(), "track", "tracks"));
 			for (Track track : activity.getTracks()) {
 				System.out.println(format(track.getStartTime()) + " " + track.getSport());
-				System.out.println("total time     = " + track.getTotalTimeInSeconds());
+				System.out.println("total time     = " + track.getDuration());
 				System.out.println("total distance = " + track.getDistance());
 				int tpWithoutSpeed = 0;
 				for (Trackpoint trackpoint : track.getTrackpoints()) {

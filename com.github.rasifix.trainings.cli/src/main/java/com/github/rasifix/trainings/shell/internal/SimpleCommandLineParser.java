@@ -86,6 +86,7 @@ public class SimpleCommandLineParser implements CommandLineParser {
 		case ')':
 		case '[':
 		case '~':
+		case '*':
 		case ']':
 			return true;
 		}

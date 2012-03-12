@@ -136,16 +136,6 @@ public class Track implements HasSummary {
 	
 	// --> end of HasSummary <--
 	
-	@Deprecated
-	public double getTotalTimeInSeconds() {
-		if (trackpoints.size() >= 2) {
-			final Trackpoint first = trackpoints.get(0);
-			final Trackpoint last = trackpoints.get(trackpoints.size() - 1);
-			return delta(last.getTime(), first.getTime());
-		}
-		return 0.0;
-	}
-	
 	public Double getAverageHeartRate() {
 		if (trackpoints.size() <= 1) {
 			return null;
@@ -164,7 +154,7 @@ public class Track implements HasSummary {
 			}
 		} 
 		
-		return hasHr ? result / getTotalTimeInSeconds() : null;
+		return hasHr ? result / getDuration() : null;
 	}
 	
 	private static double delta(Date current, Date last) {

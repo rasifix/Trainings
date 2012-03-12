@@ -1,0 +1,54 @@
+<h3>Recent Activities</h3>
+  <a href="#">Previous</a>
+  <table class="table table-bordered table-condensed">
+    <tr>
+      <th>Sport</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Distance</th>
+      <th>&empty; Speed / Pace</th>
+      <th>&empty; HR</th>
+      <th>Altitude Gain / Loss</th>
+    </tr>
+  {{#activities}}
+    <tr>
+	  <td>{{sport}}</td>
+	  <td>{{date}}</td>
+	  <td>{{totalTime}}</td>
+	  <td>{{distance}}m</td>
+	  <td>{{speed}}</td>
+	  <td>{{hr}}</td>
+	  <td>+{{altGain}} / -{{altLoss}}</td>
+	</tr>
+  {{/activities}}
+  </table>
+
+<!--          <table class="table table-bordered table-condensed table-striped">
+            <tr>
+              <th>Sport</th>
+              <th>Date</th>
+              <th>Duration</th>
+              <th>Distance</th>
+              <th>&empty; Speed / Pace</th>
+              <th>&empty; HR</th>
+              <th>Altitude Gain / Loss</th>
+            </tr>
+            <tr>
+              <td>RUNNING</td>
+              <td>2012-01-01 18:43</td>
+              <td>00:48:13</td>
+              <td>8.6km</td>
+              <td>05:58</td>
+              <td>146</td>
+              <td>+152 / -150</td>
+            </tr>
+            <tr>
+              <td>RUNNING</td>
+              <td>2012-01-02 12:15</td>
+              <td>00:40:01</td>
+              <td>8.3km</td>
+              <td>05:32</td>
+              <td>151</td>
+              <td>+100 / -110</td>
+            </tr>
+          </table>-->

@@ -1,5 +1,6 @@
 package com.github.rasifix.trainings.format.fit.internal;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -98,6 +99,7 @@ public class FitReader implements ActivityReader {
 				if (it.hasNext()) {
 					Trackpoint first = it.next();
 					double startDistance = first.getAttribute(DistanceAttribute.class).getValue();
+					first.addAttribute(new DistanceAttribute(0));
 					while (it.hasNext()) {
 						Trackpoint next = it.next();
 						double distance = next.getAttribute(DistanceAttribute.class).getValue();

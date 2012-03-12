@@ -144,24 +144,6 @@ public class Activity implements HasSummary {
 	}
 	
 	// --> end of HasSummary <--
-
-	@Deprecated
-	public long getTotalTime() {
-		int result = 0;
-		for (Track track : tracks) {
-			result += track.getTotalTimeInSeconds();
-		}
-		return result;
-	}
-
-	@Deprecated
-	public Integer getTotalDistance() {
-		int result = 0;
-		for (Track track : tracks) {
-			result += track.getDistance();
-		}
-		return result;
-	}
 	
 	public void addTrack(Track track) {
 		if (track.getActivity() != null) {

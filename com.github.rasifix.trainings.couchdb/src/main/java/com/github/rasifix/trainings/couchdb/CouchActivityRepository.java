@@ -57,7 +57,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	@Override
 	public List<ActivityOverview> findActivities(Date startDate, Date endDate) throws IOException {
 		CouchDatabase db = server.getDatabase("trainings");
-		CouchQuery view = db.createQuery("trainings", "overview");
+		CouchQuery view = db.createQuery("app", "overview");
 		if (startDate != null) {
 			view.setStartKey(format(startDate));
 		}
@@ -137,7 +137,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	}
 
 	private static String format(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
 	}
 
 	private Document toDocument(Activity activity) {
@@ -211,7 +211,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	@Override
 	public List<Equipment> getAllEquipments() throws IOException {
 		CouchDatabase db = server.getDatabase("trainings");
-		CouchQuery view = db.createQuery("trainings", "equipments");
+		CouchQuery view = db.createQuery("app", "equipments");
 		return view.query(new RowMapper<Equipment>() {
 			@Override
 			public Equipment mapRow(String id, Object key, Object value) {

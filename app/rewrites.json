@@ -1,0 +1,6 @@
+[
+	{
+		"from" : "activity/:id",
+		"to" : "_show/activity/:id"
+	}
+]

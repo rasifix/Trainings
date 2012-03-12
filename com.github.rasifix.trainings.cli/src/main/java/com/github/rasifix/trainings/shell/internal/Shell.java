@@ -1,9 +1,11 @@
 package com.github.rasifix.trainings.shell.internal;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +27,10 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	private String[] arguments;
 
 	private Object current;
+
+	private ConsoleReader reader;
+
+	private String wdir = ".";
 	
 	@Reference(unbind="unregisterCommand", dynamic=true, multiple=true, optional=true)
 	public void registerCommand(Command command) {
@@ -75,6 +81,11 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	}
 	
 	@Override
+	public void setCurrent(Object current) {
+		this.current = current;
+	}
+	
+	@Override
 	public String getArgument(int idx) {
 		return arguments[idx];
 	}
@@ -85,10 +96,42 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	}
 	
 	@Override
+	public void execute(String line) throws IOException {
+		CommandLineParser parser = new SimpleCommandLineParser();
+		String[] parts = parser.split(line);
+		if (parts.length == 0) {
+			return;
+		}
+		
+		String commandName = parts[0]; 
+
+		Command command = getCommand(commandName);
+		if (command == null) {
+			reader.printString("invalid command '" + commandName + "'");
+			reader.printNewline();
+			return;
+		}
+		
+		try {
+			arguments = Arrays.asList(parts).subList(1, parts.length).toArray(new String[0]);
+			current = command.execute((CommandContext) this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public List<File> resolveFiles(String fileName) {
+		FileNameResolver resolver = new FileNameResolver(new File(wdir));
+		return resolver.resolveFiles(fileName);
+	}
+	
+	@Override
 	public void start(String[] args) {
 		try {
 			PrintWriter debug = new PrintWriter(new File("console.log"));
-			ConsoleReader reader = new ConsoleReader();
+			System.setProperty("file.encoding", "UTF-8");
+			reader = new ConsoleReader();
 			reader.setDebug(debug);
 			reader.addCompletor(new CommandCompletor(this));
 			
@@ -98,32 +141,7 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 					break;
 				}
 
-				CommandLineParser parser = new SimpleCommandLineParser();
-				String[] parts = parser.split(line);
-				if (parts.length == 0) {
-					continue;
-				}
-				
-				String commandName = parts[0]; 
-				reader.printString("executing " + commandName);
-				reader.printNewline();
-
-				Command command = getCommand(commandName);
-				if (command == null) {
-					reader.printString("invalid command '" + commandName + "'");
-					reader.printNewline();
-					continue;
-				}
-				
-				reader.printString("command class = " + command.getClass().getName());
-				reader.printNewline();
-				
-				try {
-					arguments = Arrays.asList(parts).subList(1, parts.length).toArray(new String[0]);
-					current = command.execute((CommandContext) this);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				execute(line);
 			}
 
 			debug.close();
