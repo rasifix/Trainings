@@ -32,6 +32,7 @@ import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Equipment;
 import com.github.rasifix.trainings.model.HasSummary;
+import com.github.rasifix.trainings.model.LapPoint;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
@@ -218,6 +219,10 @@ public class JsonActivityWriter implements ActivityWriter {
 		writer.startObject();
 		
 		writer.member("elapsed", trackpoint.getElapsedTime());
+		
+		if (trackpoint instanceof LapPoint) {
+			writer.member("type", "lappoint");
+		}
 		
 		if (trackpoint.hasAttribute(PositionAttribute.class)) {
 			writer.startMember("pos");

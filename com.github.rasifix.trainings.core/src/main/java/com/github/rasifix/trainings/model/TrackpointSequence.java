@@ -43,9 +43,5 @@ public interface TrackpointSequence extends List<Trackpoint> {
 	 *        with the specified attribute
 	 */
 	TrackpointSequence select(Class<? extends TrackpointAttribute> attribute);
-	
-	// 1 2 3 4 5 6 7 8  elapsed time
-	// x x - - - x - x  (x = attribute present, - = attribute missing)
-	//           '
-	//           for how long is this heart rate relevant?
+
 }

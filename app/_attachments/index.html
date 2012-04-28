@@ -1,29 +1,348 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My New CouchApp</title>
-    <link rel="stylesheet" href="style/main.css" type="text/css">
-  </head>
-  <body>
-    <div id="account"></div>
+	<head>
+		<title>Trainings on Ember.js</title>
+		<style type="text/css">
+			body {
+				font-family: Verdana;
+				font-size: 12px;
+				height: 100%;
+				background-color: #eee;
+			}
+			
+			#main {
 
-    <h1>Generated CouchApp</h1>
+			}
+			
+			.float {
+				position: fixed;
+				left: 0px;
+				right: 0px;
+				top: 0px;
+				width: 100%;
+				height: 30px;
+				background-color: black;
+				z-index: 1000000000;
+				box-shadow: 0px 1px 1px #aaa;
+			}
+			
+			.navbar {
+				margin-left: auto;
+				margin-right: auto;
+				width: 1000px;
+				color: white;
+				font-weight: bold;
+				height: 100%;
+			}
+			
+			ul.nav {
+				width: 100%;
+				float: left;
+				margin: 0 0 3em 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			ul.nav li {
+				float: left;
+				padding: 7px;
+			}
+			
+			ul.nav li.active {
+				background-color: #444;
+			}
+			
+			ul.nav li a {
+				text-decoration: none;
+				color: #fff;
+				font-weight: bold;
+			}
+			
+			div.container {
+				background: white;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 40px;
+				width: 1000px;
+				padding: 10px;
+				border-radius: 10px;
+				border: 1px solid black;
+			}
+			
+			table {
+				border-collapse: collapse;
+				left:0px;
+				right:0px;
+				width: auto;
+			}
+			td, th {
+				margin:3px;
+				padding: 5px;
+			}
+			
+			table.striped tr:nth-child(even) { 
+				background: #CCC;
+			}
+			
+			table.striped tr:nth-child(odd) { 
+				background: #FFF;
+				padding: 5px;
+			}
+			
+			table.striped tr:hover {
+				background: #DEF !important;
+			}
+			
+			#map {
+				width: 770px;
+				height: 500px;
+			}
+			
+			#graph {
+				width: 770px;
+				height: 200px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			#legend {
+				height: 20px;
+			}
+			
+			#attic {
+				display: none;
+			}
+			
+			h2.title {
+				margin: 0px;
+				font-size: 14px;
+				padding: 0px;
+				background-image: -webkit-linear-gradient(top, white, #aaa);
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+				background-color : white; 
+				padding : 5px;
+			}
+			
+			.inner {
+				margin-left: auto;
+				margin-right: auto;
+				width: 1000px;
+			}
+			
+			.smallbox {
+				border: 1px solid #888;
+				border-radius: 10px;
+				margin-left: 5px;
+				margin-bottom: 5px;
+				//padding: 5px;
+				min-height: 100px;
+				box-shadow: 1px 1px 1px #aaa;
+				background: white;
+			}
+			
+			.largebox {
+				border: 1px solid #888;
+				border-radius: 10px;
+				margin-left: 5px;
+				margin-bottom: 5px;
+				padding: 5px;
+				box-shadow: 1px 1px 1px #aaa;
+				background: white;
+				width: 770px;
+				height: auto;
+			}
+			
+			th {
+				text-align: left;
+			}
+			
+			.dygraph-axis-label-x {
+				font-size: 10px;
+			}
 
-    <div id="profile"></div>
-    <div id="items"></div>
+		</style>
+		<script src="assets/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/_utils/script/jquery.couch.js" type="text/javascript"></script>
+	    <script src="assets/js/ember-0.9.6.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+		<script src="assets/js/dygraph-dev.js"></script>
+	    <script src="assets/js/main.js" type="text/javascript" charset="utf-8"></script>
+	
+		<script type="text/x-handlebars" data-template-name="activity-list">
+		<div class="container">
+		<table border="0" style="width:100%">
+		  <tr>
+		    <td width="10px">
+		      <a href="#" onclick="Trainings.activityListController.previous(); return false">&lt;</a>
+		    </td>
+		    <td width="980px" align="center">
+			  <span style="font-weight: bold; font-size: 15px">{{monthAndYear}}</span>
+		    </td>
+		    <td width="10px">
+			  <a href="#" onclick="Trainings.activityListController.next(); return false">&gt;</a>
+		    </td>
+		  </tr>
+		</table>
+		{{#if loading}}
+		    loading activities ...
+		{{else}}
+			<table border="0" class="striped" style="width:100%">
+				{{#each activities}}
+				<tr onclick="Trainings.showActivity('{{unbound id}}')">
+					<td>{{date}}</td>
+					<td>{{sport}}</td>
+					<td>{{duration}}</td>
+					<td>{{distance}}</td>
+					<td>{{speed}}</td>
+					<td>{{#if avgHr}}{{avgHr}}{{/if}}</td>
+				</tr>
+				{{/each}}
+			</table>
+		{{/if}}
+		</div>
+		</script>
 
-    <div id="sidebar">
-      <p>Edit welcome message.</p>
-      <p>Ideas: You could easily turn this into a photo sharing app, or a grocery list, or a chat room.</p>
-    </div>
-  </body>
-  <script src="vendor/couchapp/loader.js"></script>
-  <script type="text/javascript" charset="utf-8">
-    $.couch.app(function(app) {
-	  $("#account").evently("account", app);
-      $("#profile").evently("profile", app);
-      $.evently.connect("#account","#profile", ["loggedIn","loggedOut"]);
-      $("#items").evently("items", app);
-    });
-  </script>
+		<script type="text/x-handlebars" data-template-name="equipment-list">
+			<div class="container">
+			{{#if loading}}
+	    		loading equipments ...
+			{{else}}
+				<table border="0" class="striped" style="width:100%">
+					<tr>
+						<th>Name</th>
+						<th>Brand</th>
+						<th>Date of Purchase</th>
+						<th>Distance</th>
+					</tr>
+					{{#each equipments}}
+					<tr>
+						<td>{{name}}</td>
+						<td>{{brand}}</td>
+						<td>{{dateOfPurchase}}</td>
+						<td>{{distance}}</td>
+					</tr>
+					{{/each}}
+				</table>
+			{{/if}}
+			</div>
+		</script>
+		
+		<script type="text/x-handlebars" data-template-name="activity">
+		<div class="container">
+			<div class="inner">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><div class="largebox"><div id="map"></div></div></td>
+						<td style="min-width: 200px">
+							<div class="smallbox" style="height:510px">
+								<h2 class="title">Activity</h2>
+  								<table border="0">
+									<tr>
+										<th>Date</th>
+										<td>{{summary.date}}</td>
+									</tr>
+									<tr>
+										<th>Sport</th>
+										<td>{{summary.sport}}</td>
+									</tr>
+									<tr>
+										<th>Duration</th>
+										<td>{{summary.duration}}</td>
+									</tr>
+									<tr>
+										<th>Distance</th>
+										<td>{{summary.distance}}</td>
+									</tr>
+									<tr>
+										<th>Avg. Speed</th>
+										<td>{{summary.speed}}</td>
+									</tr>
+									{{#if summary.hr}}
+									<tr>
+										<th>HR</th>
+										<td>{{summary.hr.avg}} ({{summary.hr.max}})</td>
+									</tr>
+									{{/if}}
+									{{#if summary.cadence}}
+									<tr>
+										<th>Cadence</th>
+										<td>{{summary.cadence.avg}} ({{summary.cadence.max}})</td>
+									</tr>
+									{{/if}}
+								</table>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="largebox">
+								<table border="0" style="width:100%">
+									<tr>
+										<td width="100">
+											{{view Ember.Select
+												contentBinding="Trainings.activityController.series"
+												selectionBinding="Trainings.activityController.primarySeries"
+												optionLabelPath="content.name"
+											}}
+										</td>
+										<td>
+											<div id="legend" style="display:inline; min-width:300px"></div>
+										</td>
+										<td width="100" style="text-align:right">
+											{{view Ember.Select
+												contentBinding="Trainings.activityController.series"
+												selectionBinding="Trainings.activityController.secondarySeries"
+												optionLabelPath="content.name"
+											}}
+										</td>
+									</tr>
+								</table>								
+								<div id="graph"></div>
+							</div>
+						</td>
+						<td>
+							<div class="smallbox" style="height: 232px">
+								<h2 class="title">Selection</h2>
+								<table border="0">
+									<tr>
+										<th>Duration</th>
+										<td>{{selection.duration}}</td>
+									</tr>
+									<tr>
+										<th>Distance</th>
+										<td>{{selection.distance}}</td>
+									</tr>
+									<tr>
+										<th>Speed</th>
+										<td>{{selection.speed}}</td>
+									</tr>
+									{{#if selection.hr}}
+									<tr>
+										<th>Distance</th>
+										<td>{{selection.hr.avg}} ({{selection.hr.max}})</td>
+									</tr>
+									{{/if}}
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		</script>
+		
+	</head>
+	<body>
+		<div class="float">
+			<div class="navbar">
+				<ul class="nav">
+					<li class="active"><a href="#activities">Activities</a></li>
+					<li><a href="#equipments">Equipments</a></li>
+					<li>Reports</li>
+				</ul>
+			</div>
+		</div>
+		<div id="main"></div>
+	</body>
 </html>

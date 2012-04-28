@@ -27,6 +27,7 @@ import com.garmin.fit.SessionMesg;
 import com.garmin.fit.SessionMesgListener;
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.LapPoint;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.TrackpointSequence;
@@ -329,6 +330,10 @@ public class FitReader implements ActivityReader {
 
 		@Override
 		public State lapEnd(StateContext context, LapMesg mesg) {
+			long timestamp = mesg.getTimestamp().getDate().getTime();
+			LapPoint lapPoint = new LapPoint(timestamp - trackStart);
+			lapPoint.addAttribute(new PositionAttribute(semitodeg(mesg.getEndPositionLat()), semitodeg(mesg.getEndPositionLong())));
+			context.addTrackpoint(lapPoint);
 			return this;
 		}
 
@@ -372,6 +377,11 @@ public class FitReader implements ActivityReader {
 			throw new IllegalStateException("timer already stopped");
 		}
 		
+	}
+	
+	public static void main(String[] args) throws Exception {
+		FitReader reader = new FitReader();
+		reader.readActivities(new FileInputStream(new java.io.File("20120421-124712-1-1345-ANTFS-4.FIT")));
 	}
 
 }

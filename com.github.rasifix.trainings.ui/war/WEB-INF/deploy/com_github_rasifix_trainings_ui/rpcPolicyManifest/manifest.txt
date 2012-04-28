@@ -1,2 +1,0 @@
-# Module com_github_rasifix_trainings_ui
-# RPC service class, partial path of RPC policy file
