@@ -254,7 +254,10 @@ Trainings.ActivityController = Ember.Object.extend({
 	}.observes("primarySeries", "secondarySeries"),
 	
 	updateTracks_: function(activity) {
-		var result = [];
+		var result = { 
+			paths: [], 
+			lappoints: []
+		};
 		for (var trackIdx = 0; trackIdx < activity.tracks.length; trackIdx++) {
 			var track = activity.tracks[trackIdx];	
 				
@@ -264,8 +267,15 @@ Trainings.ActivityController = Ember.Object.extend({
 			var hr = first.hr;
 				
 			var hrzone = hr === undefined ? null : hrToZone(hr);
-				
-			for (var i = 1; i < track.trackpoints.length; i+=5) {
+			
+			for (var i = 0; i < track.trackpoints.length; i += 1) {
+				var trackpoint = track.trackpoints[i];
+				if (trackpoint.type === "lappoint" && trackpoint.pos) {
+					result.lappoints.push([trackpoint.pos.lat, trackpoint.pos.lng]);
+				}
+			}
+			
+			for (var i = 1; i < track.trackpoints.length; i += 5) {
 				var trackpoint = track.trackpoints[i];
 				var pos = trackpoint.pos;
 				if (pos === undefined) {
@@ -280,7 +290,7 @@ Trainings.ActivityController = Ember.Object.extend({
 
 				var newzone = hrToZone(trackpoint.hr);
 				if (hrzone != newzone) {
-					result.push({
+					result.paths.push({
 						hrzone: hrzone,
 						path: path
 					});
@@ -292,12 +302,15 @@ Trainings.ActivityController = Ember.Object.extend({
 			}
 
 			if (path.length >= 2) {
-				result.push({
+				result.paths.push({
 					hrzone: hrzone,
 					path: path
 				});
 			}
 		}
+		
+		console.log("map data");
+		console.log(result);
 			
 		Trainings.activityView.setMapData(result);
 	},
@@ -391,7 +404,7 @@ Trainings.activityView = Ember.View.create({
 	},
 	
 	setMapData: function(mapData) {
-		this.mapData = mapData;
+		this.mapData = mapData.paths;
 		
 		if (this.map == null) {
 			return;
@@ -417,6 +430,20 @@ Trainings.activityView = Ember.View.create({
 				path: path
 			});
 			line.setMap(this.map);
+		}
+
+		console.log("number of laps = " + mapData.lappoints.length);
+		for (var idx = 0; idx < mapData.lappoints.length; idx++) {
+			var tp = mapData.lappoints[idx];
+			var latlng = new google.maps.LatLng(tp[0], tp[1]);
+			var marker = new google.maps.Marker({
+				position: latlng,
+				icon: new google.maps.MarkerImage(
+					"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB6klEQVQokWWSvWsTYQDGn7uE2A5xuJSiiddgkyKihUpAjAqFQo1DXVoEoZODg/hBqP0zdHEpOAiu2sqBFSxUKioKwqG0fpUoqSaVavPV5HJ3yb3v+zhk7Pz8pt/v0UgCAJCOmQjrMzh1Oofp2Qz26sDyoo0f31agBUvYqJYAACTBtJHlpXOW3CpSOQ7pe6TvUTWblD8L5NUZi6ODWZIAU4bJyxcsVa+RUlI1m1TVClW9RrXXILsdqp0/5JWLFk8aJnhsIC9//yKlpPi6QffOTTpTE3Ry5+neukbx0e5t65/I4wN5HcnhnGbEQM9D9+EDaH19OHB7HpEbc0AohM79u6DTgm4OAYOJnI7r8xktHAKCLtT3LwiPT0C8egnx7Cn0xBGI1RdgqwWEwsDkVEaHroGKgBCg64KVXbBWAX0fbDTgSgEoBXR8wHWhY+GeDSGASASh9AjEuzfQUyPQk0ehtsuIjo5B6+8H223g8SMbHDby4vM6GQQU9ge2Z6dZiR9k8XCUzuRZBmurpO+xu2yRaSMPxg2TJ+KWLGz23NdrlOUS5VaRavcf6XsU79+SqZjFlGH2wiWNLMeGrOD1GmW51Gvwd4eysMmutdiDE9EsSWj7rnEokcOZ8QwCATx/YjeczkqVwVJq2y0BwH95A0ZwkTaTHQAAAABJRU5ErkJggg==", 
+					null, null, new google.maps.Point(6,6)
+				)
+			});
+			marker.setMap(this.map);
 		}
 		
 		this.map.fitBounds(bounds);
@@ -627,8 +654,10 @@ Trainings.locationHandler = function(hash) {
 			var month = now.getMonth() + 1;
 			if (args && args.length > 0) {
 				year = parseInt(args[0].substring(0, 4));
-				month = parseInt(args[0].substring(5, 7));
+				var monthString = args[0].substring(4, 6);
+				month = parseInt(monthString.charAt(0) === "0" ? monthString.substring(1) : monthString);
 			}
+			console.log("show " + month + " of year " + year + " (" + args[0] + ")");
 			Trainings.activityListController.showMonth(month, year);
 		},
 		"#activity" : function(args) {			
@@ -663,6 +692,7 @@ Trainings.locationHandler = function(hash) {
 	var page = splitted.shift();
 	
 	var controller = pagemap[page];
+	console.log("go to page " + page);
 	if (controller) {
 		controller(splitted);
 	}

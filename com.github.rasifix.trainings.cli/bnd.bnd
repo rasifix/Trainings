@@ -4,15 +4,21 @@
 	com.springsource.jline,\
 	junit.osgi,\
 	biz.aQute.bnd.annotation,\
+	org.apache.httpcomponents.httpclient,\
+	org.apache.httpcomponents.httpcore,\
 	osgi.cmpn;version=4.2.0.200908310645,\
-	osgi.core;version=4.2.0.200908310645
+	osgi.core;version=4.2.0.200908310645,\
+	com.springsource.org.cyberneko.html,\
+	com.springsource.org.apache.xerces,\
+	com.springsource.org.jdom
 Private-Package: com.github.rasifix.trainings.cli,\
 	com.github.rasifix.trainings.shell.internal,\
 	com.github.rasifix.trainings.shell.internal.commands,\
 	com.github.rasifix.trainings.shell.internal.commands.edit,\
 	com.github.rasifix.trainings.shell.internal.commands.repository,\
 	com.github.rasifix.trainings.shell.internal.commands.osgi,\
-	com.github.rasifix.trainings.shell.internal.commands.equipment
+	com.github.rasifix.trainings.shell.internal.commands.equipment,\
+	com.github.rasifix.trainings.shell.internal.commands.solv
 Service-Component: com.github.rasifix.trainings.*
 Export-Package: com.github.rasifix.trainings.shell
 Import-Package: !org.junit*,\

@@ -39,4 +39,9 @@ public class PositionAttribute implements TrackpointAttribute {
 		return position;
 	}
 	
+	@Override
+	public String toString() {
+		return "@Position" + position;
+	}
+	
 }

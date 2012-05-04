@@ -444,122 +444,30 @@ DygraphRangeSelector.prototype.drawMiniPlot_ = function() {
 
 /**
  * @private
- * Computes and returns the combinded series data along with min/max for the mini plot.
+ * Computes and returns the series data along with min/max for the mini plot.
  * @return {Object} An object containing combinded series array, ymin, ymax.
  */
 DygraphRangeSelector.prototype.computeCombinedSeriesAndLimits_ = function() {
-  // TODO: rasifix - do not combine data, take first series...
   var data = this.dygraph_.rawData_;
-  var logscale = this.attr_('logscale');
 
   // Create a combined series (average of all series values).
   var combinedSeries = [];
-  var sum;
-  var count;
-  var yVal, y;
-  //var mutipleValues;
-  var i, j, k;
 
-  // Find out if data has multiple values per datapoint.
-  // Go to first data point that actually has values (see http://code.google.com/p/dygraphs/issues/detail?id=246)
-  /*for (i = 0; i < data.length; i++) {
-    if (data[i].length > 1 && data[i][1] != null) {
-      mutipleValues = typeof data[i][1] != 'number';
-      if (mutipleValues) {
-        sum = [];
-        count = [];
-        for (k = 0; k < data[i][1].length; k++) {
-          sum.push(0);
-          count.push(0);
-        }
-      }
-      break;
-    }
-  }*/
-
-  for (i = 0; i < data.length; i++) {
+  for (var i = 0; i < data.length; i++) {
     var dataPoint = data[i];
-    var xVal = dataPoint[0];
-
-    /*if (mutipleValues) {
-      for (k = 0; k < sum.length; k++) {
-        sum[k] = count[k] = 0;
-      }
-    } else {*/
-      sum = count = 0;
-    //}
-
-    for (j = 1; j < dataPoint.length; j++) {
-      if (this.dygraph_.visibility()[j-1]) {
-        /*if (mutipleValues) {
-          for (k = 0; k < sum.length; k++) {
-            y = dataPoint[j][k];
-            if (y === null || isNaN(y)) continue;
-            sum[k] += y;
-            count[k]++;
-          }
-        } else {*/
-          y = dataPoint[j];
-          if (y === null || isNaN(y)) continue;
-          sum += y;
-          count++;
-        //}
-      }
-    }
-
-    /*if (mutipleValues) {
-      for (k = 0; k < sum.length; k++) {
-        sum[k] /= count[k];
-      }
-      yVal = sum.slice(0);
-    } else {*/
-      yVal = sum/count;
-    //}
-
-    combinedSeries.push([xVal, yVal]);
-  }
-
-  // Account for roll period, fractions.
-  combinedSeries = this.dygraph_.rollingAverage(combinedSeries, this.dygraph_.rollPeriod_);
-
-  if (typeof combinedSeries[0][1] != 'number') {
-    for (i = 0; i < combinedSeries.length; i++) {
-      yVal = combinedSeries[i][1];
-      combinedSeries[i][1] = yVal[0];
-    }
+    // rasifix - take the second series for mini plot (to be configurable)
+    combinedSeries.push([dataPoint[0], dataPoint[2]]);
   }
 
   // Compute the y range.
   var yMin = Number.MAX_VALUE;
   var yMax = -Number.MAX_VALUE;
-  for (i = 0; i < combinedSeries.length; i++) {
-    yVal = combinedSeries[i][1];
-    if (yVal !== null && isFinite(yVal) && (!logscale || yVal > 0)) {
+  for (var i = 0; i < combinedSeries.length; i++) {
+    var yVal = combinedSeries[i][1];
+    if (yVal !== null && isFinite(yVal) && yVal > 0) {
       yMin = Math.min(yMin, yVal);
       yMax = Math.max(yMax, yVal);
     }
-  }
-
-  // Convert Y data to log scale if needed.
-  // Also, expand the Y range to compress the mini plot a little.
-  var extraPercent = 0.25;
-  if (logscale) {
-    yMax = Dygraph.log10(yMax);
-    yMax += yMax*extraPercent;
-    yMin = Dygraph.log10(yMin);
-    for (i = 0; i < combinedSeries.length; i++) {
-      combinedSeries[i][1] = Dygraph.log10(combinedSeries[i][1]);
-    }
-  } else {
-    var yExtra;
-    var yRange = yMax - yMin;
-    if (yRange <= Number.MIN_VALUE) {
-      yExtra = yMax*extraPercent;
-    } else {
-      yExtra = yRange*extraPercent;
-    }
-    yMax += yExtra;
-    yMin -= yExtra;
   }
 
   return {data: combinedSeries, yMin: yMin, yMax: yMax};

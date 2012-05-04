@@ -332,7 +332,8 @@ public class FitReader implements ActivityReader {
 		public State lapEnd(StateContext context, LapMesg mesg) {
 			long timestamp = mesg.getTimestamp().getDate().getTime();
 			LapPoint lapPoint = new LapPoint(timestamp - trackStart);
-			lapPoint.addAttribute(new PositionAttribute(semitodeg(mesg.getEndPositionLat()), semitodeg(mesg.getEndPositionLong())));
+			PositionAttribute attribute = new PositionAttribute(semitodeg(mesg.getEndPositionLat()), semitodeg(mesg.getEndPositionLong()));
+			lapPoint.addAttribute(attribute);
 			context.addTrackpoint(lapPoint);
 			return this;
 		}
