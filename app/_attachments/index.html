@@ -4,8 +4,8 @@
 		<title>Trainings on Ember.js</title>
 		<style type="text/css">
 			body {
-				font-family: Verdana;
-				font-size: 12px;
+				font-family: 'Helvetica Neue', Verdana, Arial;
+				font-size: 13px;
 				height: 100%;
 				background-color: #eee;
 			}
@@ -33,6 +33,18 @@
 				color: white;
 				font-weight: bold;
 				height: 100%;
+			}
+			
+			ul.labels {
+				width: 100%;
+				float: left;
+				list-style: none;
+				margin-left: 0px;
+			}
+			
+			ul.labels li {
+				float: left;
+				padding: 7px;
 			}
 			
 			ul.nav {
@@ -81,7 +93,7 @@
 			}
 			
 			table.striped tr:nth-child(even) { 
-				background: #CCC;
+				background: #EEE;
 			}
 			
 			table.striped tr:nth-child(odd) { 
@@ -135,7 +147,6 @@
 				border-radius: 10px;
 				margin-left: 5px;
 				margin-bottom: 5px;
-				//padding: 5px;
 				min-height: 100px;
 				box-shadow: 1px 1px 1px #aaa;
 				background: white;
@@ -160,6 +171,13 @@
 			.dygraph-axis-label-x {
 				font-size: 10px;
 			}
+			
+			.screen:hover {
+				opacity: 0.7;
+			}
+			.screen {
+				opacity: 0;
+			}
 
 		</style>
 		<script src="assets/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -167,7 +185,19 @@
 	    <script src="assets/js/ember-0.9.6.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 		<script src="assets/js/dygraph-dev.js"></script>
+		<script src="https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael-min.js"></script>
 	    <script src="assets/js/main.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/x-handlebars" data-template-name="dashboard">
+		<div class="container">
+		  <div id="dashboard"></div>
+		  <ul class="labels">
+		  {{#each labels}}
+		    <li>{{label}}: {{duration}}</li>
+		  {{/each}}
+		  </ul>
+		</div>
+		</script>
 	
 		<script type="text/x-handlebars" data-template-name="activity-list">
 		<div class="container">
@@ -177,7 +207,7 @@
 		      <a href="#" onclick="Trainings.activityListController.previous(); return false">&lt;</a>
 		    </td>
 		    <td width="980px" align="center">
-			  <span style="font-weight: bold; font-size: 15px">{{monthAndYear}}</span>
+			  <span style="font-weight: bold; font-size: 15px">{{monthAndYear}}</span> ({{activityCount}} activities)
 		    </td>
 		    <td width="10px">
 			  <a href="#" onclick="Trainings.activityListController.next(); return false">&gt;</a>
@@ -337,6 +367,7 @@
 		<div class="float">
 			<div class="navbar">
 				<ul class="nav">
+					<li><a href="#dashboard">Dashboard</a></li>
 					<li class="active"><a href="#activities">Activities</a></li>
 					<li><a href="#equipments">Equipments</a></li>
 					<li>Reports</li>

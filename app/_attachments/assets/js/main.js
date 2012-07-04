@@ -1,3 +1,32 @@
+Date.prototype.getWeek = function () {
+	// Create a copy of this date object
+	var target  = new Date(this.valueOf());
+
+	// ISO week date weeks start on monday
+	// so correct the day number
+	var dayNr   = (this.getDay() + 6) % 7;
+
+	// ISO 8601 states that week 1 is the week
+	// with the first thursday of that year.
+	// Set the target date to the thursday in the target week
+	target.setDate(target.getDate() - dayNr + 3);
+
+	// Store the millisecond value of the target date
+	var firstThursday = target.valueOf();
+
+	// Set the target to the first thursday of the year
+	// First set the target to january first
+	target.setMonth(0, 1);
+	// Not a thursday? Correct the date to the next thursday
+	if (target.getDay() != 4) {
+		target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+	}
+
+	// The weeknumber is the number of weeks between the 
+	// first thursday of the year and the thursday in the target week
+	return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 = 7 * 24 * 3600 * 1000
+};
+
 // create application object
 Trainings = Ember.Application.create({	
 	showActivity: function(activity) {
@@ -87,9 +116,213 @@ Trainings.activityListView = Ember.View.create({
     templateName: 'activity-list',
     activitiesBinding: 'Trainings.activityListController',
     loadingBinding: 'Trainings.activityListController.loading',
-	monthAndYearBinding: 'Trainings.activityListController.monthAndYear'
+	monthAndYearBinding: 'Trainings.activityListController.monthAndYear',
+	activityCountBinding: 'Trainings.activityListController.content.length'
 });
 
+
+/*
+ * Dashboard Controller + View
+ */
+Trainings.DashboardController = Ember.Object.extend({
+	graphData: { },
+	show: function() {
+		var now = new Date();
+		
+		var endYear = now.getFullYear();
+		var endWeek = now.getWeek();
+		
+		now.setDate(now.getDate() - 52 * 7);
+		var startYear = now.getFullYear();
+		var startWeek = now.getWeek();
+		var that = this;
+		Trainings.activityRepository.loadSummaryByWeek([startYear, startWeek], [endYear, endWeek + 1], {
+			success: function(data) {
+				var result = { };
+				result[startYear] = { "year" : startYear };
+				result[endYear] = { "year" : endYear };
+				
+				result.weeks = [ ];
+				
+				var date = new Date();
+				date.setDate(date.getDate() - 52 * 7);
+				date.setHours(0);
+				date.setMinutes(0);
+				date.setSeconds(0);
+				
+				var end = new Date();
+				end.setDate(end.getDate() + 1);
+				end.setHours(0);
+				end.setMinutes(0);
+				end.setSeconds(0);
+				
+				while (date <= end) {
+					var year = date.getFullYear();
+					if (date.getWeek() == 1 && date.getMonth() == 11) {
+						year += 1;
+					} else if (date.getWeek() >= 52 && date.getMonth() == 0) {
+						year -= 1;
+					}
+					var weekrec = result[year][date.getWeek()];
+					if (!weekrec) {
+						weekrec = { };
+						weekrec.week = date.getWeek();
+						result[year][date.getWeek()] = weekrec;
+						result.weeks.push([ year, date.getWeek() ]);
+					}
+					
+					date.setDate(date.getDate() + 7);
+				}
+				
+				if (data && data.rows && data.rows.length > 0) {
+					data.rows.forEach(function(row) {
+						var year = row.key[0];
+						var week = row.key[1];
+						var sport = row.value.sport;
+						var wrec = result[year][week];	
+						if (!wrec) {
+							console.log(year + "-" + week + "(**)");
+						} else {
+							wrec[sport] = row.value;
+						}
+					});
+				}
+				that.set('graphData', result);
+			}
+		});
+	}
+});
+
+Trainings.dashboardController = Trainings.DashboardController.create();
+
+Trainings.dashboardView = Ember.View.create({
+	templateName: 'dashboard',
+	graphDataBinding: 'Trainings.dashboardController.graphData',
+	labels: [],
+	
+	didInsertElement: function() {
+		// ignored for the moment
+	},
+	
+	graphDataUpdated: function() {
+		if (!this.get("element")) {
+			console.log("too fast");
+			return;
+		}
+		
+		var that = this;
+		var data = this.get("graphData");
+		var div = document.getElementById("dashboard");
+		var maxy = 0;
+		
+		var sumrec = function(wrec) {
+			var sum = 0;
+			for (var idx in wrec) {
+				var next = wrec[idx];
+				if (next.totalTime) {
+					sum += next.totalTime;
+				}
+			}
+			return sum;
+		}
+		
+		var records = [];
+		var paper = new Raphael(div, 1000, 100);
+		data.weeks.forEach(function(weekAndYear) {
+			var week = data[weekAndYear[0]][weekAndYear[1]];
+			var sum = sumrec(week);
+			maxy = Math.max(maxy, sum);
+			week.year = weekAndYear[0];
+			records.push(week);
+		});
+				
+		var width = 1000.0 / records.length;
+		var height = 100;
+		var colors = [ "#5F04B4", "#5FB404", "#FE642E", "#40A2FF" ];
+				
+		var time = function(wrec, sport) {
+			var value = wrec[sport];
+			if (value) {
+				return value.totalTime;
+			}
+			return 0;
+		}
+		
+		var rows = function(x, running, orienteering, cycling, mtb, record) {
+			var y = 0;
+			var rect = paper.rect(x, y, Math.floor(width), running / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[0]);
+			rect.attr("stroke", "none");
+			
+			y += running / maxy * height;
+			rect = paper.rect(x, y, width - 1, orienteering / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[1]);
+			rect.attr("stroke", "none");
+
+			y += orienteering / maxy * height;
+			rect = paper.rect(x, y, width - 1, cycling / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[2]);
+			rect.attr("stroke", "none");
+
+			y += cycling / maxy * height;
+			rect = paper.rect(x, y, width - 1, mtb / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[3]);
+			rect.attr("stroke", "none");
+			
+			rect = paper.rect(x, 0, width, height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", "white");
+			rect.attr("stroke", "none");
+			rect.node.setAttributeNS(null, "class", "screen");	
+			
+			rect.hover(function(e) {
+				var total = 0;
+				var labels = [];
+				labels.push({ "label":"Week", "duration":record.week + "-" + record.year });
+				if (record["RUNNING"]) {
+					total += record["RUNNING"].totalTime;
+					labels.push({ "label":"Running", "duration":formatDuration(record["RUNNING"].totalTime) });
+				}
+				if (record["ORIENTEERING"]) {
+					total += record["ORIENTEERING"].totalTime;
+					labels.push({ "label":"Orienteering", "duration":formatDuration(record["ORIENTEERING"].totalTime) });
+				}
+				if (record["CYCLING"]) {
+					total += record["CYCLING"].totalTime;
+					labels.push({ "label":"Cycling", "duration":formatDuration(record["CYCLING"].totalTime) });
+				}
+				if (record["MTB"]) {
+					total += record["MTB"].totalTime;
+					labels.push({ "label":"MTB", "duration":formatDuration(record["MTB"].totalTime) });
+				}
+				console.log(that);
+				labels.push({ "label":"Total", "duration":formatDuration(total) });
+				that.set('labels', labels);
+			}, function(e) {
+				that.set('labels', [ ]);
+			});
+		};
+		
+		for (var i = 0; i < records.length; i++) {
+			var x = Math.round(i * width);
+			var running = time(records[i], "RUNNING");
+			var cycling = time(records[i], "CYCLING");
+			var orienteering = time(records[i], "ORIENTEERING");
+			var mtb = time(records[i], "MTB");
+			rows(x, running, orienteering, cycling, mtb, records[i]);
+		}		
+		
+	}.observes("graphData")
+});
 
 /*
  * Equipment List Controller + View
@@ -212,8 +445,6 @@ Trainings.ActivityController = Ember.Object.extend({
 						}
 					}
 				});
-				
-				console.log(activity.tracks[0].sport);
 								
 				var result = [ ];
 								
@@ -340,6 +571,7 @@ Trainings.ActivityController = Ember.Object.extend({
 	
 		var graph = [ ];			
 		
+		var offset = 0;
 		for (var trackIdx = 0; trackIdx < activity.tracks.length; trackIdx++) {
 			var track = activity.tracks[trackIdx];	
 			
@@ -349,7 +581,7 @@ Trainings.ActivityController = Ember.Object.extend({
 			var primary = primarySeries.provider(first, track, 0);
 			var secondary = secondarySeries.provider(first, track, 0);
 				
-			graph.push([first.elapsed / 1000, primary, secondary, first.pos]);
+			graph.push([offset + first.elapsed / 1000, primary, secondary, first.pos]);
 			
 			for (var i = 1; i < track.trackpoints.length; i+=5) {
 				var trackpoint = track.trackpoints[i];
@@ -358,8 +590,10 @@ Trainings.ActivityController = Ember.Object.extend({
 				primary = primarySeries.provider(trackpoint, track, i);
 				secondary = secondarySeries.provider(trackpoint, track, i);
 				
-				graph.push([trackpoint.elapsed / 1000, primary, secondary, trackpoint.pos]);
+				graph.push([offset + trackpoint.elapsed / 1000, primary, secondary, trackpoint.pos]);
 			}
+			
+			offset += track.trackpoints[track.trackpoints.length - 1].elapsed / 1000;
 		}
 		
 		Trainings.activityView.setGraphData(graph, config);
@@ -569,6 +803,16 @@ Trainings.ActivityRepository = Ember.Object.extend({
 		});
 	},
 	
+	loadSummaryByWeek: function(start, end, callback) {
+		$.couch.db('trainings').view("app/activitiesByWeek", {
+			success: function(data) {
+				callback.success(data);
+			},
+			startkey: start,
+			endkey: end,
+			group_level: 3
+		});
+	},
 	
 	loadEquipments: function(callback) {
 		$.couch.db('trainings').view("app/equipments", {
@@ -640,6 +884,16 @@ function formatPace(speed) {
 
 Trainings.locationHandler = function(hash) {
 	var pagemap = {
+		"#dashboard" : function(args) {
+			if (Trainings.currentView !== Trainings.dashboardView) {
+				if (Trainings.currentView) {
+					Trainings.containerView.get('childViews').removeAt(0);
+				}
+				Trainings.currentView = Trainings.dashboardView;
+				Trainings.containerView.get('childViews').pushObject(Trainings.currentView);
+			}
+			Trainings.dashboardController.show();
+		},
 		"#activities" : function(args) {
 			if (Trainings.currentView !== Trainings.activityListView) {
 				if (Trainings.currentView) {
@@ -657,7 +911,6 @@ Trainings.locationHandler = function(hash) {
 				var monthString = args[0].substring(4, 6);
 				month = parseInt(monthString.charAt(0) === "0" ? monthString.substring(1) : monthString);
 			}
-			console.log("show " + month + " of year " + year + " (" + args[0] + ")");
 			Trainings.activityListController.showMonth(month, year);
 		},
 		"#activity" : function(args) {			

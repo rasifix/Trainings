@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>My very first GeoAdmin Map</title>
+	    <script type="text/javascript" src="http://api.geo.admin.ch/loader.js"></script>
+ 		<script src="assets/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/_utils/script/jquery.couch.js" type="text/javascript"></script>
+       <script type="text/javascript">
+	hrToZone = function(hr) {
+		if (hr < 120) {
+			return "green";
+		} else if (hr < 140) {
+			return "yellow";
+		} else if (hr < 160) {
+			return "orange";
+		} else if (hr < 180) {
+			return "red";
+		} else {
+			return "#880000";
+		}
+	};
+	
+            function init() {
+               var geo = new GeoAdmin.API();
+               geo.createMap({
+                  div: "mymap1",
+                  easting: 600000,
+                  northing: 210000,
+                  zoom: 5
+               });
+			   $.couch.db('trainings').openDoc('f8ca993786824e348f46c5075f5da77a', {
+			 	success: function(data) {
+					var activity = data.activity;
+					var layer = new OpenLayers.Layer.Vector("Route", {
+						projection: new OpenLayers.Projection("EPSG:4326")
+					});
+					var src = new OpenLayers.Projection("EPSG:4326");
+					var dst = new OpenLayers.Projection("EPSG:21781");
+					var features = [];
+					var current = null;
+					var bounds = new OpenLayers.Bounds();
+					activity.tracks.forEach(function(track) {
+						var points = [];
+						track.trackpoints.forEach(function(trackpoint) {
+							var point = null;
+							if (trackpoint.pos) {
+								point = new OpenLayers.Geometry.Point(trackpoint.pos.lng, trackpoint.pos.lat).transform(src, dst);
+								bounds.extend(point);
+								points.push(point);
+							}
+							if (trackpoint.hr) {
+								if (current == null) {
+									current = hrToZone(trackpoint.hr);
+								} else if (current != hrToZone(trackpoint.hr)) {
+									var geom = new OpenLayers.Geometry.LineString(points);
+									var track = new OpenLayers.Feature.Vector(geom, { }, {
+										"strokeColor": current,
+										"strokeWidth": 7,
+										"strokeOpacity": 0.6
+									});
+									features.push(track);
+									points = [];
+									points.push(point);
+									current = hrToZone(trackpoint.hr);
+								}
+							}
+						});
+						if (points.length > 1) {
+							var geom = new OpenLayers.Geometry.LineString(points);
+							var track = new OpenLayers.Feature.Vector(geom, { }, {
+								"strokeColor": current,
+								"strokeWidth": 7,
+								"strokeOpacity": 0.6
+							});
+							features.push(track);
+						}
+					});
+					layer.addFeatures(features);
+					geo.map.zoomToExtent(bounds);
+				    geo.map.addLayer(layer);
+				}
+			  });
+			   geo.createBaseLayerTool({
+			         renderTo: "baselayertool10",
+			         label: 'Orthophoto',
+					 map: geo.map,
+			         slider: {
+			            width: 170
+			         },
+			         combo: {
+			            width: 242
+			         }
+			   });
+			
+            }
+        </script>
+    </head>
+ <body onload="init();">
+    <div id="baselayertool10" style="margin:10px !important;"></div>
+    <div id="mymap1" style="width:720px;height:500px;border:1px solid grey;padding: 0 0 0 0;margin:10px !important;"></div>
+</body>
+</html>

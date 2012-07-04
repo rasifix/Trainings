@@ -156,6 +156,7 @@ public class LinkedTrackpointSequence extends AbstractSequentialList<Trackpoint>
 		entry.previous.next = entry.next;
 		entry.next.previous = entry.previous;
 		size -= 1;
+		modCount++;
 	}
 	
 	@Override
@@ -307,7 +308,7 @@ public class LinkedTrackpointSequence extends AbstractSequentialList<Trackpoint>
 			checkForComodification();
 			Entry lastNext = lastReturned.next;
 			try {
-				LinkedTrackpointSequence.this.remove(lastReturned);
+				LinkedTrackpointSequence.this.remove(lastReturned.trackpoint);
 			} catch (NoSuchElementException e) {
 				throw new IllegalStateException();
 			}

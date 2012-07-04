@@ -45,11 +45,11 @@ public class SummaryCommand implements Command {
 						SpeedAttribute speed = trackpoint.getAttribute(SpeedAttribute.class);
 						if (speed.getValue() < 0.1) {
 							tpWithoutSpeed += 1;
-							System.out.println(trackpoint.getAttribute(DistanceAttribute.class).getValue());
+//							System.out.println(trackpoint.getAttribute(DistanceAttribute.class).getValue());
 						}
 					}
 				}
-				System.out.println("without speed = " + tpWithoutSpeed);
+//				System.out.println("without speed = " + tpWithoutSpeed);
 			}
 		}
 		return current;

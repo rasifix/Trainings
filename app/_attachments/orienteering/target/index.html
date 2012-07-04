@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			var lang = window.navigator.language.split("-")[0];
+			var lastIndex = window.location.pathname.lastIndexOf("/");
+			var path = window.location.pathname.substring(0, lastIndex);
+			if (lang == "de") {
+				window.location.pathname = path + "/de/index.html";
+			} else {
+				window.location.pathname = path + "/en/index.html";
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

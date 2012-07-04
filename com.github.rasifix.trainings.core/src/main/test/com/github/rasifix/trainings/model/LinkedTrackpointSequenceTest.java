@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -180,6 +181,21 @@ public class LinkedTrackpointSequenceTest {
 		TrackpointSequence filtered = sequence.select(HeartRateAttribute.class);
 		assertFalse(filtered.isEmpty());
 		assertEquals(2, filtered.size());
+	}
+	
+	@Test
+	public void testIteratorModifications() throws Exception {
+		sequence.add(createTrackpoint(0, new HeartRateAttribute(100)));
+		sequence.add(createTrackpoint(1, new HeartRateAttribute(100)));
+		sequence.add(createTrackpoint(2, new HeartRateAttribute(100)));
+		
+		int i = 0;
+		ListIterator<Trackpoint> it = sequence.listIterator();
+		while (it.hasNext()) {
+			Trackpoint tp = it.next();
+			assertEquals(i++, tp.getElapsedTime());
+			it.remove();
+		}
 	}
 	
 	private static Trackpoint createTrackpoint(long elapsed, TrackpointAttribute attribute) {

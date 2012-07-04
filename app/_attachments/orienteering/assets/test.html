@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script src="js/jquery.slideshow.js"></script>
+		<style>
+			#slideshow {
+				width: 600px;
+				position: relative;
+				margin-left: auto;
+				margin-right: auto;
+				border: 1px solid red;
+				overflow: hidden;
+				height: 200px;
+				padding: 5px;
+			}
+			#slideshow div {
+				font-size: 1.5em;
+				font-family: 'Open Sans';
+				float: left;
+				width: 200px;
+				height: 200px;
+				background-color: #f88;
+				position: absolute;
+			}
+			#slideshow div.attic {
+				display: none;
+			}
+			div {
+				text-align:center;
+			}
+		</style>
+		<script>
+		 	var children;
+			var slideshow;
+			var index = 0;
+			
+			$("#slideshow").ready(function() {
+				slideshow = $("#slideshow");
+				children = slideshow.children();
+				slideshow.children().detach();
+				var currentSlide = $(children[index]);
+				currentSlide.appendTo(slideshow);
+				
+				var pos = (slideshow.innerWidth() - currentSlide.outerWidth()) / 2;
+				currentSlide.css({ left : pos });				
+				
+				//   prev   -   current   -   next
+						
+				$(document).on("keydown", function(e) {
+					if (e.keyCode == 37) {
+						var nextIndex = index > 0 ? (index - 1) : children.size() - 1;
+						
+						var currentSlide = $(children[index]);
+						currentSlide.animate({ left: 610 }, "fast", "swing", function() {
+							currentSlide.detach();
+						});
+						
+						var prevSlide = $(children[nextIndex]);
+						prevSlide.appendTo(slideshow);
+						prevSlide.css({ left : -200 });
+						prevSlide.animate({ left : pos }, "fast", "swing");
+						
+						index = nextIndex;
+						
+					} else if (e.keyCode == 39) {
+						var nextIndex = (index + 1) % children.size();
+
+						var currentSlide = $(children[index]);
+						currentSlide.animate({ left: -200 }, "fast", "swing", function() {
+							currentSlide.detach();
+						});
+
+						var nextSlide = $(children[nextIndex]);
+						nextSlide.appendTo(slideshow);
+						nextSlide.css({ left : 610 });
+						nextSlide.animate({ left : pos }, "fast", "swing");
+						
+						index = nextIndex;
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="slideshow">
+			<div>A</div>
+			<div>B</div>
+			<div>C</div>
+			<div>D</div>
+			<div>E</div>
+			<div>F</div>
+			<div>G</div>
+			<div>H</div>
+		</div>
+	</body>
+</html>
