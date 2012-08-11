@@ -93,7 +93,7 @@ Trainings.ActivityListController = Ember.ArrayProxy.extend({
 				that.set('loading', false);
 	            if (data && data.rows && data.rows.length > 0) {
 					data.rows.forEach(function(row) {
-						var key = row.key;
+						var key = row.key;						
 						that.addActivity({
 							id: row.id,
 							date: key,

@@ -61,7 +61,7 @@ public class ListRunnersCommand implements Command {
 		List<Runner> runners = service.listRunners(category);
 		for (int i = 0; i < runners.size(); i++) {
 			Runner runner = runners.get(i);
-			System.out.println(String.format("%5s  %s", runner.getName(), runner.getSplits()));
+			System.out.println(String.format("%3d  %5s  %s", i + 1, runner.getName(), runner.getSplits()));
 		}
 		
 		return context.getCurrent();

@@ -6,4 +6,12 @@ public class LapPoint extends Trackpoint {
 		super(elapsedTime);
 	}
 
+	public LapPoint(long elapsedTime, Trackpoint trackpoint) {
+		super(elapsedTime);
+		for (Class<? extends TrackpointAttribute> attributeType : trackpoint.getAttributes()) {
+			TrackpointAttribute attribute = trackpoint.getAttribute(attributeType);
+			addAttribute(attribute);
+		}
+	}
+
 }

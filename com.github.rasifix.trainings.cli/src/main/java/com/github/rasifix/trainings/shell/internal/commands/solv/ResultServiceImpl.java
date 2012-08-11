@@ -149,11 +149,7 @@ public class ResultServiceImpl implements ResultService {
 				HttpEntity entity = response.getEntity();
 				if (entity != null) {
 					String content = EntityUtils.toString(entity);
-					List<Runner> runners = parseRunners(new BufferedReader(new StringReader(content)));
-					for (Runner runner : runners) {
-						System.out.println(runner);
-					}
-					return runners;
+					return parseRunners(new BufferedReader(new StringReader(content)));
 				}
 				return null;
 			}
@@ -221,6 +217,10 @@ public class ResultServiceImpl implements ResultService {
 					runner.addSplit(field);
 				}
 				field = parseField(line, 51, 58);
+				if (field != null) {
+					runner.addSplit(field);
+				}
+				field = parseField(line, 66, 73);
 				if (field != null) {
 					runner.addSplit(field);
 				}
