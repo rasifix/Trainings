@@ -15,10 +15,10 @@
  */
 package com.github.rasifix.trainings;
 
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 
 public interface ActivityProcessor {
 
-	Activity processActivity(Activity activity);
+	ActivityImpl processActivity(ActivityImpl activity);
 	
 }

@@ -18,11 +18,11 @@ package com.github.rasifix.trainings;
 import java.io.IOException;
 import java.net.URL;
 
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 
 
 public interface ActivityExporter {
 	
-	URL exportActivity(Activity activity) throws IOException;
+	URL exportActivity(ActivityImpl activity) throws IOException;
 	
 }

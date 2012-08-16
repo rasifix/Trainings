@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import com.github.rasifix.trainings.integration.resource.Resource;
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 
 public interface ActivityImporter {
 
-	List<Activity> importActivities(Resource resource) throws IOException;
+	List<ActivityImpl> importActivities(Resource resource) throws IOException;
 
 }

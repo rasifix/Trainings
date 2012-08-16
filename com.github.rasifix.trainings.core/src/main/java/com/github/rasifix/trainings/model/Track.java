@@ -32,7 +32,7 @@ public class Track implements HasSummary {
 	
 	private final TrackpointSequence trackpoints = new LinkedTrackpointSequence(); 
 	
-	private Activity activity;
+	private ActivityImpl activity;
 	
 	private Date startTime;
 	
@@ -50,15 +50,15 @@ public class Track implements HasSummary {
 	}
 
 	/**
-	 * Gets the {@link Activity} containing this {@link Track}.
+	 * Gets the {@link ActivityImpl} containing this {@link Track}.
 	 * 
-	 * @return the {@link Activity} containing this {@link Track}
+	 * @return the {@link ActivityImpl} containing this {@link Track}
 	 */
-	public Activity getActivity() {
+	public ActivityImpl getActivity() {
 		return activity;
 	}
 	
-	void setActivity(Activity activity) {
+	void setActivity(ActivityImpl activity) {
 		this.activity = activity;
 	}
 	

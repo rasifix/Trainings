@@ -7,7 +7,7 @@ import java.util.List;
 import com.github.rasifix.trainings.ActivityImporter;
 import com.github.rasifix.trainings.format.Format;
 import com.github.rasifix.trainings.integration.resource.Resource;
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 
 public class DefaultActivityImporter implements ActivityImporter {
 
@@ -26,7 +26,7 @@ public class DefaultActivityImporter implements ActivityImporter {
 	}
 	
 	@Override
-	public List<Activity> importActivities(Resource resource) throws IOException {
+	public List<ActivityImpl> importActivities(Resource resource) throws IOException {
 		Format[] services;
 		synchronized (this) {
 			services = formats.toArray(new Format[formats.size()]);
@@ -42,7 +42,7 @@ public class DefaultActivityImporter implements ActivityImporter {
 			}
 		}
 
-		return new LinkedList<Activity>();
+		return new LinkedList<ActivityImpl>();
 	}
 
 }

@@ -19,16 +19,16 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 
 
 public interface ActivityRepository {
 	
-	ActivityKey addActivity(Activity activity) throws IOException;
+	ActivityKey addActivity(ActivityImpl activity) throws IOException;
 
 	void removeActivity(String activityId, String revision) throws IOException;
 	
-	Activity getActivity(String activityId) throws IOException;
+	ActivityImpl getActivity(String activityId) throws IOException;
 
 	List<ActivityOverview> findActivities(Date startDate, Date endDate) throws IOException;
 	

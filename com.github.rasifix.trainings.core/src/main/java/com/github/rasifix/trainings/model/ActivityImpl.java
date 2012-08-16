@@ -25,7 +25,7 @@ import java.util.List;
 import com.github.rasifix.trainings.model.attr.AttributeSummary;
 
 
-public class Activity implements HasSummary {
+public class ActivityImpl implements HasSummary {
 
 	private final List<Track> tracks = new LinkedList<Track>();
 	
@@ -37,11 +37,11 @@ public class Activity implements HasSummary {
 
 	private final Collection<Equipment> equipments = new HashSet<Equipment>();
 	
-	public Activity(final long startTime) {
+	public ActivityImpl(final long startTime) {
 		this(new Date(startTime));
 	}
 	
-	public Activity(final Date startTime) {
+	public ActivityImpl(final Date startTime) {
 		this.startTime = startTime;
 	}
 

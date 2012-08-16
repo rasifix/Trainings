@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 
 
 public interface ActivityReader {
 
-	List<Activity> readActivities(InputStream inputStream) throws IOException;
+	List<ActivityImpl> readActivities(InputStream inputStream) throws IOException;
 
 }
