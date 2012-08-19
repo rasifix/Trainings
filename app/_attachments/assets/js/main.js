@@ -634,6 +634,19 @@ Trainings.activityView = Ember.View.create({
 		var mapDiv = document.getElementById("map");
 		this.map = new google.maps.Map(mapDiv, options);
 		
+		var controlDiv = document.createElement("div");
+		controlDiv.style.backgroundColor = 'white';
+		google.maps.event.addListener(this.map, "mousemove", function(e) {
+			controlDiv.innerText = e.latLng.lat() + "," + e.latLng.lng();
+		});
+		google.maps.event.addListener(this.map, "mouseout", function(e) {
+			controlDiv.style.visibility = "hidden";
+		});
+		google.maps.event.addListener(this.map, "mouseover", function(e) {
+			controlDiv.style.visibility = "visible";
+		});
+		this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
+		
 		this.graphDiv = document.getElementById("graph");
 	},
 	

@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
@@ -21,7 +21,7 @@ public class JsonActivityWriterTest {
 		JsonActivityWriter out = new JsonActivityWriter();
 		
 		Date startTime = new Date();
-		Activity activity = new Activity(startTime);
+		ActivityImpl activity = new ActivityImpl(startTime);
 		
 		Track t1 = new Track(startTime);
 		

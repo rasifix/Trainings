@@ -4,7 +4,6 @@ import java.util.ListIterator;
 
 import jline.Completor;
 import jline.NullCompletor;
-
 import aQute.bnd.annotation.component.Component;
 
 import com.github.rasifix.trainings.model.Activity;

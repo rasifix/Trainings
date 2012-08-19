@@ -9,6 +9,7 @@ import aQute.bnd.annotation.component.Reference;
 
 import com.github.rasifix.trainings.ActivityRepository;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.Position;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;

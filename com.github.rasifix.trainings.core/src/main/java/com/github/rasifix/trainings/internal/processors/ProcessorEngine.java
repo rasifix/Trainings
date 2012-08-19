@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.github.rasifix.trainings.ActivityProcessor;
 import com.github.rasifix.trainings.integration.transformer.Transformer;
-import com.github.rasifix.trainings.model.ActivityImpl;
+import com.github.rasifix.trainings.model.Activity;
 
 
 public class ProcessorEngine implements Transformer {
@@ -37,7 +37,7 @@ public class ProcessorEngine implements Transformer {
 	
 	@Override
 	public Object transform(Object input) {
-		ActivityImpl activity = (ActivityImpl) input;
+		Activity activity = (Activity) input;
 		
 		ActivityProcessor[] copy;
 		synchronized (this) {

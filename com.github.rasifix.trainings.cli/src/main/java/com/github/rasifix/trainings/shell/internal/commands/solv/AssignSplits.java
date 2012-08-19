@@ -13,7 +13,6 @@ import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.LapPoint;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
-import com.github.rasifix.trainings.model.TrackpointAttribute;
 import com.github.rasifix.trainings.shell.Command;
 import com.github.rasifix.trainings.shell.CommandContext;
 

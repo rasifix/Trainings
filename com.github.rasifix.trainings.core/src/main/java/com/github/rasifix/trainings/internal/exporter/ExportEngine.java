@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.integration.transformer.Transformer;
-import com.github.rasifix.trainings.model.ActivityImpl;
+import com.github.rasifix.trainings.model.Activity;
 
 
 public class ExportEngine implements Transformer {
@@ -46,7 +46,7 @@ public class ExportEngine implements Transformer {
 		}
 		
 		List<URL> urls = new LinkedList<URL>();
-		ActivityImpl activity = (ActivityImpl) input;
+		Activity activity = (Activity) input;
 		for (ActivityExporter exporter : services) {
 			try {
 				URL url = exporter.exportActivity(activity);

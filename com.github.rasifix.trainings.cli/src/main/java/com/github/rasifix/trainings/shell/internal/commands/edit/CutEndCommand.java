@@ -3,7 +3,6 @@ package com.github.rasifix.trainings.shell.internal.commands.edit;
 import java.util.ListIterator;
 
 import jline.Completor;
-
 import aQute.bnd.annotation.component.Component;
 
 import com.github.rasifix.trainings.model.Activity;

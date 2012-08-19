@@ -27,6 +27,7 @@ import com.garmin.fit.SessionMesg;
 import com.garmin.fit.SessionMesgListener;
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.LapPoint;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
@@ -83,7 +84,7 @@ public class FitReader implements ActivityReader {
 			EventMesgListener,
 			StateContext {
 
-		private Activity activity;
+		private ActivityImpl activity;
 		
 		private List<Track> tracks = new LinkedList<Track>();
 		
@@ -121,7 +122,7 @@ public class FitReader implements ActivityReader {
 		@Override
 		public void startTrack(long timestamp) {
 			if (this.activity == null) {
-				this.activity = new Activity(timestamp);
+				this.activity = new ActivityImpl(timestamp);
 			}
 			this.currentTrack = new Track(timestamp);
 			

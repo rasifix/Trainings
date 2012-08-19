@@ -25,7 +25,7 @@ import java.util.List;
 import com.github.rasifix.trainings.model.attr.AttributeSummary;
 
 
-public class ActivityImpl implements HasSummary {
+public class ActivityImpl implements Activity {
 
 	private final List<Track> tracks = new LinkedList<Track>();
 	
@@ -147,7 +147,7 @@ public class ActivityImpl implements HasSummary {
 	
 	public void addTrack(Track track) {
 		if (track.getActivity() != null) {
-			track.getActivity().removeTrack(track);
+			((ActivityImpl) track.getActivity()).removeTrack(track);
 		}
 		tracks.add(track);
 		track.setActivity(this);

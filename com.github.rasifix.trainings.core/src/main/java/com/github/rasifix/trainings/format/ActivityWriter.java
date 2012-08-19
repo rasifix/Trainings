@@ -18,11 +18,11 @@ package com.github.rasifix.trainings.format;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.github.rasifix.trainings.model.ActivityImpl;
+import com.github.rasifix.trainings.model.Activity;
 
 
 public interface ActivityWriter {
 
-	void writeActivity(ActivityImpl activity, OutputStream outputStream) throws IOException;
+	void writeActivity(Activity activity, OutputStream outputStream) throws IOException;
 	
 }

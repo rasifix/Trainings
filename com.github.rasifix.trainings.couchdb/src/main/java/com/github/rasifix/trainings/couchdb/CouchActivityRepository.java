@@ -25,6 +25,7 @@ import com.github.rasifix.trainings.equipment.EquipmentRepository;
 import com.github.rasifix.trainings.format.json.JsonActivityReader;
 import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.Equipment;
 
 @Component(properties={ "host=localhost", "port=5984" })

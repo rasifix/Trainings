@@ -33,10 +33,12 @@ function(key,values,rereduce) {
 	var value = values[idx];
 	result.totalTime += value.totalTime;
 	result.distance += value.distance;
-	result.alt.min = Math.min(result.alt.min, value.alt.min);
-	result.alt.max = Math.max(result.alt.max, value.alt.max);
-	result.alt.gain += value.alt.gain;
-	result.alt.loss += value.alt.loss;
+	if (value.alt) {
+		result.alt.min = Math.min(result.alt.min, value.alt.min);
+		result.alt.max = Math.max(result.alt.max, value.alt.max);
+		result.alt.gain += value.alt.gain;
+		result.alt.loss += value.alt.loss;
+	}
 	if (value.hr) {
 	  hr.avg += value.hr.avg * value.totalTime;
 	  hr.max = Math.max(hr.max, value.hr.max);

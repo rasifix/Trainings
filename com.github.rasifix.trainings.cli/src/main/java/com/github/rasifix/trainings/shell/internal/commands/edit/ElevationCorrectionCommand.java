@@ -2,7 +2,6 @@ package com.github.rasifix.trainings.shell.internal.commands.edit;
 
 import jline.Completor;
 import jline.NullCompletor;
-
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 

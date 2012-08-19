@@ -4,7 +4,6 @@ import java.util.List;
 
 import jline.Completor;
 import jline.NullCompletor;
-
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 

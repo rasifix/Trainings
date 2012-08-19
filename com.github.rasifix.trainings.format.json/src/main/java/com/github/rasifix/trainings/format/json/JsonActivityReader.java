@@ -30,8 +30,10 @@ import com.github.rasifix.saj.dom.JsonModelBuilder;
 import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.Equipment;
 import com.github.rasifix.trainings.model.Track;
+import com.github.rasifix.trainings.model.TracklessActivity;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.CadenceAttribute;
@@ -46,8 +48,7 @@ public class JsonActivityReader implements ActivityReader {
 
 	@Override
 	public List<Activity> readActivities(InputStream inputStream) throws IOException {
-		Activity activity = readActivity(inputStream);
-		return Collections.singletonList(activity);
+		return Collections.singletonList(readActivity(inputStream));
 	}
 
 	public Activity readActivity(Reader reader) throws IOException {
@@ -66,6 +67,9 @@ public class JsonActivityReader implements ActivityReader {
 
 	public Activity readActivity(JsonObject json) {
 		String type = json.getString("type");
+		if ("training".equals(type)) {
+			return readSimpleActivity(json);
+		}
 		if (!"activity".equals(type)) {
 			throw new IllegalArgumentException("json input is not an activity");
 		}
@@ -77,7 +81,7 @@ public class JsonActivityReader implements ActivityReader {
 
 		Date startTime = parse(json.getString("date"));
 
-		Activity activity = new Activity(startTime);
+		ActivityImpl activity = new ActivityImpl(startTime);
 		activity.setId(id);
 		activity.setRevision(rev);
 
@@ -158,8 +162,23 @@ public class JsonActivityReader implements ActivityReader {
 		return activity;
 	}
 
+	private Activity readSimpleActivity(JsonObject json) {
+		String id = json.getString("id");
+		String sport = json.getString("sport");
+		int duration = json.getInt("duration");
+		int distance = json.getInt("distance");
+		Date startTime = parse(json.getString("date"));
+		
+		TracklessActivity activity = new TracklessActivity(startTime);
+		activity.setId(id);
+		activity.setSport(sport);
+		activity.setDuration(duration);
+		activity.setDistance(distance);
+		return activity;
+	}
+
 	private Date parse(String text) {
-		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		format.setLenient(false);
 		try {
 			return format.parse(text);

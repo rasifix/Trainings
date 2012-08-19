@@ -34,6 +34,7 @@ import com.github.rasifix.trainings.format.tcx.internal.processors.TcxActivityPr
 import com.github.rasifix.trainings.format.tcx.internal.processors.TcxLapCleanup;
 import com.github.rasifix.trainings.format.tcx.internal.processors.TcxTrackCleanup;
 import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.Position;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
@@ -66,7 +67,7 @@ public class TcxActivityReader implements ActivityReader {
 	
 	protected Activity convert(final TcxActivity source) {
 		Date Date = getDate(source.getId());
-		Activity activity = new Activity(Date);
+		ActivityImpl activity = new ActivityImpl(Date);
 		String sport = source.getSport();
 		
 		Track current = new Track(Date);
