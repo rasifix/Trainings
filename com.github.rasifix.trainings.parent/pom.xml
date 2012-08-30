@@ -6,6 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
+		<module>../com.github.rasifix.lazycouch</module>
 		<module>../com.github.rasifix.trainings.core</module>
 		<module>../com.github.rasifix.trainings.integration</module>
 		<module>../com.github.rasifix.trainings.format.tcx</module>

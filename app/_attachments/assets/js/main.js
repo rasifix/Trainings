@@ -126,6 +126,7 @@ Trainings.activityListView = Ember.View.create({
  */
 Trainings.DashboardController = Ember.Object.extend({
 	graphData: { },
+	activities: [ ],
 	show: function() {
 		var now = new Date();
 		
@@ -136,6 +137,26 @@ Trainings.DashboardController = Ember.Object.extend({
 		var startYear = now.getFullYear();
 		var startWeek = now.getWeek();
 		var that = this;
+		Trainings.activityRepository.loadActivityOverview({ }, {
+			"success": function(data) {
+				var activities = [];
+            	if (data && data.rows && data.rows.length > 0) {
+					data.rows.forEach(function(row) {
+						var key = row.key;	
+						activities.push(Ember.Object.create({
+							id: row.id,
+							date: key,
+							sport: row.value.sport,
+							duration: formatDuration(row.value.totalTime),
+							distance: formatDistance(row.value.distance),
+							speed: "CYCLING" == row.value.sport ? formatSpeed(row.value.speed) : formatPace(row.value.speed),
+							avgHr: row.value.hr ? row.value.hr.avg : null
+						}));
+					});
+                }
+				that.set('activities', activities);
+			}
+		});
 		Trainings.activityRepository.loadSummaryByWeek([startYear, startWeek], [endYear, endWeek + 1], {
 			success: function(data) {
 				var result = { };
@@ -198,6 +219,7 @@ Trainings.dashboardController = Trainings.DashboardController.create();
 Trainings.dashboardView = Ember.View.create({
 	templateName: 'dashboard',
 	graphDataBinding: 'Trainings.dashboardController.graphData',
+	activitiesBinding: 'Trainings.dashboardController.activities',
 	labels: [],
 	
 	didInsertElement: function() {
@@ -800,6 +822,18 @@ Trainings.ActivityRepository = Ember.Object.extend({
 			endkey: year + "-" + pad(month) + "-01 00:00:00",
 			startkey: year + "-" + pad(month) + "-32 00:00:00",
 			descending: true
+		});
+	},
+	
+	loadActivityOverview: function(options, callback) {
+		var limit = options.limit || 5;
+		var descending = options.descending || true;
+		$.couch.db('trainings').view("app/overview", {
+			success: function(data) {
+				callback.success(data);
+			},
+			descending: descending,
+			limit: limit
 		});
 	},
 	

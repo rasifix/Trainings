@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <?xml-stylesheet type='text/xsl' href='http://www.osgi.org/www/obr2html.xsl'?>
 
-<repository lastmodified='20120430213017.709' name='Local Repository'>
+<repository lastmodified='20120821210129.687' name='Local Repository'>
   <resource id='biz.aQute.bnd/1.51.1' presentationname='bnd' symbolicname='biz.aQute.bnd' uri='biz.aQute.bnd/biz.aQute.bnd-1.51.1.jar' version='1.51.1'>
     <description>
       A utility and plugin to wrap, build, print, or otherwise manipulate
@@ -1026,6 +1026,332 @@
     </capability>
     <require extend='false' filter='(|(ee=J2SE-1.3))' multiple='false' name='ee' optional='false'>
       Execution Environment (|(ee=J2SE-1.3))
+    </require>
+  </resource>
+  <resource id='groovy-all/2.0.0' presentationname='Groovy Runtime' symbolicname='groovy-all' uri='groovy-all/groovy-all-2.0.0.jar' version='2.0.0'>
+    <description>
+      Groovy Runtime
+    </description>
+    <size>
+      6237416
+    </size>
+    <capability name='bundle'>
+      <p n='manifestversion' v='2'/>
+      <p n='presentationname' v='Groovy Runtime'/>
+      <p n='symbolicname' v='groovy-all'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.classgen.asm.sc'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.tools.gse'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.tools.shell.util'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.syntax'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.vmplugin'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.typehandling'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.io'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.m12n'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.control.io'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.tools.ast'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.ast'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.ui'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.transform.sc.transformers'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.metaclass'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.beans'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.classgen.asm'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.callsite'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.ast.tools'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.classgen'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.reflection.stdclasses'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.transform.sc'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.dgmimpl'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.grape'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.control.messages'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.ast.expr'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.ast.stmt'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.dgmimpl.arrays'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.transform'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.antlr.java'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.xml'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.ast.builder'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.transform'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.util'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.lang'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.tools.shell'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.plugin'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.tools'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.wrappers'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.powerassert'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.vmplugin.v5'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime.memoize'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.vmplugin.v6'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.control.customizers'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.antlr.parser'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.antlr'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.reflection'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.antlr.treewalker'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.transform.stc'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.control'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.security'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.util.logging'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.runtime'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.time'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='groovy.inspect'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.tools.javac'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='org.codehaus.groovy.util'/>
+      <p n='version' t='version' v='2.0.0'/>
+    </capability>
+    <require extend='false' filter='(&amp;(package=antlr)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package antlr
+    </require>
+    <require extend='false' filter='(&amp;(package=antlr.collections)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package antlr.collections
+    </require>
+    <require extend='false' filter='(&amp;(package=antlr.collections.impl)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package antlr.collections.impl
+    </require>
+    <require extend='false' filter='(&amp;(package=antlr.debug.misc)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package antlr.debug.misc
+    </require>
+    <require extend='false' filter='(&amp;(package=com.thoughtworks.xstream)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package com.thoughtworks.xstream
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package javax.swing
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing.border)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package javax.swing.border
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.swing.text)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package javax.swing.text
+    </require>
+    <require extend='false' filter='(&amp;(package=javax.xml.parsers)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package javax.xml.parsers
+    </require>
+    <require extend='false' filter='(&amp;(package=jline)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))' multiple='false' name='package' optional='true'>
+      Import package jline ;version=[1.0.0,2.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.commons.cli)(version&gt;=1.2.0)(!(version&gt;=2.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.commons.cli ;version=[1.2.0,2.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.cache)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.cache ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.event)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.event ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.event.download)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.event.download ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.event.resolve)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.event.resolve ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.module.descriptor)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.module.descriptor ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.module.id)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.module.id ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.report)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.report ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.resolve)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.resolve ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.core.settings)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.core.settings ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.plugins.matcher)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.plugins.matcher ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.plugins.resolver)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.plugins.resolver ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.apache.ivy.util)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.apache.ivy.util ;version=[2.0.0,3.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.fusesource.jansi)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))' multiple='false' name='package' optional='true'>
+      Import package org.fusesource.jansi ;version=[1.6.0,2.0.0)
+    </require>
+    <require extend='false' filter='(&amp;(package=org.objectweb.asm)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package org.objectweb.asm
+    </require>
+    <require extend='false' filter='(&amp;(package=org.w3c.dom)(version&gt;=0.0.0))' multiple='false' name='package' optional='true'>
+      Import package org.w3c.dom
+    </require>
+    <require extend='false' filter='(|(ee=J2SE-1.5))' multiple='false' name='ee' optional='false'>
+      Execution Environment (|(ee=J2SE-1.5))
     </require>
   </resource>
   <resource id='javax.measure/0.9.1' presentationname='Measure' symbolicname='javax.measure' uri='javax.measure/javax.measure-0.9.1.jar' version='0.9.1'>

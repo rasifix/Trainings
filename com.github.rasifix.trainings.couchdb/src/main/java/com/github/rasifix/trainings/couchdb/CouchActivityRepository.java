@@ -14,18 +14,23 @@ import org.osgi.service.component.ComponentContext;
 
 import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
+import aQute.bnd.annotation.component.Reference;
 
+import com.github.rasifix.lazycouch.CouchDatabase;
+import com.github.rasifix.lazycouch.CouchQuery;
+import com.github.rasifix.lazycouch.CouchServer;
+import com.github.rasifix.lazycouch.Document;
+import com.github.rasifix.lazycouch.LazyCouchFactory;
+import com.github.rasifix.lazycouch.RowMapper;
 import com.github.rasifix.saj.dom.JsonModelBuilder;
 import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.ActivityKey;
 import com.github.rasifix.trainings.ActivityRepository;
-import com.github.rasifix.trainings.couchdb.internal.CouchServerImpl;
 import com.github.rasifix.trainings.equipment.EquipmentRepository;
 import com.github.rasifix.trainings.format.json.JsonActivityReader;
 import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
-import com.github.rasifix.trainings.model.ActivityImpl;
 import com.github.rasifix.trainings.model.Equipment;
 
 @Component(properties={ "host=localhost", "port=5984" })
@@ -33,13 +38,20 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 
 	private String host;
 	private int port;
-	private CouchServerImpl server;
+	private CouchServer server;
 
+	private LazyCouchFactory factory;
+	
+	@Reference
+	public void setFactory(LazyCouchFactory factory) {
+		this.factory = factory;
+	}
+	
 	@Activate
 	public void activate(ComponentContext context) {
 		this.host = (String) context.getProperties().get("host");
 		this.port = Integer.parseInt((String) context.getProperties().get("port"));
-		this.server = new CouchServerImpl(host, port);
+		this.server = factory.open(host, port);
 	}
 	
 	@Override

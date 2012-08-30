@@ -200,6 +200,20 @@
 		    this is silly you little dilly
 		  </div>
 		</div>
+		<div class="container">
+		    <table border="0" class="striped" style="width:100%">
+		      {{#each activities}}
+				<tr onclick="Trainings.showActivity('{{unbound id}}')">
+				  <td>{{date}}</td>
+				  <td>{{sport}}</td>
+				  <td>{{duration}}</td>
+				  <td>{{distance}}</td>
+				  <td>{{speed}}</td>
+				  <td>{{#if avgHr}}{{avgHr}}{{/if}}</td>
+				</tr>
+		      {{/each}}
+		    </table>
+		</div>
 		</script>
 	
 		<script type="text/x-handlebars" data-template-name="activity-list">

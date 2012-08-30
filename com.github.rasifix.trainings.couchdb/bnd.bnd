@@ -1,10 +1,10 @@
 -buildpath: com.github.rasifix.trainings.core;version=latest,\
 	com.github.rasifix.saj;version=latest,\
 	com.github.rasifix.trainings.format.json;version=latest,\
+	com.github.rasifix.lazycouch;version=latest,\
 	osgi.cmpn,\
 	org.apache.httpcomponents.httpclient,\
 	org.apache.httpcomponents.httpcore,\
 	biz.aQute.bnd.annotation
-Private-Package: com.github.rasifix.trainings.couchdb.internal
 Export-Package: com.github.rasifix.trainings.couchdb
 Service-Component: com.github.rasifix.trainings.couchdb.*

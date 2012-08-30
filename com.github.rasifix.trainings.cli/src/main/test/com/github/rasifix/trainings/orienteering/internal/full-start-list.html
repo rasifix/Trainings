@@ -1,0 +1,1758 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+   <title>SOLV</title>
+   <script type="text/javascript" src="/jquery/jquery-1.7.2.min.js"></script>
+   <script type="text/javascript" src="/jquery/jcanvas.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#cgraph').click(function() {
+      $('#resform').submit();
+    });
+    $('#czwizt').click(function() {
+      $('#resform').submit();
+    });
+
+    $('#imgx').change(function() {
+      $('#resform').submit();
+    });
+    $('#imgy').change(function() {
+      $('#resform').submit();
+    });
+
+  });
+
+</script>
+</head>
+<body text="#000000" bgcolor="#ffffff"
+link="#ff0000" vlink="#990000" alink="#ff0000" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" >
+
+<style type="text/css"><!--
+p,h1,h2,h3,ul,ol,td,th,center { font-family: verdana,arial,helvetica,sans-serif; line-height: 1.4em; }
+h1 { font-size: 16pt; }
+h2 { font-size: 11pt; }
+h3 { font-size: 9pt; margin-bottom: 2pt; }
+p,ul,ol,center { margin-top: 5pt; margin-bottom: 5pt; font-size: 8pt; }
+p.sml { font-size: 7pt; }
+td { font-size: 8pt; }
+th { text-align: left; font-size: 9pt; font-weight: bold; }
+td.menu { font-family: arial,helvetica; font-size: 9pt; }
+td.title { font-family: arial,helvetica; font-size: 8pt; font-weight:bold; }
+a { color: #de0000; text-decoration: none; }
+a:hover {  color: #6b6b6b; text-decoration: none; }
+a.help { text-decoration: none; }
+a.menu { text-decoration: none; }
+a.sml { font-size: 7pt; text-decoration: none; }
+input, textarea { font-size: 9pt; }
+input:focus, textarea:focus { background-color: #ffcaca;}
+td.linkbar { color:#505050; font-size: 9pt; }
+td.linkbar a { color:#505050; text-decoration: none; }
+td.linkbar a:hover { color:#ffffff; text-decoration: none; }
+td blockquote { color:#0000d0; margin-left:20px; margin-bottom:0px; }
+td pre { font-family: "Courier New", Courier, monospace; font-size: 10pt; }
+dl { margin-bottom: 0pt; }
+dt { font-weight:bold; }
+dd { margin-left:20px; }
+.msgname { color:#000000; }
+.msgprevw { color:#606060; margin-left:20px; }
+.newsprevw { color:#606060; margin-left:4px; }
+.chmpname { color:#000000; margin-left:4px; }
+.courier { font-family: "Courier New", Courier, monospace; font-size: 9pt; }
+.more { margin-left:10px; font-size: 8pt; font-weight: normal; text-decoration: none; }
+.ndeco { color:#ff0000; text-decoration: none; }
+.cmsauth { color:#606060; }
+.cmslead { font-weight: bold; }
+--></style>
+<table border=0 cellspacing=0 cellpadding=0 width="100%" bgcolor="#ffffff">
+<tr>
+<td style="background-color:#DE0000" valign="bottom" align="left"><img src="/images/pix.gif" alt="" height="1" width="175"></td>
+<td><img src="/images/pix.gif" alt="" height="100" width="40"></td>
+<td valign="center"><a href="http://www.swiss-orienteering.ch/"><img src="/images/logo_swisso.png" width=236 height=80 border=0 alt=""></a></td>
+<td width="99%"><img src="/images/pix.gif" alt="" height=1 width=1></td>
+<td><a href="/cgi-bin/go/http://www.o-l.ch/?results"><img src="/banner/hirzli_panorama_banner.jpg" width=468 height=60 align=right border=0 alt=""></a>
+</td>
+<td><img src="/images/pix.gif" alt="" height=1 width=10></td>
+</tr>
+<!--
+<tr><td width="100%" colspan=7 bgcolor="#ffffff"><img src="/images/pix.gif" alt="" height=3 width=1></td></tr>
+<tr><td width="100%" colspan=7 bgcolor="#a0a0a0"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+<tr><td width="100%" colspan=7 bgcolor="#c0c0c0"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+-->
+<tr bgcolor="#d0d0d0">
+<td colspan=7>
+<table border=0 cellspacing=0 cellpadding=0 width="100%" bgcolor="#c0c0c0">
+<tr>
+<td style="background-color:#000000" valign="bottom" align="left"><img src="/images/pix.gif" alt="" height="17" width="175"></td>
+<td><img src="/images/pix.gif" alt="" height="1" width="10"></td>
+<td class="linkbar" width="100%" colspan=4>
+<a href="http://www.swiss-orienteering.ch/">home</a> | 
+<a href="http://www.o-l.ch/">o-l.ch</a> | 
+<a href="http://arch.o-l.ch/">archive</a> | 
+<a href="http://www.swiss-orienteering.ch/forum.php">forum</a> |
+<!-- <a href="/cgi-bin/forum">forum</a> | -->
+<a href="/cgi-bin/fixtures">termine</a> | 
+<a href="/cgi-bin/results?type=start">startlisten</a> | 
+<a href="/cgi-bin/results">ranglisten</a> | 
+<a href="/cgi-bin/pliste">punkteliste</a> | 
+<!-- <a href="/cgi-bin/email">email</a> | -->
+<!-- <a href="/cgi-bin/vereine">clubs</a> | -->
+<a href="/cgi-bin/solvdb">l&auml;ufer DB</a>
+
+</td>
+<td class="linkbar" align=right>
+<a href="/cgi-bin/admin">admin</a>
+</td>
+<td><img src="/images/pix.gif" alt="" height=1 width=10></td>
+</tr>
+</table>
+</td></tr>
+<!--
+<tr><td width="100%" colspan=7 bgcolor="#c0c0c0"><img src="/images/pix.gif" alt="" height=2 width=1></td></tr>
+<tr><td width="100%" colspan=7 bgcolor="#a0a0a0"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+-->
+</table>
+<img src="/images/pix.gif" alt="" height=10 width=1>
+<table border=0 cellspacing=0 cellpadding=0>
+<tr>
+<td><img src="/images/pix.gif" alt="" height=1 width=10></td>
+<td valign=top>
+<h2>Schweiz. Meisterschaft im Langdistanz-OL <a href="/cgi-bin/fixtures?mode=show&unique_id=5867" class="more">&raquo; Info</a></h2>
+<table border="0" cellspacing="0" cellpadding="0" width="630" bgcolor="#ffffff">
+
+<tr><td colspan="3" width="100%" height="2" bgcolor="#de0000"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+<tr><td colspan="3" width="100%" height="8" bgcolor="#ffffff"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+<tr><td width="210">OLV Baselland</td><td width="210" align="center">Sissacherflue-Limperg</td><td width="210" align="right">Lausen, 19. Aug. 2012</td></tr>
+<tr><td colspan="3">
+<a href="http://www.lom2012.ch">&raquo; Ausschreibung</a>
+<a href="results?type=start&rl_id=2193">&raquo; Startliste</a>
+<a href="results?rl_id=2204">&raquo; Rangliste</a>
+</td></tr>
+<tr><td colspan="3" width="100%" height=8 bgcolor="#ffffff"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+<tr><td colspan="3" width="100%" height="2" bgcolor="#de0000"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+</table>
+<b><p></p>HE</b>
+<pre>  59364 Thomas Hofer           83 Huttwil            OLG Huttwil         10:18
+ 500851 Thomas Eyer            81 Burgdorf           ol.biel.seeland     10:22
+  64314 Simon Brechb&uuml;hler      75 Lauperswil         OLV Hindelbank      10:26
+ 721210 Michael Granacher      72 Gelterkinden       OLG Kakowa          10:30
+ 633509 Francis Gafner         64 Binningen                              10:34
+ 804586 Florian Wittwer        89 Hessigkofen        Bucheggberger OL    10:38
+1600468 Beat Roth              81 Bern               OLG Biberist SO     10:42
+1081990 Lukas Lombriser        90 B&uuml;sserach          OLG Basel           10:46
+ 504698 Fabian Ringli          89 Schaffhausen       OLG Schaffhausen    10:50
+ 850627 Flavio Polt&eacute;ra         85 Domat/Ems                              10:54
+ 800914 Andreas M&uuml;ller         80 Olten              OLG S&auml;uliamt        10:58
+ 504337 Robin Brodmann         91 Riehen             OLG Basel           11:02
+ 895064 Alexander Schwab       88 Olten              OL Regio Olten      11:06
+2018672 Simon Sch&uuml;pbach        81 Bern               OLV Hindelbank      11:10
+2003120 Stefan Zwicky          81 Z&uuml;rich             OLG Cordoba         11:14
+ 895043 Beat Zimmermann        82 M&uuml;nchenbuchsee     Bucheggberger OL    11:18
+1602575 Patrik W&auml;geli          91 Nussbaumen TG      thurgorienta        11:22
+ 991021 Jonas Merz             87 Beinwil am See     OLG Rymenzburg      11:26
+ 504374 Christian Hohl         89 Allschwil          OLG Basel           11:30
+ 504336 Simon Br&auml;ndli          90 Turbenthal         OLC Winterthur      11:34
+ 500844 Jonas Mathys           87 Bern               OLG Huttwil         11:38
+1972329 Thomas Hodel           72 Gondiswil          OLG Huttwil / ANCO  11:42
+ 550000 Matthias Niggli        73 M&uuml;nsingen          ol norska           11:46
+ 543210 Philipp Sauter         89 Chur               OLG Chur            11:50
+ 910820 Florian Howald         91 Ober&ouml;nz            OLG Herzogenbuchsee 11:54
+ 500876 Raffael Huber          88 Hedingen           OLG S&auml;uliamt        11:58
+ 500255 Matthias M&uuml;ller        82 Winterthur         bussola ok          12:02
+2003149 Andreas R&uuml;edlinger     85 Winterthur         OLK Rafzerfeld      12:06
+1392350 Fabian Hertner         85 Winterthur         OLV Baselland       12:10
+1451989 Martin Hubmann         89 Eschlikon TG       OL Regio Wil        12:14
+2003453 Andreas Kyburz         88 M&ouml;hlin             OLK Fricktal        12:18
+2003592 Matthias Merz          84 Aarau              OLG Rymenzburg      12:22
+1201002 Marc Lauenstein        80 Cormondr&egrave;che       ANCO                12:26
+ 851523 Matthias Kyburz        90 M&ouml;hlin             OLK Fricktal        12:30
+</pre>
+<b>HAL</b>
+<pre> 680130 Thomas B&uuml;hrer          68 Villars-sur-Gl&acirc;ne  CA Ros&eacute;              9:33
+2003363 Simon Bolliger         80 Unterb&ouml;zberg       OLK Argus            9:37
+ 896991 Lukas Studer           88 Sissach            OLG St. Gallen/App.  9:41
+ 831103 Leandro Gianini        83 Camorino           CO UTOE Bellinzona   9:45
+  59344 Benedikt Gasser        78 Wolhusen           OLV Luzern           9:49
+  64979 Adrian Br&auml;ndli         86 Bern               OLC Winterthur       9:53
+2003020 Roland Sp&ouml;rri          84 Elsau              OLC Winterthur       9:57
+ 990992 Roger N&uuml;tzi            84 Muttenz            OL Regio Olten      10:01
+  61399 Steve Page             80 Prez-vers-Nor&eacute;az   CA Ros&eacute;             10:05
+ 504672 Stefan Schwarzenberger 66 Stettlen                               10:09
+ 830830 Lukas Zwicky           83 Aarau              OLG Cordoba         10:13
+ 519785 Flurin Schnyder        78 Z&uuml;rich             OLG Z&uuml;rich          10:17
+1006007 Julien Guyot           81 Les Geneveys-sur-C ANCO                10:21
+1395623 Gian-Reto Schaad       77 Steinhausen        OLG Chur            10:25
+1986111 Mathieu Mazuez         86 Niederwangen b. Be OLG Bern            10:29
+ 533335 Sven R&uuml;egg             90 Unterohringen      OLG Welsikon        10:33
+1112111 Benjamin M&uuml;ller        91 Guntershausen      OL Regio Wil        10:37
+1006109 Damian K&ouml;pfli          91 Wolhusen           OLV Luzern          10:41
+1392224 Beat Bergmann          78 Bolligen           ol norska           10:45
+ 504372 Alessandro Beck        89 Staffelbach        OLK Wiggertal       10:49
+2003633 Raphael Zwiker         78 Regensdorf         OLG Galgenen        10:53
+2003583 Patrik Thoma           81 Wettingen          bussola ok          10:57
+ 866666 Beat Meier             86 Beinwil am See     OLG Rymenzburg      11:01
+ 500282 Patrick Denzler        78 Einsiedeln         OLC Winterthur/OLG  11:05
+ 870606 Christof R&ouml;thlisberger 87 Langnau im Emmenta OLG Skandia         11:09
+ 500815 Pirmin Schneider       84 Wil SG             OL Regio Wil        11:13
+1221185 Lukas Funk             85 Winterthur         OLG S&auml;uliamt        11:17
+1983000 Michael Naef           83 Liebefeld          OLG Bern            11:21
+1983223 J&eacute;r&ocirc;me Favre           83 Fleurier           ANCO                11:25
+ 895061 Nicolas G&uuml;rtler        90 Ormalingen         OLG Kakowa          11:29
+1392313 Lukas Schulthess       79 Illnau             OLC Kapreolo BT     11:33
+ 791905 Daniel Zwiker          79 B&auml;retswil          OLG Galgenen        11:37
+ 500770 Renato Winteler        78 Kreuzlingen        OLG Welsikon        11:41
+2003352 Armin Steiner          79 Uerkheim           OLG Cordoba         11:45
+</pre>
+<b>HAM</b>
+<pre> 364554 Yann Schlegel          90 Olten              OL Regio Olten       9:32
+        Tuomas Hakkarainen     78 Espoo              MS Parma             9:35
+1394398 Stefan Lombriser       85 B&uuml;sserach          OLV Baselland        9:38
+ 413101 Roger Fluri            92 W&auml;denswil          OL Zimmerberg        9:41
+2003411 Michael Cantoni        87 Seedorf            OLG KTV Altdorf      9:44
+  61370 Markus Wenk            80 Z&uuml;rich             OLG Chur             9:47
+ 991199 Benjamin Misteli       92 Zunzgen            OLG Kakowa           9:50
+  62091 Matthias H&auml;rri         75 Windisch           OLG Rymenzburg       9:53
+ 413170 Daniel Forrer          80 Aarau              OLG Suhr             9:56
+ 432680 Marc Zbinden           74 M&uuml;nsingen          ol norska            9:59
+ 760403 Lorenzo Mangiarratti   76 Burgdorf           OLV Hindelbank      10:02
+ 770816 Thomas Wyss            77 Olten              OL Regio Olten      10:05
+   6623 Michael Wild           86 Holderbank AG      OLK Argus           10:08
+1991991 Lineo De Vecchi        83 Z&uuml;rich             OLK Rafzerfeld      10:11
+ 603012 Christoph Egli         88 Birr               bussola ok          10:14
+ 931893 Dominik M&ouml;sch          84 Arlesheim          OLG Basel           10:17
+1213144 Arno Schneider         72 Wettingen          OLG Cordoba         10:20
+2025689 Jan Hug                92 W&auml;denswil          OL Zimmerberg       10:23
+1311277 Remo Thoma             77 N&auml;nikon            OLG Pf&auml;ffikon       10:26
+2003122 Sergio Zanelli         75 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       10:29
+1006019 Peter Tsch&uuml;mperlin     88 Sachseln           OLG Nidwalden+Obwal 10:32
+1602667 Raffael Greis          91 Feuerthalen        OLG Schaffhausen    10:35
+  64005 Philipp Zappa          90 Huttwil            OLG Huttwil         10:38
+1010014 Markus Hintermann      85 Beinwil am See     OLG Rymenzburg      10:41
+ 504692 Dominik Haas           90 Schaffhausen       OLG Schaffhausen    10:44
+ 896981 Claude L&uuml;scher         90 Oberentfelden      OLG Suhr            10:47
+ 895062 Daniel Rohr            90 Gattikon           OL Zimmerberg       10:50
+ 505555 Gianni Guglielmetti    86 Porza              GOLD Savosa         10:53
+ 707052 Marcel Tschopp         81 D&uuml;bendorf          OLG Galgenen        10:56
+1395545 Mario Genna            80 Bern               OLG Thun            10:59
+1261984 Andreas Herzog         84 Schaffhausen       OLG Schaffhausen /  11:02
+7000105 Gil Meyer              86 Z&uuml;rich             OLG Z&uuml;rich          11:05
+1392562 Stefan Brauchli        84 Engelburg          OLG St. Gallen/App. 11:08
+</pre>
+<b>HAK</b>
+<pre> 432598 Will Franssen          62 Sursee             OLV Luzern          10:01
+ 960112 Tobias Blum            96 Lotzwil            OLV Langenthal      10:04
+  64037 Stefan Leutert         76 Bern               OLG Bern / UBOL     10:07
+  62413 Stefan Kobel           60 Moosseedorf        OLG Bern            10:10
+1971996 Silvan Rutz            96 St&auml;fa              OLG St&auml;fa           10:13
+ 346549 Patrick Imboden        71 Urtenen-Sch&ouml;nb&uuml;hl  OLG Bern            10:16
+2034096 Noel Orillo            73 Basel              OLG Basel           10:19
+1398455 Markus Uhr             81 Wila               TV Wila             10:22
+ 504344 Lars Br&ouml;nnimann        84 Thalwil            OLV Hindelbank      10:25
+ 432508 Ernst Zimmermann       65 Huttwil            OLG Huttwil         10:28
+ 432686 Dieter L&uuml;tzelschwab    66 Gebenstorf         OLG Cordoba         10:31
+2035556 Bernard Gloor          65 Bertschikon (Gossa                     10:34
+1041070 Romeo H&auml;chler          70 Lenzburg           OLK Argus           10:37
+1010029 Janick Leuenberger     94 Reinach AG         OLG Rymenzburg      10:40
+ 364535 Marc Nobbenhuis        65 Wallbach           OLK Fricktal        10:43
+1962531 Gianni Ghezzi          62 Pregassona         C.O. Aget Lugano    10:46
+  63938 Georg Zihlmann         59 Dietikon           OLK Piz Hasi        10:49
+  61936 Felix Ernst            63 Klingnau           OLG Chies           10:52
+1401414 Dominik Badertscher    95 Langnau am Albis   OL Zimmerberg       10:55
+  64406 Beat Spalinger         58 Hedingen           OLG S&auml;uliamt        10:58
+ 252923 Peter Badertscher      66 Langnau am Albis   OL Zimmerberg       11:01
+ 346620 Bruno Haefeli          62 Huttwil            OLG Huttwil         11:04
+  58379 Beat Wellig            69 Suhr               OLV Zug             11:07
+ 690527 Christoph Frei         69 Stein am Rhein     OLG Dachsen         11:10
+ 700415 Oliver M&uuml;ller          70 Bolligen           ol norska           11:13
+2300207 Mauro Docci            63 Lausen             OLG Kakowa          11:16
+1395540 Christian H&auml;fliger     67 Lenzburg           OLG Suhr            11:19
+ 887037 Andreas Brunner        64 Bad Zurzach        OLG K&ouml;lliken / OLK  11:22
+ 771231 Matthias Schlegel      85 Z&uuml;rich             OL Regio Olten      11:25
+  61376 Mathias L&uuml;scher        63 Seengen            OLK Argus           11:28
+1818181 Markus Treier          70 Niederrohrdorf     bussola ok          11:31
+1561960 Beat Seiterle          60 Frauenfeld         thurgorienta        11:34
+2003158 Matthias Boos          65 Malters            OLV Luzern          11:37
+ 611009 Martin Widmer          61 Gr&auml;nichen          OLG Suhr            11:40
+1395633 Pascal Zurich          77 Ottenbach          OLV Zug             11:43
+  62020 Pius Heimgartner       66 Egg b. Z&uuml;rich      OLG Cordoba         11:46
+1602642 Konstantin G&uuml;rber      68 Z&uuml;rich             OLG S&auml;uliamt        11:49
+ 660219 Roger Buchm&uuml;ller       66 R&uuml;nenberg          OLG Kakowa          11:52
+1911748 Pascal Giger           82 Hagendorn          OLV Zug             11:55
+ 941962 Daniel B&auml;r             62 Zofingen           OLK Wiggertal       11:58
+1008549 Andr&eacute; Sch&auml;rer          69 Huttwil            OLG Huttwil         12:01
+ 363234 Thomas Zimmermann      70 Rheinau                                12:04
+  59384 Stefan Leiprecht       76 Frauenfeld         thurgorienta        12:07
+  61356 Markus Herzig          62 Aeschi SO          OLG Herzogenbuchsee 12:10
+1100887 Thomas Bucher          87 Langendorf         OLG Biberist SO     12:13
+  54447 Joel Lobsiger          82 Suhr               OLG Oberwil         12:16
+1961222 Markus Arnold          61 Goldau             OLG Goldau          12:19
+1941611 Raffael Mathys         94 Lyss               OLG Bern / ol.biel. 12:22
+ 630112 Roland Meister         63 Dachsen            OLG Dachsen         12:25
+1396705 Sandro Domeisen        75 Ittenthal          OLG St. Gallen/App. 12:28
+</pre>
+<b>HB</b>
+<pre> 224549 Markus Jung            58 Reinach BL         OLG Basel            9:32
+ 252001 Jan Cahlik             92 Obfelden                                9:38
+1958029 Heinz Feucht           58 Schaffhausen       OLG Schaffhausen     9:44
+   2680 Felix Peter            57 Reinach BL         OLG Basel            9:50
+ 252492 Urs H&auml;nni              54 Langenthal         OLV Langenthal       9:56
+  64090 J&uuml;rg Jakob             63 Muttenz            OLG Basel           10:02
+2033850 Rudi Spang             50 Hinterkappelen     OLG Bern            10:08
+ 919140 Lukas Spiess           70 Br&uuml;gg                                  10:14
+  59136 Peter Wehrli           54 D&auml;nikon ZH         OLG Rymenzburg      10:20
+ 224524 Hans Jakob Speich      58 Sissach            OLG Kakowa          10:26
+2033846 Daniel Laubscher       56 Bern               OLG Biberist SO     10:32
+2003074 Adrian Bitterli        61 Thun               OLG Thun            10:38
+ 201857 Vinzenz Kneisl         46 Br&uuml;tten                                10:44
+  62151 Matthias L&uuml;din         64 Bettingen          OLG Basel           10:50
+ 642662 Jonas Passweg          96 Basel              OLG Basel           10:56
+  54652 Urs Affolter           60 L&uuml;terkofen-Icherts OLG Biberist SO     11:02
+ 432578 Koni Vogel             61 Widnau             OLG St. Gallen/App. 11:08
+ 413046 Ren&eacute; Furrer            60 Frauenfeld         thurgorienta        11:14
+1395639 Matthias Lerf          59 Bern               OLG Bern            11:20
+ 364587 Peter Lattmann         64 Winterthur         TV Seen             11:26
+ 504360 Umberto Veronesi       62 Zwillikon          OLG S&auml;uliamt        11:32
+1953416 Anton Husner           53 Staffelbach        OLK Wiggertal       11:38
+ 432644 R&eacute;my Metzger           62 M&ouml;hlin             OLK Fricktal        11:44
+ 991026 Thomas Uhr             82 Wila               OLG Pf&auml;ffikon       11:50
+1240476 Andreas M. Zaugg       76 Wynigen            OLG Herzogenbuchsee 11:56
+2021638 Michael Hofer          81 Binningen                              12:02
+ 700555 Reto J&auml;rmann           86 Urdorf             OLC Kapreolo        12:08
+</pre>
+<b>H35</b>
+<pre>    123 Simon Harston          75 Darmstadt          TGM Budenheim        9:47
+1603129 Nicolas DALIBARD       74 Colmar (france)    CO Colmar - France   9:53
+ 500252 Denis Steinemann       77 Z&uuml;rich             OLG S&auml;uliamt         9:59
+ 500743 Beat Berger            75 Z&uuml;rich             OL Regio Olten      10:05
+        Simon Staufer          74 R&uuml;schlikon         bussola ok          10:11
+1620999 Andrea Beltraminelli   75 Gordola            CO UTOE Bellinzona  10:17
+2003065 Martin Becker          74 Liestal            OLG Basel           10:23
+1931442 Christoph Streit       77 Bern               ol norska           10:29
+1931403 Sascha Fleischmann     76 Reichenburg        OLG Galgenen        10:35
+ 991043 Martin Gm&uuml;r            74 Wangen b. Olten    OL Regio Olten      10:41
+1392551 Christoph Haefeli      77 Olten              OL Regio Olten      10:47
+1974218 Philipp Huber          74 Teufenthal AG      OLV Zug             10:53
+ 500756 Rene Fleischmann       74 Galgenen           OLG Galgenen        10:59
+ 986986 Corsin Caluori         77 Z&uuml;rich             OLC Kapreolo/UBOL   11:05
+1392302 Silvio Vassalli        77 Bedano             ASCO Lugano         11:11
+  62275 Christian Schneebeli   75 Wallisellen        OLG Z&uuml;rich          11:17
+  64068 J&uuml;rg Tschumi           67 Thun               OLG Thun            11:23
+1394397 Andreas Hinder         73 Winterthur         OLC Winterthur      11:29
+   4073 Stephan Frei           74 Oberentfelden      OLG Suhr            11:35
+1261174 Leonhard Oesch         74 Schliern b. K&ouml;niz  OLG Bern            11:41
+ 222435 Gaudenz Steinlin       75 Bern               UBOL                11:47
+ 741777 Christian Mohn         74 Winterthur         OLC Kapreolo        11:53
+1398853 Pascal Vieser          74 Volketswil         OLC Kapreolo BT     11:59
+ 500633 Marcel Tschopp         74 Winterthur         OLG Dachsen         12:05
+1333666 Reto Treier            76 Niederrohrdorf     bussola ok          12:11
+ 504625 Martin Gantenbein      76 Oberentfelden      OLG Rymenzburg      12:17
+2003187 Michael Eglin          73 Burgdorf           bussola ok          12:23
+1399658 Christoph Plattner     73 Liestal            OLG Basel           12:29
+</pre>
+<b>H40</b>
+<pre> 503682 Christoph Meyer        72 Z&uuml;rich             OL Zimmerberg        9:30
+ 435475 Thomas Banfi           71 Vezia              GOLD Savosa          9:34
+1020569 Martin R. Attinger     69 Adliswil           OLG Chur/OL Zimmerb  9:38
+2006618 Silvio Hongler         69 Lohn               OLG Biberist SO      9:42
+1041943 Gilbert Roulier        72 Oberthal           ol norska            9:46
+   6733 Thomas Bruggisser      71 Z&uuml;rich             OLG Welsikon         9:50
+1396320 Akseli Ahtiainen       72 Igis               OLG Chur             9:54
+1398444 J&uuml;rg Egger             70 Rafz               OLK Rafzerfeld       9:58
+ 887038 Jules Fricker          72 Rohr AG            OLK Argus           10:02
+  62172 Gilles Renaud          72 La Vue-des-Alpes   CO Chenau           10:06
+ 406496 Roland Pach            69 Olten              CA Ros&eacute;             10:10
+1394188 Siegfried Nagel        68 Murten             OLG Murten          10:14
+ 680505 Darrell High           68 Les Paccots        CARE Vevey          10:18
+ 721603 Chris Kim              72 Zizers             OLG Chur            10:22
+2036240 Klaus Schwind          71 Basel              OLG Ortenau         10:26
+  63173 Kaspi Wipfli           68 Schwyz             OLG Goldau          10:30
+2003105 Didi L&uuml;scher           71 Erlinsbach AG      OLK Argus           10:34
+1393039 Rolf W&uuml;stenhagen       70 St. Gallen         OLG St. Gallen/App. 10:38
+1969221 Lukas Erne             69 R&uuml;tihof            OLG Cordoba         10:42
+ 504668 Alex Reichmuth         68 Baden-D&auml;ttwil      OLG Basel           10:46
+ 501981 Niklaus Moser          67 Konolfingen        ol norska           10:50
+  63915 Michael Sumser         68 T&auml;gerwilen         OL Regio Wil        10:54
+ 721220 Michele Ren            72 Ponte Capriasca    ASCO Lugano         10:58
+ 701008 Stefan Hess            70 Zug                OLV Zug             11:02
+ 887040 Philipp H&auml;ne           72 Z&uuml;rich             OLG Galgenen        11:06
+2003077 Daniel Pfulg           71 Zug                OLV Zug             11:10
+ 364570 Alex Odermatt          66 Oberwil BL         OLG Basel           11:14
+1010027 Patrick Strasser       71 Neuhausen          OLG Schaffhausen    11:18
+1395632 Daniel Hadorn          69 Fahrni b. Thun     ol norska           11:22
+ 895072 S&auml;mi Nyfeler           67 Hilterfingen       OLG Thun            11:26
+2003100 Christoph Aeschlimann  70 T&auml;gertschi         bussola ok          11:30
+1968520 Peter Jordi            68 Heiligenschwendi   OLG Hondrich        11:34
+ 500853 Martin Widler          71 Z&uuml;rich             OLG Weisslingen     11:38
+1399901 Martin Gygax           69 Solothurn          OLG Biberist SO     11:42
+2003290 Marc Probst            69 Belp               OLG Bern            11:46
+1395535 Thomas Sommer          69 Schongau           OLG Cordoba         11:50
+ 999994 Laurent Baumgartner    72 Z&uuml;rich             UBOL                11:54
+ 936710 Sven Moosberger        69 Knonau             OLG Bern            11:58
+ 504352 Markus Hotz            72 Einsiedeln         OL Zimmerberg       12:02
+2003025 Kurt Schmid            72 Aarau              OL Regio Wil        12:06
+</pre>
+<b>H45</b>
+<pre>1966203 Vinicio Bosshard       66 Mezzovico          CO UTOE Bellinzona  10:19
+ 410554 Vadim Ni               63 B&uuml;gelstr. 25, 6116 OLV Steinberg       10:21
+  61397 Stephan Heiner         67 Uster              OLK Piz Hasi        10:23
+ 671229 Markus Weber           67 Latterbach         OLG Hondrich        10:25
+   2628 Ferdi Bisang           64 Kottwil            OLV Luzern          10:27
+ 413158 Felix Koch             63 Alpnach Dorf       OLV Luzern          10:29
+ 252943 Christian Lukasczyk    63 Z&uuml;rich             OLG Z&uuml;rich          10:31
+ 896954 Bo Simonsen            65 Hillerød Danmark   FIF Hillerød        10:33
+ 660211 Andreas Arrigoni       66 Hausen AG                              10:35
+ 250347 Michael Rahn           67 Widen              OLG Suhr            10:37
+ 831964 Markus Gr&uuml;ndler        64 Hittnau            OLG Pf&auml;ffikon       10:39
+1393140 Michael Steinauer      64 D&uuml;dingen           ol.biel.seeland     10:41
+   2866 Christian Kosch        66 Gross-Umstadt (D)  OLV Steinberg / Deu 10:43
+1931434 Thomas Gisi            63 Bern               OLG Bern            10:45
+2003242 Christoph Furer        66 Bern               OLG Bern            10:47
+ 670210 Stefan Ruch            67 Eggiwil            OLG Skandia         10:49
+2003521 Marco Rancan           63 Uster              OLG Pf&auml;ffikon       10:51
+  59186 Martin Okl&eacute;            66 Hunzenschwil       OLK Piz Hasi        10:53
+ 630324 Martin Egger           63 Burgdorf           OLV Hindelbank      10:55
+ 432516 Heinz Bleiker          64 Degersheim         OL Regio Wil        10:57
+ 630524 Werner Holer           63 M&ouml;hlin             OLK Fricktal        10:59
+  64912 Urs Utzinger           65 Thalwil            OL Zimmerberg       11:01
+2031049 Peter Gribi            63 Baden              OLG Biberist SO     11:03
+  62962 Christoph Schlatter    65 Opfikon            OLC Kapreolo BT     11:05
+ 432548 Hansueli Eugster       64 Bollodingen        OLG Herzogenbuchsee 11:07
+ 253046 Erik Alabor            66 Biel-Benken        OLG Kakowa          11:09
+1395636 Thomas J&auml;ggi           67 Lohn SO            OLG Biberist SO     11:11
+ 991036 Markus Truttmann       63 Oberarth           OLG Goldau          11:13
+1964611 Stefan Schlatter       64 Weggis             OLC Kapreolo BT     11:15
+1965305 Marcel Ruppenthal      65 Domat/Ems          OLG Chur            11:17
+1603317 Andr&eacute; W&auml;lti            65 Sutz-Lattrigen     ol.biel.seeland/OLG 11:19
+ 670526 Ueli Graf              67 H&auml;uslenen          OL Regio Wil        11:21
+2003443 Peter Oehy             64 Diessenhofen       OLC Winterthur      11:23
+  62847 Markus Schubnell       63 Elsau              OLC Winterthur      11:25
+ 628496 Andreas Curiger        64 Buchs ZH           OLC Kapreolo        11:27
+ 500874 Markus Hitz            64 Gr&auml;nichen          OLK Argus           11:29
+1963725 Marco Diener           63 Bern               OLG Bern            11:31
+ 253593 Stephan Bernhard       65 Willadingen        OLV Hindelbank      11:33
+1602584 Oli Buholzer           64 Zug                OLV Zug             11:35
+ 628340 Patrick Kunz           65 St. Gallen         OLG St. Gallen/App. 11:37
+1600020 Pascal Berger          64 Basel              OLG Basel           11:39
+ 501986 Thomas Egger           64 Solothurn          ol norska           11:41
+1394182 Timo Widmer            66 Z&uuml;rich             OLG Z&uuml;rich          11:43
+1393022 Gr&eacute;goire Schrago       66 Prez-vers-Nor&eacute;az   CA Ros&eacute;             11:45
+  64610 Bruno Z&uuml;rcher          64 K&uuml;snacht ZH        OLG St&auml;fa           11:47
+1041967 Urs Wegm&uuml;ller          67 Buch b. Frauenfeld thurgorienta        11:49
+1392561 Dieter Sandmeier       66 Herisau            OLG St. Gallen/App. 11:51
+2033856 Thomas Bossi           65 K&uuml;snacht ZH        OLG St&auml;fa           11:53
+1602570 Markus Schweizer       65 Ormalingen         OLV Baselland       11:55
+1230865 Mark Aegler            65 Wil SG             OL Regio Wil        11:57
+1234560 J&ouml;rg Baumann           63 F&auml;llanden          OLC Kapreolo        11:59
+  63041 Markus Gerber          64 Schinznach Dorf    bussola ok          12:01
+ 501983 Rolf Baumgartner       64 Neftenbach         OLG Welsikon        12:03
+1399883 Tino Fl&uuml;hmann          63 Frauenfeld         thurgorienta        12:05
+1966415 Christoph St&auml;uble      66 Lachen SZ          OLG Galgenen        12:07
+1008540 Martin Schaffner       66 Othmarsingen       OLK Piz Hasi        12:09
+1131065 Urs Rubitschon         65 Unter&auml;geri         OLV Zug             12:11
+1304299 Urs Jordi              65 Innerberg          OLG Hondrich        12:13
+ 670218 Urs Tschamper          67 Hombrechtikon      OLG St&auml;fa           12:15
+1931345 Koni Wildi             65 Unterentfelden     OLK Argus           12:17
+ 251696 Nik Suter-Schadegg     65 R&uuml;tihof            OLG Cordoba         12:19
+ 500666 Daniel Hotz            67 Schafisheim        OLK Argus           12:21
+1040171 Christoph Hutzli       66 Wil SG             OL Regio Wil        12:23
+1394232 Dominik Humbel         67 D&auml;ttwil AG         OLG Cordoba         12:25
+2003034 Daniel Hanselmann      65 Neftenbach         OLG Welsikon        12:27
+1020304 Christian Hanselmann   63 Gelterkinden       OLV Baselland/Kakow 12:29
+</pre>
+<b>H50</b>
+<pre>  64913 Thomas Attinger        62 Horgen             OL Zimmerberg        9:30
+   2445 Peter Mauchle          58 Niederlenz         OLK Argus            9:32
+ 437810 Peter Holdener         59 Zug                OLV Zug              9:34
+ 410539 Michael Bohsmann       61 Dettingen Unter Te OL-Team-Filder       9:36
+   7040 Martin Gross           58 Richterswil        OL Zimmerberg        9:38
+1041158 Marcel Quidort         58 Suhr               OLG Suhr             9:40
+ 500253 Lasse Pedersen         59 Oberrohrdorf       OLK Argus            9:42
+ 997813 Klemens J&ouml;rger         60 Kippenheim / BRD   TV Kippenheim /D     9:44
+1040460 Jean-Pierre Goetmann   60 Hindisheim         CO Colmar - France   9:46
+  61320 Fredy Bill             61 Brugg AG           OLG Cordoba          9:48
+   2414 Edu Hatt               60 Z&uuml;rich             OL Zimmerberg        9:50
+2012182 Christophe Vuitton     62 Veraz              CO CERN              9:52
+1390771 Brian Martin           62 Aarau              ol.biel.seeland / O  9:54
+ 346625 Arno Wilhelm           62 Olten              OL Regio Olten       9:56
+ 251931 Antonio Bisceglia      59 Bedano             C.O. Aget Lugano     9:58
+ 251056 Alban Meier            59 Leibstadt          OLG Wandfluh        10:00
+2003662 Hans-Ulrich Steinmann  62 St&auml;fa              OLG St&auml;fa           10:02
+  62045 Anton Khlebnikov       58 Neuch&acirc;tel          ANCO                10:04
+2003176 Paul Corrodi           59 Marthalen          OLG Dachsen         10:06
+1961904 Daniel Meier           61 Riniken            OLK Argus           10:08
+ 337399 Peter Eggimann         62 Grossh&ouml;chstetten   ol norska           10:10
+ 600928 Matteo Besomi          60 Tesserete          ASCO Lugano         10:12
+ 500871 J&uuml;rg Bosshard          58 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       10:14
+1111260 Hansueli Locher        60 Frauenkappelen     OLG Bern            10:16
+ 238963 Marcel Lustenberger    58 Buttwil            OLK Argus           10:18
+ 601112 Filippo Pezzati        60 Sagno              SCOM Mendrisio      10:20
+ 789789 Urs M&uuml;ller             62 Oftringen          OLK Argus/OLK Wigge 10:22
+  64844 Michael Zumsteg        61 Lengnau AG         OLK Piz Hasi        10:24
+ 346639 Markus Zbinden         62 Engelburg          OLG St. Gallen/App. 10:26
+1390778 Werner Bosshard        62 Burgdorf           OLV Hindelbank      10:28
+1931440 Urs K&ouml;pfli             59 Wolhusen           OLV Luzern          10:30
+1392337 Thomas Helbling        61 Muri bei Bern                          10:32
+ 555655 Stephan G&uuml;rtler        61 Ormalingen         OLG Kakowa          10:34
+1008538 Hansj&ouml;rg Steck         62 M&ouml;hlin             OLK Fricktal        10:36
+ 620326 Thomas Schneider       62 Oberrohrdorf       OLG Cordoba         10:38
+2033853 Bernhard Aebischer     61 Schmitten FR       OLC Omstr&ouml;m         10:40
+ 251677 Stefan Bolliger        61 Liestal            OLK Wiggertal       10:42
+  59376 Adrian Kaiser          58 Biberist           OLG Biberist SO     10:44
+1304298 Daniel Stutz           59 Bronschhofen       OL Regio Wil        10:46
+  61429 Achilles Humbel        59 Ibach              OLG Cordoba         10:48
+1931324 Thomas Schulthess      61 Lenzburg           OLK Argus           10:50
+ 253092 Fritz Streuli          62 Weinfelden         OL Amriswil         10:52
+1396716 Jan Schaerli           61 Weisslingen        OLG Weisslingen     10:54
+1602658 Andi L&uuml;scher           61 N&auml;nikon            OLC Kapreolo        10:56
+  62930 Peter Clerici          61 Steinhausen        OLV Zug             10:58
+  58433 Tobias Otto            62 K&uuml;ttigen           OLK Argus           11:00
+ 895056 Claudio Wetzstein      59 Chur               OLG Chur            11:02
+1931406 Martin Koster          62 St. Margrethen     OL Regio Wil        11:04
+  58759 Ruedi Metzger          60 M&ouml;hlin             OLK Fricktal        11:06
+ 761960 Alois Achermann        60 Dietikon           OLK Piz Hasi        11:08
+  61944 Markus Rutz            59 St&auml;fa              OLG St&auml;fa           11:10
+2003049 J&uuml;rg W&auml;lchli           62 Langnau i. E.      OLG Skandia         11:12
+ 305944 Moritz Etter           62 Frauenfeld         OLG Dachsen         11:14
+1400757 Bruno Pf&auml;ndler         61 Lengnau AG         OLG Wandfluh        11:16
+1396757 Josef Steiner          58 Ibach              OLG Goldau          11:18
+  59244 Hanspeter Ryser        58 Huttwil            OLG Huttwil         11:20
+  61358 Urs Br&uuml;hwiler          60 Weiningen ZH       OLG Chur            11:22
+2003226 Theophil Bucher        62 Burgdorf           OLV Hindelbank      11:24
+  63992 Kornel Ulrich          62 Immensee           OLG Goldau          11:26
+1061513 Beat Kumschick         59 Bettenhausen       OLG Herzogenbuchsee 11:28
+1081059 Hanspeter Arm          59 Oberbipp           OLG Herzogenbuchsee 11:30
+  62526 Christoph Ruesch       61 Aarburg            OLK Wiggertal       11:32
+ 501972 Heinz R&uuml;egg            60 Unterohringen      OLG Welsikon        11:34
+1931407 Christoph Pel          61 Riken              OLK Wiggertal       11:36
+1394194 Ulrich Aeschlimann     59 Utzigen            OLV Hindelbank      11:38
+1602604 Stephan Moser          62 Langenthal         OLV Langenthal      11:40
+1260661 Silvio Vicari          61 Bellinzona         CO UTOE Bellinzona  11:42
+1958239 Riet Gordon            58 Chur               SC Corvatsch        11:44
+1220661 Daniel W&uuml;rsten         61 Schattdorf         OLG KTV Altdorf     11:46
+2003780 Christoph Sch&ouml;nenberge 62 Unter&auml;geri         OLV Zug             11:48
+1395637 Thomas D&auml;twyler        61 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       11:50
+1398869 Rudolf Wyder           58 Wangen b. D&uuml;bendor OLC Kapreolo        11:52
+1680319 Benno Planzer          61 Ettiswil           OLG Huttwil         11:54
+ 238751 Markus Roth            62 Bellikon           OLK Piz Hasi        11:56
+ 620828 H&ouml;ck Zihlmann          62 Rudolfstetten      OLK Piz Hasi        11:58
+1310161 Stephan Rudolf         61 Rupperswil         OLK Wiggertal       12:00
+1001960 Olivier Minotti        60 S.Antonino         CO UTOE Bellinzona  12:02
+   4044 Martin Oppliger        62 Untersiggenthal    OLG Cordoba         12:04
+1421961 Hermann Wenger         61 Schliern b. K&ouml;niz  OLG Bern            12:06
+ 252288 Adrian Puntschart      62 Chur               OLG Chur            12:08
+ 346657 Michael K&ouml;stli         59 Wasen i.E.         OL Hornbach         12:10
+1931448 Otto Walti             62 Seon               OLK Argus           12:12
+1961821 Daniel Kobel           61 Laupen BE          OLG Bern            12:14
+ 663144 Severin Moser          62 Andelfingen                            12:16
+1600460 J&uuml;rg Hellm&uuml;ller        60 Speicher           OLG St. Gallen/App. 12:18
+1393103 Ren&eacute; Vock              60 Bonstetten         OLG S&auml;uliamt        12:20
+1393067 Joseph Br&uuml;gger         62 Plaffeien          OLC Omstr&ouml;m         12:22
+ 413070 Sigi Burger            61 Ehrendingen        OLC Kapreolo        12:24
+1393127 Martin Sacher          59 Schinznach Dorf    bussola ok          12:26
+ 601808 Peter Pfyl             60 Schwyz             OLG Goldau          12:28
+ 504339 Christian Aebersold    62 Br&uuml;gg BE           ol.biel.seeland     12:30
+1962310 Andreas Wyss           62 Wangen b. Olten    OL Regio Olten      12:32
+1392322 Reto M&uuml;ller            61 Einsiedeln         OLG Galgenen/OLK Ar 12:34
+</pre>
+<b>H55</b>
+<pre>  63598 Vincenzo Pellegrini    53 Cureglia           C.O. Aget Lugano    10:23
+ 413267 Res Rey                54 Lausen             OLG Kakowa          10:25
+ 540506 Reinhard Schenkel      54 Suhr               OLG Suhr            10:27
+ 345411 Michael Carella        55 Freienwil          OLG Cordoba         10:29
+        Markus Spichty         55 Hochwald           OLG Basel           10:31
+ 250360 Herbert Wulser         54 Elgg               OLC Winterthur      10:33
+ 891954 Hans Widmer            54 B&uuml;ren an der Aare  OLG Oberwil         10:35
+  62935 Erwin Stalder          56 Blatten (Malters)  OLV Luzern          10:37
+  54709 Beat Frey              57 Birr               bussola ok          10:39
+ 346519 Peter Bitterli         57 Richterswil        OL Zimmerberg       10:41
+ 346680 Joe Kurmann            53 Grosswangen        OLV Luzern          10:43
+  62533 Ueli Hofstetter        54 Biel/Bienne        ol.biel.seeland     10:45
+ 777999 Kurt Fischer           51 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       10:47
+  62986 Christian Biland       56 Wettingen          OLG Cordoba         10:49
+  62485 Ruedi Hatt             57 Schlieren          OLG S&auml;uliamt        10:51
+2003253 Hansueli M&uuml;hlemann     53 Eglisau            OLK Rafzerfeld      10:53
+   6646 Andreas W&uuml;thrich       55 Walkringen         ol.biel.seeland     10:55
+2021657 Jean-Pierre M&uuml;ller     53 Kilchberg          OL Zimmerberg       10:57
+1821955 Fabio W&uuml;rmli           55 W&auml;denswil          OL Zimmerberg       10:59
+ 887030 Martin M&auml;der           55 Kirchberg          ol norska           11:01
+  62436 Ren&eacute; Michel            54 Schwarzenburg      OLG Bern            11:03
+2003742 Heinz Rothweiler       54 Kloten             OLC Kapreolo        11:05
+  64714 Richi Nuttli           54 Fahrwangen         OLK Argus           11:07
+  58439 Christian Marti        54 Graltshausen       OL Amriswil         11:09
+1395624 Elmar Schilliger       54 Kottwil            OLV Luzern          11:11
+1600006 Bernard Peissard       57 St. Ursen          OLC SKOG Fribourg   11:13
+  58765 Stefan Aschwanden-Lich 55 Goldau             OLG Goldau          11:15
+1603315 Bruno Lanini           54 Tenero             O-92 Piano di Magad 11:17
+ 413187 Urs Kyburz             57 M&ouml;hlin             OLK Fricktal        11:19
+ 251957 Guido Rhyn             57 Geroldswil         OLG Herzogenbuchsee 11:21
+1671954 Hanspeter Uhr          54 Wila               OLG Pf&auml;ffikon       11:23
+  63203 Peter Ramseier         56 Rheinfelden                            11:25
+ 981956 Gila Polt&eacute;ra           56 Z&uuml;rich             OLC Kapreolo        11:27
+  61327 Leonhard Suter         56 T&auml;gerig            OLG Cordoba         11:29
+1396711 Beat Wiget             55 Luzern             OLV Luzern          11:31
+ 409731 Silvio Sauter          56 Chur               OLG Chur            11:33
+ 332358 Harry K&ouml;hle            56 St&auml;fa              OLG St&auml;fa           11:35
+1080854 Hans-J&ouml;rg Lutz         54 Z&uuml;rich             OLG Z&uuml;rich          11:37
+2003024 Ruedi Lais             53 Wallisellen        OLC Kapreolo        11:39
+ 531402 Hansj&ouml;rg Graf          53 Bauma              OLG Pf&auml;ffikon       11:41
+  62064 Steve Kirk             56 Bellikon           OLG Cordoba         11:43
+1396646 Otti Bisang            55 K&uuml;snacht ZH        OLG Basel           11:45
+ 413073 Viktor Str&auml;ssler       54 H&uuml;ntwangen         OLK Rafzerfeld      11:47
+1392308 Ruedi Weber            54 Affoltern am Albis OL Zimmerberg       11:49
+  63115 J&uuml;rg D&auml;ppen            55 Burgistein         OLG Thun            11:51
+2003203 Thomas Hiltebrand      55 Cadro              C.O. Aget Lugano    11:53
+  64802 C&auml;sar Scherrer         56 B&auml;ttwil            OLG Basel           11:55
+ 251327 Oswald Merz            57 Beinwil am See     OLG Rymenzburg      11:57
+ 238970 Karl Ott               53 Schlatt            OLG Welsikon        11:59
+2003572 Valentin Brunner       56 Zufikon            bussola ok          12:01
+  61480 Dieter Eichenberger    55 Niederglatt ZH     OLG Suhr            12:03
+2003054 Denis Cuche            54 Montagny-la-Ville  CA Ros&eacute;             12:05
+1399660 Roland Gyssler         56 Aarau              OLK Argus           12:07
+1602586 Philippe Ballif        56 Lavey-Village      CARE Vevey          12:09
+1956128 Mario Ammann           56 Berneck            OLG St. Gallen/App. 12:11
+ 895053 Hannes Frautschi       53 Wilderswil         OLG Thun/OLV Hindel 12:13
+ 555755 Peter M&uuml;ller           57 Cham               OLV Zug / OLG Golda 12:15
+2017620 Bruno Steinegger       57 Bassersdorf        OLC Kapreolo        12:17
+2003001 S&ouml;nke Bandixen         57 Wetzikon ZH        OLG Pf&auml;ffikon       12:19
+ 540621 Hansruedi Kohler       54 D&ouml;rflingen         OLG Dachsen         12:21
+ 570000 Mario Meier            57 Seuzach            OLG Welsikon        12:23
+1931408 Peter Schoch           56 H&ouml;rhausen          thurgorienta        12:25
+1791957 Fritz Aebi             57 Ober&ouml;nz            OLG Herzogenbuchsee 12:27
+ 501111 Francesco Guglielmetti 54 Manno              GOLD Savosa         12:29
+1201057 Emil Kimmig            57 Wolhusen           OLV Luzern          12:31
+2003169 Willi M&uuml;ller           55 Oberwil-Lieli      bussola ok          12:33
+</pre>
+<b>H60</b>
+<pre> 307819 Hanspeter N&auml;geli       50 Geroldswil         OL Zimmerberg        9:30
+ 346670 Hans Zahnd             49 Nieder&ouml;nz          OLG Herzogenbuchsee  9:32
+2003004 Urs Friedrich          50 Bern               ol norska            9:34
+1030949 Hans-Peter St&auml;delin    49 Melchnau           OLV Langenthal       9:36
+ 432558 Bertrand Chatagny      51 Corserey           CA Ros&eacute;              9:38
+  62553 Markus Liechti         50 Langnau im Emmenta OLG Skandia          9:40
+  64951 Walter J&auml;ggi           49 Ramlinsburg        OLG Kakowa           9:42
+  62247 Kurt Krummenacher      49 Grenchen           OLG Oberwil          9:44
+1399891 Othmar Buchmann        50 Amriswil           OL Amriswil          9:46
+1949115 Hannes Zaugg           49 Aeugst am Albis    O-92 Piano di Magad  9:48
+ 346543 Fritz Steiner          48 Birrhard           bussola ok           9:50
+ 846627 Thomas Schoepf         51 Wiedlisbach        OLG Herzogenbuchsee  9:52
+1948251 Georg Leumann          48 Landschlacht       OL Amriswil          9:54
+1390752 Hans M&uuml;ggler           50 Oberuzwil                               9:56
+2036211 Alfons Ziegler         48 Horriwil           OLG Biberist SO      9:58
+1948724 Werner Sch&ouml;nenberger   48 Winterthur         OLG Gallispitz      10:00
+ 991248 Samuel Rettenmund      48 Walkringen         OLG Skandia         10:02
+  59386 Walter Bhend           49 Tuggen             OLG Welsikon        10:04
+ 253580 Ernst Graf             49 Egnach             OL Amriswil         10:06
+2003362 Beat Steiner           49 Niederrohrdorf     OLG Cordoba         10:08
+  64868 Jakob B&uuml;chi            52 Peseux             ANCO                10:10
+  63904 Peter Albisser         48 Wangen ZH          OLV Luzern          10:12
+  62238 Ueli Bretscher         51 Illnau             OLC Kapreolo        10:14
+1390760 Beat Fahrer            49 Oberwil b. B&uuml;ren   OLG Oberwil         10:16
+2003751 Walter Marti           51 Langnau            OLG Skandia         10:18
+2003541 Robert Meier           51 Elgg               OLC Kapreolo        10:20
+1602643 Peter Keller           51 B&uuml;lach             OLK Rafzerfeld      10:22
+  61315 J&uuml;rg Hartmann          51 Rain               OLV Luzern          10:24
+ 201778 Sepp Fuchs             48 Einsiedeln         OLG Galgenen        10:26
+1160351 Marco Bonafini         51 G&uuml;mmenen           OLG Bern            10:28
+  62143 Peter Wehrli           48 Oberentfelden      OLK Argus           10:30
+  64026 Josef M&uuml;ller           49 Willisau           OLG Huttwil         10:32
+  54843 Felix Rutz             51 Dielsdorf          OLK Piz Hasi        10:34
+1952310 Adrian Keller          52 Nidau              ol.biel.seeland     10:36
+1201080 Peter Riek             47 B&uuml;lach             OLK Rafzerfeld      10:38
+ 504364 Felix Ryter            51 Liestal            OLG Basel           10:40
+ 550048 Peter Winteler         48 N&uuml;rensdorf         OLG Welsikon        10:42
+ 427118 Toni Brauchle          48 Bern               OLG Bern            10:44
+1398454 Urs Nussbaum           51 Erlinsbach SO      OLG Suhr            10:46
+ 895065 Jean-Luc Cuche         52 Peney-le-Jorat     CARE Vevey          10:48
+2015707 Max Suter              51 Gipf-Oberfrick     OLG Basel           10:50
+2041750 Albert Frei            48 Stein am Rhein     OLG Dachsen         10:52
+1010007 Max Amsler             49 Z&uuml;rich             OLG Welsikon        10:54
+  64731 Isidor Schilliger      52 Nebikon            OLG Rymenzburg      10:56
+ 500212 Urs Tritschler         52 Z&uuml;rich             OLG Z&uuml;rich          10:58
+  64573 Fritz Rufer            48 Wohlenschwil       bussola ok          11:00
+1393023 Giorgio Bernasconi     51 Neuch&acirc;tel          ANCO                11:02
+ 364565 Matthias Marty         51 Rothenthurm        OLG Goldau          11:04
+1395531 Felix Engeler          52 Amriswil           OL Amriswil         11:06
+2003204 Werner Wehrli          52 Chur               OLG Chur            11:08
+  64419 Thomas Scholl          49 Frauenfeld         OLG/CO Wallis/Valai 11:10
+1217217 Reto Ramstein          52 Muttenz            OLG Basel           11:12
+1394224 Jean-Claude Guyot      49 Les Geneveys-sur-C ANCO                11:14
+ 951949 Josef Blank            49 Oberarth           OLG Goldau          11:16
+   2606 Hannes Suhner          50 Walzenhausen       OLG St. Gallen/App. 11:18
+1394246 Dieter Wolf            49 Davos Clavadel     OLG Davos/Chur      11:20
+1602599 Pekka Marti            51 Twann              ol.biel.seeland     11:22
+1393052 Franz Wyss             48 Kappel SO          OL Regio Olten      11:24
+1691949 Markus Troxler         49 Bern               ol norska           11:26
+1060151 Silvio Strub           51 Nieder&ouml;nz          OLG Huttwil         11:28
+</pre>
+<b>H65</b>
+<pre>1201004 Olivier Attinger       45 Corcelles NE       ANCO                 9:30
+  62240 Kurt Moosberger        47 Steinhausen        OLV Zug              9:33
+  59276 Raphael Schaad         44 St&uuml;sslingen        OLK Wiggertal        9:36
+ 238762 Moritz Keller          46 Cham               OLV Zug              9:39
+1392273 Ueli Sprenger          43 Neftenbach         OLG Welsikon         9:42
+  64680 Fran&ccedil;ois Sch&uuml;rch       43 La Chaux-de-Fonds  ANCO                 9:45
+ 556055 Chris Hirt             45 Schlatt            OLG Welsikon         9:48
+  61296 Martin Kehrer          47 Hedingen           OLG S&auml;uliamt         9:51
+  63178 Kurt Rothweiler        47 R&uuml;ti ZH            thurgorienta         9:54
+ 413191 Andr&eacute; Strauss          45 Gwatt (Thun)       OLG Thun             9:57
+  63030 Ernst Baumann          43 Niederrohrdorf     OLG Cordoba         10:00
+1010010 Hansruedi Schlatter    47 Zofingen           OLK Wiggertal       10:03
+  61333 Andr&eacute; Roth             47 Baden              OLG Cordoba         10:06
+1398472 Heiri Greminger        47 Ottoberg           thurgorienta        10:09
+1241946 Errol Pittet           46 M&ouml;hlin                                 10:12
+  59155 Peter Habegger         44 Watt               OLK Piz Hasi        10:15
+ 831946 Hansj&ouml;rg Suter         46 Onnens FR          CA Ros&eacute;             10:18
+ 504335 Ruedi Pletscher        43 Z&uuml;rich             OLV Z&uuml;rich          10:21
+2003047 Kurt Baumann           47 Neuenhof           OLK Piz Hasi        10:24
+ 895078 Karl Meier             43 Walkringen         ol.biel.seeland     10:27
+  62058 Gregor Wyder           47 Englisberg         OLG Thun            10:30
+2045592 Hanspeter Heri         45 Liebefeld          OLG Bern            10:33
+1010018 Ren&eacute; Spitzer           45 Arlesheim                              10:36
+  63084 Max Kaderli            43 Bern               OLG Bern            10:39
+  54493 Heinz Fahrer           46 Reichenbach        OLG Bern            10:42
+ 999111 Walter Bieri           43 Immensee           OLV Zug             10:45
+1008257 Ruedi Broggia          46 Volketswil         OLG Welsikon        10:48
+  64936 Werner Kessler         47 Schaffhausen       OLG Dachsen         10:51
+2021516 Hermann Mumprecht      44 Urtenen-Sch&ouml;nb&uuml;hl  OLV Hindelbank      10:54
+1201040 Beat Oesch             47 M&uuml;nchenbuchsee     OLG Bern            10:57
+  54450 Franz Waser            47 Truttikon          OLK Rafzerfeld      11:00
+  64752 Oscar Heggli           45 Eich               OLG Rymenzburg      11:03
+1931444 Fritz Siegenthaler     46 G&uuml;mligen           OLG Skandia         11:06
+  62563 Werner Keller          46 Steinhausen        OLV Zug             11:09
+  62221 Ernst Spirgi           43 Baar               OLV Zug             11:12
+  59096 Renato Scala           45 Worb               OLG Bern            11:15
+  64810 Walter Keller          46 Schlosswil         ol norska           11:18
+  64032 Walter Pauli           45 Schwarzenburg      CO Lausanne-Jorat   11:21
+1931947 Willi Streuli          47 Appenzell          OLG St. Gallen/App. 11:24
+ 501980 Ruedi Kellenberger     45 Uster              OLG St. Gallen/App. 11:27
+  61029 Edi Baumgartner        44 Burgdorf           OLV Hindelbank      11:30
+ 881947 Res Luder              47 Burgdorf           OLV Hindelbank      11:33
+1041947 Ernst Trunz            47 Egnach             OL Amriswil         11:36
+1396301 Ueli Hauswirth         47 Belp               ol norska           11:39
+2003433 Hanspeter Oswald       47 Bertschikon (Gossa OLK Piz Hasi        11:42
+2043954 Ernst Odermatt         43 Ennetmoos          OLG Nidwalden+Obwal 11:45
+1947046 Peter Wegm&uuml;ller        47 Burgdorf           OLV Hindelbank      11:48
+1396464 Max Moosberger         46 Wangen b. Olten    OL Regio Olten      11:51
+1392279 Fritz Mathys           45 B&uuml;etigen           SAC Sekt. Seeland   11:54
+1004536 Ernst Baumann          45 Schwarzenbach SG   OL Regio Wil        11:57
+</pre>
+<b>H70</b>
+<pre>   2351 Werner Zbinden         39 Allschwil          OLV Baselland        9:31
+  54634 Max Frey               40 Rombach            OLG Suhr             9:35
+   4071 Horst Heinrich         38 Stallikon          OLG S&auml;uliamt         9:39
+  62209 Walter Egli            39 Winterthur         OLC Kapreolo         9:43
+  58706 Tony R&ouml;thlisberger     41 Thun               OLG Thun             9:47
+  64400 Hansruedi Schaffl&uuml;tzel 42 Illnau             OLV Illnau-Effretik  9:51
+2003591 Ernst Berger           41 Brugg AG           OLG Cordoba          9:55
+2021659 Armin Ernst            39 Winterthur         OLC Winterthur       9:59
+1006017 Ruedi Freiermuth       42 Lotzwil            OLG Basel           10:03
+  61362 Herbert Zaugg          41 Schliern b. K&ouml;niz  OLG Bern            10:07
+  64712 Peter R&uuml;egsegger       39 B&uuml;lach             OLK Rafzerfeld      10:11
+ 800039 Franz Keller           39 Zug                OLV Zug             10:15
+ 700500 Max Santschi           42 K&ouml;niz              OLG Bern            10:19
+1392325 Pieter Mulder          40 Sattel             OLG Goldau          10:23
+  63002 Fritz Sieber           39 B&uuml;etigen           ol.biel.seeland     10:27
+  62087 Albert Oehy            38 Winterthur         OLC Winterthur      10:31
+ 201829 Walter Schwarzenbach   39 Wettswil           OLG S&auml;uliamt        10:35
+  61258 Josef Pfulg            42 Oberwil b. Zug     OLV Zug             10:39
+  58377 Klaus Huggler          38 Oetwil am See      OLG St&auml;fa           10:43
+ 413211 Heinz Tschudin         38 Wallisellen        OLC Kapreolo        10:47
+1602578 Carl Meyer             39 Evilard            ol.biel.seeland     10:51
+ 201855 Heinz Baumgartner      42 M&uuml;nchenbuchsee     OLG Bern            10:55
+1393137 Roger Schrago          39 Prez-vers-Nor&eacute;az   CA Ros&eacute;             10:59
+ 238782 Peter Eglin            42 M&auml;genwil           bussola ok          11:03
+  62597 Viktor N&auml;f             39 Melchnau           OLV Langenthal      11:07
+1396713 Heinz Haldemann        41 Bolligen           ol norska           11:11
+1304292 Roland Macciacchini    40 R&uuml;schlikon         OL Zimmerberg       11:15
+  59297 Josef Thoma            39 Wil SG             OL Regio Wil        11:19
+  61375 Markus Hasler          42 Bonstetten         OLG S&auml;uliamt        11:23
+ 427243 Arnold Walder          41 Embrach            OLC Kapreolo        11:27
+1400764 Hans Bossert           41 W&auml;denswil          OL Zimmerberg       11:31
+ 646466 Alfred Steiner         39 Tagelswangen       OLC Kapreolo        11:35
+1234567 Walter Tschumi         41 Gwatt (Thun)       OLG Thun            11:39
+  63943 Urs Schaffner          42 Oberhofen am Thune OLG Thun            11:43
+  61270 Markus Brunschwiler    39 Steinhausen        OLV Zug             11:47
+2003733 Stephan F&ouml;llmi         42 Nassenwil          OLC Kapreolo        11:51
+  62360 Heinz Wegm&uuml;ller        42 Schliern b. K&ouml;niz  OLG Bern            11:55
+1393025 Ernst Sutter           42 M&uuml;nchenbuchsee     OLG Bern            11:59
+2033838 Adolf Koradi           38 Z&uuml;rich             OLC Kapreolo        12:03
+1010004 Heinz B&uuml;rli            41 Bremgarten         OLG Bern            12:07
+1201017 Hans Baumann           40 Rheinfelden        OLK Wiggertal       12:11
+1931436 Eric Bucher            39 La Conversion      CO Lausanne-Jorat   12:15
+1602647 Heinz Keller           42 Twann              ol.biel.seeland     12:19
+1412608 Hansruedi Brand        41 Liebefeld          OLG Bern            12:23
+</pre>
+<b>H75</b>
+<pre>  64742 Paul Gr&uuml;nenfelder      34 Windisch           bussola ok           9:32
+  64562 Gerhard Horn           36 Murrhardt          TGV Horn             9:36
+2021607 Max Huber              34 B&uuml;lach             OLK Rafzerfeld       9:40
+ 251069 Eugen R&ouml;thlin          34 Freienbach         OLV Langenthal       9:44
+ 262644 Torbj&ouml;rn Str&ouml;mb&auml;ck     35 Wallisellen        OLC Kapreolo         9:48
+2003199 Hansruedi Zysset       33 Z&uuml;rich             TV Wollishofen       9:52
+ 252888 Walter Z&uuml;rcher         37 Basel              OLG Basel            9:56
+  64072 Markus Moser           36 Deitingen          TSV Deitingen       10:00
+ 253549 Albin Stutz            33 Reichenburg        OLG Z&uuml;rinord 04     10:04
+  58736 Hans Regli             37 Egg b. Z&uuml;rich      OLG St&auml;fa           10:08
+2003652 Fredy Guyer            37 St&auml;fa              OLG St&auml;fa           10:12
+  62568 Hans Laube             37 Ittigen            OLG Bern            10:16
+   2456 Hans Harlacher         34 Oetwil an der Limm OLK Piz Hasi        10:20
+  62875 Arthur G&uuml;beli          36 Wiesendangen       thurgorienta        10:24
+  62401 Fritz Maurer           35 D&uuml;bendorf          OLC Kapreolo        10:28
+ 886605 Othmar Sauter          33 M&uuml;nchwilen TG      OL Regio Wil        10:32
+ 896999 Karl Schmid            33 Meggen             OLV Luzern          10:36
+2033834 Peter Erne             34 Fraubrunnen        OLV Hindelbank      10:40
+  58352 Heinrich Sprecher      36 B&uuml;lach             OLK Rafzerfeld      10:44
+  58351 Hans Lenherr           36 Schaffhausen       OLK Rafzerfeld      10:48
+ 893233 Walter Bickel          33 Mettmenstetten     OLV Zug / OLG S&auml;uli 10:52
+ 672003 Hans Hotz              36 Gr&auml;nichen          OLK Argus           10:56
+  62229 Ernst Moos             36 Zug                OLV Zug             11:00
+ 991035 August Gr&uuml;niger        35 Rifferswil         OLV Zug / OLG S&auml;uli 11:04
+</pre>
+<b>H80</b>
+<pre>1400772 Nigel Killeen          32 Scuol              ROC / South Afrika   9:32
+1503098 Rudolf Gygax           26 K&ouml;niz              OLG Bern             9:40
+  61961 Richard Etzweiler      29 Jegenstorf         OLV Hindelbank       9:48
+  63008 Hans Schneider         31 Biberist           OLG Biberist SO      9:56
+  58539 Jean-Pierre Seiterle   24 Kreuzlingen        OLG Kreuzlingen     10:04
+  62970 Fritz Gribi            32 Subingen           OLG Biberist SO     10:12
+  54532 Emil Meyer             27 Willisau           OLG Huttwil         10:20
+1281132 Martin Hutzli          32 Pieterlen          ol.biel.seeland     10:28
+ 626262 Robert M&uuml;ller          28 Uster              OLG Pf&auml;ffikon       10:36
+1600463 Markus Diener          29 Unterstammheim     thurgorienta        10:44
+2048037 Hermann Meier          32 Winterthur                             10:52
+  62029 Andr&eacute; Gysin            30 Frenkendorf        OLV Baselland       11:00
+  64762 Ernst Messerli         30 Itingen            OLV Baselland       11:08
+  61255 Valentin Humbel        31 Birmenstorf AG     OLG Cordoba         11:16
+</pre>
+<b>H20</b>
+<pre>1600466 Rasmus L&uuml;scher         93 Oberrohrdorf       OLK Argus           10:15
+1800000 Pierre Aime Goettmann  92 Hindisheim         CO Colmar - France  10:19
+1931415 Laurin Imholz          93 Luzern             OLV Luzern          10:23
+ 895137 Jakob Schaal           92 Kippenheim         TV Kippenheim /D    10:27
+1030693 Luca Zingg             93 Berg               OL Amriswil         10:31
+1398461 Florian Schneider      93 Stettlen           OLV Hindelbank      10:35
+ 991040 Alexandre Lebet        93 Neuch&acirc;tel          ANCO                10:39
+1304287 Fabian Kopp            93 Wolhusen           OLV Luzern          10:43
+ 500875 Florian Lustenberger   92 Buttwil            OLK Argus           10:47
+ 887034 Lorenz Pfyl            92 Schwyz             OLG Goldau          10:51
+ 503685 Sandro Truttmann       92 Oberarth           OLG Goldau          10:55
+ 520893 Lukas Frei             93 Auenstein          OLK Argus           10:59
+1416669 Adrian Lais            92 Rupperswil         OLG Suhr            11:03
+ 512222 Sebastian Inderst      92 Caslano            GOLD Savosa         11:07
+1400788 Michael Weber          92 Affoltern am Albis OLG S&auml;uliamt        11:11
+1561993 Marius Hodel           93 Oberwil b. Zug     OLV Zug             11:15
+1992714 Michael Dubach         92 Konolfingen        ol norska           11:19
+1006114 Pascal Haas            92 Schaffhausen       OLG Schaffhausen    11:23
+1993317 David Stark            93 Balterswil         OL Regio Wil        11:27
+1600467 T&eacute;rence Risse          93 Cottens            CA Ros&eacute;             11:31
+1191992 Sven Aschwanden        92 Goldau             OLG Goldau          11:35
+1602650 Ismael R&ouml;thlisberger   93 Aarau              OLG Suhr            11:39
+1992625 Philipp von Arx        92 Olten              OL Regio Olten      11:43
+1956191 Julian Brogli          92 Basel              OLV Baselland       11:47
+1992304 Samuel Keller          92 Gebenstorf         bussola ok          11:51
+1241293 Christoph Meier        93 Lausen             OLV Baselland       11:55
+1111992 Fran&ccedil;ois Borner        92 Hagendorn          OLV Zug             11:59
+ 920315 Lukas Diener           92 Bern               OLG Bern            12:03
+ 500781 Alain Denzler          92 Truttikon          OLG Welsikon        12:07
+</pre>
+<b>H18</b>
+<pre>1230000 Thomas Goettmann       95 Hindisheim         CO Colmar - France   9:46
+1600000 Simon Guldimann        94 Hochwald           OLG Basel            9:49
+1399723 Santiago Treceño       95 León               E.D. ALCON           9:52
+ 201589 Martin Bisceglia       95 Bedano             C.O. Aget Lugano     9:55
+ 232593 Erich M&ouml;ller           94 Bonaduz            OLG Chur             9:58
+2021535 Connor Richterich      94 Heimberg           OLG Thun            10:01
+ 432524 Daniel Birrer          95 Stans              OLG Nidwalden+Obwal 10:04
+1931438 Ciro Martin            95 B&uuml;ren              OLG Nidwalden+Obwal 10:07
+1392555 Marco Baumann          95 Goldau             OLG Goldau          10:10
+1600008 Sandro Vock            94 Bonstetten         OLG S&auml;uliamt        10:13
+1394245 Fabio Stricker         95 Avry               CA Ros&eacute;             10:16
+1250373 Claudio Rohrbach       95 Bonaduz            OLG Chur            10:19
+1010028 Fabian G&uuml;rtler         95 Ormalingen         OLG Kakowa          10:22
+ 531994 Thimo Jaisli           94 Langenthal         OLV Langenthal      10:25
+1394256 Philipp Khlebnikov     95 Neuch&acirc;tel          ANCO                10:28
+1600459 Maurice Cueni          94 Lenzburg           OLK Argus           10:31
+ 427199 Yorick Jaisli          94 Langenthal         OLV Langenthal      10:34
+ 991037 Lars Truttmann         95 Oberarth           OLG Goldau          10:37
+ 895090 Jonathan Besomi        95 Tesserete          ASCO Lugano         10:40
+1392564 Matthias Sandmeier     95 Herisau            OLG St. Gallen/App. 10:43
+1200995 Marcel W&uuml;rsten         95 Schattdorf         OLG KTV Altdorf     10:46
+1717171 Niklas Metzger         95 M&ouml;hlin             OLK Fricktal        10:49
+ 950511 Juno Kim               95 Zizers             OLG Chur            10:52
+1994221 Markus Eggimann        94 Grossh&ouml;chstetten   ol norska           10:55
+ 961234 Moritz K&ouml;hle           94 St&auml;fa              OLG St&auml;fa           10:58
+ 950307 Adrian M&uuml;ller          95 Beinwil am See     OLG Rymenzburg      11:01
+1492217 Patrick Kr&auml;henb&uuml;hl     95 Thunstetten BE     OLV Langenthal      11:04
+1008537 Ueli Werren            94 Riedst&auml;tt          OLG Bern            11:07
+1398860 Tobias Zbinden         94 Engelburg          OLG St. Gallen/App. 11:10
+1301718 Severin Denzler        94 Truttikon          OLG Welsikon        11:13
+1511151 Simon Wenger           94 Schliern b. K&ouml;niz  OLG Bern            11:16
+1006102 Rico H&uuml;bscher          94 Buttwil            OLK Argus           11:19
+1392558 Yannis G&uuml;del           94 Courtaman          OLG Murten          11:22
+1212121 Sebastian Gygax        95 Herzogenbuchsee    OLG Herzogenbuchsee 11:25
+1008535 Joël Morgenthaler      94 Lotzwil            OLV Langenthal      11:28
+2003794 Nico Brechb&uuml;hl         94 Hombrechtikon      OLG St&auml;fa           11:31
+ 951213 Remo Ruch              95 Eggiwil            OLG Skandia         11:34
+1390772 Quentin Mertenat       95 Marly              CA Ros&eacute;             11:37
+1881995 Elias Gemperli         95 Frauenfeld         thurgorienta        11:40
+ 998866 Lukas Meier            95 D&auml;llikon           OLC Kapreolo        11:43
+ 504655 Yves Aschwanden        94 Goldau             OLG Goldau          11:46
+1994178 Simon R&uuml;egg            94 St. Gallen         OLG St. Gallen/App. 11:49
+1006018 Joel Borner            94 Hagendorn          OLV Zug             11:52
+2003141 Lukas Schubnell        94 Elsau              OLC Winterthur      11:55
+1394233 Jonas Egger            94 Burgdorf           OLV Hindelbank      11:58
+ 941014 Jonas Gr&uuml;ndler         94 Hittnau            OLG Pf&auml;ffikon       12:01
+1600470 Sven Hellm&uuml;ller        95 Speicher           OLG Welsikon        12:04
+1600456 Johan B&ouml;ni             95 B&uuml;lach             OLK Rafzerfeld      12:07
+</pre>
+<b>H16</b>
+<pre> 971214 Tim Hammer             97 Lohn-Ammannsegg    OLG Biberist SO     10:45
+ 503697 Robin Pedersen         96 Oberrohrdorf       OLK Argus           10:47
+ 363240 Jonas Baumgartner      96 Neftenbach         OLG Welsikon        10:49
+ 337028 Gaetan Vuitton         96 Veraz              CO CERN             10:51
+ 427182 Dominik Ammann         96 Vordemwald         OLK Wiggertal       10:53
+1395533 Jonas Vogel            96 Widnau             OLG St. Gallen/App. 10:55
+2037065 Elias Scheurer         97 Bargen                                 10:57
+ 980596 Lino Wilhelm           96 Olten              OL Regio Olten      10:59
+2048048 Lukas Hofer            96 Thun               OLG Thun            11:01
+ 960114 Lars Beglinger         96 Jeuss              OLG Murten          11:03
+1394184 Lars Widmer            97 Z&uuml;rich             OLG Z&uuml;rich          11:05
+1392640 Martino Beretta        97 Gordevio           GOV                 11:07
+1392336 Noah Reinhart          97 Amriswil           OL Amriswil         11:09
+1399868 Benjamin Walti         97 Seon               OLK Argus           11:11
+1931411 Michael Denzler        96 Truttikon          OLG Welsikon        11:13
+2031001 Mario Sommer           97 Schongau           OLG Cordoba         11:15
+1398851 Alessandro Huser       97 Schocherswil       OL Amriswil         11:17
+1396861 Severin Steinmann      96 St&auml;fa              OLG St&auml;fa           11:19
+ 887026 Basil D&auml;twyler         96 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       11:21
+1443312 Elia Weber             97 Menzingen          OLV Zug             11:23
+ 437774 David Grossmann        96 Thierachern        OLG Thun            11:25
+1392358 Jan Hutter             96 Hildisrieden       OLV Luzern          11:27
+1931424 Gabriel M&ouml;sch          96 Oberentfelden      OLG Suhr            11:29
+ 516666 Luca Gaia              96 Lamone             GOLD Savosa         11:31
+ 252493 Brian Odermatt         97 Oberwil BL         OLG Basel           11:33
+2031021 Elias Gisi             97 Bern               OLG Bern            11:35
+1400789 Manuel Walss           97 Sursee             OLV Luzern          11:37
+ 432540 Lukas K&uuml;nzi            96 Tuttwil            OL Regio Wil        11:39
+1398462 Cyril Bucher           97 Burgdorf           OLV Hindelbank      11:41
+ 970501 Bj&ouml;rn Kleebauer        97 Winterthur         OLC Winterthur      11:43
+7000123 Nick Gebert            97 Zofingen           OLK Wiggertal       11:45
+1390741 Jan Brunner            96 Bad Zurzach        OLG K&ouml;lliken / OLK  11:47
+1021997 Andrin Kn&ouml;pfli         97 Humlikon           OLG Welsikon        11:49
+2043930 Noel Boos              97 Malters            OLV Luzern          11:51
+1201033 Paul Fluckiger         97 Bevaix             ANCO                11:53
+1392360 Adrian K&ouml;pfli          97 Wolhusen           OLV Luzern          11:55
+1512960 Sebastian Baumann      96 F&auml;llanden          OLC Kapreolo        11:57
+ 888034 Tobia Berger           97 Basel              OLG Basel           11:59
+1394181 Julian Hodel           96 Oberwil b. Zug     OLV Zug             12:01
+ 338830 Archibald Soguel       96 Neuch&acirc;tel          ANCO                12:03
+1996606 Simon Dubach           96 Konolfingen        ol norska           12:05
+1996099 Timon Schweizer        96 Ormalingen         OLV Baselland       12:07
+1201097 Pascal Buchs           97 Les Hauts-Geneveys ANCO                12:09
+1602567 Joey Hadorn            97 Fahrni b. Thun     ol norska           12:11
+ 500286 Jannis Sch&ouml;nleber      96 Lupsingen          OLG Kakowa          12:13
+1541996 Gabriel-Michael Mathys 96 Lyss               OLG Bern / ol.biel. 12:15
+ 960915 Tobia Pezzati          96 Sagno              SCOM Mendrisio      12:17
+1101097 Sven P&uuml;ntener          97 Attinghausen       OLG KTV Altdorf     12:19
+1234568 Noah Zbinden           96 M&uuml;nchenstein       OLV Baselland       12:21
+ 974230 Florian L. Attinger    97 Adliswil           OLG Chur/OL Zimmerb 12:23
+ 960826 Thomas Curiger         96 Buchs ZH           OLC Kapreolo        12:25
+1996074 Patrick Zbinden        96 Engelburg          OLG St. Gallen/App. 12:27
+1314159 Riccardo Rancan        96 Uster              OLG Pf&auml;ffikon       12:29
+</pre>
+<b>H14</b>
+<pre>2037061 Nino Kessler           98 K&ouml;niz              OLG Bern             9:45
+ 251679 Michael Felder         98 Au                 OL Zimmerberg        9:47
+        Mathias Marty          99 Ch&eacute;zard-St-Martin  ANCO                 9:49
+1394267 Evan Contarino         99 Ch&eacute;zard-St-Martin  ANCO                 9:51
+1711990 Dominic Hongler        99 Lohn               OLG Biberist SO      9:53
+ 600000 Corsin Steinmann       99 St&auml;fa              OLG St&auml;fa            9:55
+ 992333 Arnaud Glauser         99 Montmollin         ANCO                 9:57
+2031035 Aaron Gisi             99 Bern               OLG Bern             9:59
+ 364517 Ramon Oetterli         98 Frauenfeld         thurgorienta        10:01
+1390738 Olivier Imboden        99 Urtenen-Sch&ouml;nb&uuml;hl  OLG Bern            10:03
+1231999 Luca Rizzi             99 Lugaggia           ASCO Lugano         10:05
+1394193 Antonin Stampbach      98 La Chaux-de-Fonds  ANCO                10:07
+1390735 Mickaël Junod          98 Dombresson         ANCO                10:09
+1060799 Timon Aegler           99 Wil                OL Regio Wil        10:11
+1999095 Silas Hotz             99 Schafisheim        OLK Argus           10:13
+ 437875 Hendrik D&ouml;rsing        99 Langrickenbach     OL Amriswil         10:15
+2033857 Damian Bisang          99 Kottwil            OLV Luzern          10:17
+1394207 Val&egrave;re De Tribolet     99 Villiers           ANCO                10:19
+2025684 Melvin Marti           99 Liestal            OLV Baselland       10:21
+1394269 Maxime Wyrsch          99 Colombier NE       ANCO                10:23
+ 437866 Felipe Nogueira        98 Cottens FR         CA Ros&eacute;             10:25
+ 364632 Cyrill Aebischer       99 Schmitten FR       OLC Omstr&ouml;m         10:27
+ 906019 Elia Toscanelli        99 Sonvico            ASCO Lugano         10:29
+ 980725 Christoph Weber        98 Latterbach         OLG Hondrich        10:31
+1392339 Cyrill Fricker         99 Rohr AG            OLK Argus           10:33
+1980923 Michael Sandmeier      98 Herisau            OLG St. Gallen/App. 10:35
+1931412 Jan Puntschart         99 Chur               OLG Chur            10:37
+2021572 Till Bolliger          99 Liestal            OLV Baselland/OLK W 10:39
+1998239 Patrick Sandmeier      98 Herisau            OLG St. Gallen/App. 10:41
+1406999 Yanik Schwizer         99 St. Gallen         OLG St. Gallen/App. 10:43
+1211980 Marius Rutz            98 St&auml;fa              OLG St&auml;fa           10:45
+1403098 Felix Meier            98 Frenkendorf        OLV Baselland       10:47
+1201088 Romain W&auml;lti           98 Valangin           ANCO                10:49
+1398471 Jonas Wyder            98 Wangen b. D&uuml;bendor OLC Kapreolo        10:51
+1602653 Sebastian Seiterle     99 Frauenfeld         thurgorienta        10:53
+ 980302 Robin Beglinger        98 Jeuss              OLG Murten          10:55
+1394219 Tim Ebneter            99 Corminboeuf        CA Ros&eacute;             10:57
+1602682 Lars Brunner           99 Bad Zurzach        OLG K&ouml;lliken / OLK  10:59
+1998622 Luis Lienert           98 Gelterkinden       OLV Baselland       11:01
+1392635 Oreste Garbani         98 Cavigliano         GOV                 11:03
+2025700 Yves Bucher            99 Oberkirch LU       OLV Luzern          11:05
+1998226 Olivier Hongler        98 Lohn-Ammannsegg    OLG Biberist SO     11:07
+ 545352 Jan Erne               99 R&uuml;tihof            OLG Cordoba         11:09
+1390731 Severin M&uuml;ller         99 Thun               OLG Thun            11:11
+ 337394 Csaba Gerber           98 Schinznach-Dorf    bussola ok          11:13
+ 337353 Rolf Camathias         98 Trimmis            OLG Chur            11:15
+ 346573 Marc Bitterli          98 Richterswil        OL Zimmerberg       11:17
+1390737 Adrian J&auml;ggi           98 Lohn SO            OLG Biberist SO     11:19
+1998330 Sebastian R&uuml;egg        98 St. Gallen         OLG St. Gallen/App. 11:21
+ 427197 Olivier Meyer          98 Courtaman          OLG Murten          11:23
+1399890 Andrin Wey             99 Z&uuml;rich             OLG Z&uuml;rich          11:25
+2003038 Manuel Pfister         98 N&uuml;rensdorf         OLC Kapreolo        11:27
+ 887035 Julian Bleiker         98 Degersheim         OL Regio Wil        11:29
+ 990601 Julian Imhof           99 Balterswil         OL Regio Wil        11:31
+ 427298 Dario Metzger          98 M&ouml;hlin             OLK Fricktal        11:33
+1394287 Guillaume Wyrsch       98 Colombier NE       ANCO                11:35
+1006014 Gian Brechb&uuml;hl         99 Hombrechtikon      OLG St&auml;fa           11:37
+1396714 Florian Moser          98 Konolfingen        ol norska           11:39
+1396698 Reto Egger             99 Rafz               OLK Rafzerfeld      11:41
+1461999 Christopher Stern      99 Langenbruck        OLG Kakowa          11:43
+1213141 Nicolas M&uuml;ller         98 Thun               OLG Thun            11:45
+2003182 Dominik Tschamper      98 Hombrechtikon      OLG St&auml;fa           11:47
+2025681 Sandro Schmid          99 Benken SG          OLG Galgenen/Goldau 11:49
+ 896990 Nils Eyer              99 Nidau              ol.biel.seeland / U 11:51
+ 983001 Michael B&auml;ttig         98 Effretikon         OLG Weisslingen     11:53
+1515555 Siro Corsi             99 Novaggio           GOLD Savosa         11:55
+1300998 Silvan Ullmann         98 Nidau              ol.biel.seeland / O 11:57
+ 504340 Nicola M&uuml;ller          99 Einsiedeln         OLG Galgenen/Goldau 11:59
+1501111 Nicola Banfi           99 Vezia              GOLD Savosa         12:01
+ 364647 Patrick W&uuml;rsten        99 Schattdorf         OLG KTV Altdorf     12:03
+1121999 Chamuel Zbinden        99 M&uuml;nchenstein       OLG Basel           12:05
+1998081 Timo Suter             98 Baden-R&uuml;tihof      OLG Cordoba         12:07
+ 531998 Lukas Deininger        98 St. Gallen         OLG St. Gallen/App. 12:09
+1515151 Tino Polsini           99 Gelterkinden       OLV Baselland       12:11
+ 980603 Andrin Gr&uuml;ndler        98 Hittnau            OLG Pf&auml;ffikon       12:13
+</pre>
+<b>H12</b>
+<pre>2031837 Zac Hudd               00 Bristol            Bristol              9:31
+        Sacha Marty            01 Ch&eacute;zard-St-Martin  ANCO                 9:35
+ 990726 Lukas Weber            00 Latterbach         OLG Hondrich         9:39
+        Julien Vuitton         01 Veraz              CO CERN              9:43
+   7310 Fadri Wetzel           01 Aesch BL                                9:47
+        Cl&eacute;ment Brigliano      99 Montmollin         ANCO                 9:51
+1008533 Marc Sch&auml;rer           00 Huttwil            OLG Huttwil          9:55
+1401042 Jean Fl&uuml;ckiger         00 Bevaix             ANCO                 9:59
+1394220 Tristan Glauser        00 Ch&eacute;zard-St-Martin  ANCO                10:03
+  33145 Thierry Imboden        01 Urtenen-Sch&ouml;nb&uuml;hl  OLG Bern            10:07
+ 346513 Lorenz K&ouml;hle           01 St&auml;fa              OLG St&auml;fa / O-Motio 10:11
+1399646 Livio Koster           01 St. Margrethen     OL Regio Wil        10:15
+  59299 Silvan Spiess          00 Br&uuml;gg BE           ol.biel.seeland     10:19
+ 252961 Giovanni Rizzi         00 Lugaggia           ASCO Lugano         10:23
+1393107 Julien Schluchter      00 Les Hauts-Geneveys ANCO                10:27
+  54649 Corino Wyder           00 Wangen b. D&uuml;bendor OLC Kapreolo        10:31
+ 427146 Marc Bossi             01 K&uuml;snacht ZH        OLG St&auml;fa           10:35
+ 618000 Marius Hammer          00 Lohn-Ammannsegg    OLG Biberist SO     10:39
+1394292 Nils Manuel Gut        01 Cottens FR         CA Ros&eacute;             10:43
+ 814201 Andrin Benz            01 Untereggen         OLG St. Gallen/App. 10:47
+2021527 Elio Bolliger          00 Liestal            OLV Baselland/OLK W 10:51
+ 201818 Thierry Odermatt       00 Oberwil BL         OLG Basel           10:55
+ 406519 Manuele Ren            01 Ponte Capriasca    ASCO Lugano         10:59
+2021615 Reto Corsi             01 Novaggio           GOLD Savosa         11:03
+1600013 Lars-Benjamin Mathys   00 Lyss               OLG Bern / ol.biel. 11:07
+2031024 Severin Hohl           01 Winterthur         OLG Weisslingen     11:11
+1192001 Andri Jordi            01 Heiligenschwendi   OLG Hondrich        11:15
+2033823 Pascal Schmid          01 Benken SG          OLG Galgenen/Goldau 11:19
+1290700 Andri Meier            00 Lenzburg           OLK Argus           11:23
+1602683 Fynn M&uuml;ller            00 Beinwil am See     OLG Rymenzburg      11:27
+2021620 Marco R&uuml;fenacht        00 Diepflingen        OLV Baselland       11:31
+1398458 Rik Franssen           00 Sursee             OLV Luzern          11:35
+ 252445 Corsin Boos            00 Malters            OLV Luzern          11:39
+1400770 Silvan K&ouml;pfli          00 Wolhusen           OLV Luzern          11:43
+ 888524 Laurin Imhof           00 Balterswil         OL Regio Wil        11:47
+2006611 Thierry Z&uuml;rcher        00 K&uuml;snacht           OLG St&auml;fa           11:51
+1392344 Iwan Br&uuml;gger           00 Oberhofen am Thune OLG Thun            11:55
+ 887033 Sven Wey               01 Schwyz             OLG Goldau          11:59
+ 992212 Mattia Gr&uuml;ndler        00 Hittnau            OLG Pf&auml;ffikon       12:03
+1311200 Fabian Aebersold       00 Br&uuml;gg BE           ol.biel.seeland     12:07
+1112777 Silas Hutzli           00 Wil                OL Regio Wil        12:11
+</pre>
+<b>H10</b>
+<pre>1399645 Tobias Nagel           04 Murten             OLG Murten          10:01
+1398446 Lucas M&uuml;hle            02 Biel-Benken                            10:07
+2031838 Joe Hudd               03 Bristol            Bristol             10:13
+2043955 Janosch Alabor         02 Biel-Benken                            10:19
+1398857 Florian Nagel          04 Murten             OLG Murten          10:25
+ 437707 Ivan Wipfli            04 Schwyz             OLG Goldau          10:31
+ 435493 Elia Ren               04 Ponte Capriasca    ASCO Lugano         10:37
+2021610 Nick L&uuml;din             03 Bettingen          OLG Basel           10:43
+ 232556 Tommaso Besomi         02 Tesserete          ASCO Lugano         10:49
+2003160 Gian-Andri M&uuml;ller      03 Einsiedeln         OLG Galgenen/Goldau 10:55
+ 435499 No&egrave; Toscanelli         02 Sonvico            ASCO Lugano         11:01
+  62901 Sven Arnold            02 Goldau             OLG Goldau          11:07
+2033854 Dominique Schmid       02 Benken SG          OLG Galgenen/Goldau 11:13
+1021123 Jari Suter             02 R&uuml;tihof            OLG Cordoba         11:19
+ 252145 Pablo Polsini          03 Gelterkinden       OLV Baselland       11:25
+  63925 Florian Freuler        02 Glarus             thurgorienta / Glar 11:31
+1832004 Timon Wey              04 Schwyz             OLG Goldau          11:37
+2037033 Benjamin Wey           03 Z&uuml;rich             OLG Z&uuml;rich          11:43
+1782002 Florin Wey             02 Schwyz             OLG Goldau          11:49
+1112333 Janis Hutzli           02 Wil SG             OL Regio Wil        11:55
+</pre>
+<b>DE</b>
+<pre>1398862 Madara Rasscevska      81 Zurich             OL Zimmerberg       10:46
+ 200174 Janeta Turka           87 Darmstadt          TUS R&uuml;ppurr Karlsru 10:50
+1251829 Dominique Bucher       91 Burgdorf           OLV Hindelbank      10:54
+ 504685 Anna Naef              86 Liebefeld          OLG Z&uuml;rich          10:58
+1987111 Christine Rufer        87 Regensdorf         OLG Galgenen        11:02
+1602608 Monika F&auml;ssler         82 Alpnach            OLG St. Gallen/App. 11:06
+ 997715 Andrea Koch            91 Eglisau            OLK Rafzerfeld      11:10
+ 870415 Regula M&uuml;ller          87 Winterthur         bussola ok          11:14
+1998001 Mirjam F&auml;ssler         90 Bronschhofen       OL Regio Wil        11:18
+ 900003 Sophie Tritschler      90 Z&uuml;rich             OLG Z&uuml;rich          11:22
+2003421 Mirjam Pfister         91 N&uuml;rensdorf         OLC Kapreolo        11:26
+2003582 Sara W&uuml;rmli            87 Thalwil            OL Zimmerberg       11:30
+ 910000 Franziska Meier        91 Seuzach            OLG Welsikon        11:34
+ 896988 Martina Seiterle       89 Frauenfeld         thurgorienta        11:38
+ 910124 Elena Roos             91 Cugnasco           O-92 Piano di Magad 11:42
+2003382 Brigitte M&uuml;hlemann     78 Olten              OL Regio Olten / OL 11:46
+ 991041 Bettina Aebi           90 Ober&ouml;nz            OLG Herzogenbuchsee 11:50
+ 840729 Seline Stalder         84 Olten              OLV Luzern          11:54
+1392245 Brigitta Mathys        90 B&uuml;etigen           ol.biel.seeland     11:58
+ 582476 Julia Gross            91 Richterswil        OL Zimmerberg       12:02
+1164980 Sarina Jenzer          91 Bremgarten / BE    OLG Huttwil         12:06
+2003247 Sabine Hauswirth       87 Bern               ol norska           12:10
+1395543 Ines Brodmann          85 Riehen             OLG Basel           12:14
+2003016 Rahel Friederich       86 Winterthur         OLG Basel           12:18
+2003571 Judith Wyder           88 Zimmerwald         OLG Thun            12:22
+ 500283 Sara L&uuml;scher           86 Winterthur         OLC Kapreolo        12:26
+1207128 Simone Niggli          78 M&uuml;nsingen          OLV Hindelbank      12:30
+</pre>
+<b>DAL</b>
+<pre> 238189 Olga Chesnokova        88 Bern               IMP2709 OLG Bern    10:38
+ 251849 Flurina Hodel          91 Oberwil b. Zug     OLV Zug             10:41
+1392316 Selina Keller Zbinden  80 M&uuml;nsingen          ol norska           10:44
+ 437747 Ulrika Lukasczyk       80 Z&uuml;rich             OLG Z&uuml;rich          10:47
+  61441 Manuela Furrer-Wiget   81 Rain               OLV Luzern          10:50
+  54767 Alexandra Peter        87 Reinach BL         OLG Basel           10:53
+1600019 Isabelle Pauli         81 Schwarzenburg      CO Lausanne-Jorat   10:56
+ 249148 Debbie Hirzel          84 Winterthur         OL Amriswil         10:59
+ 881008 Stephanie Amrein       88 St&auml;fa              OLG Wald            11:02
+1600018 Vera Ramelli           87 Riazzino           O-92 Piano di Magad 11:05
+ 251437 Marianne Joggi         84 Bern               OLG K&ouml;lliken        11:08
+1392348 Eliana K&ouml;pfli          86 Grindelwald        OLV Luzern          11:11
+2003261 Cornelia Speich        90 Sissach            OLG Kakowa          11:14
+1394255 Alexandra Khlebnikova  85 Neuch&acirc;tel          ANCO                11:17
+ 201715 Isabelle Schenkel      85 Aarau              OLG Suhr            11:20
+ 501990 Annettina Herren       89 Lupsingen          OLG Kakowa          11:23
+ 591195 Daniela Wehrli         79 Z&uuml;rich             OLK Argus           11:26
+ 503696 Dorothea Suter         89 T&auml;gerig            OLG Cordoba         11:29
+2003278 Monika Oswald          78 Uster              OLK Piz Hasi        11:32
+ 820618 Alexandra Altorfer     82 Z&uuml;rich             OLK Rafzerfeld      11:35
+ 251909 Johanna Knauer         80 Bolligen           ol norska           11:38
+2003015 Annetta Schaad         82 Chur               OLG Chur            11:41
+ 900204 Nadja Beeler           90 Basel              OLG Goldau          11:44
+1399903 Katja L&uuml;scher          84 Olten              OL Regio Olten/OLK  11:47
+  63995 Annina Battaglia       86 Winterthur         OLK Rafzerfeld      11:50
+1398451 Karin Geissb&uuml;hler      90 Laupen BE          OLG Bern            11:53
+2003010 Ursula Oehy            65 Winterthur         OLC Winterthur      11:56
+ 991046 Laetitia H&auml;chler       88 Winterthur         OLG Pf&auml;ffikon       11:59
+  63940 Jeanine Oswald Nussbau 80 Uster              OLK Piz Hasi        12:02
+ 500782 Franziska Wolleb       82 Burgdorf           OLV Hindelbank      12:05
+ 779077 Nadine Hebeisen        90 Winterthur         thurgorienta        12:08
+ 812909 Karin Hodel            81 Bern               ol norska           12:11
+ 895042 Lena Spalinger         87 Luzern             OLG S&auml;uliamt        12:14
+  62529 Christine Stalder      80 Langnau i. E.      OLG Skandia         12:17
+2003343 Stefanie Steinemann    87 Z&uuml;rich             OLG S&auml;uliamt        12:20
+ 817181 Barbara H&uuml;sler         81 Z&uuml;rich             OLG Galgenen        12:23
+1360666 Liselotte Freuler      66 Frauenfeld         thurgorienta        12:26
+ 677456 Annemarie Sieber       75 Weisslingen        OLG Chur            12:29
+</pre>
+<b>DAK</b>
+<pre> 413010 Nicole H&auml;fliger        93 Lenzburg           OLG Suhr            10:45
+ 252862 Michelle H&auml;fliger      94 Lenzburg           OLG Suhr            10:47
+ 800024 Karin Leonhardt        85 Winterthur         bussola ok          10:49
+ 940915 Jacqueline Curiger     94 Buchs ZH           OLC Kapreolo        10:51
+ 903070 Irina Tsch&uuml;mperlin     90 Sachseln           OLG Nidwalden+Obwal 10:53
+  63686 Flavia Spinelli        70 Lugaggia           ASCO Lugano         10:55
+ 251835 Deborah Jutzi          92 Burgdorf           OLV Hindelbank      10:57
+ 887016 Barbara Rancan         64 Uster              OLG Pf&auml;ffikon       10:59
+1966000 Yvonne R&uuml;egg           66 Unterohringen      OLG Welsikon        11:01
+ 661604 Margrit Beeler         66 Goldau             OLG Goldau          11:03
+ 338827 Martina Fuchs          81 Einsiedeln         OLG Galgenen        11:05
+  63673 Cristina Bozzolo Ren   73 Ponte Capriasca    ASCO Lugano         11:07
+ 437879 Karin Stadelmann       79 Lauperswil         OLV Hindelbank      11:09
+ 761112 Camilla Moreni         76 Mendrisio          SCOM Mendrisio      11:11
+ 413094 Nadja Eggs             91 Dornach            OLG Basel           11:13
+ 895080 Christine Friedrich    82 M&uuml;nchenbuchsee     ol norska           11:15
+ 251686 Barbara Nyfeler        68 Hilterfingen       OL Regio Olten      11:17
+  64099 Annelies Tschumi-Anten 67 Thun               OLG Thun            11:19
+1122211 Alexandra Thomas       83 Z&uuml;rich             OL Regio Wil        11:21
+2003342 Isabelle Steiner       81 Uerkheim           OLG Cordoba         11:23
+ 887022 Ir&egrave;ne Probst           69 Belp               OLG Bern            11:25
+ 941712 Annick Attinger        94 Adliswil           OLG Chur/OL Zimmerb 11:27
+ 871970 Manuela Pfiel          70 Zofingen           OLK Wiggertal       11:29
+ 362880 Giorgia Crivelli       84 Porza              GOLD Savosa         11:31
+ 504683 Barbara Stalder        86 Langnau i. E.      OLG Skandia         11:33
+ 252821 Laura Borner           90 Adliswil           OL Zimmerberg       11:35
+  64900 Barbara Zimmermann-Min 73 Huttwil            OLG Huttwil         11:37
+  62473 Ursula Wyss            80 Sursee             OLV Hindelbank      11:39
+  59193 Annelies Moser         69 Konolfingen        ol norska           11:41
+ 760127 Karin Moosberger       76 Knonau             OLV Zug             11:43
+ 682068 Meieli Sieber          68 Hittnau/Isikon     OLG Weisslingen     11:45
+2037045 Mirjam Rotzler         78 Binningen                              11:47
+ 252345 Janine Eggs            93 Dornach            OLG Basel           11:49
+ 252842 Chiara Borner          93 Adliswil           OL Zimmerberg       11:51
+  64895 Salome Meier           82 Luzern             OLG Kakowa          11:53
+1398459 Pia Schaffner          69 Gebenstorf         OLG Cordoba         11:55
+ 841128 Rebekka Suter          84 Fislisbach         OLG Cordoba         11:57
+ 950703 Claudine Ruppenthal    95 Domat/Ems          OLG Chur            11:59
+1396695 Monika Bischof         85 Hinwil             OLC Winterthur      12:01
+ 885996 Lisa Hochstrasser      88 Trimbach           OL Regio Olten      12:03
+1602582 Xenia Kissling         95 Dachsen            OLG Schaffhausen/ O 12:05
+1394190 Theres Brunner         66 Bad Zurzach        OLG K&ouml;lliken / OLK  12:07
+2003461 Corinne Scheidegger    90 Ranfl&uuml;h            OLG Skandia         12:09
+ 252341 Tiziana Rigamonti      90 Adliswil           OL Zimmerberg       12:11
+  59213 Mirjam Birrer          86 Nieder&ouml;nz          OLG Herzogenbuchsee 12:13
+ 201791 Tabita R&uuml;egg           93 Unterohringen      OLG Welsikon        12:15
+ 800904 Bettina Wyss-Streuli   80 Olten              OL Regio Olten      12:17
+ 504371 Magdalena Suter        90 T&auml;gerig            OLG Cordoba         12:19
+  54479 Rahel Hatt             88 Schlieren          OLG S&auml;uliamt        12:21
+1399648 Patrizia K&ouml;pfli        88 Wolhusen           OLV Luzern          12:23
+1441992 Ladina Feucht          92 Schaffhausen       OLG Schaffhausen    12:25
+1993709 Geraldine M&uuml;ller       93 Unter&auml;geri         OLV Zug             12:27
+ 780219 Marion B&uuml;chli          78 Gr&auml;nichen          OLG Suhr            12:29
+</pre>
+<b>DB</b>
+<pre> 427127 Sonja R&uuml;egsegger-Lohri 70 Heimberg           OLG Thun             9:34
+  60662 Martha Federspiel      62 Laufen             OLG Chur             9:38
+2048030 Katrin Huber           72 Solothurn                               9:42
+2003258 Heidi Gross            61 Richterswil        OL Zimmerberg        9:46
+ 232552 Cuki Vassalli          79 Bedano             ASCO Lugano          9:50
+1730000 Claudia Fluri          64 W&auml;denswil          OL Zimmerberg        9:54
+ 345434 Brigitta Josef Rahn    66 Widen              OLG Suhr             9:58
+  62337 Ruth Hofstetter        53 Biel/Bienne        ol.biel.seeland     10:02
+  64765 Ruth Emmenegger        68 Aarburg            OLK Wiggertal       10:06
+2003413 Anita Jakob            93 Muttenz            OLG Basel           10:10
+ 253548 Barbara Bucher-K&ouml;nig   65 Burgdorf           OLV Hindelbank      10:14
+2003611 Anja Kurz              93 Bretzwil           OLG Kakowa          10:18
+2025691 Heidi L&uuml;din            71 Bettingen          OLG Basel           10:22
+  64990 Hannelore Buser        53 Solothurn          OLG Biberist SO     10:26
+  64883 Regine Imhof           67 Balterswil         OL Regio Wil        10:30
+ 413097 Esther Ryter           53 Liestal            OLG Basel           10:34
+ 332451 Lisy Patricia Bhend    74 Tuggen             OLG Welsikon        10:38
+1980131 Am&egrave;le Fux              80 Pregassona         CO UTOE Bellinzona  10:42
+2021683 Ruth Heinrich          53 Stallikon          OLG S&auml;uliamt        10:46
+2300208 Brigitte Docci         66 Lausen             OLG Kakowa          10:50
+ 437787 Monique Welten         67 Sursee             OLV Luzern          10:54
+   7374 Jacqueline Aebischer-D 65 Schmitten FR       OLC Omstr&ouml;m         10:58
+2003602 Jana B&auml;r               94 Zofingen           OLK Wiggertal       11:02
+2031042 Christine H&uuml;ni         67 Seftigen           OLG Thun            11:06
+ 437848 Susanne K&ouml;pfli         60 Wolhusen           OLV Luzern          11:10
+ 427289 Kathrin Fl&uuml;ckiger      62 Grossdietwil       OLK Wiggertal       11:14
+ 201709 Patricia Sch&ouml;nenberger 63 Unter&auml;geri         OLV Zug             11:18
+   2653 Anitha Vilan           69 K&uuml;snacht ZH        OLG St&auml;fa           11:22
+ 364661 Monika W&uuml;rsten         64 Schattdorf         OLG KTV Altdorf     11:26
+1398466 Cornelia Kissling      71 Zunzgen                                11:30
+1961211 Martina Feucht         61 Schaffhausen       OLG Schaffhausen    11:34
+ 670323 Sarah Stutz            67 Gr&auml;nichen          OLG Suhr            11:38
+2031041 Rahel Tantanini        70 Opfikon            OLC Kapreolo        11:42
+ 500745 Estella Wettstein      81 Bern                                   11:46
+  64991 Annelise Bucher        55 Langendorf         OLG Biberist SO     11:50
+2006603 Manuela Ursprung       87 Derendingen        OLG Biberist SO     11:54
+</pre>
+<b>D35</b>
+<pre>  64615 Ulla Gagliardi         73 Dietikon           OLK Piz Hasi        10:59
+  62101 Angela Imboden         74 Urtenen-Sch&ouml;nb&uuml;hl  OLG Bern            11:03
+ 364585 Judith Maurer          74 Wildegg            bussola ok          11:07
+2003432 Barbara Schulthess     76 Volketswil         OLC Kapreolo        11:11
+1006024 Beatrice Aeschlimann   76 T&auml;gertschi         ol norska           11:15
+  58416 Petra Frei             74 Stein am Rhein     OLG Dachsen         11:19
+ 770620 Alison High            77 Les Paccots        CARE Vevey          11:23
+2041747 Anne Orillo            76 Basel              OLG Basel           11:27
+ 413006 Wanda Gm&uuml;r-Konkol      76 Wangen bei Olten   OLG Biberist SO     11:31
+  64233 Sandra Amadò           75 Luzern             OLG Nidwalden+Obwal 11:35
+1213143 Eldrid Hågård Aas      73 Wettingen          OLG Cordoba         11:39
+2003043 Karin Stucki           73 Teufen ZH          OLK Argus           11:43
+  62289 Irene Weyermann        75 Z&uuml;rich             OLG Z&uuml;rich          11:47
+2037036 Sabine Baumgartner     75 Bern               OLG Bern            11:51
+1006013 Rahel Gantenbein       77 Oberentfelden      OLG Rymenzburg      11:55
+1931450 Anita Wipfli - Schuler 77 Schwyz             OLG Goldau          11:59
+  61926 Mireille Sieber        74 Theilingen         OLC Winterthur      12:03
+1931405 Isa Steiner            76 Jona               OLG Galgenen        12:07
+1392552 Sabin Tschopp          75 Winterthur         OLG Dachsen         12:11
+ 636363 Brigitte Gr&uuml;niger Hube 74 Teufenthal AG      OLV Zug/UBOL        12:15
+ 531976 Val&eacute;rie Suter          76 Olten              CA Ros&eacute;             12:19
+ 500670 Sara Gemperle          77 Boniswil           OLK Argus           12:23
+1395622 Regula Bernhard        77 Hirzel             OL Zimmerberg       12:27
+</pre>
+<b>D40</b>
+<pre>1131999 Silvia Jordi           68 Heiligenschwendi   OLG Hondrich         9:45
+ 308907 Sandra Simonsen        68 Hillerød Danmark   FIF Hillerød         9:49
+1392310 Rebekka Herzog         68 Hottwil            OLK Rafzerfeld       9:53
+ 410514 Kristine Fritz         65 Dettingen Unter Te OL-Team-Filder       9:57
+ 251371 Barbara Zinniker-Birre 68 Aarburg            OLK Wiggertal       10:01
+2003022 Susanne Schmid-Schilte 70 Aarau              OL Regio Wil        10:05
+2037044 Lena Wey               69 Z&uuml;rich             OLG Z&uuml;rich          10:09
+1394390 Brigitte Senti         68 D&auml;llikon           OLG Welsikon        10:13
+ 251735 Judith Suter-Schadegg  70 R&uuml;tihof            OLG Cordoba         10:17
+  64760 Sandra Frei            70 Biel               OLG Biberist SO     10:21
+ 252756 Corinne St&auml;uble        69 Lachen SZ          OLG Galgenen        10:25
+1311969 Petra W&auml;lti            69 Sutz-Lattrigen     ol.biel.seeland/OLG 10:29
+  61963 Ursula Odermatt        71 Oberwil BL         OLG Basel           10:33
+1170368 Michela Conti          68 Bellinzona         CO UTOE Bellinzona  10:37
+  62255 Manon Baader Plattner  71 Liestal            OLG Basel           10:41
+ 628840 Maja Kunz              68 St. Gallen         OLG St. Gallen/App. 10:45
+  58385 Diana Grogg            72 Kaltbrunn          OLG Huttwil         10:49
+ 710925 Christine L&uuml;scher-Fogt 71 Erlinsbach AG      OLK Argus           10:53
+  61980 Nathalie Berlinger     71 Wil SG             OL Regio Wil        10:57
+  59260 Jeannette Merz         68 Arisdorf           OLG Kakowa          11:01
+1602587 Rahel Pfister Hohl     72 Winterthur         OLG Weisslingen     11:05
+ 700805 Martina Erne-Hotz      70 R&uuml;tihof            OLG Cordoba         11:09
+1969521 Kathrin Hindermann     69 Wolfhausen         OLG St&auml;fa           11:13
+1939596 Ursi Ruppenthal        71 Domat/Ems          OLG Chur            11:17
+ 500766 Andrea Gr&uuml;niger        70 Suhr               OLG Suhr            11:21
+ 701611 Rita Deininger-Bricker 70 St. Gallen         OLG St. Gallen/App. 11:25
+1396701 Karin Br&uuml;gger          69 Oberhofen am Thune OLC Omstr&ouml;m / OLG T 11:29
+ 952006 Doris Gr&uuml;niger         71 Z&uuml;rich             UBOL                11:33
+1302760 Franziska M&uuml;ller-Hotz  68 Einsiedeln         OLG Galgenen/OLK Ar 11:37
+2003033 Heidi Graf             68 Uesslingen         OL Regio Wil        11:41
+ 700630 Mirjam Gr&uuml;ndler        70 Hittnau            OLG Pf&auml;ffikon       11:45
+1393132 Regula Gygax-H&ouml;gger    70 Solothurn          OLG Biberist SO     11:49
+ 432670 Eva L&uuml;scher-Suter      71 Seengen            OLK Argus           11:53
+1394215 V&eacute;ronique Renaud Humbe 70 D&auml;ttwil AG         OLG Cordoba         11:57
+1006006 Judith Hofer           68 Thun               OLG Thun / UBOL     12:01
+1390734 Eva Zehnder-Gilgen     68 Schaffhausen       OLG Schaffhausen /  12:05
+1971618 Karin M&uuml;ller           71 Unter&auml;geri         OLV Zug             12:09
+</pre>
+<b>D45</b>
+<pre>  61261 Heidi Baumann          63 Goldau             OLG Goldau           9:31
+ 410527 Elvira Weingard        67 B&uuml;gelstr. 25, 6116 OLV Steinberg        9:33
+ 332467 Elisabeth Hauller      63 Ennetbaden         OLG Cordoba          9:35
+ 251890 Elisabeth Fuchs Hatt   63 Z&uuml;rich             OL Zimmerberg        9:37
+1008539 Anne-Catherine Sch&auml;rer 65 Huttwil            OLG Huttwil          9:39
+2036223 Angela Zindel          64 Chur               OLG Chur             9:41
+ 661003 Federica Bizzozero Bar 66 Riazzino           ASCO Lugano          9:43
+1281066 Susanne Aegler-Schl&auml;pf 66 Wil SG             OL Regio Wil         9:45
+  64024 Esther Salvisberg      64 Kerzers            OLG Nidwalden+Obwal  9:47
+ 660110 Annakatharina Walser B 66 Jeuss              OLG Murten           9:49
+   2867 Iris Kosch             67 Gross-Umstadt (D)  OLV Steinberg / Deu  9:51
+1097057 Lilian Kissling        64 Dachsen            OLG Schaffhausen     9:53
+1061967 Claudia Wetzstein      67 Chur               OLG Chur             9:55
+1392568 Katrin Widmer          67 Z&uuml;rich             OLG Z&uuml;rich           9:57
+ 413076 Nicole Eggs-Vogel      64 Dornach            OLG Basel            9:59
+1392239 Renata Truttmann       64 Oberarth           OLG Goldau          10:01
+  58701 Nora Lichti Aschwanden 59 Z&uuml;rich             OLG Goldau          10:03
+1395547 Claudia Wirz           67 Bettingen          OLG Basel           10:05
+ 904119 Marzia Beltraminelli   65 Pregassona         ASCO Lugano         10:07
+ 650526 Christina Moser        65 Langenthal         OLV Langenthal      10:09
+  63910 Priska Badertscher     64 Langnau am Albis   OL Zimmerberg       10:11
+ 504667 Doris Kleebauer        67 Winterthur         OLC Winterthur      10:13
+ 432522 Sabine Hammel Bolliger 64 Liestal            OLK Wiggertal       10:15
+ 413133 Evi Schlatter          67 Opfikon            OLC Kapreolo        10:17
+ 224570 Esther Diener-Morscher 63 Bern               OLG Bern            10:19
+ 504353 Marianne Hebeisen      62 Winterthur         thurgorienta        10:21
+1398863 Frizzi Tagwerker Gloor 67 Bertschikon (Gossa OLV Baselland       10:23
+  62062 Erika M&uuml;ller-B&uuml;hler    64 Unter&auml;geri         OLV Zug             10:25
+  35244 Jaana Eronen           63 Zumikon            OLG St&auml;fa           10:27
+ 754121 Silvia Schneider-Schie 65 Stettlen           OLV Hindelbank      10:29
+1008536 Vreny P&uuml;ntener         64 Attinghausen       OLG KTV Altdorf     10:31
+1964185 Kathrin Borner         64 Hagendorn          OLV Zug             10:33
+ 670628 Brigitte Hammer        67 Lohn-Ammannsegg    OLG Biberist SO     10:35
+2003163 Sibylle Boos-Braun     66 Malters            OLV Luzern          10:37
+ 889323 Anna Pfyl              67 Schwyz             OLG Goldau          10:39
+ 671106 Ruth Ruch              67 Eggiwil            OLG Skandia         10:41
+  64232 Gabi Hunziker          65 Kerzers            OLG Nidwalden+Obwal 10:43
+1967127 Brigitte Tschamper     67 Hombrechtikon      OLG St&auml;fa           10:45
+ 504622 Brigitte Arnold        66 Goldau             OLG Goldau          10:47
+1395627 Karin Knecht B&uuml;hler    64 Schenkon           OLV Luzern          10:49
+1090767 Brigitte Grob          67 Weggis             OLV Luzern          10:51
+2003046 Cristina Brechb&uuml;hl     67 Hombrechtikon      OLG St&auml;fa           10:53
+   4115 Susanna Rutz-Aebersold 66 St&auml;fa              OLG St&auml;fa           10:55
+  62821 Priska Ringli          66 Schaffhausen       OLG Schaffhausen    10:57
+ 650629 Priska Curiger         65 Buchs ZH           OLC Kapreolo        10:59
+ 631708 Rosmarie Feer          63 Goldau             OLG Goldau          11:01
+2003154 Johanna Purrer Ramstei 66 Muttenz            OLG Basel           11:03
+ 652906 Barbara Hugelshofer    65 Effretikon         OLG Weisslingen     11:05
+  64574 Eveline Z&uuml;rcher        65 K&uuml;snacht ZH        OLG St&auml;fa           11:07
+1393026 Gaby Aebersold-Sch&uuml;tz  65 Br&uuml;gg BE           ol.biel.seeland     11:09
+1602669 Sabrina Meister        66 Dachsen            OLG Dachsen         11:11
+ 641404 Cornelia M&uuml;ller        64 Zug                OLV Zug             11:13
+</pre>
+<b>D50</b>
+<pre>  64604 Vreni D&uuml;rr-Gubler      57 Frauenfeld         thurgorienta         9:30
+  59347 Myrta Vock             61 Bonstetten         OLG S&auml;uliamt         9:34
+ 346646 Anna Bisceglia         62 Bedano             C.O. Aget Lugano     9:38
+ 251440 Carla Bolis            59 Camorino           O-92 Piano di Magad  9:42
+1040658 Monika Quidort         58 Suhr               OLG Suhr             9:46
+ 219355 Doris Eggenschwyler    59 Basel              OLG Basel            9:50
+1231261 Mirella Graziani       61 Olten              OL Regio Olten       9:54
+ 413124 Susanne Duppenthaler J 58 Burgdorf           OLV Hindelbank       9:58
+  62881 Christine Sauter       58 Chur               OLG Chur            10:02
+ 252491 Heidi H&auml;nni            59 Langenthal         OLV Langenthal      10:06
+ 232588 Monica Streich-Pezzati 62 Ittigen            SCOM Mendrisio      10:10
+  64586 Vera Khlebnikova       58 Neuch&acirc;tel          ANCO                10:14
+  62226 Christine Jenzer       62 Bremgarten / BE    OLG Huttwil         10:18
+  62470 Rosmarie M&uuml;hlemann     60 Eglisau            OLK Rafzerfeld      10:22
+2003177 Heidy Corrodi          60 Marthalen          OLG Dachsen         10:26
+ 889325 Susanne L&uuml;scher        59 Oberrohrdorf       OLK Argus           10:30
+  61431 Vroni Akeret           58 Frauenfeld         thurgorienta        10:34
+1666666 Heidi Ullmann-Kurzo    62 Nidau              ol.biel.seeland / O 10:38
+1951961 Esther Kn&ouml;pfli         61 Humlikon           OLG Welsikon        10:42
+1394230 Ursula Wolf            54 Davos Clavadel     OLG Davos           10:46
+ 881402 Rosmarie Rudolf        62 Rupperswil         OLK Wiggertal       10:50
+ 540000 Esther Meier           54 Seuzach            OLG Welsikon        10:54
+2043938 Elisa Ruoff Zeller     61 St&auml;fa              OLG St&auml;fa           10:58
+  61931 Annegret Arm           62 Oberbipp           OLG Herzogenbuchsee 11:02
+1962328 Doris Haas             62 Schaffhausen       OLG Schaffhausen    11:06
+1396359 Regina Neukom          59 Adliswil           OL Zimmerberg       11:10
+1392566 Judith Tobler-Harzenmo 60 St. Gallen         OLG St. Gallen/App. 11:14
+1602638 Barbara Egger Keller   60 Twann              ol.biel.seeland     11:18
+1010006 Renate Lienhart        61 Raeterschen        OLG Welsikon        11:22
+1961058 Andrea Wyss            61 Kriens             OLG Nidwalden+Obwal 11:26
+1959611 Monika Ammann          59 Berneck            OLG St. Gallen/App. 11:30
+1958516 Kati Cejka             58 St. Ursen          OLC SKOG Fribourg   11:34
+1961114 Lily Husner            61 Staffelbach        OLK Wiggertal       11:38
+ 590402 K&auml;thi Kohler           59 D&ouml;rflingen         OLG Dachsen         11:42
+1394253 Eva Martin             56 Aarau              ol.biel.seeland / O 11:46
+1602637 Barbara L&uuml;scher        60 N&auml;nikon            OLC Kapreolo        11:50
+1600462 Isabelle Hellm&uuml;ller    62 Speicher           OLG St. Gallen/App. 11:54
+</pre>
+<b>D55</b>
+<pre>  63876 Rita Pellegrini        55 Cureglia           C.O. Aget Lugano     9:31
+ 504659 Brigit Humbel          55 Ibach              OLG Cordoba          9:34
+  61388 Annelies Meier         54 Elgg               OLC Kapreolo         9:37
+ 252275 Verena Graf            56 Oberwil b. B&uuml;ren   OLG Oberwil          9:40
+  62261 Monika Amrein          57 St&auml;fa              OLG St&auml;fa            9:43
+ 252755 Ruth Keller            53 Schlosswil         ol norska            9:46
+1390756 Brigit Brand           56 K&uuml;snacht ZH        OLG Bern             9:49
+1398441 Susi Kalbermatten      57 Burgdorf           OLV Hindelbank       9:52
+1201056 Camille Cuche          56 Peney-le-Jorat     CARE Vevey           9:55
+ 427130 Esther Moosberger      56 Wangen b. Olten    OL Regio Olten       9:58
+ 570316 Bea Arn                57 Sagno              SCOM Mendrisio      10:01
+ 251013 Bernadette Schenkel    54 Suhr               OLG Suhr            10:04
+ 530122 Annamarie Liechti      53 Langnau im Emmenta OLG Skandia         10:07
+ 530319 Marianne Graf          53 Bauma              OLG Pf&auml;ffikon       10:10
+  61253 Maja Wild              55 Holderbank AG      OLK Argus           10:13
+ 887024 Edith Hohl             56 Allschwil          OLG Basel           10:16
+1006010 Ursula Spycher         55 G&uuml;nsberg           ol.biel.seeland     10:19
+ 332351 Eliane Chatagny        53 Corserey           CA Ros&eacute;             10:22
+  64294 Lotti Spalinger        56 Hedingen           OLG S&auml;uliamt        10:25
+1956110 Brigitta Pl&uuml;ss         56 D&auml;nikon ZH         OLG Rymenzburg      10:28
+1395629 Ruth Brodmann          56 Riehen             OLG Basel           10:31
+1390750 Margrith Hofer         54 M&ouml;hlin             OLG Kakowa          10:34
+1956201 Christa Ebneter        56 Appenzell          OLG St. Gallen/App. 10:37
+ 560922 Susi Schlatter         56 Zollbr&uuml;ck          OLG Skandia         10:40
+  62328 Arlette Piguet         57 Z&uuml;rich             OL Zimmerberg       10:43
+1395630 Elisabeth Haberstich   55 Staffelbach        OLK Wiggertal       10:46
+1602678 Margrit Widmer         57 B&uuml;ren an der Aare  OLG Oberwil         10:49
+2003723 Irene M&uuml;ller-Bucher    53 Oberwil-Lieli      bussola ok          10:52
+1101053 Monika Bonafini        53 G&uuml;mmenen           OLG Bern            10:55
+ 991050 Lisbeth Kuhn           57 Stehrenberg        OL Regio Wil        10:58
+1602679 Ruth Humbel N&auml;f        57 Birmenstorf AG     OLG Cordoba         11:01
+  63194 Margrit Michel         52 Winterthur         OLG Welsikon        11:04
+</pre>
+<b>D60</b>
+<pre>  54438 Herta Leumann          50 Landschlacht       OL Amriswil         10:00
+  62453 Marlies Denzler        51 Dietlikon          OLC Winterthur      10:04
+ 501012 Ursula Rettenmund      50 Walkringen         OLG Skandia         10:08
+  62178 Elisabeth Briner       50 M&ouml;riken AG         OLG Suhr            10:12
+1398864 Christine Riek         50 B&uuml;lach             OLK Rafzerfeld      10:16
+1110350 Marianne Br&ouml;nnimann    51 Steinhausen        OLV Zug             10:20
+   7343 Vreni Blum             48 Bern               OLG Bern            10:24
+  59375 Renate Waser           49 Truttikon          OLK Rafzerfeld      10:28
+1111951 Heidi Altenburger      51 Oberstammheim      OLG Welsikon        10:32
+  62841 Rita Baumann           50 Niederrohrdorf     OLG Cordoba         10:36
+ 364551 K&auml;thi Baumgartner      51 Burgdorf           OLV Hindelbank      10:40
+  63606 Lidia Nembrini         52 Cadro              C.O. Aget Lugano    10:44
+1301774 K&auml;thi Herzig           50 F&uuml;llinsdorf        OLG Kakowa          10:48
+ 997752 Ursula Wyss            52 Kappel SO          OL Regio Olten      10:52
+  64061 Monika Krummenacher    51 Grenchen           OLG Oberwil         10:56
+1393129 Beatrice Z&uuml;rcher       52 Bern               OLG Bern            11:00
+2036217 Claudia Ziegler        49 Horriwil           OLG Biberist SO     11:04
+ 413199 Doris Caluori          52 D&uuml;bendorf          OLC Kapreolo        11:08
+2003463 Beatrice Eyer          51 Studen BE          ol.biel.seeland     11:12
+  63123 Rosmarie M&uuml;ller        51 Arlesheim          OLG Basel           11:16
+  59337 Rita Wyder             51 Englisberg         OLG Thun            11:20
+1831952 Ursula Wolfensberger   52 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       11:24
+  54491 Claire Santoro         48 Balterswil         OL Regio Wil        11:28
+ 252834 Marietta Nussbaum      52 Erlinsbach SO      OLG Suhr            11:32
+  64335 Maria Brander          51 Bronschhofen       OL Regio Wil        11:36
+  64775 Judith Pfister-Bieri   52 Unterkulm          OLG Rymenzburg      11:40
+  62263 Brigitte K&ouml;lla         52 Z&uuml;rich             OLG Z&uuml;rich          11:44
+1222555 Yvette Zaugg           49 Aeugst am Albis    O-92 Piano di Magad 11:48
+  64474 Silvia Baumann         50 Horgen             OL Zimmerberg       11:52
+  54405 Brigit Oswald          51 Bertschikon (Gossa OLK Piz Hasi        11:56
+</pre>
+<b>D65</b>
+<pre>1393047 Silvia Beyeler         47 Boppelsen          OLC Kapreolo        11:07
+  63561 Ruth M&uuml;ller Gianini    45 Camorino           CO UTOE Bellinzona  11:11
+  58449 Vreni Eigenmann        47 Bronschhofen       OL Regio Wil        11:15
+  64632 Margrit Haldemann      46 Bolligen           ol norska           11:19
+  63120 Bethli Wegm&uuml;ller       47 Seon               OLK Argus           11:23
+  62566 Annemarie Eglin        45 M&auml;genwil           bussola ok          11:27
+  62540 Heidi N&auml;f              45 Melchnau           OLV Langenthal      11:31
+1393043 Margrit Tantanini      43 Opfikon            OLC Kapreolo        11:35
+1395534 Liz Mulder             43 Sattel             OLG Goldau          11:39
+  61331 R&ouml;s Bieri              45 Reichenburg        OLG Z&uuml;rinord 04     11:43
+1400775 Ursula Mumprecht       45 Urtenen-Sch&ouml;nb&uuml;hl  OLV Hindelbank      11:47
+  54482 Maria Ammann           43 Tafers             OLC Omstr&ouml;m         11:51
+2003612 Ester D&uuml;rrenberger     47 Lupsingen          OLG Kakowa          11:55
+  61459 Dorly Merz             43 Arisdorf           OLG Kakowa          11:59
+ 747678 Maria Luder            47 Burgdorf           OLV Hindelbank      12:03
+1451112 Edith Brand            45 Liebefeld          OLG Bern            12:07
+  61279 Berti Kehrer           47 Hedingen           OLG S&auml;uliamt        12:11
+ 999222 Ruth Bieri             47 Immensee           OLV Zug             12:15
+ 253521 Beatrice R&ouml;thlisberger 46 Thun               OLG Thun            12:19
+ 504380 Elisabeth Pletscher    44 Z&uuml;rich             OLV Z&uuml;rich          12:23
+  58434 Lucia Hasler           47 Bonstetten         OLG S&auml;uliamt        12:27
+</pre>
+<b>D70</b>
+<pre>  62582 Margrit Gugelmann      37 Zuchwil            OLG Biberist SO      9:45
+ 620131 Jeannette Ernst        41 Winterthur         OLC Winterthur       9:53
+  63026 Christa Jordi          40 Burgdorf           OLV Hindelbank      10:01
+  61377 Elisabeth Vogel        42 Reinach BL         OLG Basel           10:09
+ 427207 Inge Gaupp             37 Burgdorf           OLV Hindelbank      10:17
+ 500636 Th&eacute;r&egrave;se Godel          39 Domdidier          CA Ros&eacute;             10:25
+  64422 Verena Harzenmoser     30 St. Gallen         OLG St. Gallen/App. 10:33
+ 252816 Rita Gr&uuml;nenfelder      39 Windisch           bussola ok          10:41
+  59049 Veronika G&uuml;beli        39 Wiesendangen       thurgorienta        10:49
+  62273 Anna-Barbara Schaffner 36 Z&uuml;rich             OLG Z&uuml;rich          10:57
+   6811 Yvonne Caspari         34 R&uuml;schlikon         OL Zimmerberg       11:05
+ 893240 Margrit Bickel         40 Mettmenstetten     OLV Zug / OLG S&auml;uli 11:13
+  64783 Trudi Freitag          38 Z&uuml;rich             OLC Kapreolo        11:21
+ 642003 Helen Hotz             39 Gr&auml;nichen          OLK Argus           11:29
+1110542 Hilda Gr&uuml;niger         42 Rifferswil         OLV Zug             11:37
+  64641 Emmi R&uuml;egsegger        42 B&uuml;lach             OLK Rafzerfeld      11:45
+ 307852 Elsbeth Haslinger      42 Br&uuml;tten            BC Effretikon       11:53
+ 830101 Jolanda Koradi         38 Z&uuml;rich             OLC Kapreolo        12:01
+  58388 Erica Huggler          41 Oetwil am See      OLG St&auml;fa           12:09
+</pre>
+<b>D20</b>
+<pre> 805093 Lucija Telisman        93 Riehen             SU Sch&ouml;ckl           9:45
+ 435476 Simona Bernasconi      92 Vezia              GOLD Savosa          9:51
+2003016 Emily Wood             92 Addingham          AIRE                 9:57
+  61809 Nina Nembrini          92 Cadro              C.O. Aget Lugano    10:03
+ 903082 Roswita Tsch&uuml;mperlin   92 Sachseln           OLG Nidwalden+Obwal 10:09
+ 413184 Cornelia Camathias     93 Trimmis            OLG Chur            10:15
+1993042 Anaïs Cattin           93 Fontainemelon      ANCO                10:21
+ 905000 Meret G&uuml;rtler          92 Ormalingen         OLG Kakowa          10:27
+2003243 Laura Ramstein         92 Muttenz            OLG Basel           10:33
+2003112 Katharina K&ouml;hle        92 St&auml;fa              OLG St&auml;fa / O-Motio 10:39
+ 253065 Saskia Grieder         93 Tecknau            OLV Baselland       10:45
+1212093 Fabienne Haas          93 Schaffhausen       OLG Schaffhausen    10:51
+1711931 Salome Weber           93 Langenthal         OLV Langenthal      10:57
+1931422 Amanda K&ouml;pfli          93 Wolhusen           OLV Luzern          11:03
+ 345475 Roxana Zehtabchi       93 Liestal            OLV Baselland       11:09
+1241993 Fabienne Wenger        93 Schliern b. K&ouml;niz  OLG Bern            11:15
+1602601 Nora Tommer            92 Raeterschen        OLG Welsikon        11:21
+ 931711 Marion Aebi            93 Ober&ouml;nz            OLG Herzogenbuchsee 11:27
+1602661 Lilly Gross            93 Richterswil        OL Zimmerberg / TG  11:33
+ 931903 V&eacute;ronique Ruppenthal   93 Domat / Ems        OLG Chur            11:39
+1602671 Franziska D&ouml;rig        92 Br&uuml;lisau           OLG St. Gallen/App. 11:45
+ 504674 Thalia Bertschinger    93 Steffisburg        OLG Thun            11:51
+1141992 Katja Gygax            92 Herzogenbuchsee    OLG Herzogenbuchsee 11:57
+1392327 Anina Brunner          93 Zufikon            bussola ok          12:03
+1600461 Mirjam Hellm&uuml;ller      92 Speicher           OLK Rafzerfeld      12:09
+</pre>
+<b>D18</b>
+<pre>1390740 Sina Tommer            94 Raeterschen        OLG Welsikon        10:16
+ 950526 Chantal Oppliger       95 Untersiggenthal    OLG Cordoba         10:20
+1600017 Eileen Martin          95 Aarau              ol.biel.seeland / O 10:24
+ 364599 Giulia Borner          95 Adliswil           OL Zimmerberg       10:28
+1931441 Nadja Rutz             95 Wetzikon           OLG Pf&auml;ffikon       10:32
+1395549 Annina M&uuml;ller          95 Thun               OLG Thun            10:36
+2031008 Rianne Nobbenhuis      95 Wallbach           OLK Fricktal        10:40
+1505555 Noemi Inderst          95 Caslano            GOLD Savosa         10:44
+ 413102 Simone Fl&uuml;ck           95 Madiswil           OLV Langenthal      10:48
+1333999 Barbara Sch&ouml;nenberger  94 Uzwil              OL Regio Wil        10:52
+1995815 Sandrine M&uuml;ller        95 Unter&auml;geri         OLV Zug             10:56
+1994246 Daniela Dubach         94 Konolfingen        ol norska           11:00
+ 940704 Lisa Holer             94 M&ouml;hlin             OLK Fricktal        11:04
+ 338805 Mirta Niederhauser     94 Steinhausen        OLV Zug             11:08
+1050394 Milena Rubitschon      94 Unter&auml;geri         OLV Zug             11:12
+1011995 Ladina Wegm&uuml;ller       95 Buch b. Frauenfeld thurgorienta        11:16
+ 346638 Kathrin Fl&uuml;ck          95 Madiswil           OLV Langenthal      11:20
+1221995 Ladina Rutz            95 St&auml;fa              OLG St&auml;fa           11:24
+ 632363 Anika N&auml;f              95 Steinen            OLG Goldau          11:28
+ 895085 Ellen Reinhard         94 Langenthal         OLV Langenthal      11:32
+ 980599 Tonja K&uuml;nzler          94 Matzingen          OL Regio Wil        11:36
+1010025 Andrea Roggo           95 Muttenz            OLG Kakowa          11:40
+ 519999 Federica Gianola       94 Bosco Luganese     GOLD Savosa         11:44
+ 253074 Rahela Brunner         94 Zufikon            bussola ok          11:48
+1393101 Lena Imhof             95 Balterswil         OL Regio Wil        11:52
+ 940212 Ariane B&auml;ttig          94 Effretikon         OLG Weisslingen     11:56
+1121995 Kerstin Ullmann        95 Nidau              ol.biel.seeland / O 12:00
+ 940928 Martina Ruch           94 Eggiwil            OLG Skandia         12:04
+ 731995 Laura Diener           95 Bern               OLG Bern            12:08
+2003412 Andrea Brechb&uuml;hl       95 Hombrechtikon      OLG St&auml;fa           12:12
+1602644 Julia G&uuml;rtler          94 Ormalingen         OLG Kakowa          12:16
+1393030 Kerria Challandes      94 Boudevilliers      ANCO                12:20
+1250694 Salome Schweizer       94 Ormalingen         OLV Baselland       12:24
+2003085 Lisa Schubnell         95 Elsau              OLC Winterthur      12:28
+</pre>
+<b>D16</b>
+<pre> 337398 Sophie Hauller         96 Ennetbaden         OLG Cordoba         10:15
+2025692 Nathalie Roth          96 Walchwil           OLG Goldau          10:18
+ 250394 Barbara Rahn           96 Widen              OLG Suhr            10:21
+  64843 Arlyne De Tribolet     97 Villiers           ANCO                10:24
+ 337386 Valerie Aebischer      97 Schmitten FR       OLC Omstr&ouml;m         10:27
+ 345442 Deborah Rentsch        96 Thunstetten        OLV Langenthal      10:30
+ 961911 Suleika Buchm&uuml;ller     96 R&uuml;nenberg          OLG Kakowa          10:33
+1771997 Fabienne Sandmeier     97 Herisau            OLG St. Gallen/App. 10:36
+1394238 Tabea Ebneter          96 Corminboeuf        CA Ros&eacute;             10:39
+ 364528 Sonja W&uuml;rsten          97 Schattdorf         OLG KTV Altdorf     10:42
+ 731997 Sarah Pfiel            97 Zofingen           OLK Wiggertal       10:45
+ 364564 Jennifer Berger        96 Thunstetten        OLV Langenthal      10:48
+ 332387 Tanja Haefeli          97 Huttwil            OLG Huttwil         10:51
+ 232600 Noa Bolis              96 Camorino           O-92 Piano di Magad 10:54
+1061997 Flavia Schneiter       97 Schliern b. K&ouml;niz  OLG Bern            10:57
+1997415 Eveline Husner         97 Staffelbach        OLK Wiggertal       11:00
+ 504684 Selma Hardegger        96 Winterthur         OLC Winterthur      11:03
+ 895075 Seraina M&uuml;ller         96 Einsiedeln         OLG Galgenen/Goldau 11:06
+ 961109 Michelle Ruppenthal    96 Domat/Ems          OLG Chur            11:09
+1261997 Marita Hotz            97 Schafisheim        OLK Argus           11:12
+ 970105 Katrin M&uuml;ller          97 Beinwil am See     OLG Rymenzburg      11:15
+ 895077 Joana W&auml;lti            96 Sutz-Lattrigen     ol.biel.seeland/OLG 11:18
+ 363217 Vanessa Fricker        96 Rohr AG            OLK Argus           11:21
+1602641 Sonia Fl&uuml;ckiger        97 Grossdietwil       OLG Huttwil/OLK Wig 11:24
+1201027 Sophie W&auml;lti           97 Valangin           ANCO                11:27
+1996123 Claudine Weber         96 Langenthal         OLV Langenthal      11:30
+1271996 Flavia Z&uuml;rcher         96 Gondiswil          OLG Huttwil         11:33
+1996101 Fabienne Z&uuml;rcher       96 K&uuml;snacht ZH        OLG St&auml;fa           11:36
+1931437 Silja Br&auml;ndle          97 Pf&auml;ffikon ZH       OLG Pf&auml;ffikon       11:39
+ 561996 Fiona Signer           96 Appenzell          OLG St. Gallen/App. 11:42
+ 504664 Annika Tschamper       96 Hombrechtikon      OLG St&auml;fa           11:45
+1201297 Deborah Stadler        97 Seedorf UR         OLG KTV Altdorf     11:48
+1396860 Sarah R&ouml;thlisberger    96 Aarau              OLG Suhr            11:51
+1392335 Annina Rancan          97 Uster              OLG Pf&auml;ffikon       11:54
+1231997 Sonja Borner           97 Hagendorn          OLV Zug             11:57
+1996305 Hanna M&uuml;ller           96 Basel              OLG Basel           12:00
+ 889338 Barbara K&ouml;hle          96 St&auml;fa              OLG St&auml;fa / O-Motio 12:03
+1221297 Sofie Bachmann         97 Reigoldswil        OLV Baselland       12:06
+ 896995 Paula Gross            96 Richterswil        OL Zimmerberg       12:09
+</pre>
+<b>D14</b>
+<pre> 419149 Marie Vuitton          98 Veraz              CO CERN             10:00
+1393130 Lauranne Schluchter    98 Les Hauts-Geneveys ANCO                10:03
+2037038 Kaja Stalder           99 Langenthal         OLV Hindelbank / OL 10:06
+1394214 Julianne Barben        99 La Chaux-de-Fonds  ANCO                10:09
+ 206334 Livia L&uuml;din            99 Bettingen          OLG Basel           10:12
+ 427265 Gloria M&uuml;ller          99 Unter&auml;geri         OLV Zug             10:15
+1392312 Mara Br&uuml;gger           98 Oberhofen am Thune OLG Thun            10:18
+ 224550 Andrea Frei            98 Weisslingen        OLG Weisslingen     10:21
+ 364651 Sabrina Strub          98 Itingen            OLV Baselland       10:24
+ 427156 Csenge Gerber          98 Schinznach-Dorf    bussola ok          10:27
+1234573 Sina Wilhelm           99 Olten              OL Regio Olten      10:30
+ 437836 Annalena Schmid        98 Weisslingen        OLG Weisslingen     10:33
+2006616 Andrina Z&uuml;rcher        98 K&uuml;snacht ZH        OLG St&auml;fa           10:36
+2043964 Ladina Ammann          99 Vordemwald         OLK Wiggertal       10:39
+1399655 Mara Sumser            98 T&auml;gerwilen         OL Regio Wil        10:42
+ 361334 Sofia Besomi           99 Tesserete          ASCO Lugano         10:45
+1398457 Siri Nyfeler           99 Hilterfingen       OLG Thun            10:48
+1503333 Linda Rezzonico        99 Gravesano          GOLD Savosa         10:51
+1931425 Michelle Fl&uuml;ckiger     99 Grossdietwil       OLG Huttwil/OLK Wig 10:54
+1400798 Vera K&uuml;nzi             98 Tuttwil            OL Regio Wil        10:57
+1398470 Fanny G&uuml;del            98 Courtaman          OLG Murten          11:00
+1396717 Jael W&auml;lti             99 Sutz-Lattrigen     ol.biel.seeland/OLG 11:03
+1600014 Lara-Jessica Mathys    98 Lyss               OLG Bern / ol.biel. 11:06
+1912981 Romina Schweizer       98 Ormalingen         OLV Baselland       11:09
+1392570 Larissa Lienhard       98 Bassersdorf        OLC Kapreolo        11:12
+ 346636 Andrea Schuler         98 Schwyz             OLG Goldau          11:15
+ 346604 Nadia Jakob            98 Biberist           Bucheggb. OLG Biber 11:18
+1201098 Florence Buchs         98 Les Hauts-Geneveys ANCO                11:21
+ 980208 Saskia Buchm&uuml;ller      98 R&uuml;nenberg          OLG Kakowa          11:24
+1999018 Joela Vogel            99 Widnau             OLG St. Gallen/App. 11:27
+1399659 Kim Hadorn             99 Fahrni b. Thun     ol norska           11:30
+1999621 Lea St&auml;uble            99 Lachen SZ          OLG Galgenen/Goldau 11:33
+2020671 Nora Caprari           99 Maggia             GOV                 11:36
+1311999 Riina Jordi            99 Heiligenschwendi   OLG Hondrich        11:39
+ 513333 Lea Balmelli           98 Bosco Luganese     GOLD Savosa         11:42
+1999611 Elena Pezzati          99 Sagno              SCOM Mendrisio      11:45
+1341998 Simona Aebersold       98 Br&uuml;gg BE           ol.biel.seeland     11:48
+</pre>
+<b>D12</b>
+<pre>        Vivienne Sommer        00                    OLV Luzern          10:15
+ 361343 Sara Beltraminelli     00 Pregassona         ASCO Lugano         10:19
+ 252266 Julia Jegher           01 Z&uuml;rich             OLG S&auml;uliamt        10:23
+ 888421 Annika Simonsen        00 Hillerød Danmark   FIF Hillerød        10:27
+        Yaëlle Stampbach       00 La Chaux-de-Fonds  ANCO                10:31
+2021611 Laura L&uuml;scher          00 Seengen            OLK Argus           10:35
+ 437743 Svenja Steinmann       00 St&auml;fa              OLG St&auml;fa           10:39
+ 437754 Caroline Meyer         01 Courtaman          OLG Murten          10:43
+  64825 Claudia Walti          00 Seon               OLK Argus           10:47
+ 888032 Flurina M&uuml;ller         01 Einsiedeln         OLG Galgenen/Goldau 10:51
+ 702000 Matea M&uuml;ller           00 Bolligen           ol norska           10:55
+ 427131 Mirjam Bucher          00 Burgdorf           OLV Hindelbank      10:59
+1201045 Hannah Wirz            00 Bettingen          OLG Basel           11:03
+1392311 Corina H&uuml;ni            01 Seftigen           OLG Thun            11:07
+1394208 Anja Probst            00 Belp               OLG Bern            11:11
+  61428 Eline Gemperle         00 Boniswil           OLK Argus           11:15
+ 345454 Chiara Polsini         00 Gelterkinden       OLV Baselland       11:19
+1396303 Sarina Z&uuml;llig          01 Thun               OLG Thun            11:23
+1232000 Silja Vogel            00 Widnau             OLG St. Gallen/App. 11:27
+ 413262 Joëlle Meister         00 Dachsen            OLG Dachsen         11:31
+1395628 Rosa Lerf              00 Bern               OLG Bern            11:35
+1262000 Sunita Fr&uuml;h            00 M&auml;nnedorf          OLG St&auml;fa / O-Motio 11:39
+ 437750 Hanna Wey              01 Z&uuml;rich             OLG Z&uuml;rich          11:43
+1261101 Nora Aegler            01 Wil                OL Regio Wil        11:47
+1170300 Siri Suter             00 R&uuml;tihof            OLG Cordoba         11:51
+1394189 Lea Widmer             00 Z&uuml;rich             OLG Z&uuml;rich          11:55
+  58795 Fabienne Jakob         00 Biberist           Bucheggb. OLG Biber 11:59
+ 527200 Eliane Deininger       00 St. Gallen         OLG St. Gallen/App. 12:03
+</pre>
+<b>D10</b>
+<pre> 682121 Siri Simonsen          03 Hillerød Danmark   FIF Hillerød         9:45
+1107002 Lavinia M&uuml;ller         02 Unter&auml;geri         OLV Zug              9:51
+1952001 Gianna Sch&auml;rer         04 Huttwil            OLG Huttwil          9:57
+1394387 Anouk Gr&uuml;niger         02 Suhr               OLG Suhr            10:03
+2031025 Sophie L&uuml;scher         02 Seengen            OLK Argus           10:09
+  59361 Chantal Imboden        03 Urtenen-Sch&ouml;nb&uuml;hl  OLG Bern            10:15
+ 232559 Martina Rizzi          02 Lugaggia           ASCO Lugano         10:21
+1396709 Yaelle Zehnder         02 Schaffhausen       OLG Schaffhausen    10:27
+ 432565 Maya Bossi             03 K&uuml;snacht ZH        OLG St&auml;fa           10:33
+1532002 Naja Heinis            02 Basel              OLG Basel           10:39
+ 437734 Julia Wipfli           02 Schwyz             OLG Goldau          10:45
+ 346693 Vera Moser             02 Konolfingen        ol norska           10:51
+ 680680 Maura Bachmann         02 Reigoldswil        OLV Baselland       10:57
+ 437717 Patrizia Sieber        03 Theilingen         OLC Winterthur      11:03
+ 690690 Lina Bachmann          02 Reigoldswil        OLV Baselland       11:09
+  63784 Mia L&uuml;scher            02 Erlinsbach AG      OLK Argus           11:15
+1200102 Lea Humbel             02 D&auml;ttwil AG         OLG Cordoba         11:21
+  61360 Annina Hohl            03 Winterthur         OLG Weisslingen     11:27
+1231002 Andrea Hess            02 Zug                OLV Zug             11:33
+1394218 Nina Probst            02 Belp               OLG Bern            11:39
+ 406403 Nadine Hanselmann      02 Gelterkinden       OLV Baselland       11:45
+1600469 Selina Hindermann      03 Wolfhausen         OLG St&auml;fa           11:51
+ 364604 Mirjam W&uuml;rsten         02 Schattdorf         OLG KTV Altdorf     11:57
+ 432660 Sanna Hotz             02 Schafisheim        OLK Argus           12:03
+  63018 Annick Meister         02 Dachsen            OLG Dachsen         12:09
+1260402 Elin Erne              02 R&uuml;tihof            OLG Cordoba         12:15
+</pre>
+<p>Total: 1523 Teilnehmer.</p>
+<table border="0" cellspacing="0" cellpadding="0" width="630" bgcolor="#ffffff">
+<tr><td colspan="3" width="100%" height="2" bgcolor="#de0000"><img src="/images/pix.gif" alt="" height="1" width="1"></td></tr>
+<tr><td colspan="3" width="100%" height="8" bgcolor="#ffffff"><img src="/images/pix.gif" alt="" height="1" width="1"></td></tr>
+</table>
+</td>
+<td><img src="/images/pix.gif" alt="" height=1 width=10></td>
+</table>
+<p>&nbsp;</p>
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+<tr><td width="100%" colspan=7 bgcolor="#a0a0a0"><img src="/images/pix.gif" alt="" height=1 width=1></td></tr>
+<tr><td width="100%" colspan=7><img src="/images/pix.gif" alt="" height=2 width=1></td></tr>
+<tr><td><img src="/images/pix.gif" alt="" height=1 width=10></td>
+<td width="100%" colspan=6>&copy; 2004-2012 by SOLV Internet Team.
+Mail to <a href="mailto:oltech@swiss-orienteering.ch">oltech@swiss-orienteering.ch</a>
+</td></tr>
+<tr><td width="100%" colspan=7><img src="/images/pix.gif" alt="" height=2 width=1></td></tr>
+</table>
+</body>
+</html>

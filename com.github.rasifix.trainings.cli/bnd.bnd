@@ -1,4 +1,5 @@
 -buildpath: com.github.rasifix.trainings.application;version=latest,\
+	com.github.rasifix.lazycouch;version=latest,\
 	com.github.rasifix.trainings.integration;version=latest,\
 	com.github.rasifix.trainings.format.fit;version=latest,\
 	com.springsource.jline,\
@@ -10,7 +11,9 @@
 	osgi.core;version=4.2.0.200908310645,\
 	com.springsource.org.cyberneko.html,\
 	com.springsource.org.apache.xerces,\
-	com.springsource.org.jdom
+	com.springsource.org.jdom,\
+	groovy-all,\
+	com.github.rasifix.saj
 Private-Package: com.github.rasifix.trainings.cli,\
 	com.github.rasifix.trainings.shell.internal,\
 	com.github.rasifix.trainings.shell.internal.commands,\
@@ -18,7 +21,10 @@ Private-Package: com.github.rasifix.trainings.cli,\
 	com.github.rasifix.trainings.shell.internal.commands.repository,\
 	com.github.rasifix.trainings.shell.internal.commands.osgi,\
 	com.github.rasifix.trainings.shell.internal.commands.equipment,\
-	com.github.rasifix.trainings.shell.internal.commands.solv
+	com.github.rasifix.trainings.shell.internal.commands.solv,\
+	com.github.rasifix.trainings.orienteering,\
+	com.github.rasifix.trainings.orienteering.internal,\
+	com.github.rasifix.trainings.orienteering.internal.commands
 Service-Component: com.github.rasifix.trainings.*
 Export-Package: com.github.rasifix.trainings.shell
 Import-Package: !org.junit*,\
