@@ -3,3 +3,5 @@
 	biz.aQute.bnd.annotation
 Private-Package: com.github.rasifix.trainings.format.gpx.internal
 Service-Component: com.github.rasifix.trainings.format.gpx.internal.*
+Import-Package: !org.junit*,\
+	*

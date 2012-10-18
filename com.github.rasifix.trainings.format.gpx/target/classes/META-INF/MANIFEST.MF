@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1350507558891
+Bnd-LastModified: 1350587569665
 Build-Jdk: 1.6.0_35
 Built-By: sir
 Bundle-ManifestVersion: 2
@@ -8,12 +8,12 @@ Bundle-SymbolicName: com.github.rasifix.trainings.gpx
 Bundle-Version: 0.0.1.SNAPSHOT
 Created-By: Apache Maven Bundle Plugin
 Export-Package: org.gavaghan.geodesy;version="0.0.1.SNAPSHOT"
+Ignore-Package: org.junit
 Import-Package: com.github.rasifix.trainings;version="[1.0,2)",com.githu
  b.rasifix.trainings.format;version="[1.0,2)",com.github.rasifix.trainin
  gs.integration.resource;version="[1.0,2)",com.github.rasifix.trainings.
  model;version="[1.0,2)",com.github.rasifix.trainings.model.attr;version
- ="[1.0,2)",org.gavaghan.geodesy;version="[0.0,1)",org.jdom,org.jdom.inp
- ut
+ ="[1.0,2)",org.gavaghan.geodesy,org.jdom,org.jdom.input
 Service-Component: OSGI-INF/com.github.rasifix.trainings.format.gpx.inte
  rnal.GpxFormat.xml
 Tool: Bnd-1.50.0
