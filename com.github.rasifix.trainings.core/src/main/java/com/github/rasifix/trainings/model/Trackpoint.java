@@ -47,6 +47,10 @@ public class Trackpoint {
 	public long getElapsedTime() {
 		return elapsedTime;
 	}
+
+	public void setElapsedTime(long elapsedTime) {
+		this.elapsedTime = elapsedTime;
+	}
 	
 	public Date getTime() {
 		return new Date(track.getStartTime().getTime() + elapsedTime);

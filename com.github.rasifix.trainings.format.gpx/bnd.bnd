@@ -1,0 +1,5 @@
+-buildpath: com.github.rasifix.trainings.core;version=latest,\
+	com.springsource.org.jdom,\
+	biz.aQute.bnd.annotation
+Private-Package: com.github.rasifix.trainings.format.gpx.internal
+Service-Component: com.github.rasifix.trainings.format.gpx.internal.*

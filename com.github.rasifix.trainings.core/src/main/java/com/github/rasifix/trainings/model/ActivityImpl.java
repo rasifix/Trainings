@@ -65,6 +65,10 @@ public class ActivityImpl implements Activity {
 		return startTime;
 	}
 	
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	
 	public Date getEndTime() {
 		return new Date(startTime.getTime() + (long) (getDuration() * 1000));
 	}
@@ -116,6 +120,10 @@ public class ActivityImpl implements Activity {
 		T result = null;
 		for (Track track : tracks) {
 			T trackSummary = track.getSummary(builder);
+			if (trackSummary == null) {
+				System.out.println(builder + " produced null summary for track: " + track + "(" + track.getTrackpointCount() + ")");
+				continue;
+			}
 			if (result == null) {
 				result = trackSummary;
 			} else {

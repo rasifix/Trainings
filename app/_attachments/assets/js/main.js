@@ -100,7 +100,7 @@ Trainings.ActivityListController = Ember.ArrayProxy.extend({
 							sport: row.value.sport,
 							duration: formatDuration(row.value.totalTime),
 							distance: formatDistance(row.value.distance),
-							speed: "CYCLING" == row.value.sport ? formatSpeed(row.value.speed) : formatPace(row.value.speed),
+							speed: formatSpeedOrPace(row.value.sport, row.value.speed),
 							avgHr: row.value.hr ? row.value.hr.avg : null
 						});
 	                });
@@ -149,7 +149,7 @@ Trainings.DashboardController = Ember.Object.extend({
 							sport: row.value.sport,
 							duration: formatDuration(row.value.totalTime),
 							distance: formatDistance(row.value.distance),
-							speed: "CYCLING" == row.value.sport ? formatSpeed(row.value.speed) : formatPace(row.value.speed),
+							speed: formatSpeedOrPace(row.value.sport, row.value.speed),
 							avgHr: row.value.hr ? row.value.hr.avg : null
 						}));
 					});
@@ -260,7 +260,7 @@ Trainings.dashboardView = Ember.View.create({
 				
 		var width = 1000.0 / records.length;
 		var height = 100;
-		var colors = [ "#5F04B4", "#5FB404", "#FE642E", "#40A2FF" ];
+		var colors = [ "#5F04B4", "#5FB404", "#FE642E", "#40A2FF", "#2066FF" ];
 				
 		var time = function(wrec, sport) {
 			var value = wrec[sport];
@@ -270,7 +270,7 @@ Trainings.dashboardView = Ember.View.create({
 			return 0;
 		}
 		
-		var rows = function(x, running, orienteering, cycling, mtb, record) {
+		var rows = function(x, running, orienteering, cycling, mtb, mtbOrienteering, record) {
 			var y = 0;
 			var rect = paper.rect(x, y, Math.floor(width), running / maxy * height);
 			rect.translate(0, height);
@@ -297,6 +297,13 @@ Trainings.dashboardView = Ember.View.create({
 			rect.translate(0, height);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", colors[3]);
+			rect.attr("stroke", "none");
+
+			y += mtb / maxy * height;
+			rect = paper.rect(x, y, width - 1, mtbOrienteering / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[4]);
 			rect.attr("stroke", "none");
 			
 			rect = paper.rect(x, 0, width, height);
@@ -326,6 +333,10 @@ Trainings.dashboardView = Ember.View.create({
 					total += record["MTB"].totalTime;
 					labels.push({ "label":"MTB", "duration":formatDuration(record["MTB"].totalTime) });
 				}
+				if (record["MTB-ORIENTEERING"]) {
+					total += record["MTB-ORIENTEERING"].totalTime;
+					labels.push({ "label":"Bike-OL", "duration":formatDuration(record["MTB-ORIENTEERING"].totalTime) });
+				}
 				console.log(that);
 				labels.push({ "label":"Total", "duration":formatDuration(total) });
 				that.set('labels', labels);
@@ -340,7 +351,8 @@ Trainings.dashboardView = Ember.View.create({
 			var cycling = time(records[i], "CYCLING");
 			var orienteering = time(records[i], "ORIENTEERING");
 			var mtb = time(records[i], "MTB");
-			rows(x, running, orienteering, cycling, mtb, records[i]);
+			var mtbOrienteering = time(records[i], "MTB-ORIENTEERING");
+			rows(x, running, orienteering, cycling, mtb, mtbOrienteering, records[i]);
 		}		
 		
 	}.observes("graphData")
@@ -477,7 +489,7 @@ Trainings.ActivityController = Ember.Object.extend({
 				summary.sport = activity.summary.sport;
 				summary.distance = formatDistance(activity.summary.distance);
 				summary.duration = formatDuration(activity.summary.totalTime);
-				summary.speed = "CYCLING" == activity.summary.sport ? formatSpeed(activity.summary.speed) : formatPace(activity.summary.speed);
+				summary.speed = formatSpeedOrPace(activity.summary.sport, activity.summary.speed);
 				summary.hr = activity.summary.hr;
 				summary.cadence = activity.summary.cadence;
 				that.set('summary', summary);
@@ -561,9 +573,6 @@ Trainings.ActivityController = Ember.Object.extend({
 				});
 			}
 		}
-		
-		console.log("map data");
-		console.log(result);
 			
 		Trainings.activityView.setMapData(result);
 	},
@@ -622,11 +631,40 @@ Trainings.ActivityController = Ember.Object.extend({
 	},
 	
 	selectionChanged: function(min, max) {
+		// broken if there are multiple tracks :-S
 		var selection = { };
 		selection.duration = formatDuration(max - min);
+		
+		var first = this.closestTrackpoint(min);
+		var last = this.closestTrackpoint(max);
+		
+		if (first && last) {
+			selection.distance = formatDistance(last.distance - first.distance);
+			selection.speed = formatSpeedOrPace(this.activity.sport, (last.distance - first.distance) / (last.elapsed / 1000 - first.elapsed / 1000));
+		}
+		
 		this.set('selection', selection);
+	},
+	
+	closestTrackpoint: function(time) {
+		var mindelta = 100000000;
+		var result = null;
+		for (var trackIdx = 0; trackIdx < this.activity.tracks.length; trackIdx++) {
+			var track = this.activity.tracks[trackIdx];
+			for (var trackpointIdx = 0; trackpointIdx < track.trackpoints.length; trackpointIdx++) {
+				var trackpoint = track.trackpoints[trackpointIdx];
+				if (trackpoint.elapsed) {
+					var elapsed = trackpoint.elapsed / 1000;
+					var delta = Math.abs(time - elapsed);
+					if (delta < mindelta && trackpoint.distance) {
+						mindelta = delta;
+						result = trackpoint;
+					}
+				}
+			}
+		}
+		return result;
 	}
-
 });
 
 Trainings.activityController = Trainings.ActivityController.create({
@@ -915,6 +953,14 @@ function formatDuration(duration, minimal) {
 		return hours + ":" + pad(minutes) + ":" + pad(seconds);
 	}
 	return pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+}
+
+function formatSpeedOrPace(sport, speed) {
+	if (sport == "CYCLING" || sport == "MTB-ORIENTEERING" || sport == "MTB") {
+		return formatSpeed(speed);
+	} else {
+		return formatPace(speed);
+	}
 }
 
 function formatSpeed(speed) {

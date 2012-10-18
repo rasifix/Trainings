@@ -71,6 +71,10 @@ public class Track implements HasSummary {
 		return startTime;
 	}
 	
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	
 	public String getSport() {
 		return sport;
 	}
