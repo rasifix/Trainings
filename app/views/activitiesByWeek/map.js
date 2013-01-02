@@ -41,7 +41,13 @@ function(doc) {
 		var month = decParseInt(rawdate.substring(5, 7)) - 1;
 		var day = decParseInt(rawdate.substring(8, 10));
 		var date = new Date(year, month, day);
-		var key = [ year, date.getWeek(), doc.activity.sport ];
+		var week = date.getWeek();
+		if (week >= 52 && month == 0) {
+		  year -= 1;
+		} else if (week == 1 && month == 11) {
+		  year += 1;
+		}
+		var key = [ year, week, doc.activity.sport ];
 		emit(key, doc.activity.summary);
 	}	
 }

@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <ul class="labels">
+      <li>&nbsp;</li>
+      {{#each view.labels}}
+      <li>{{label}}: {{duration}}</li>
+      {{/each}}
+    </ul>
+    <div class="span12">
+      <div id="dashboard"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      {{outlet activities}}
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="span6">
+      {{outlet sportsummary}}
+    </div>
+  </div>
+</div>

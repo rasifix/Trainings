@@ -17,6 +17,10 @@ public class FileResource implements Resource {
 	public String getName() {
 		return target.getName();
 	}
+	
+	public File getFile() {
+		return target;
+	}
 
 	@Override
 	public InputStream openInputStream() throws IOException {

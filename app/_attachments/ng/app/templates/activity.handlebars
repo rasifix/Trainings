@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="span12">
+  	  <b>Date:</b> {{date}} | 
+  	  <b>Sport:</b> {{sport}} | 
+  	  <b>Distance:</b> {{distance}} | 
+  	  <b>Time:</b> {{duration}} 
+  	  {{#if hr}} | <b>HR:</b> {{hr.avg}} ({{hr.max}}){{/if}}
+    </div>
+  </div>
+  <div class="row">
+  	<div class="span10">
+	  	<div id="map"></div>
+  	</div>
+  </div>
+  <div class="row">
+  	<div class="span10">
+  	  <div>
+  	    <ul style="list-style-type:none; margin:0; padding:0;">
+  	      {{#if view.selectedTrackpoint}}
+  	      {{#each view.selectedTrackpoint}}
+  	      <li style="display:inline">{{name}}: {{value}}</li>
+  	      {{/each}}
+  	      {{else}}
+  	      &nbsp;
+  	      {{/if}}
+  	    </ul>
+  	  </div>
+      <div id="graph"></div>
+  	</div>
+	</div>
+</div>

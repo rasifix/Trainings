@@ -1,0 +1,6 @@
+
+loader.register('trainings/~templates/application', function(require) {
+
+return Ember.Handlebars.compile("<nav role=\"navigation\" class=\"navbar navbar-fixed-top navbar-inverse\">\n  <div class=\"navbar-inner\">\n    <div class=\"container\">\n      <a class=\"brand\" href=\"#\">Trainings</a>\n      {{view Trainings.NavView controllerBinding='Trainings.router.navController'}}\n    </div>\n  </div>\n</nav>\n<div id=\"main\" role=\"main\" class=\"container\">\n  {{outlet}}\n</div>\n");
+
+});

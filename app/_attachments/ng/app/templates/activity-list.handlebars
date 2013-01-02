@@ -1,0 +1,16 @@
+{{#if controller.content.loading}}
+  <div style="background-image:url('img/loader.gif'); width:32px; height:32px; margin-left:auto; margin-right:auto">&nbsp;</div>
+{{else}}
+	<table border="0" class="table table-hover" style="width:100%">
+		{{#each content}}
+		<tr {{action showActivity this target="Trainings.router"}}>
+			<td style="padding-top:0px; padding-bottom:0px"><img {{bindAttr src="sportUrl"}} {{bindAttr title="sport"}} width="32" height="32"/></td>
+			<td>{{date}}</td>
+			<td>{{duration}}</td>
+			<td>{{distance}}</td>
+			<td>{{speed}}</td>
+			<td>{{#if avgHr}}{{avgHr}}{{/if}}</td>
+		</tr>
+		{{/each}}
+	</table>
+{{/if}}

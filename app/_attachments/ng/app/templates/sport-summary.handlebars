@@ -1,0 +1,29 @@
+{{#if controller.content.loading}}
+  <div style="background-image:url('img/loader.gif'); width:32px; height:32px; margin-left:auto; margin-right:auto">&nbsp;</div>
+{{else}}
+  <ul class="nav nav-pills">
+    <li><a href="#">2008</a></li>
+    <li><a href="#">2009</a></li>
+    <li><a href="#">2010</a></li>
+    <li><a href="#">2011</a></li>
+    <li class="active"><a href="#">2012</a></li>
+  </ul>
+	<table border="0" class="table table-hover" style="width:100%">
+	  <thead>
+	    <th>Sport</th>
+	    <th>Time</th>
+	    <th>Distance</th>
+	    <th>Avg. Speed</th>
+	    <th>#</th>
+	  </thead>
+		{{#each content}}
+		<tr {{action showActivity this target="Trainings.router"}}>
+			<td style="padding-top:0px; padding-bottom:0px"><img {{bindAttr src="sportUrl"}} {{bindAttr title="sport"}} width="32" height="32"/></td>
+			<td>{{duration}}</td>
+			<td>{{distance}}</td>
+			<td>{{speed}}</td>
+			<td>{{count}}</td>
+		</tr>
+		{{/each}}
+	</table>
+{{/if}}

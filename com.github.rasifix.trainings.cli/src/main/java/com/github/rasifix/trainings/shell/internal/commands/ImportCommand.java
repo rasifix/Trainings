@@ -64,6 +64,8 @@ public class ImportCommand implements Command {
 				System.out.println("... importing " + file.getName());
 				
 				FileResource resource = new FileResource(file);
+				context.put("resource", resource);
+				
 				List<Activity> imported = importer.importActivities(resource);
 				if (imported.size() > 1 || imported.isEmpty()) {
 					System.out.println("... skipping");
@@ -90,6 +92,8 @@ public class ImportCommand implements Command {
 			System.err.println(file.getAbsolutePath() + " does not exist");
 		}
 		Resource resource = new FileResource(file);
+		context.put("resource", resource);
+		
 		List<Activity> activities = importer.importActivities(resource);
 		if (activities.size() == 1) {
 			return activities.get(0);

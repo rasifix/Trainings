@@ -1,0 +1,2 @@
+
+return Ember.Handlebars.compile("<ul class=\"nav\">\n  {{#view view.NavItemView item=\"dashboard\"}}\n    <a {{action gotoDashboard href=\"true\"}}>Dashboard</a>\n  {{/view}}\n  {{#view view.NavItemView item=\"activities\"}}\n    <a {{action gotoActivities href=\"true\"}}>Activities</a>\n  {{/view}}\n  {{#view view.NavItemView item=\"equipments\"}}\n    <a {{action gotoEquipments href=\"true\"}}>Equipments</a>\n  {{/view}}        \n</ul>");

@@ -1,0 +1,11 @@
+<ul class="nav">
+  {{#view view.NavItemView item="dashboard"}}
+    <a {{action gotoDashboard href="true"}}>Dashboard</a>
+  {{/view}}
+  {{#view view.NavItemView item="activities"}}
+    <a {{action gotoActivities href="true"}}>Activities</a>
+  {{/view}}
+  {{#view view.NavItemView item="equipments"}}
+    <a {{action gotoEquipments href="true"}}>Equipments</a>
+  {{/view}}        
+</ul>

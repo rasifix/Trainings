@@ -1,0 +1,6 @@
+
+loader.register('trainings/~templates/equipments', function(require) {
+
+return Ember.Handlebars.compile("<div class=\"container\">\n\t<table class=\"table table-striped table-hover\">\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Brand</th>\n\t\t\t<th>Date of Purchase</th>\n\t\t\t<th>Distance</th>\n\t\t</tr>\n\t\t{{#each controller}}\n\t\t<tr>\n\t\t\t<td>{{name}}</td>\n\t\t\t<td>{{brand}}</td>\n\t\t\t<td>{{dateOfPurchase}}</td>\n\t\t\t<td>{{distance}}</td>\n\t\t</tr>\n\t\t{{/each}}\n\t</table>\n</div>\n");
+
+});
