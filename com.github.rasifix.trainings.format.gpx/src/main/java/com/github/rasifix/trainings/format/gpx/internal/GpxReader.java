@@ -190,6 +190,7 @@ public class GpxReader implements ActivityReader {
 			SAXBuilder builder = new SAXBuilder();
 			return builder.build(inputStream);
 		} catch (JDOMException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
