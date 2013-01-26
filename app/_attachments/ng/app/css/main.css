@@ -30,6 +30,28 @@ ul.labels li {
   margin-top: 10px;
 }
 
+/* sport specific styling */
+
+.running {
+  color:#5F04B4; 
+}
+
+.orienteering {
+  color:#5FB404;
+}
+
+.cycling {
+  color:#FE642E;
+}
+
+.mtb {
+  color:#40A2FF;
+}
+
+.mtb-orienteering {
+  color:#2066FF;
+}
+
 /*body {
 	font-family: 'Helvetica Neue', Verdana, Arial;
 	font-size: 13px;

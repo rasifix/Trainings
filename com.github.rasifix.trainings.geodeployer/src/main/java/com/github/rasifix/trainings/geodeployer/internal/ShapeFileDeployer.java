@@ -12,8 +12,8 @@ import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Deactivate;
 
+import com.github.rasifix.osgi.application.Deployer;
 import com.github.rasifix.trainings.PlaceNameLookup;
-import com.github.rasifix.trainings.application.Deployer;
 
 @Component
 public class ShapeFileDeployer implements Deployer {

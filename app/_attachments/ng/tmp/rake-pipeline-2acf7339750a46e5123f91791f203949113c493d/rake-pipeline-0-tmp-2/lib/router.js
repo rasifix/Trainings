@@ -17,11 +17,24 @@ Trainings.Router = Ember.Router.extend({
       connectOutlets: function(router, context) {
         router.set('navController.selected', 'dashboard');
         router.get('applicationController').connectOutlet('dashboard');
-        router.get('dashboardController').show();
+        
+        var now = new Date();
+    		var endYear = now.getYearOfWeek();
+    		var endWeek = now.getWeek();
+    		now.setDate(now.getDate() - 52 * 7);
+    		var startYear = now.getYearOfWeek();
+    		var startWeek = now.getWeek();
+    		
+        router.get('dashboardController').connectOutlet({
+          outletName: 'overview',
+          viewClass: Trainings.OverviewGraphView,
+          controller: Trainings.OverviewGraphController.create(),
+          context: Trainings.ActivitySummary.summaryByWeek([startYear, startWeek], [endYear, endWeek + 1])
+        });
         router.get('dashboardController').connectOutlet({
           outletName: 'activities',
           viewClass: Trainings.ActivityListView,
-          controller: Trainings.ActivityListController.create(),
+          controller: Trainings.router.activityListController,
           context: Trainings.ActivityOverview.query({ limit:5, descending:true })
         });
         router.get('dashboardController').connectOutlet({
@@ -29,7 +42,7 @@ Trainings.Router = Ember.Router.extend({
           viewClass: Trainings.SportSummaryView,
           controller: Trainings.SportSummaryController.create(),
           context: Trainings.SportSummary.find()
-        })
+        });
       }
     }),
     

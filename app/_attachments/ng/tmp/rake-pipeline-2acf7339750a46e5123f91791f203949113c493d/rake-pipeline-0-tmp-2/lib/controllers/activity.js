@@ -110,6 +110,32 @@ Trainings.ActivityController = Ember.ObjectController.extend({
 			provider:function(trackpoint) { return trackpoint.alt; }
 		});
 		
+		// speed series
+		series.pushObject({ 
+			name:"speed", 
+			index:index++,
+			fillGraph:false,
+			provider:function(curr, track, idx) { 
+				var windowSize = 15;
+				if (idx < windowSize || idx > track.trackpoints.length - windowSize) {
+					return null;
+				}
+				var prev = track.trackpoints.get(idx - windowSize);
+				var next = track.trackpoints.get(idx + windowSize);
+				var dist = next.distance - prev.distance;
+				var time = next.elapsed - prev.elapsed;
+				if (time == 0) {
+					return null;
+				}
+				if (track.sport === 'CYCLING' || track.sport === 'MTB') {
+					return dist / (time / 1000) * 3.6;
+				} else {
+					// s/m -> min / km --> x / 60 * 1000
+					return (time / 1000) / dist * 1000 / 60;
+				}
+			}
+		});
+		
 		// cadence series - if available
 		if (activity.summary.cadence) {
 			series.pushObject({ 
@@ -184,8 +210,8 @@ Trainings.ActivityController = Ember.ObjectController.extend({
 		
 		this.set('trackpoints', trackpoints);
 		this.set('activity', activity);
-		this.set('graphdata', graph);
 		this.set('graphconfig', config);
+		this.set('graphdata', graph);
 	},
 	
 	selectionChanged: function(min, max) {

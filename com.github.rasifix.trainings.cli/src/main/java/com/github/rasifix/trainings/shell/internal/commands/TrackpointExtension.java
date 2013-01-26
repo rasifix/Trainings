@@ -1,7 +1,7 @@
 package com.github.rasifix.trainings.shell.internal.commands;
 
-import aQute.bnd.annotation.component.Component;
 import groovy.lang.GroovyShell;
+import aQute.bnd.annotation.component.Component;
 
 @Component
 public class TrackpointExtension implements GroovyShellExtension {

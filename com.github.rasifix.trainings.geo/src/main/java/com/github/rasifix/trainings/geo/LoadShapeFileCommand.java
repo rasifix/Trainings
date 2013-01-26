@@ -3,6 +3,9 @@ package com.github.rasifix.trainings.geo;
 import java.io.File;
 import java.io.IOException;
 
+import jline.Completor;
+import jline.FileNameCompletor;
+
 import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.simple.SimpleFeatureCollection;
@@ -12,13 +15,10 @@ import org.geotools.filter.text.cql2.CQLException;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.filter.Filter;
 
-import jline.Completor;
-import jline.FileNameCompletor;
-
 import aQute.bnd.annotation.component.Component;
 
-import com.github.rasifix.trainings.shell.Command;
-import com.github.rasifix.trainings.shell.CommandContext;
+import com.github.rasifix.osgi.shell.Command;
+import com.github.rasifix.osgi.shell.CommandContext;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;

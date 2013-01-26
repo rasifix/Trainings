@@ -9,8 +9,8 @@ import org.osgi.service.component.ComponentContext;
 
 import aQute.bnd.annotation.component.Component;
 
-import com.github.rasifix.trainings.shell.Command;
-import com.github.rasifix.trainings.shell.CommandContext;
+import com.github.rasifix.osgi.shell.Command;
+import com.github.rasifix.osgi.shell.CommandContext;
 
 @Component
 public class ListServicesCommand implements Command {

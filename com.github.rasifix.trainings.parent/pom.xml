@@ -13,16 +13,13 @@
 		<module>../com.github.rasifix.trainings.format.json</module>
 		<module>../com.github.rasifix.trainings.format.fit</module>
 		<module>../com.github.rasifix.trainings.format.gpx</module>
-		<module>../com.github.rasifix.trainings.common.processors</module>
-		<module>../com.github.rasifix.trainings.growl</module>
-		<module>../com.github.rasifix.trainings.notifier.growl</module>
 		<module>../com.github.rasifix.trainings.couchdb</module>
 		<module>../com.github.rasifix.trainings.ical</module>
 		<module>../com.github.rasifix.trainings.fileinbound</module>
-		<module>../com.github.rasifix.trainings.application</module>
 		<module>../com.github.rasifix.trainings.cli</module>
-		<module>../com.github.rasifix.trainings.launcher</module>
 		<module>../com.github.rasifix.trainings.geodeployer</module>
+		<module>../com.github.rasifix.osgi.application</module>
+		<module>../com.github.rasifix.osgi.launcher</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,4 +1,5 @@
 -buildpath: com.github.rasifix.trainings.cli;version=latest,\
+	com.github.rasifix.osgi.shell;version=latest,\
 	com.springsource.jline,\
 	org.geotools,\
 	biz.aQute.bnd.annotation

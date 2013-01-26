@@ -10,8 +10,8 @@ import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Deactivate;
 
+import com.github.rasifix.osgi.application.Deployer;
 import com.github.rasifix.trainings.ElevationModel;
-import com.github.rasifix.trainings.application.Deployer;
 
 @Component
 public class GeoDeployer implements Deployer {

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="false" name="elevationcorrector" activate="activate" deactivate="deactivate">
-   <implementation class="com.github.rasifix.trainings.common.processors.internal.ElevationCorrectingProcessor"/>
-   <service>
-      <provide interface="com.github.rasifix.trainings.ActivityProcessor"/>
-   </service>
-   <reference bind="setElevationModel" cardinality="1..1" interface="com.github.rasifix.trainings.ElevationModel" name="elevationModel" policy="dynamic" unbind="unsetElevationModel"/>
-</scr:component>

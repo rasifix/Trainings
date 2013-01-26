@@ -1,16 +1,17 @@
 package com.github.rasifix.trainings.shell.internal.commands;
 
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import jline.Completor;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
-import com.github.rasifix.trainings.shell.Command;
-import com.github.rasifix.trainings.shell.CommandContext;
+import com.github.rasifix.osgi.shell.Command;
+import com.github.rasifix.osgi.shell.CommandContext;
 
 @Component
 public class InspectCommand implements Command {

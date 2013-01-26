@@ -6,8 +6,8 @@ import jline.Completor;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
-import com.github.rasifix.trainings.shell.Command;
-import com.github.rasifix.trainings.shell.CommandContext;
+import com.github.rasifix.osgi.shell.Command;
+import com.github.rasifix.osgi.shell.CommandContext;
 
 @Component
 public class ListCategoriesCommand implements Command {

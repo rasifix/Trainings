@@ -7,6 +7,7 @@ require('trainings/controllers/activity-list');
 require('trainings/controllers/dashboard');
 require('trainings/controllers/equipments');
 require('trainings/controllers/nav');
+require('trainings/controllers/overview-graph');
 require('trainings/controllers/sport-summary');
 });
 
@@ -151,6 +152,32 @@ Trainings.ActivityController = Ember.ObjectController.extend({
 			provider:function(trackpoint) { return trackpoint.alt; }
 		});
 		
+		// speed series
+		series.pushObject({ 
+			name:"speed", 
+			index:index++,
+			fillGraph:false,
+			provider:function(curr, track, idx) { 
+				var windowSize = 15;
+				if (idx < windowSize || idx > track.trackpoints.length - windowSize) {
+					return null;
+				}
+				var prev = track.trackpoints.get(idx - windowSize);
+				var next = track.trackpoints.get(idx + windowSize);
+				var dist = next.distance - prev.distance;
+				var time = next.elapsed - prev.elapsed;
+				if (time == 0) {
+					return null;
+				}
+				if (track.sport === 'CYCLING' || track.sport === 'MTB') {
+					return dist / (time / 1000) * 3.6;
+				} else {
+					// s/m -> min / km --> x / 60 * 1000
+					return (time / 1000) / dist * 1000 / 60;
+				}
+			}
+		});
+		
 		// cadence series - if available
 		if (activity.summary.cadence) {
 			series.pushObject({ 
@@ -225,8 +252,8 @@ Trainings.ActivityController = Ember.ObjectController.extend({
 		
 		this.set('trackpoints', trackpoints);
 		this.set('activity', activity);
-		this.set('graphdata', graph);
 		this.set('graphconfig', config);
+		this.set('graphdata', graph);
 	},
 	
 	selectionChanged: function(min, max) {
@@ -279,19 +306,7 @@ loader.register('trainings/controllers/dashboard', function(require) {
 require('trainings/core');
 
 Trainings.DashboardController = Ember.Controller.extend({
-	graphData: { },
-	show: function() {
-		var now = new Date();
-		
-		var endYear = now.getYearOfWeek();
-		var endWeek = now.getWeek();
-		
-		now.setDate(now.getDate() - 52 * 7);
-		var startYear = now.getYearOfWeek();
-		var startWeek = now.getWeek();
-
-		this.set('graphData', Trainings.ActivitySummary.summaryByWeek([startYear, startWeek], [endYear, endWeek + 1]));
-	}
+  // nothing new
 });
 
 });
@@ -315,6 +330,25 @@ require('trainings/core');
 
 Trainings.NavController = Ember.Controller.extend({
   selected: null
+});
+
+});
+
+loader.register('trainings/controllers/overview-graph', function(require) {
+require('trainings/core');
+
+Trainings.OverviewGraphController = Ember.Controller.extend({
+  weekClicked: function(week, year) {
+    var endDate = new Date(year, 0, 1);
+    endDate.setDate(endDate.getDate() - endDate.getDay() + 1 + (week - 1) * 7);
+    var startDate = new Date(endDate);
+    startDate.setDate(startDate.getDate() + 7);
+    Trainings.router.activityListController.set('content', Trainings.ActivityOverview.find({
+      endDate: endDate,
+      startDate: startDate,
+      descending: true
+    }));
+  }
 });
 
 });
@@ -487,15 +521,37 @@ require('trainings/core');
 
 Trainings.ActivityOverview = Ember.Object.extend({});
 
+Trainings.ActivityOverview.formatDate = function(date) {
+  return date.getFullYear() + "-" + Trainings.pad(date.getMonth() + 1) + "-" + Trainings.pad(date.getDate()) + " 00:00:00";
+}
+
 Trainings.ActivityOverview.reopenClass({
   find: function(query) {
-    var month = query.month;
-    var year = query.year;
+    var startkey = null;
+    var endkey = null;
+    var descending = query.descending || true;
+    var limit = query.limit || 20;
+    
+    if (query.startDate && query.endDate) {
+      startkey = Trainings.ActivityOverview.formatDate(query.startDate);
+      endkey = Trainings.ActivityOverview.formatDate(query.endDate);
+    } else {
+      var month = query.month;
+      var year = query.year;
+      startkey = year + "-" + Trainings.pad(month) + "-32 00:00:00";
+      endkey = year + "-" + Trainings.pad(month) + "-01 00:00:00";
+    }
     		
 		var result = Ember.ArrayProxy.create({ content: [] });
 		result.set('loading', true);
 
+    console.log(startkey + " - " + endkey);
+    
     $.couch.db('trainings').view("app/overview", {
+      endkey: endkey,
+			startkey: startkey,
+			descending: descending,
+			limit: limit,
 			success: function(data) {
 			  result.set('loading', false);
 	      if (data && data.rows && data.rows.length > 0) {
@@ -503,6 +559,15 @@ Trainings.ActivityOverview.reopenClass({
 						var key = row.key;	
 						var sport = row.value.sport;
 						var sportUrl = "img/" + sport.toLowerCase() + ".svg";
+						var realspeed = (row.value.distance + row.value.alt.gain * 10) / row.value.totalTime;
+						var perfindex = null;
+						
+						if (row.value.hr && row.value.hr.avg > 120) {
+						  // 1 / (m / s) => s / m
+						  // (s / m) * 1000 / 60 => min / km
+						  perfindex = Math.round(1 / realspeed * (1000 / 60) * row.value.hr.avg); 
+						}
+						
 						result.pushObject(Trainings.ActivityOverview.create({
 							id: row.id,
   						date: key.substring(0, 16),
@@ -511,6 +576,9 @@ Trainings.ActivityOverview.reopenClass({
 							duration: Trainings.formatDuration(row.value.totalTime),
 							distance: Trainings.formatDistance(row.value.distance),
 							speed: Trainings.formatSpeedOrPace(row.value.sport, row.value.speed),
+							altgain: row.value.alt.gain,
+							altloss: row.value.alt.loss,
+							perfindex: perfindex,
 							avgHr: row.value.hr ? row.value.hr.avg : null
 						}));
 	        });
@@ -520,10 +588,7 @@ Trainings.ActivityOverview.reopenClass({
 			  console.log("you've got screwed");
 			  console.log(e);
 			  result.set('loading', false);
-			},
-			endkey: year + "-" + Trainings.pad(month) + "-01 00:00:00",
-			startkey: year + "-" + Trainings.pad(month) + "-32 00:00:00",
-			descending: true
+			}
 		});
 		
     return result;
@@ -588,6 +653,9 @@ Trainings.ActivitySummary.reopenClass({
     console.log(end);
     
     $.couch.db('trainings').view("app/activitiesByWeek", {
+      startkey: start,
+		  endkey: end,
+		  group_level: 3,
 		  success: function(data) {
 				result[startYear] = { "year" : startYear };
 				result[endYear] = { "year" : endYear };
@@ -634,11 +702,10 @@ Trainings.ActivitySummary.reopenClass({
 					});
 				}
 				
+				console.log('-x-x-x-x-x-');
+				console.log(result);
 				result.set('loaded', true);
-		  },
-		  startkey: start,
-		  endkey: end,
-		  group_level: 3
+		  }
 	  });
 	  
 	  return result;
@@ -800,11 +867,24 @@ Trainings.Router = Ember.Router.extend({
       connectOutlets: function(router, context) {
         router.set('navController.selected', 'dashboard');
         router.get('applicationController').connectOutlet('dashboard');
-        router.get('dashboardController').show();
+        
+        var now = new Date();
+    		var endYear = now.getYearOfWeek();
+    		var endWeek = now.getWeek();
+    		now.setDate(now.getDate() - 52 * 7);
+    		var startYear = now.getYearOfWeek();
+    		var startWeek = now.getWeek();
+    		
+        router.get('dashboardController').connectOutlet({
+          outletName: 'overview',
+          viewClass: Trainings.OverviewGraphView,
+          controller: Trainings.OverviewGraphController.create(),
+          context: Trainings.ActivitySummary.summaryByWeek([startYear, startWeek], [endYear, endWeek + 1])
+        });
         router.get('dashboardController').connectOutlet({
           outletName: 'activities',
           viewClass: Trainings.ActivityListView,
-          controller: Trainings.ActivityListController.create(),
+          controller: Trainings.router.activityListController,
           context: Trainings.ActivityOverview.query({ limit:5, descending:true })
         });
         router.get('dashboardController').connectOutlet({
@@ -812,7 +892,7 @@ Trainings.Router = Ember.Router.extend({
           viewClass: Trainings.SportSummaryView,
           controller: Trainings.SportSummaryController.create(),
           context: Trainings.SportSummary.find()
-        })
+        });
       }
     }),
     
@@ -902,6 +982,7 @@ require('trainings/views/activities');
 require('trainings/views/activity-list');
 require('trainings/views/dashboard');
 require('trainings/views/equipments');
+require('trainings/views/overview-graph');
 require('trainings/views/nav');
 require('trainings/views/sport-summary');
 
@@ -1134,153 +1215,7 @@ loader.register('trainings/views/dashboard', function(require) {
 require('trainings/core');
 
 Trainings.DashboardView = Ember.View.extend({
-	templateName: 'trainings/~templates/dashboard',
-//	activitiesBinding: 'Trainings.dashboardController.activities',
-	labels: [],
-	
-	didInsertElement: function() {
-		// ignored for the moment
-	},
-	
-	graphDataUpdated: function() {
-		if (!this.get("element")) {
-			console.log("too fast");
-			return;
-		}
-		
-		if (!this.get('controller.graphData.loaded')) {
-		  console.log("graph data not yet loaded");
-		  return;
-		}
-		
-		var that = this;
-		var data = this.get("controller.graphData");
-		var div = document.getElementById("dashboard");
-		var maxy = 0;
-		
-		var sumrec = function(wrec) {
-			var sum = 0;
-			for (var idx in wrec) {
-				var next = wrec[idx];
-				if (next.totalTime) {
-					sum += next.totalTime;
-				}
-			}
-			return sum;
-		}
-		
-		console.log("now we've got this far, let's have some fun");
-		console.log(div);
-		console.log(data);
-		
-		var records = [];
-		var paper = new Raphael(div, 940, 100);
-		data.weeks.forEach(function(weekAndYear) {
-			var week = data[weekAndYear[0]][weekAndYear[1]];
-			var sum = sumrec(week);
-			maxy = Math.max(maxy, sum);
-			week.year = weekAndYear[0];
-			records.push(week);
-		});
-				
-		var width = 940.0 / records.length;
-		var height = 100;
-		var colors = [ "#5F04B4", "#5FB404", "#FE642E", "#40A2FF", "#2066FF" ];
-				
-		var time = function(wrec, sport) {
-			var value = wrec[sport];
-			if (value) {
-				return value.totalTime;
-			}
-			return 0;
-		}
-		
-		var rows = function(x, running, orienteering, cycling, mtb, mtbOrienteering, record) {
-			var y = 0;
-			var rect = paper.rect(x, y, Math.floor(width), running / maxy * height);
-			rect.translate(0, height);
-			rect.scale(1, -1, 0, 0);
-			rect.attr("fill", colors[0]);
-			rect.attr("stroke", "none");
-			
-			y += running / maxy * height;
-			rect = paper.rect(x, y, width - 1, orienteering / maxy * height);
-			rect.translate(0, height);
-			rect.scale(1, -1, 0, 0);
-			rect.attr("fill", colors[1]);
-			rect.attr("stroke", "none");
-
-			y += orienteering / maxy * height;
-			rect = paper.rect(x, y, width - 1, cycling / maxy * height);
-			rect.translate(0, height);
-			rect.scale(1, -1, 0, 0);
-			rect.attr("fill", colors[2]);
-			rect.attr("stroke", "none");
-
-			y += cycling / maxy * height;
-			rect = paper.rect(x, y, width - 1, mtb / maxy * height);
-			rect.translate(0, height);
-			rect.scale(1, -1, 0, 0);
-			rect.attr("fill", colors[3]);
-			rect.attr("stroke", "none");
-
-			y += mtb / maxy * height;
-			rect = paper.rect(x, y, width - 1, mtbOrienteering / maxy * height);
-			rect.translate(0, height);
-			rect.scale(1, -1, 0, 0);
-			rect.attr("fill", colors[4]);
-			rect.attr("stroke", "none");
-			
-			rect = paper.rect(x, 0, width, height);
-			rect.translate(0, height);
-			rect.scale(1, -1, 0, 0);
-			rect.attr("fill", "white");
-			rect.attr("stroke", "none");
-			rect.node.setAttributeNS(null, "class", "screen");	
-			
-			rect.hover(function(e) {
-				var total = 0;
-				var labels = [];
-				labels.push({ "label":"Week", "duration":record.week + "-" + record.year });
-				if (record["RUNNING"]) {
-					total += record["RUNNING"].totalTime;
-					labels.push({ "label":"Running", "duration":Trainings.formatDuration(record["RUNNING"].totalTime) });
-				}
-				if (record["ORIENTEERING"]) {
-					total += record["ORIENTEERING"].totalTime;
-					labels.push({ "label":"Orienteering", "duration":Trainings.formatDuration(record["ORIENTEERING"].totalTime) });
-				}
-				if (record["CYCLING"]) {
-					total += record["CYCLING"].totalTime;
-					labels.push({ "label":"Cycling", "duration":Trainings.formatDuration(record["CYCLING"].totalTime) });
-				}
-				if (record["MTB"]) {
-					total += record["MTB"].totalTime;
-					labels.push({ "label":"MTB", "duration":Trainings.formatDuration(record["MTB"].totalTime) });
-				}
-				if (record["MTB-ORIENTEERING"]) {
-					total += record["MTB-ORIENTEERING"].totalTime;
-					labels.push({ "label":"Bike-OL", "duration":Trainings.formatDuration(record["MTB-ORIENTEERING"].totalTime) });
-				}
-				labels.push({ "label":"Total", "duration":Trainings.formatDuration(total) });
-				that.set('labels', labels);
-				
-			}, function(e) {
-				that.set('labels', [ ]);
-			});
-		};
-		
-		for (var i = 0; i < records.length; i++) {
-			var x = Math.round(i * width);
-			var running = time(records[i], "RUNNING");
-			var cycling = time(records[i], "CYCLING");
-			var orienteering = time(records[i], "ORIENTEERING");
-			var mtb = time(records[i], "MTB");
-			var mtbOrienteering = time(records[i], "MTB-ORIENTEERING");
-			rows(x, running, orienteering, cycling, mtb, mtbOrienteering, records[i]);
-		}		
-		
-	}.observes("controller.graphData.loaded")
+	templateName: 'trainings/~templates/dashboard'
 });
 
 });
@@ -1308,6 +1243,159 @@ Trainings.NavView = Ember.View.extend({
     }.property('item', 'parentView.selected')
   })
 });
+});
+
+loader.register('trainings/views/overview-graph', function(require) {
+require('trainings/core');
+
+Trainings.OverviewGraphView = Ember.View.extend({
+  templateName: 'trainings/~templates/overview-graph',
+  labels: [],
+    
+  graphDataUpdated: function() {
+		if (!this.get("element")) {
+			console.log("too fast");
+			return;
+		}
+
+		if (!this.get('controller.content.loaded')) {
+		  console.log("graph data not yet loaded");
+		  return;
+		}
+
+		var that = this;
+		var data = this.get("controller.content");
+		var div = document.getElementById("dashboard");
+		var maxy = 0;
+
+		var sumrec = function(wrec) {
+			var sum = 0;
+			for (var idx in wrec) {
+				var next = wrec[idx];
+				if (next.totalTime) {
+					sum += next.totalTime;
+				}
+			}
+			return sum;
+		}
+
+		console.log("now we've got this far, let's have some fun");
+		console.log(div);
+		console.log(data);
+
+		var records = [];
+		var paper = new Raphael(div, 940, 100);
+		data.weeks.forEach(function(weekAndYear) {
+			var week = data[weekAndYear[0]][weekAndYear[1]];
+			var sum = sumrec(week);
+			maxy = Math.max(maxy, sum);
+			week.year = weekAndYear[0];
+			records.push(week);
+		});
+
+		var width = Math.ceil(940 / records.length);
+		var height = 100;
+		var colors = [ "#5F04B4", "#5FB404", "#FE642E", "#40A2FF", "#2066FF" ];
+
+		var time = function(wrec, sport) {
+			var value = wrec[sport];
+			if (value) {
+				return value.totalTime;
+			}
+			return 0;
+		}
+
+		var rows = function(x, running, orienteering, cycling, mtb, mtbOrienteering, record) {
+			var y = 0;
+			var rect = paper.rect(x, y, width - 1, running / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[0]);
+			rect.attr("stroke", "none");
+
+			y += running / maxy * height;
+			rect = paper.rect(x, y, width - 1, orienteering / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[1]);
+			rect.attr("stroke", "none");
+
+			y += orienteering / maxy * height;
+			rect = paper.rect(x, y, width - 1, cycling / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[2]);
+			rect.attr("stroke", "none");
+
+			y += cycling / maxy * height;
+			rect = paper.rect(x, y, width - 1, mtb / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[3]);
+			rect.attr("stroke", "none");
+
+			y += mtb / maxy * height;
+			rect = paper.rect(x, y, width - 1, mtbOrienteering / maxy * height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", colors[4]);
+			rect.attr("stroke", "none");
+
+			rect = paper.rect(x, 0, width, height);
+			rect.translate(0, height);
+			rect.scale(1, -1, 0, 0);
+			rect.attr("fill", "white");
+			rect.attr("stroke", "none");
+			rect.node.setAttributeNS(null, "class", "screen");	
+			rect.click(function(e) {
+			  that.get('controller').weekClicked(record.week, record.year);
+			});
+
+			rect.hover(function(e) {
+				var total = 0;
+				var labels = [];
+				labels.push({ "label":"Week", "duration":record.week + "-" + record.year });
+				if (record["RUNNING"]) {
+					total += record["RUNNING"].totalTime;
+					labels.push({ "label":"Running", "duration":Trainings.formatDuration(record["RUNNING"].totalTime), "style":"running" });
+				}
+				if (record["ORIENTEERING"]) {
+					total += record["ORIENTEERING"].totalTime;
+					labels.push({ "label":"Orienteering", "duration":Trainings.formatDuration(record["ORIENTEERING"].totalTime), "style":"orienteering" });
+				}
+				if (record["CYCLING"]) {
+					total += record["CYCLING"].totalTime;
+					labels.push({ "label":"Cycling", "duration":Trainings.formatDuration(record["CYCLING"].totalTime), "style":"cycling" });
+				}
+				if (record["MTB"]) {
+					total += record["MTB"].totalTime;
+					labels.push({ "label":"MTB", "duration":Trainings.formatDuration(record["MTB"].totalTime), "style":"mtb" });
+				}
+				if (record["MTB-ORIENTEERING"]) {
+					total += record["MTB-ORIENTEERING"].totalTime;
+					labels.push({ "label":"Bike-OL", "duration":Trainings.formatDuration(record["MTB-ORIENTEERING"].totalTime), "style":"mtb-orienteering" });
+				}
+				labels.push({ "label":"Total", "duration":Trainings.formatDuration(total) });
+				that.set('labels', labels);
+
+			}, function(e) {
+				that.set('labels', [ ]);
+			});
+		};
+
+		for (var i = 0; i < records.length; i++) {
+			var x = 940 - (records.length - i) * width;
+			var running = time(records[i], "RUNNING");
+			var cycling = time(records[i], "CYCLING");
+			var orienteering = time(records[i], "ORIENTEERING");
+			var mtb = time(records[i], "MTB");
+			var mtbOrienteering = time(records[i], "MTB-ORIENTEERING");
+			rows(x, running, orienteering, cycling, mtb, mtbOrienteering, records[i]);
+		}		
+	}.observes("controller.content.loaded")
+	
+});
+
 });
 
 loader.register('trainings/views/sport-summary', function(require) {

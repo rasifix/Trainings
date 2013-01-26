@@ -1,4 +1,4 @@
--buildpath: com.github.rasifix.trainings.application;version=latest,\
+-buildpath: com.github.rasifix.osgi.application;version=latest,\
 	com.github.rasifix.trainings.core;version=latest,\
 	biz.aQute.bnd.annotation,\
 	osgi.cmpn,\

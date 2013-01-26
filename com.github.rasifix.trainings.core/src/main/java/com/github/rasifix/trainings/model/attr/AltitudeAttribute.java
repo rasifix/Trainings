@@ -76,34 +76,39 @@ public class AltitudeAttribute implements TrackpointAttribute {
 				int max = Integer.MIN_VALUE;
 				double sum = 0;
 				int time = 0;
-				int gain = 0;
-				int loss = 0;
+				double gain = 0;
+				double loss = 0;
 				
 				Double last = null;
 				for (Trackpoint trackpoint : trackpoints) {
 					double altitude = getAltitude(trackpoint);
+					
+					min = Math.min(min, (int) Math.round(altitude));
+					max = Math.max(max, (int) Math.round(altitude));										
+
 					if (last != null) {
-						if (last < altitude) {
-							gain += Math.round(altitude - last);
-						} else if (altitude < last) {
-							loss += Math.round(last - altitude);
+						double diff = altitude - last;
+						if (diff >= 5) {
+							gain += diff;
+							last = Double.valueOf(altitude);
+						} else if (diff <= -5) {
+							loss += -diff;
+							last = Double.valueOf(altitude);
 						}
+					} else {
+						last = Double.valueOf(altitude);
 					}
+					
 					if (!trackpoints.isLast(trackpoint)) {
 						int elapsed = (int) (trackpoint.getElapsedTime() - trackpoints.next(trackpoint).getElapsedTime());
 						time += elapsed;
 						sum += elapsed * altitude;
-					}
-					
-					min = Math.min(min, (int) Math.round(altitude));
-					max = Math.max(max, (int) Math.round(altitude));
-					
-					last = Double.valueOf(altitude);
+					}					
 				}
 				
 				int avg = (int) Math.round(1f * sum / time);
 				
-				return new AltitudeSummary(time, min, avg, max, gain, loss, start, end);
+				return new AltitudeSummary(time, min, avg, max, (int) Math.round(gain), (int) Math.round(loss), start, end);
 			}
 			
 			private double getAltitude(Trackpoint trackpoint) {

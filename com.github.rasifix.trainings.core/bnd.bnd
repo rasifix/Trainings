@@ -5,10 +5,6 @@ Export-Package: com.github.rasifix.trainings.format,\
 	com.github.rasifix.trainings.model.attr,\
 	com.github.rasifix.trainings,\
 	com.github.rasifix.trainings.equipment
-Private-Package: com.github.rasifix.trainings.internal,\
-	com.github.rasifix.trainings.internal.exporter,\
-	com.github.rasifix.trainings.internal.importer,\
-	com.github.rasifix.trainings.internal.processors
 Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
 Service-Component: OSGI-INF/*.xml
 Import-Package: !org.junit*,\

@@ -1,0 +1,6 @@
+
+loader.register('trainings/~templates/overview-graph', function(require) {
+
+return Ember.Handlebars.compile("<ul class=\"labels\">\n  <li>&nbsp;</li>\n  {{#each view.labels}}\n  <li {{bindAttr class=\"style\"}}>{{label}}: {{duration}}</li>\n  {{/each}}\n</ul>\n<div class=\"span12\">\n  <div id=\"dashboard\"></div>\n</div>\n");
+
+});

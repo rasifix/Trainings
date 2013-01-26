@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1359218457363
+Build-Jdk: 1.6.0_37
+Built-By: sir
+Bundle-ManifestVersion: 2
+Bundle-Name: solv-couch
+Bundle-SymbolicName: com.github.rasifix.solv.couch
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Import-Package: com.github.rasifix.lazycouch,com.github.rasifix.saj,com.
+ github.rasifix.saj.dom,com.github.rasifix.solv,org.osgi.service.compone
+ nt
+Service-Component: OSGI-INF/com.github.rasifix.solv.couch.internal.Couch
+ EventRepository.xml
+Tool: Bnd-1.50.0

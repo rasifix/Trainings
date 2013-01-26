@@ -8,10 +8,10 @@ import jline.NullCompletor;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
+import com.github.rasifix.osgi.shell.Command;
+import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.model.Activity;
-import com.github.rasifix.trainings.shell.Command;
-import com.github.rasifix.trainings.shell.CommandContext;
 
 @Component
 public class ICalEventCommand implements Command {

@@ -6,6 +6,7 @@ require('trainings/views/activities');
 require('trainings/views/activity-list');
 require('trainings/views/dashboard');
 require('trainings/views/equipments');
+require('trainings/views/overview-graph');
 require('trainings/views/nav');
 require('trainings/views/sport-summary');
 

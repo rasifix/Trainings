@@ -7,7 +7,7 @@ return Ember.Handlebars.compile("<div class=\"container\">\n  <table border=\"0\
 
 loader.register('trainings/~templates/activity-list', function(require) {
 
-return Ember.Handlebars.compile("{{#if controller.content.loading}}\n  <div style=\"background-image:url('img/loader.gif'); width:32px; height:32px; margin-left:auto; margin-right:auto\">&nbsp;</div>\n{{else}}\n\t<table border=\"0\" class=\"table table-hover\" style=\"width:100%\">\n\t\t{{#each content}}\n\t\t<tr {{action showActivity this target=\"Trainings.router\"}}>\n\t\t\t<td style=\"padding-top:0px; padding-bottom:0px\"><img {{bindAttr src=\"sportUrl\"}} {{bindAttr title=\"sport\"}} width=\"32\" height=\"32\"/></td>\n\t\t\t<td>{{date}}</td>\n\t\t\t<td>{{duration}}</td>\n\t\t\t<td>{{distance}}</td>\n\t\t\t<td>{{speed}}</td>\n\t\t\t<td>{{#if avgHr}}{{avgHr}}{{/if}}</td>\n\t\t</tr>\n\t\t{{/each}}\n\t</table>\n{{/if}}\n");
+return Ember.Handlebars.compile("{{#if controller.content.loading}}\n  <div style=\"background-image:url('img/loader.gif'); width:32px; height:32px; margin-left:auto; margin-right:auto\">&nbsp;</div>\n{{else}}\n\t<table border=\"0\" class=\"table table-hover\" style=\"width:100%\">\n\t\t{{#each content}}\n\t\t<tr {{action showActivity this target=\"Trainings.router\"}}>\n\t\t\t<td style=\"padding-top:0px; padding-bottom:0px\"><img {{bindAttr src=\"sportUrl\"}} {{bindAttr title=\"sport\"}} width=\"32\" height=\"32\"/></td>\n\t\t\t<td>{{date}}</td>\n\t\t\t<td>{{duration}}</td>\n\t\t\t<td>{{distance}}</td>\n\t\t\t<td>{{speed}}</td>\n\t\t\t<td>{{#if avgHr}}{{avgHr}}{{/if}}</td>\n\t\t\t<td>+{{altgain}}/-{{altloss}}</td>\n\t\t\t<td>{{#if perfindex}}{{perfindex}}{{/if}}</td>\n\t\t</tr>\n\t\t{{/each}}\n\t</table>\n{{/if}}\n");
 
 });
 
@@ -25,7 +25,7 @@ return Ember.Handlebars.compile("<nav role=\"navigation\" class=\"navbar navbar-
 
 loader.register('trainings/~templates/dashboard', function(require) {
 
-return Ember.Handlebars.compile("<div class=\"container\">\n  <div class=\"row\">\n    <ul class=\"labels\">\n      <li>&nbsp;</li>\n      {{#each view.labels}}\n      <li>{{label}}: {{duration}}</li>\n      {{/each}}\n    </ul>\n    <div class=\"span12\">\n      <div id=\"dashboard\"></div>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"span12\">\n      {{outlet activities}}\n    </div>\n  </div>\n  \n  <div class=\"row\">\n    <div class=\"span6\">\n      {{outlet sportsummary}}\n    </div>\n  </div>\n</div>\n");
+return Ember.Handlebars.compile("<div class=\"container\">\n  <div class=\"row\">\n    {{outlet overview}}\n  </div>\n\n  <div class=\"row\">\n    <div class=\"span12\" style=\"max-height:200px; overflow:auto; margin-top:15px; border:1px solid lightgray; border-radius:4px\">\n      {{outlet activities}}\n    </div>\n  </div>\n  \n  <div class=\"row\">\n    <div class=\"span6\">\n      {{outlet sportsummary}}\n    </div>\n  </div>\n</div>\n");
 
 });
 
@@ -41,8 +41,14 @@ return Ember.Handlebars.compile("<ul class=\"nav\">\n  {{#view view.NavItemView 
 
 });
 
+loader.register('trainings/~templates/overview-graph', function(require) {
+
+return Ember.Handlebars.compile("<ul class=\"labels\">\n  <li>&nbsp;</li>\n  {{#each view.labels}}\n  <li {{bindAttr class=\"style\"}}>{{label}}: {{duration}}</li>\n  {{/each}}\n</ul>\n<div class=\"span12\">\n  <div id=\"dashboard\"></div>\n</div>\n");
+
+});
+
 loader.register('trainings/~templates/sport-summary', function(require) {
 
-return Ember.Handlebars.compile("{{#if controller.content.loading}}\n  <div style=\"background-image:url('img/loader.gif'); width:32px; height:32px; margin-left:auto; margin-right:auto\">&nbsp;</div>\n{{else}}\n  <ul class=\"nav nav-pills\">\n    <li><a href=\"#\">2008</a></li>\n    <li><a href=\"#\">2009</a></li>\n    <li><a href=\"#\">2010</a></li>\n    <li><a href=\"#\">2011</a></li>\n    <li class=\"active\"><a href=\"#\">2012</a></li>\n  </ul>\n\t<table border=\"0\" class=\"table table-hover\" style=\"width:100%\">\n\t  <thead>\n\t    <th>Sport</th>\n\t    <th>Time</th>\n\t    <th>Distance</th>\n\t    <th>Avg. Speed</th>\n\t    <th>#</th>\n\t  </thead>\n\t\t{{#each content}}\n\t\t<tr {{action showActivity this target=\"Trainings.router\"}}>\n\t\t\t<td style=\"padding-top:0px; padding-bottom:0px\"><img {{bindAttr src=\"sportUrl\"}} {{bindAttr title=\"sport\"}} width=\"32\" height=\"32\"/></td>\n\t\t\t<td>{{duration}}</td>\n\t\t\t<td>{{distance}}</td>\n\t\t\t<td>{{speed}}</td>\n\t\t\t<td>{{count}}</td>\n\t\t</tr>\n\t\t{{/each}}\n\t</table>\n{{/if}}\n");
+return Ember.Handlebars.compile("{{#if controller.content.loading}}\n  <div style=\"background-image:url('img/loader.gif'); width:32px; height:32px; margin-left:auto; margin-right:auto\">&nbsp;</div>\n{{else}}\n\t<table border=\"0\" class=\"table table-hover\" style=\"width:100%\">\n\t  <thead>\n\t    <th>Sport</th>\n\t    <th>Time</th>\n\t    <th>Distance</th>\n\t    <th>Avg. Speed</th>\n\t    <th>#</th>\n\t  </thead>\n\t\t{{#each content}}\n\t\t<tr {{action showActivity this target=\"Trainings.router\"}}>\n\t\t\t<td style=\"padding-top:0px; padding-bottom:0px\"><img {{bindAttr src=\"sportUrl\"}} {{bindAttr title=\"sport\"}} width=\"32\" height=\"32\"/></td>\n\t\t\t<td>{{duration}}</td>\n\t\t\t<td>{{distance}}</td>\n\t\t\t<td>{{speed}}</td>\n\t\t\t<td>{{count}}</td>\n\t\t</tr>\n\t\t{{/each}}\n\t</table>\n{{/if}}\n");
 
 });

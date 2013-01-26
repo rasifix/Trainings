@@ -1,0 +1,7 @@
+-buildpath: biz.aQute.bnd.annotation,\
+	com.github.rasifix.lazycouch;version=latest,\
+	com.github.rasifix.solv;version=latest,\
+	com.github.rasifix.saj;version=latest,\
+	osgi.cmpn
+Private-Package: com.github.rasifix.solv.couch.internal
+Service-Component: com.github.rasifix.solv.couch.internal.*

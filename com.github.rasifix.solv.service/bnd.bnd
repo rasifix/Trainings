@@ -1,0 +1,10 @@
+-buildpath: biz.aQute.bnd.annotation,\
+	com.github.rasifix.solv;version=latest,\
+	org.apache.httpcomponents.httpclient,\
+	org.apache.httpcomponents.httpcore,\
+	com.springsource.org.cyberneko.html,\
+	com.springsource.org.apache.xerces,\
+	osgi.cmpn,\
+	com.springsource.org.jdom
+Private-Package: com.github.rasifix.solv.service.internal
+Service-Component: com.github.rasifix.solv.service.internal.*

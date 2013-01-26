@@ -1,0 +1,6 @@
+-buildpath: biz.aQute.bnd.annotation,\
+	com.github.rasifix.solv;version=latest,\
+	com.github.rasifix.osgi.shell;version=latest,\
+	com.springsource.jline
+	
+Private-Package: com.github.rasifix.solv.internal.commands

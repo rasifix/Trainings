@@ -19,6 +19,9 @@ Trainings.ActivitySummary.reopenClass({
     console.log(end);
     
     $.couch.db('trainings').view("app/activitiesByWeek", {
+      startkey: start,
+		  endkey: end,
+		  group_level: 3,
 		  success: function(data) {
 				result[startYear] = { "year" : startYear };
 				result[endYear] = { "year" : endYear };
@@ -65,11 +68,10 @@ Trainings.ActivitySummary.reopenClass({
 					});
 				}
 				
+				console.log('-x-x-x-x-x-');
+				console.log(result);
 				result.set('loaded', true);
-		  },
-		  startkey: start,
-		  endkey: end,
-		  group_level: 3
+		  }
 	  });
 	  
 	  return result;
