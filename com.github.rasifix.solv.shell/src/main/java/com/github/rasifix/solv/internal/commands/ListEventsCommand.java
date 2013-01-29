@@ -1,4 +1,4 @@
-package com.github.rasifix.trainings.shell.internal.commands.solv;
+package com.github.rasifix.solv.internal.commands;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import aQute.bnd.annotation.component.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
+import com.github.rasifix.solv.EventOverview;
+import com.github.rasifix.solv.ResultService;
 
 @Component
 public class ListEventsCommand implements Command {
@@ -34,10 +36,10 @@ public class ListEventsCommand implements Command {
 	@Override
 	public Object execute(final CommandContext context) throws Exception {
 		int year = context.getArguments().length > 0 ? Integer.parseInt(context.getArgument(0)) : 2012;
-		List<Event> events = service.listEvents(year);
+		List<EventOverview> events = service.listEvents(year);
 		for (int i = 0; i < events.size(); i++) {
-			Event event = events.get(i);
-			System.out.println(String.format("%5s  %s", i + 1, event.getName()));			
+			EventOverview event = events.get(i);
+			System.out.println(String.format("%5s  %s", i + 1, event.getTitle()));			
 		}
 		
 		context.put("solv:events", events);

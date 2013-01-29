@@ -2,6 +2,7 @@ package com.github.rasifix.osgi.shell;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -22,6 +23,14 @@ public interface CommandContext {
 	Object get(Object key);
 
 	List<File> resolveFiles(String fileName);
+	
+	void push(Object o);
+	
+	Object peek();
+	
+	Object pop();
+	
+	Iterator<Object> stackIterator();
 
 	void execute(String command) throws IOException;
 	

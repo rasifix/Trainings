@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +25,8 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	private final Map<String, Command> commands = new HashMap<String, Command>();
 	
 	private final Map<Object, Object> context = new HashMap<Object, Object>();
+	
+	private final LinkedList<Object> stack = new LinkedList<Object>();
 	
 	private String[] arguments;
 
@@ -76,6 +80,26 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	}
 	
 	@Override
+	public void push(Object o) {
+		stack.addLast(0);
+	}
+	
+	@Override
+	public Object peek() {
+		return stack.getLast();
+	}
+	
+	@Override
+	public Object pop() {
+		return stack.removeLast();
+	}
+	
+	@Override
+	public Iterator<Object> stackIterator() {
+		return stack.iterator();
+	}
+	
+	@Override
 	public Object getCurrent() {
 		return current;
 	}
@@ -115,6 +139,7 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 		try {
 			arguments = Arrays.asList(parts).subList(1, parts.length).toArray(new String[0]);
 			current = command.execute((CommandContext) this);
+			push(current);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

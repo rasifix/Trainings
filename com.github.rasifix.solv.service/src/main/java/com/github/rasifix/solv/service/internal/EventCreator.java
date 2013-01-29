@@ -27,7 +27,7 @@ class EventCreator {
 			Category category = event.getCategory(startListEntry.category);
 			if (category == null) {
 				System.out.println("creating category " + startListEntry.category);
-				category = new Category(startListEntry.category);
+				category = new Category(event, startListEntry.category);
 				event.addCategory(category);
 			}
 			

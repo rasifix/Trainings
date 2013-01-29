@@ -19,7 +19,8 @@ public class GeoDeployer implements Deployer {
 	private ComponentContext context;
 
 	@Activate
-	public void activate(ComponentContext context) {
+	public void doActivate(ComponentContext context) {
+		System.out.println("activating GeoDeployer");
 		this.context = context;
 	}
 	
@@ -35,11 +36,23 @@ public class GeoDeployer implements Deployer {
 
 	@Override
 	public void deploy(File file) throws IOException {
-		System.out.println("deploying ElevationModel from " + file.getName());
-		// TODO: make transformation generally applicable
-		ArcGridElevationModel elevationModel = new ArcGridElevationModel(new FileInputStream(file));
-		TransformingElevationModel transformingModel = new TransformingElevationModel(elevationModel);
-		context.getBundleContext().registerService(ElevationModel.class.getName(), transformingModel, null);
+		try {
+			System.out.println("deploying ElevationModel from " + file.getName());
+			System.out.println("context = " + context);
+			// TODO: make transformation generally applicable
+			ArcGridElevationModel elevationModel = new ArcGridElevationModel(new FileInputStream(file));
+			TransformingElevationModel transformingModel = new TransformingElevationModel(elevationModel);
+			context.getBundleContext().registerService(ElevationModel.class.getName(), transformingModel, null);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (Error e) {
+			e.printStackTrace();
+			throw e;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

@@ -5,18 +5,25 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import jline.ArgumentCompletor;
 import jline.Completor;
 import jline.FileNameCompletor;
+
+import org.osgi.framework.ServiceReference;
+import org.osgi.service.component.ComponentContext;
+
+import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
-import com.github.rasifix.trainings.ActivityImporter;
+import com.github.rasifix.trainings.format.Format;
 import com.github.rasifix.trainings.integration.resource.FileResource;
 import com.github.rasifix.trainings.integration.resource.Resource;
 import com.github.rasifix.trainings.model.Activity;
@@ -26,11 +33,28 @@ public class ImportCommand implements Command {
 
 	private static final String NAME = "import";
 	
-	private ActivityImporter importer;
+	private final Map<String, ServiceReference> formats = new HashMap<String, ServiceReference>();
 	
-	@Reference(dynamic=true)
-	public void setImporter(ActivityImporter importer) {
-		this.importer = importer;
+	private ComponentContext context;
+	
+	@Activate
+	public void doActivate(ComponentContext context) {
+		this.context = context;
+	}
+	
+	@Reference(service=Format.class, unbind="removeFormat", dynamic=true, multiple=true)
+	public void addFormat(ServiceReference format) {
+		String id = (String) format.getProperty("com.github.rasifix.trainings.format");
+		synchronized (formats) {
+			formats.put(id, format);
+		}
+	}
+	
+	public void removeFormat(ServiceReference format) {
+		String id = (String) format.getProperty("com.github.rasifix.trainings.format");
+		synchronized (formats) {
+			formats.remove(id);
+		}
 	}
 	
 	@Override
@@ -66,7 +90,7 @@ public class ImportCommand implements Command {
 				FileResource resource = new FileResource(file);
 				context.put("resource", resource);
 				
-				List<Activity> imported = importer.importActivities(resource);
+				List<Activity> imported = importActivities(resource);
 				if (imported.size() > 1 || imported.isEmpty()) {
 					System.out.println("... skipping");
 					continue;
@@ -94,11 +118,33 @@ public class ImportCommand implements Command {
 		Resource resource = new FileResource(file);
 		context.put("resource", resource);
 		
-		List<Activity> activities = importer.importActivities(resource);
+		List<Activity> activities = importActivities(resource);
 		if (activities.size() == 1) {
 			return activities.get(0);
 		}
 		return activities;
+	}
+
+	private List<Activity> importActivities(Resource resource) throws IOException {
+		Format format = findFormat(resource);
+		if (format == null) {
+			System.err.println("... no matching format found, skipping");
+			return new LinkedList<Activity>();
+		}
+		
+		return format.createReader().readActivities(resource.openInputStream());
+	}
+
+	private Format findFormat(Resource resource) throws IOException {
+		synchronized (formats) {
+			for (ServiceReference reference : formats.values()) {
+				Format format = (Format) context.getBundleContext().getService(reference);
+				if (format.canRead(resource)) {
+					return format;
+				}
+			}
+		}
+		return null;
 	}
 
 	private List<String> parseSpec(CommandContext context, String specFile) throws IOException {
@@ -109,12 +155,15 @@ public class ImportCommand implements Command {
 			throw new IllegalArgumentException("expecting exactly one spec file");
 		}
 		
-		BufferedReader reader = new BufferedReader(new FileReader(files.get(0)));
-		String line = null;
-		
 		List<String> lines = new LinkedList<String>();
-		while ((line = reader.readLine()) != null) {
-			lines.add(line);
+		BufferedReader reader = new BufferedReader(new FileReader(files.get(0)));
+		try {
+			String line = null;			
+			while ((line = reader.readLine()) != null) {
+				lines.add(line);
+			}
+		} finally {
+			reader.close();
 		}
 		
 		return lines;

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="ExportEngine">
-   <implementation class="com.github.rasifix.trainings.internal.exporter.ExportEngine"/>
-   <reference bind="addExporter" cardinality="0..n" interface="com.github.rasifix.trainings.ActivityExporter" name="ActivityExporter" policy="dynamic" unbind="removeExporter"/>
-   <service>
-      <provide interface="com.github.rasifix.trainings.integration.transformer.Transformer"/>
-   </service>
-   <property name="com.github.rasifix.trainings.transformer" type="String" value="exporter"/>
-</scr:component>

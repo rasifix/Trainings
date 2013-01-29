@@ -1,4 +1,4 @@
-package com.github.rasifix.trainings.launcher;
+package com.github.rasifix.osgi.launcher;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -24,8 +24,8 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 
-import com.github.rasifix.trainings.application.Application;
-import com.github.rasifix.trainings.application.Deployer;
+import com.github.rasifix.osgi.application.Application;
+import com.github.rasifix.osgi.application.Deployer;
 
 public class Launcher {
 	
@@ -57,9 +57,11 @@ public class Launcher {
     }
 
 	private static Framework launchFramework() throws Exception {
-		// export com.github.rasifix.trainings.application from system bundle
+		// export com.github.rasifix.osgi.application from system bundle
 		// we need to access the package from both the launcher and the bundles
-		final Map<String, String> config = Collections.singletonMap(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "com.github.rasifix.trainings.application; version=1.0.0");
+		final Map<String, String> config = new HashMap<String, String>();
+		config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "com.github.rasifix.osgi.application; version=1.0.0");
+		config.put("felix.log.level", "3");
 		
 		Framework framework = getFrameworkFactory().newFramework(config);
 		framework.init();

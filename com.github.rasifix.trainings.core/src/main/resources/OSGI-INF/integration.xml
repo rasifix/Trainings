@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="Integrator">
-   <implementation class="com.github.rasifix.trainings.internal.Integrator"/>
-   <reference bind="setChannel" cardinality="1..1" interface="com.github.rasifix.trainings.integration.SubscribableChannel" name="SubscribableChannel" policy="static"/>
-   <reference bind="setImporter" cardinality="1..1" interface="com.github.rasifix.trainings.integration.transformer.Transformer" name="Importer" policy="static" target="(com.github.rasifix.trainings.transformer=importer)"/>
-   <reference bind="setExporter" cardinality="1..1" interface="com.github.rasifix.trainings.integration.transformer.Transformer" name="Exporter" policy="static" target="(com.github.rasifix.trainings.transformer=exporter)"/>
-   <reference bind="setProcessor" cardinality="1..1" interface="com.github.rasifix.trainings.integration.transformer.Transformer" name="Processor" policy="static" target="(com.github.rasifix.trainings.transformer=processor)"/>
-   <reference cardinality="1..1" interface="com.github.rasifix.trainings.Notifier" name="Notifier" policy="static" bind="setNotifier"/>>
-</scr:component>

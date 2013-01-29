@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="ActivityImporter">
-   <implementation class="com.github.rasifix.trainings.internal.importer.DefaultActivityImporter"/>
-   <reference bind="addFormat" cardinality="1..n" interface="com.github.rasifix.trainings.format.Format" name="Format" policy="dynamic" unbind="removeFormat"/>
-   <service>
-      <provide interface="com.github.rasifix.trainings.ActivityImporter"/>
-   </service>
-</scr:component>

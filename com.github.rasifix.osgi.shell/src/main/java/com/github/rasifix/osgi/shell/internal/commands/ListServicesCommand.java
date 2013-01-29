@@ -1,4 +1,4 @@
-package com.github.rasifix.trainings.shell.internal.commands.osgi;
+package com.github.rasifix.osgi.shell.internal.commands;
 
 import jline.Completor;
 import jline.NullCompletor;

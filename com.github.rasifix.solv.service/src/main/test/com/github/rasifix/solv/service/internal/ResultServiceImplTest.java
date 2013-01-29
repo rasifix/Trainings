@@ -9,7 +9,7 @@ public class ResultServiceImplTest {
 		ResultServiceImpl service = new ResultServiceImpl();
 		service.setServiceUrl("http://www.o-l.ch/cgi-bin/results");
 		
-		service.getEvent(2012, "Schweiz. Meisterschaft im Langdistanz-OL");
+		service.queryEvent(2012, "Schweiz. Meisterschaft im Langdistanz-OL");
 	}
 	
 }

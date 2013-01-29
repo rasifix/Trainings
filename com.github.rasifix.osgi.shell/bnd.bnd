@@ -1,6 +1,10 @@
 -buildpath: com.springsource.jline,\
 	osgi.cmpn,\
 	com.github.rasifix.osgi.application;version=latest,\
-	biz.aQute.bnd.annotation
+	biz.aQute.bnd.annotation,\
+	osgi.core
 Export-Package: com.github.rasifix.osgi.shell
-Private-Package: com.github.rasifix.osgi.shell.internal
+Private-Package: com.github.rasifix.osgi.shell.internal,\
+	com.github.rasifix.osgi.shell.internal.commands
+Service-Component: com.github.rasifix.osgi.shell.internal.*
+Import-Package: !org.junit, *

@@ -4,6 +4,7 @@
 		<artifactId>trainings-parent</artifactId>
 		<groupId>com.github.rasifix.trainings</groupId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../com.github.rasifix.trainings.parent/</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.rasifix.trainings</groupId>
@@ -12,8 +13,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
 		<dependency>
-			<groupId>com.github.rasifix.trainings</groupId>
-			<artifactId>trainings-application</artifactId>
+			<groupId>com.github.rasifix</groupId>
+			<artifactId>osgi-application</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.rasifix</groupId>
+			<artifactId>osgi-shell</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -38,6 +44,11 @@
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
 			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>biz.aQute</groupId>
+			<artifactId>annotation</artifactId>
+			<version>1.50.0</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -1,11 +1,10 @@
 Bundle-Version: 1.0.0
--buildpath: com.github.rasifix.trainings.integration;version=latest
+-buildpath: com.github.rasifix.trainings.integration;version=latest,\
+	osgi.cmpn
 Export-Package: com.github.rasifix.trainings.format,\
 	com.github.rasifix.trainings.model,\
 	com.github.rasifix.trainings.model.attr,\
 	com.github.rasifix.trainings,\
 	com.github.rasifix.trainings.equipment
-Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
-Service-Component: OSGI-INF/*.xml
 Import-Package: !org.junit*,\
 	*

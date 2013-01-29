@@ -1,12 +1,13 @@
 package com.github.rasifix.solv;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Category {
 
-	private String name;
+	private final Event event; 
+
+	private final String name;
 	
 	private int distance;
 	
@@ -14,10 +15,15 @@ public class Category {
 	
 	private List<String> controls = new ArrayList<String>();
 	
-	private List<Athlete> ranking = new ArrayList<Athlete>(); 
+	private List<Athlete> ranking = new ArrayList<Athlete>();
 
-	public Category(String name) {
+	public Category(Event event, String name) {
+		this.event = event;
 		this.name = name;
+	}
+	
+	public Event getEvent() {
+		return event;
 	}
 
 	public String getName() {
@@ -41,7 +47,7 @@ public class Category {
 		athlete.setCategory(this);
 	}
 
-	public Collection<Athlete> getAthletes() {
+	public List<Athlete> getAthletes() {
 		return ranking;
 	}
 

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="InboundChannel">
-   <implementation class="com.github.rasifix.trainings.integration.channel.SimpleSubscribableChannel"/>
-   <property name="com.github.rasifix.trainings.integration.channelName" type="String" value="inbound"/>
-   <service>
-      <provide interface="com.github.rasifix.trainings.integration.SubscribableChannel"/>
-      <provide interface="com.github.rasifix.trainings.integration.MessageChannel"/>
-   </service>
-</scr:component>

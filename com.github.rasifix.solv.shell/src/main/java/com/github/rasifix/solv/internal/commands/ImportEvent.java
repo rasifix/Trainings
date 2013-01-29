@@ -34,7 +34,7 @@ public class ImportEvent implements Command {
 	public Object execute(CommandContext context) throws Exception {
 		int year = Integer.parseInt(context.getArgument(0));
 		String title = context.getArgument(1);
-		return service.getEvent(year, title);
+		return service.queryEvent(year, title);
 	}
 
 }

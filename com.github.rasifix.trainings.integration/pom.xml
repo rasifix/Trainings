@@ -4,6 +4,7 @@
 		<artifactId>trainings-parent</artifactId>
 		<groupId>com.github.rasifix.trainings</groupId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../com.github.rasifix.trainings.parent/</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.rasifix.trainings</groupId>

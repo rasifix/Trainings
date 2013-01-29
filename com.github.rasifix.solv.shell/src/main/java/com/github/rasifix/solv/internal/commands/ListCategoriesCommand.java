@@ -1,25 +1,19 @@
-package com.github.rasifix.trainings.shell.internal.commands.solv;
+package com.github.rasifix.solv.internal.commands;
 
 import java.util.List;
 
 import jline.Completor;
 import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
+import com.github.rasifix.solv.Category;
+import com.github.rasifix.solv.Event;
 
 @Component
 public class ListCategoriesCommand implements Command {
 
 	private static final String NAME = "solv:categories";
-	
-	private ResultService service;
-	
-	@Reference
-	public void setService(ResultService service) {
-		this.service = service;
-	}
 
 	@Override
 	public String getName() {
@@ -33,20 +27,9 @@ public class ListCategoriesCommand implements Command {
 
 	@Override
 	public Object execute(final CommandContext context) throws Exception {
-		@SuppressWarnings("unchecked")
-		final List<Event> events = (List<Event>) context.get("solv:events");
+		Event event = (Event) context.getCurrent();
 		
-		if (events == null) {
-			return context.getCurrent();
-		}
-		
-		int eventIdx = Integer.parseInt(context.getArgument(0));
-		if (eventIdx > events.size()) {
-			return context.getCurrent();
-		}
-		
-		final Event event = events.get(eventIdx - 1);
-		List<Category> categories = service.listCategories(event);
+		List<Category> categories = event.getCategories();
 		for (int i = 0; i < categories.size(); i++) {
 			Category cat = categories.get(i);
 			System.out.println(String.format("%5s  %s", i + 1, cat.getName()));
@@ -54,7 +37,7 @@ public class ListCategoriesCommand implements Command {
 		
 		context.put("solv:categories", categories);
 		
-		return context.getCurrent();
+		return event;
 	}
 	
 }

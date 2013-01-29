@@ -4,6 +4,7 @@
 		<artifactId>trainings-parent</artifactId>
 		<groupId>com.github.rasifix.trainings</groupId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../com.github.rasifix.trainings.parent/</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.rasifix.trainings</groupId>
@@ -36,6 +37,13 @@
 		<dependency>
 			<groupId>com.github.rasifix</groupId>
 			<artifactId>saj</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.rasifix</groupId>
+			<artifactId>lazycouch</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>

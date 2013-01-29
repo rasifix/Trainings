@@ -6,7 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>../com.github.rasifix.lazycouch</module>
 		<module>../com.github.rasifix.trainings.core</module>
 		<module>../com.github.rasifix.trainings.integration</module>
 		<module>../com.github.rasifix.trainings.format.tcx</module>
@@ -15,11 +14,11 @@
 		<module>../com.github.rasifix.trainings.format.gpx</module>
 		<module>../com.github.rasifix.trainings.couchdb</module>
 		<module>../com.github.rasifix.trainings.ical</module>
-		<module>../com.github.rasifix.trainings.fileinbound</module>
 		<module>../com.github.rasifix.trainings.cli</module>
 		<module>../com.github.rasifix.trainings.geodeployer</module>
 		<module>../com.github.rasifix.osgi.application</module>
 		<module>../com.github.rasifix.osgi.launcher</module>
+		<module>../com.github.rasifix.osgi.shell</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -21,12 +21,12 @@ public class ShapeFileDeployer implements Deployer {
 	private ComponentContext context;
 
 	@Activate
-	public void activate(ComponentContext context) {
+	public void doActivate(ComponentContext context) {
 		this.context = context;
 	}
 	
 	@Deactivate
-	public void deactivate() {
+	public void doDeactivate() {
 		this.context = null;
 	}
 

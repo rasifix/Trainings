@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="ProcessorEngine">
-   <implementation class="com.github.rasifix.trainings.internal.processors.ProcessorEngine"/>
-   <service>
-      <provide interface="com.github.rasifix.trainings.integration.transformer.Transformer"/>
-   </service>
-   <property name="com.github.rasifix.trainings.transformer" type="String" value="processor"/>
-   <reference bind="addProcessor" cardinality="0..n" interface="com.github.rasifix.trainings.ActivityProcessor" name="ActivityProcessor" policy="dynamic" unbind="removeProcessor"/>
-</scr:component>
