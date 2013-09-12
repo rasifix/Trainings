@@ -2,6 +2,11 @@ function(doc, req) {
   var content = { };
   content.data = [];
   content.config = { };
+  
+  if (!doc.activity || !doc.activity.tracks) {
+    return { };
+  }
+  
   var track = doc.activity.tracks[0];
   for (idx in track.trackpoints) {
     var trackpoint = track.trackpoints[idx];
@@ -18,8 +23,8 @@ function(doc, req) {
 
   return {
     body : JSON.stringify(content),
-	headers : {
+	  headers : {
       "Content-Type" : "application/json",
-	}
+	  }
   }
 }

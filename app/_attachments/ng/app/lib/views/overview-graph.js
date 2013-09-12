@@ -18,6 +18,13 @@ Trainings.OverviewGraphView = Ember.View.extend({
 		var that = this;
 		var data = this.get("controller.content");
 		var div = document.getElementById("dashboard");
+		
+		var bardiv = document.createElement("div");
+		var scrolldiv = document.createElement("div");
+		
+		div.appendChild(bardiv);
+		div.appendChild(scrolldiv);
+		
 		var maxy = 0;
 
 		var sumrec = function(wrec) {
@@ -32,11 +39,16 @@ Trainings.OverviewGraphView = Ember.View.extend({
 		}
 
 		console.log("now we've got this far, let's have some fun");
-		console.log(div);
 		console.log(data);
 
+    // constants
+		var paperWidth = 940;
+		var paperHeight = 100;
+		var barWidth = 18;
+    var viewportWidth = paperWidth;
+    var viewportHeight = 100;
+		
 		var records = [];
-		var paper = new Raphael(div, 940, 100);
 		data.weeks.forEach(function(weekAndYear) {
 			var week = data[weekAndYear[0]][weekAndYear[1]];
 			var sum = sumrec(week);
@@ -44,9 +56,60 @@ Trainings.OverviewGraphView = Ember.View.extend({
 			week.year = weekAndYear[0];
 			records.push(week);
 		});
-
-		var width = Math.ceil(940 / records.length);
-		var height = 100;
+		
+		// transform from svg canvas x to model idx
+		var viewToModel = function(x) {
+		  return Math.ceil(x / barWidth);
+		};
+		
+		// transform from model idx + svg canvas x
+		var modelToView = function(idx) {
+		  return idx * barWidth;
+		};
+		
+		// drag the baby
+		$(bardiv).on("mousedown", function(e) {
+		  e.preventDefault();
+		  
+		  var startx = e.clientX;
+		  var initialViewBoxX = paper.canvas.viewBox.baseVal.x;
+		  var mousemove = function(e) {
+		    var dx = e.clientX - startx;
+		    paper.setViewBox(-dx + initialViewBoxX, 0, viewportWidth, viewportHeight, false);
+		    console.log(dx + " : " + paper.canvas.viewBox.baseVal.x);
+  		};
+  		var mouseup = function(e) {
+		    $(document).off("mousemove", mousemove);
+		    $(document).off("mouseup", mouseup);
+		    var dx = e.clientX - startx;
+		    paper.setViewBox(-dx + initialViewBoxX, 0, viewportWidth, viewportHeight, false);
+		  };
+		  $(document).on("mousemove", mousemove);
+		  $(document).on("mouseup", mouseup);
+		});
+		
+		// start overview diff
+		var scroller = new Raphael(scrolldiv, paperWidth, 30);
+		for (var y = 2008; y <= 2013; y++) {
+		  var width = paperWidth / (2013 - 2008 + 1);
+		  var r = scroller.rect((y - 2008) * width, 0, (y - 2008 + 1) * width, 30);
+		  r.attr({fill:"#e8e8e8", stroke:"none"});
+		  r.data("year", y);
+		  r.click(function(e) { console.log(this.data("year")); });
+		  
+		  scroller.text((y - 2008) * width + width / 2, 15, "" + y);
+		  
+		  if (y < 2013) {
+		    scroller.path("M" + (y - 2008 + 1) * width + ",0 L" + (y - 2008 + 1) * width + ",30");
+	    }
+		}
+		scroller.rect((2013 - 2008) * width, 0, (2013 - 2008 + 1) * width, 30).attr({fill:"orange",opacity:0.5,stroke:"none"});
+    
+		var paper = new Raphael(bardiv, paperWidth, paperHeight);
+		paper.setViewBox(-viewportWidth, 0, viewportWidth, viewportHeight);
+		
+		window.paper = paper;
+		
 		var colors = [ "#5F04B4", "#5FB404", "#FE642E", "#40A2FF", "#2066FF" ];
 
 		var time = function(wrec, sport) {
@@ -59,42 +122,42 @@ Trainings.OverviewGraphView = Ember.View.extend({
 
 		var rows = function(x, running, orienteering, cycling, mtb, mtbOrienteering, record) {
 			var y = 0;
-			var rect = paper.rect(x, y, width - 1, running / maxy * height);
-			rect.translate(0, height);
+			var rect = paper.rect(x, y, barWidth - 1, running / maxy * viewportHeight);
+			rect.translate(0, viewportHeight);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", colors[0]);
 			rect.attr("stroke", "none");
 
-			y += running / maxy * height;
-			rect = paper.rect(x, y, width - 1, orienteering / maxy * height);
-			rect.translate(0, height);
+			y += running / maxy * viewportHeight;
+			rect = paper.rect(x, y, barWidth - 1, orienteering / maxy * viewportHeight);
+			rect.translate(0, viewportHeight);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", colors[1]);
 			rect.attr("stroke", "none");
 
-			y += orienteering / maxy * height;
-			rect = paper.rect(x, y, width - 1, cycling / maxy * height);
-			rect.translate(0, height);
+			y += orienteering / maxy * viewportHeight;
+			rect = paper.rect(x, y, barWidth - 1, cycling / maxy * viewportHeight);
+			rect.translate(0, viewportHeight);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", colors[2]);
 			rect.attr("stroke", "none");
 
-			y += cycling / maxy * height;
-			rect = paper.rect(x, y, width - 1, mtb / maxy * height);
-			rect.translate(0, height);
+			y += cycling / maxy * viewportHeight;
+			rect = paper.rect(x, y, barWidth - 1, mtb / maxy * viewportHeight);
+			rect.translate(0, viewportHeight);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", colors[3]);
 			rect.attr("stroke", "none");
 
-			y += mtb / maxy * height;
-			rect = paper.rect(x, y, width - 1, mtbOrienteering / maxy * height);
-			rect.translate(0, height);
+			y += mtb / maxy * viewportHeight;
+			rect = paper.rect(x, y, barWidth - 1, mtbOrienteering / maxy * viewportHeight);
+			rect.translate(0, viewportHeight);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", colors[4]);
 			rect.attr("stroke", "none");
 
-			rect = paper.rect(x, 0, width, height);
-			rect.translate(0, height);
+			rect = paper.rect(x, 0, barWidth, viewportHeight);
+			rect.translate(0, viewportHeight);
 			rect.scale(1, -1, 0, 0);
 			rect.attr("fill", "white");
 			rect.attr("stroke", "none");
@@ -135,8 +198,8 @@ Trainings.OverviewGraphView = Ember.View.extend({
 			});
 		};
 
-		for (var i = 0; i < records.length; i++) {
-			var x = 940 - (records.length - i) * width;
+		for (var i = records.length - 1; i >= 0; i--) {
+			var x = -(records.length - i) * barWidth;
 			var running = time(records[i], "RUNNING");
 			var cycling = time(records[i], "CYCLING");
 			var orienteering = time(records[i], "ORIENTEERING");

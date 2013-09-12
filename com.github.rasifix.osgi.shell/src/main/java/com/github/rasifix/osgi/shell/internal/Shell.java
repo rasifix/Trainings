@@ -39,7 +39,11 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 	@Reference(unbind="unregisterCommand", dynamic=true, multiple=true, optional=true)
 	public void registerCommand(Command command) {
 		synchronized (commands) {
-			commands.put(command.getName(), command);
+			if (command.getName() == null) {
+				System.err.println("command does not have a name: " + command.getClass().getSimpleName());
+			} else {
+				commands.put(command.getName(), command);
+			}
 		}
 	}
 	

@@ -30,28 +30,30 @@ function(key,values,rereduce) {
   var cadencetime = 0;
 
   for (idx in values) {
-	var value = values[idx];
-	result.totalTime += value.totalTime;
-	result.distance += value.distance;
-	result.alt.min = Math.min(result.alt.min, value.alt.min);
-	result.alt.max = Math.max(result.alt.max, value.alt.max);
-	result.alt.gain += value.alt.gain;
-	result.alt.loss += value.alt.loss;
-	if (value.hr) {
-	  hr.avg += value.hr.avg * value.totalTime;
-	  hr.max = Math.max(hr.max, value.hr.max);
-	  hrtime += value.totalTime;
-	}
-	if (value.cadence) {
-	  cadence.avg += value.cadence.avg * value.totalTime;
-	  cadence.max = Math.max(cadence.max, value.cadence.max);
-	  cadencetime += value.totalTime;
-	}
-	if (value.count !== undefined) {
-	  result.count += value.count;
-	} else {
-	  result.count += 1;
-	}
+	  var value = values[idx];
+	  result.totalTime += value.totalTime;
+	  result.distance += value.distance;
+	  if (value.alt) {
+	    result.alt.min = Math.min(result.alt.min, value.alt.min);
+	    result.alt.max = Math.max(result.alt.max, value.alt.max);
+	    result.alt.gain += value.alt.gain;
+	    result.alt.loss += value.alt.loss;
+    }
+	  if (value.hr) {
+	    hr.avg += value.hr.avg * value.totalTime;
+	    hr.max = Math.max(hr.max, value.hr.max);
+	    hrtime += value.totalTime;
+	  }
+	  if (value.cadence) {
+	    cadence.avg += value.cadence.avg * value.totalTime;
+	    cadence.max = Math.max(cadence.max, value.cadence.max);
+	    cadencetime += value.totalTime;
+	  }
+	  if (value.count !== undefined) {
+	    result.count += value.count;
+	  } else {
+	    result.count += 1;
+	  }
   }
 
   if (result.totalTime != 0) {

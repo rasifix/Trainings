@@ -22,6 +22,8 @@ Trainings.Router = Ember.Router.extend({
     		now.setDate(now.getDate() - 52 * 7);
     		var startYear = now.getYearOfWeek();
     		var startWeek = now.getWeek();
+
+        startYear = 2005;
     		
         router.get('dashboardController').connectOutlet({
           outletName: 'overview',

@@ -1,6 +1,7 @@
 function(doc) {
-	if (doc.activity) {
+	if (doc.activity && doc.activity.summary) {
 		var date = doc.activity.date; 
-		emit([date.substring(0,4),date.substring(5,7),date.substring(8,10)], doc.activity.tracks[0].sport);
+		var sport = doc.activity.summary.sport.toUpperCase();
+		emit([date.substring(0,4),date.substring(5,7),date.substring(8,10)], sport);
 	}
 } 

@@ -1,7 +1,7 @@
 {
   "env" : {
     "default" : {
-      "db" : "http://localhost:5984/trainings"
+      "db" : "http://admin:jaguar52@localhost:5984/trainings"
     }
   }
 }

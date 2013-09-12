@@ -30,7 +30,7 @@ function(doc) {
 		  'startDate' : formatDate(startDate),
 		  'endDate' : formatDate(endDate),
 		  'sport' : doc.activity.sport,
-		  'location' : doc.activity.summary.places[0]
+		  'location' : doc.activity.summary.places ? doc.activity.summary.places[0] : null
 		};
 		emit(date.substring(0, 4) + date.substring(5, 7) + date.substring(8, 10) + date.substring(11, 13) + date.substring(14, 16) + date.substring(17, 19), value);
 	}
