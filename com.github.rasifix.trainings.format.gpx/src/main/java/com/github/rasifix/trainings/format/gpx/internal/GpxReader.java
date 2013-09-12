@@ -165,6 +165,11 @@ public class GpxReader implements ActivityReader {
 		String timeText = trk.getChildTextTrim("time", NS_GPX_1_1);
 		if (timeText != null && timeText.length() > 0) {
 			return parseTime(timeText);
+		} 
+		@SuppressWarnings("unchecked")
+		List<Element> trkpts = trk.getChild("trkseg", NS_GPX_1_1).getChildren("trkpt", NS_GPX_1_1);
+		if (!trkpts.isEmpty()) {
+			return parseTime(trkpts.get(0));
 		}
 		return new Date();
 	}

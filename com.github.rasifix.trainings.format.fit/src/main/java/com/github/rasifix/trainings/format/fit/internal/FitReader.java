@@ -105,7 +105,7 @@ public class FitReader implements ActivityReader {
 					while (it.hasNext()) {
 						Trackpoint next = it.next();
 						double distance = next.getAttribute(DistanceAttribute.class).getValue();
-						next.addAttribute(new DistanceAttribute(distance - startDistance - distanceCorrection));
+						next.addAttribute(new DistanceAttribute(distance - startDistance));
 					}
 					distanceCorrection += startDistance;
 				}

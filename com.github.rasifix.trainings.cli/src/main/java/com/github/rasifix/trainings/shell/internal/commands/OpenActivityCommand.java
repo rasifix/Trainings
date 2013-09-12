@@ -25,7 +25,7 @@ public class OpenActivityCommand implements Command {
 	@Override
 	public Object execute(CommandContext context) throws Exception {
 		String id = context.getArgument(0);
-		String url = "http://localhost:5984/trainings/_design/app/ng/index.html#activity:" + id;
+		String url = "http://localhost:5984/trainings/_design/app/ng/index.html#/activity/" + id;
 		ProcessBuilder builder = new ProcessBuilder("open", url);
 		builder.start();
 		return context.getCurrent();
