@@ -117,7 +117,7 @@ Trainings.ActivityController = Ember.ObjectController.extend({
 			fillGraph:false,
 			provider:function(curr, track, idx) { 
 				var windowSize = 15;
-				if (idx < windowSize || idx > track.trackpoints.length - windowSize) {
+				if (idx < windowSize || idx >= track.trackpoints.length - windowSize) {
 					return null;
 				}
 				var prev = track.trackpoints.get(idx - windowSize);

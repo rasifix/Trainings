@@ -38505,7 +38505,7 @@ Trainings.ActivitySummary.reopenClass({
 					data.rows.forEach(function(row) {
 						var year = row.key[0];
 						var week = row.key[1];
-						var sport = row.value.sport;
+						var sport = row.value.sport.toUpperCase();
 						var wrec = result[year][week];	
 						if (!wrec) {
 							console.log(year + "-" + week + "(**)");
