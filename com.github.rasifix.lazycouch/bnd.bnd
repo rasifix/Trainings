@@ -1,7 +1,7 @@
 -buildpath: com.github.rasifix.saj,\
-	org.apache.httpcomponents.httpclient,\
-	org.apache.httpcomponents.httpcore,\
-	biz.aQute.bnd.annotation
+	biz.aQute.bnd.annotation,\
+	org.apache.httpcomponents.httpclient;version=4.1,\
+	org.apache.httpcomponents.httpcore;version=4.1
 Private-Package: com.github.rasifix.lazycouch.internal
 Export-Package: com.github.rasifix.lazycouch
 Service-Component: com.github.rasifix.lazycouch.internal.*

@@ -58,6 +58,11 @@ public class ExportCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <format> <outfile>";
+	}
 
 	@Override
 	public Completor getCompletor() {

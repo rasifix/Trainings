@@ -29,6 +29,11 @@ public class ListEquipmentsCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME;
+	}
 
 	@Override
 	public Object execute(CommandContext context) throws Exception {

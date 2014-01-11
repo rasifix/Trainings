@@ -91,6 +91,11 @@ public class CommandCompletorTest {
 		}
 		
 		@Override
+		public String getUsage() {
+			return "no args";
+		}
+		
+		@Override
 		public String getName() {
 			return name;
 		}

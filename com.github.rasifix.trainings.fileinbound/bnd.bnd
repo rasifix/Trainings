@@ -1,5 +1,5 @@
 -buildpath: com.github.rasifix.trainings.integration;version=latest,\
-	osgi.cmpn
+	osgi.compendium
 Private-Package: com.github.rasifix.trainings.fileinbound,\
 	com.github.rasifix.trainings.fileinbound.fs,\
 	com.github.rasifix.trainings.fileinbound.fs.impl,\

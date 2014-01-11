@@ -38016,6 +38016,10 @@ Trainings.ActivityController = Ember.ObjectController.extend({
 			  name: 'time',
 			  value: Trainings.formatDuration(elapsed)
 			});
+			properties.pushObject({
+			  name: 'distance',
+			  value: trackpoint.distance
+			});
 			series.forEach(function(el) {
 			  properties.pushObject({
 			    name: el.name,

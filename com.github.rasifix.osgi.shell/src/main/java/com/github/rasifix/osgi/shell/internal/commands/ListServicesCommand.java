@@ -27,6 +27,11 @@ public class ListServicesCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <service-class>";
+	}
 
 	@Override
 	public Completor getCompletor() {

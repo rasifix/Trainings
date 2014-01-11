@@ -24,6 +24,11 @@ public class ImportEvent implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <year> <title>";
+	}
 
 	@Override
 	public Completor getCompletor() {

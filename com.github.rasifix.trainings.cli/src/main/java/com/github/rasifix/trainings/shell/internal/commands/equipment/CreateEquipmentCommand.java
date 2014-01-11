@@ -30,7 +30,17 @@ public class CreateEquipmentCommand implements Command {
 	}
 	
 	@Override
+	public String getUsage() {
+		return NAME + " <name> <brand> <date:yyyy-MM-dd";
+	}
+	
+	@Override
 	public Object execute(CommandContext context) throws Exception {
+		if (context.getArguments().length != 3) {
+			System.err.println(getUsage());
+			return context.getCurrent();
+		}
+		
 		String name = context.getArgument(0);
 		String brand = context.getArgument(1);
 		Date dateOfPurchase = new SimpleDateFormat("yyyy-MM-dd").parse(context.getArgument(2));

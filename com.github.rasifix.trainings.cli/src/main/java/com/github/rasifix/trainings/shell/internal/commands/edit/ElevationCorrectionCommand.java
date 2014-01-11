@@ -31,6 +31,11 @@ public class ElevationCorrectionCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " - corrects the elevation of the current activity";
+	}
 
 	@Override
 	public Completor getCompletor() {

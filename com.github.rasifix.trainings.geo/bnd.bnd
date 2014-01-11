@@ -1,7 +1,0 @@
--buildpath: com.github.rasifix.trainings.cli;version=latest,\
-	com.github.rasifix.osgi.shell;version=latest,\
-	com.springsource.jline,\
-	org.geotools,\
-	biz.aQute.bnd.annotation
-Service-Component: com.github.rasifix.trainings.geo.*
-Private-Package: com.github.rasifix.trainings.geo

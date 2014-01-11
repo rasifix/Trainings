@@ -15,6 +15,8 @@
  */
 package com.github.rasifix.trainings.format.json.internal;
 
+import aQute.bnd.annotation.component.Component;
+
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.format.Format;
@@ -22,6 +24,7 @@ import com.github.rasifix.trainings.format.json.JsonActivityReader;
 import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.integration.resource.Resource;
 
+@Component(properties={ "com.github.rasifix.trainings.format=json" })
 public class JsonFormat implements Format {
 
 	@Override

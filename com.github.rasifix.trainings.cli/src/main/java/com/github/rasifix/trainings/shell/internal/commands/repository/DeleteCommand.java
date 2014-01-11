@@ -28,6 +28,11 @@ public class DeleteCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <activity-id>";
+	}
 
 	@Override
 	public Completor getCompletor() {

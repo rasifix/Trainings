@@ -21,6 +21,11 @@ public class CutEndCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " - removes trackpoints at the end that do not have a position";
+	}
 
 	@Override
 	public Completor getCompletor() {

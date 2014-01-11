@@ -24,6 +24,11 @@ public class CreateActivityCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <date:yyyy-MM-dd HH:mm> <sport> <distance:[m]> <duration:HH:mm>";
+	}
 
 	@Override
 	public Completor getCompletor() {
@@ -32,6 +37,11 @@ public class CreateActivityCommand implements Command {
 
 	@Override
 	public Object execute(CommandContext context) throws Exception {
+		if (context.getArguments().length != 4) {
+			System.err.println(getUsage());
+			return context.getCurrent();
+		}
+		
 		Date date = parseDate(context.getArgument(0));
 		ActivityImpl activity = new ActivityImpl(date);
 		

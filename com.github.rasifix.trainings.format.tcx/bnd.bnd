@@ -1,9 +1,9 @@
 -buildpath: com.github.rasifix.trainings.core;version=latest,\
 	com.github.rasifix.trainings.integration;version=latest,\
-	com.springsource.org.jdom
+	com.springsource.org.jdom,\
+	biz.aQute.bnd.annotation
 Private-Package: com.github.rasifix.trainings.format.tcx.internal,\
 	com.github.rasifix.trainings.format.tcx.internal.model,\
 	com.github.rasifix.trainings.format.tcx.internal.processors
 Export-Package: com.github.rasifix.trainings.format.tcx
-Service-Component: OSGI-INF/*.xml
-Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
+Service-Component: com.github.rasifix.trainings.format.tcx.internal.*

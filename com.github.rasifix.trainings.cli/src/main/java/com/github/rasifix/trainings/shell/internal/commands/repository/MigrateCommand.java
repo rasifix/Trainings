@@ -31,6 +31,11 @@ public class MigrateCommand implements Command {
 	}
 	
 	@Override
+	public String getUsage() {
+		return NAME + " - migrate all activities by loading and storing them back to the repository";
+	}
+	
+	@Override
 	public Completor getCompletor() {
 		return new NullCompletor();
 	}

@@ -11,8 +11,6 @@ import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
-import com.github.rasifix.trainings.model.Trackpoint;
-import com.github.rasifix.trainings.model.attr.SpeedAttribute;
 
 @Component
 public class SummaryCommand implements Command {
@@ -21,6 +19,11 @@ public class SummaryCommand implements Command {
 	
 	@Override
 	public String getName() {
+		return NAME;
+	}
+	
+	@Override
+	public String getUsage() {
 		return NAME;
 	}
 
@@ -38,17 +41,6 @@ public class SummaryCommand implements Command {
 				System.out.println(format(track.getStartTime()) + " " + track.getSport());
 				System.out.println("total time     = " + track.getDuration());
 				System.out.println("total distance = " + track.getDistance());
-				int tpWithoutSpeed = 0;
-				for (Trackpoint trackpoint : track.getTrackpoints()) {
-					if (trackpoint.hasAttribute(SpeedAttribute.class)) {
-						SpeedAttribute speed = trackpoint.getAttribute(SpeedAttribute.class);
-						if (speed.getValue() < 0.1) {
-							tpWithoutSpeed += 1;
-//							System.out.println(trackpoint.getAttribute(DistanceAttribute.class).getValue());
-						}
-					}
-				}
-//				System.out.println("without speed = " + tpWithoutSpeed);
 			}
 		}
 		return current;

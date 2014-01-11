@@ -19,6 +19,8 @@ import com.github.rasifix.trainings.model.attr.PositionAttribute;
 @Component
 public class FrechetDistanceCommand implements Command {
 
+	private static final String NAME = "frechet";
+	
 	private ActivityRepository repository;
 	
 	@Reference
@@ -28,7 +30,12 @@ public class FrechetDistanceCommand implements Command {
 	
 	@Override
 	public String getName() {
-		return "frechet";
+		return NAME;
+	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <activity-id> <activity-id>";
 	}
 
 	@Override

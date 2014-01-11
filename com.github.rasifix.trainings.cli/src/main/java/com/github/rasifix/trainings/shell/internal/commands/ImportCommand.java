@@ -61,6 +61,14 @@ public class ImportCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(NAME).append(" <specfile> <files>+\n");
+		builder.append(NAME).append(" <file>");
+		return builder.toString();
+	}
 
 	@Override
 	public Completor getCompletor() {

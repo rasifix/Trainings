@@ -20,6 +20,11 @@ public class EditCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <sport>";
+	}
 
 	@Override
 	public Object execute(CommandContext context) {
@@ -28,7 +33,7 @@ public class EditCommand implements Command {
 			Activity activity = (Activity) current;
 			String[] arguments = context.getArguments();
 			if (arguments.length == 0) {
-				System.err.println("missing argument <sport>");
+				System.err.println(getUsage());
 				return current;
 			}
 			

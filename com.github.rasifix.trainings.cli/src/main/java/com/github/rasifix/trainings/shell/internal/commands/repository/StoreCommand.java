@@ -19,16 +19,25 @@ public class StoreCommand implements Command {
 	
 	private static final String NAME = "repo:store";
 
-	private ActivityRepository repository;
+	private volatile ActivityRepository repository;
 	
-	@Reference(dynamic=true)
-	public void setActivityRepository(ActivityRepository repository) {
+	@Reference(dynamic=true, unbind="removeActivityRepository")
+	public void addActivityRepository(ActivityRepository repository) {
 		this.repository = repository;
+	}
+	
+	public void removeActivityRepository(ActivityRepository repository) {
+		this.repository = null;
 	}
 	
 	@Override
 	public String getName() {
 		return NAME;
+	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " - stores the current activity in the repository";
 	}
 	
 	@Override

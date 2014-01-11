@@ -1,8 +1,8 @@
--buildpath: com.github.rasifix.saj
+-buildpath: com.github.rasifix.saj,\
+	biz.aQute.bnd.annotation
 Bundle-Version: 1.0.0
 Private-Package: com.github.rasifix.trainings.format.json.internal
 Export-Package: com.github.rasifix.trainings.format.json;version=1.0.0
-Service-Component: OSGI-INF/*.xml
-Include-Resource: OSGI-INF=src/main/resources/OSGI-INF
+Service-Component: com.github.rasifix.trainings.format.json.internal.*
 Import-Package: !org.junit,\
 	*

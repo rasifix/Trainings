@@ -27,6 +27,11 @@ public class ListEventsCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " [<year>]";
+	}
 
 	@Override
 	public Completor getCompletor() {

@@ -37,6 +37,11 @@ public class TotalsCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " [start-date|last|this] [week|month|year]";
+	}
 
 	@Override
 	public Completor getCompletor() {
@@ -52,7 +57,7 @@ public class TotalsCommand implements Command {
 		 */
 		
 		if (context.getArguments().length < 2) {
-			System.out.println("usage: repo:totals [start-date|last|this] [week|month|year]");
+			System.out.println(getUsage());
 			return context.getCurrent();
 		}
 		

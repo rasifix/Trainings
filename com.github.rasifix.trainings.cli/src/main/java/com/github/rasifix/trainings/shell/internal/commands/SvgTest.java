@@ -103,6 +103,11 @@ public class SvgTest implements Command {
 	public String getName() {
 		return "svg";
 	}
+	
+	@Override
+	public String getUsage() {
+		return "svg";
+	}
 
 	@Override
 	public Completor getCompletor() {

@@ -16,16 +16,25 @@ public class LoadCommand implements Command {
 
 	private static final String NAME = "repo:load";
 
-	private ActivityRepository repository;
+	private volatile ActivityRepository repository;
 	
-	@Reference(dynamic=true)
-	public void setRepository(ActivityRepository repository) {
+	@Reference(dynamic=true, unbind="removeRepository")
+	public void addRepository(ActivityRepository repository) {
 		this.repository = repository;
+	}
+	
+	public void removeRepository(ActivityRepository repository) {
+		this.repository = null;
 	}
 	
 	@Override
 	public String getName() {
 		return NAME;
+	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <activity-id>";
 	}
 
 	@Override

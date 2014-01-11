@@ -20,6 +20,11 @@ public class ListAthletesCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <category>";
+	}
 
 	@Override
 	public Completor getCompletor() {

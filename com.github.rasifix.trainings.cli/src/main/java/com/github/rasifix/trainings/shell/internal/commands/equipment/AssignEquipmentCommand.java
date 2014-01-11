@@ -27,6 +27,11 @@ public class AssignEquipmentCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME + " <equipment-id> - assign the specified equipment to the current activity";
+	}
 
 	@Override
 	public Completor getCompletor() {
@@ -36,6 +41,11 @@ public class AssignEquipmentCommand implements Command {
 	@Override
 	public Object execute(CommandContext context) throws Exception {
 		Activity activity = (Activity) context.getCurrent();
+		
+		if (context.getArguments().length != 1) {
+			System.err.println(getUsage());
+			return activity;
+		}
 		
 		String equipmentId = context.getArgument(0);
 		Equipment equipment = repository.getEquipment(equipmentId);

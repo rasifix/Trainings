@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import aQute.bnd.annotation.component.Component;
+
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.format.Format;
@@ -27,6 +29,7 @@ import com.github.rasifix.trainings.format.tcx.TcxActivityReader;
 import com.github.rasifix.trainings.format.tcx.TcxActivityWriter;
 import com.github.rasifix.trainings.integration.resource.Resource;
 
+@Component(properties={ "com.github.rasifix.trainings.format=tcx" })
 public class TcxFormat implements Format {
 
 	@Override

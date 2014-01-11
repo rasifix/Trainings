@@ -19,6 +19,11 @@ public class ListCategoriesCommand implements Command {
 	public String getName() {
 		return NAME;
 	}
+	
+	@Override
+	public String getUsage() {
+		return NAME;
+	}
 
 	@Override
 	public Completor getCompletor() {

@@ -22,6 +22,11 @@ public class ShortenCommand implements Command {
 	}
 	
 	@Override
+	public String getUsage() {
+		return NAME + " <position:end|start> <time:[s]>";
+	}
+	
+	@Override
 	public Completor getCompletor() {
 		return null;
 	}
@@ -29,6 +34,11 @@ public class ShortenCommand implements Command {
 	@Override
 	public Object execute(CommandContext context) throws Exception {
 		Activity activity = (Activity) context.getCurrent();
+		
+		if (context.getArguments().length != 2) {
+			System.err.println(getUsage());
+			return activity;
+		}
 		
 		String position = context.getArgument(0);
 		long millis = parseTime(context.getArgument(1)) * 1000L;

@@ -18,15 +18,24 @@ public class ICalEventCommand implements Command {
 
 	private static final String NAME = "ical:create";
 
-	private ActivityExporter exporter;
+	private volatile ActivityExporter exporter;
 	
-	@Reference(target="(exporter=ical)",dynamic=true)
-	public void setExporter(ActivityExporter icalExporter) {
+	@Reference(target="(exporter=ical)", unbind="removeExporter", dynamic=true)
+	public void addExporter(ActivityExporter icalExporter) {
 		this.exporter = icalExporter;
+	}
+	
+	public void removeExporter(ActivityExporter exporter) {
+		this.exporter = null;
 	}
 	
 	@Override
 	public String getName() {
+		return NAME;
+	}
+	
+	@Override
+	public String getUsage() {
 		return NAME;
 	}
 
