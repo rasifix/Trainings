@@ -99,9 +99,14 @@ public class TcxActivityReader implements ActivityReader {
 	}
 
 	private Date getDate(String value) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		try {
-			return format.parse(value);
+			if (value.length() == "yyyy-MM-ddTHH:mm:ssZ".length()) {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+				return format.parse(value);
+			} else {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+				return format.parse(value);
+			}
 		} catch (ParseException e) {
 			throw new IllegalArgumentException(e);
 		}

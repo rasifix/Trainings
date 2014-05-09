@@ -318,8 +318,13 @@ public class TcxReader {
 	}
 
 	private static Date parseTime(final String value) throws Exception {
-		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		return format.parse(value);
+		if (value.length() == "yyyy-MM-ddTHH:mm:ssZ".length()) {
+			final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+			return format.parse(value);
+		} else {
+			final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			return format.parse(value);
+		}
 	}
 	
 	private static String join(String first, String... paths) {
