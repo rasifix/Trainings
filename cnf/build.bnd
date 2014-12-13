@@ -18,7 +18,7 @@
 
 #-verbose:              true
 #project:               ${basedir}
-#src:                   src
+src=src/main/java
 #bin:                   bin
 #target-dir:            generated
 #target:                ${project}/${target-dir}
@@ -45,6 +45,8 @@
 # -plugin: ${ext.repositories.-plugin}, org.example.MyPlugin
 
 bin=target/classes
+testsrc=src/test/java
+testbin=target/classes
 
 ## If you use git, you might want to uncomment the following lines:
 # Git-Descriptor:       ${system-allow-fail;git describe --dirty --always}

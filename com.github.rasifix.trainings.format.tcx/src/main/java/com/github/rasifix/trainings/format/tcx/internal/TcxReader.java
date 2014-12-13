@@ -181,14 +181,16 @@ public class TcxReader {
 	}
 	
 	public TcxTrack readTrack(final Element trackEl) throws Exception {
-		final TcxTrack track = new TcxTrack();
-		for (final Element trackpointEl : getChildren(trackEl, TRACKPOINT)) {				
-			track.addTrackpoint(readTrackpoint(trackpointEl));
+		TcxTrackpoint trackpoint = null;
+		TcxTrack track = new TcxTrack();
+		for (Element trackpointEl : getChildren(trackEl, TRACKPOINT)) {				
+			trackpoint = readTrackpoint(trackpoint, trackpointEl);
+			track.addTrackpoint(trackpoint);
 		}
 		return track;
 	}
 
-	public TcxTrackpoint readTrackpoint(final Element trackpointEl) throws Exception {
+	protected TcxTrackpoint readTrackpoint(TcxTrackpoint previous, Element trackpointEl) throws Exception {
 		final TcxTrackpoint trackpoint = new TcxTrackpoint();
 		trackpoint.setTime(parseTime(getChild(trackpointEl, TIME).getText()));
 		
@@ -199,7 +201,18 @@ public class TcxReader {
 		}
 		
 		trackpoint.setHeartRate(parseInteger(trackpointEl, join(HEART_RATE_BPM, VALUE)));
-		trackpoint.setDistance(parseDouble(trackpointEl, DISTANCE_METERS));
+		
+		Double distance = parseDouble(trackpointEl, DISTANCE_METERS);
+		if (distance != null) {
+			trackpoint.setDistance(parseDouble(trackpointEl, DISTANCE_METERS));
+		} else if (previous == null) {
+			trackpoint.setDistance(Double.valueOf(0));
+		} else {
+			trackpoint.setDistance(
+					previous.getDistance() 
+					+ calculateDistance(previous.getPosition(), trackpoint.getPosition()));
+		}
+		
 		trackpoint.setAltitude(parseDouble(trackpointEl, ALTITUDE_METERS));
 		trackpoint.setBikeCadence(parseShort(trackpointEl, CADENCE));
 		trackpoint.setSensorState(parseSensorState(getChildText(trackpointEl, SENSOR_STATE)));
@@ -241,21 +254,27 @@ public class TcxReader {
 	}
 	
 	private static Double parseDouble(Element element, String path, Namespace namespace) {
-		final String[] steps = path.split("/");
-		
-		Element current = element;
-		for (final String step : steps) {
-			if (current == null) {
-				return null;
-			}
-			current = current.getChild(step, NAMESPACE);
-		}		
+		Element current = getDescendant(element, path);		
 		
 		if (current != null) {
 			return new Double(current.getTextTrim());
 		}
 		
 		return null;
+	}
+
+	private static Element getDescendant(Element element, String path) {
+		String[] steps = path.split("/");
+		
+		Element current = element;
+		for (final String step : steps) {
+			if (current == null) {
+				break;
+			}
+			current = current.getChild(step, NAMESPACE);
+		}
+		
+		return current;
 	}
 	
 	private static Short parseShort(Element element, String childElementName) {
@@ -274,15 +293,7 @@ public class TcxReader {
 	}
 	
 	private static Integer parseInteger(final Element element, final String path, final Namespace namespace) {
-		final String[] steps = path.split("/");
-		
-		Element current = element;
-		for (final String step : steps) {
-			if (current == null) {
-				return null;
-			}
-			current = current.getChild(step, NAMESPACE);
-		}		
+		Element current = getDescendant(element, path);		
 		
 		if (current != null) {
 			return new Integer(current.getTextTrim());
@@ -334,6 +345,21 @@ public class TcxReader {
 			builder.append(path);
 		}
 		return builder.toString();
+	}
+	
+	public static double calculateDistance(TcxPosition p1, TcxPosition p2) {
+		double radius = 6372797.560856; // mean earth radius
+		double lat1 = p1.getLatitude();
+		double lat2 = p2.getLatitude();
+		double lon1 = p1.getLongitude();
+		double lon2 = p2.getLongitude();
+		double dLat = Math.toRadians(lat2 - lat1);
+		double dLon = Math.toRadians(lon2 - lon1);
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(Math.toRadians(lat1))
+				* Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+				* Math.sin(dLon / 2);
+		return radius * 2 * Math.asin(Math.sqrt(a));
 	}
 	
 }
