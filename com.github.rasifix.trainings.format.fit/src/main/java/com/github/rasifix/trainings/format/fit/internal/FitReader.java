@@ -206,7 +206,8 @@ public class FitReader implements ActivityReader {
 
 		@Override
 		public void onMesg(RecordMesg mesg) {
-			state.record(this, mesg);
+			State next = state.record(this, mesg);
+			updateState(next, mesg.getTimestamp().getDate().getTime());
 		}
 		
 		private void updateState(State next, long timestamp) {
@@ -284,6 +285,7 @@ public class FitReader implements ActivityReader {
 		
 		@Override
 		public State startTimer(StateContext context, Long timestamp) {
+			System.out.println("TIMER STARTED!");
 			throw new IllegalStateException("timer already running");
 		}
 
@@ -321,9 +323,6 @@ public class FitReader implements ActivityReader {
 				trackpoint.addAttribute(new PowerAttribute(mesg.getAccumulatedPower().doubleValue()));
 			}
 			
-//			System.out.println("  temperature = " + mesg.getTemperature());
-//			System.out.println("  cycles      = " + mesg.getCycles());
-			
 			context.addTrackpoint(trackpoint);
 		
 			return this;
@@ -341,6 +340,7 @@ public class FitReader implements ActivityReader {
 
 		@Override
 		public State stopTimer(StateContext context, Long timestamp) {
+			System.out.println("TIMER STOPPED!");
 			return new StoppedState();
 		}
 		
@@ -360,12 +360,15 @@ public class FitReader implements ActivityReader {
 		
 		@Override
 		public State startTimer(StateContext context, Long timestamp) {
+			System.out.println("TIMER STARTED!");
 			return new RunningState();
 		}
 
 		@Override
 		public State record(StateContext context, RecordMesg mesg) {
-			throw new IllegalStateException("timer stopped");
+			//throw new IllegalStateException("timer stopped");
+			System.out.println("IMPLICIT START");
+			return new RunningState();
 		}
 
 		@Override
@@ -376,6 +379,7 @@ public class FitReader implements ActivityReader {
 
 		@Override
 		public State stopTimer(StateContext context, Long timestamp) {
+			System.out.println("TIMER STOPPED!");
 			throw new IllegalStateException("timer already stopped");
 		}
 		
