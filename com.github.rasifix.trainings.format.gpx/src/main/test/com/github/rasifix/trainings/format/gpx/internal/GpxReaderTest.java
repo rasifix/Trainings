@@ -1,6 +1,7 @@
 package com.github.rasifix.trainings.format.gpx.internal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
+import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
 
 public class GpxReaderTest {
 	
@@ -51,5 +53,28 @@ public class GpxReaderTest {
 	private Date date(String date) throws ParseException {
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
 	}
+
 	
+	@Test
+	public void testReadGpxTrackWithHr() throws Exception {
+		GpxReader reader = new GpxReader();
+		InputStream inputStream = getClass().getResourceAsStream("/com/github/rasifix/trainings/format/gpx/internal/gpx_with_hr.gpx");
+		List<Activity> activities = reader.readActivities(inputStream);
+		
+		assertEquals(1, activities.size());
+		
+		Activity activity = activities.get(0);
+		assertEquals(1, activity.getTrackCount());
+		
+		Track track = activity.getTrack(0);
+		assertEquals(1538, track.getTrackpointCount());
+		assertEquals(10751, track.getDistance());
+		assertEquals(1537, track.getDuration());
+		
+		Trackpoint trackpoint = track.getTrackpoint(0);
+		HeartRateAttribute hr = trackpoint.getAttribute(HeartRateAttribute.class);
+		assertNotNull(hr);
+		assertEquals(72, hr.getValue().intValue());
+	}
+
 }

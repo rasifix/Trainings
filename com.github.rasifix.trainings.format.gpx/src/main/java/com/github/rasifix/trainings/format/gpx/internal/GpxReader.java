@@ -30,11 +30,16 @@ import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
+import com.github.rasifix.trainings.model.attr.HeartRateAttribute;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
 
 public class GpxReader implements ActivityReader {
 
 	private static final Namespace NS_GPX_1_1 = Namespace.getNamespace("http://www.topografix.com/GPX/1/1");
+
+	private static final Namespace NS_GPX = Namespace.getNamespace("GPX");
+	
+	private static final Namespace NS_GPX_EXTENSIONS = Namespace.getNamespace("http://www.garmin.com/xmlschemas/TrackPointExtension/v1");
 	
 	private ElevationModel elevationModel;
 	
@@ -116,17 +121,27 @@ public class GpxReader implements ActivityReader {
 		Date startTime = parseTime(trk);
 		ActivityImpl activity = new ActivityImpl(startTime);
 		
+		String name = trk.getChildText("name", NS_GPX_1_1);
+		String sport = "unknown";
+		if (name != null) {
+			if (name.endsWith("Ride")) {
+				sport = "CYCLING";
+			} else if (name.endsWith("Run")) {
+				sport = "RUNNING";
+			}
+		}
+		
 		Position lastPosition = null;
 		double distance = 0;
 		double lastElevation = 0;
 		
 		Track track = new Track(startTime);
+		track.setSport(sport);
 		
 		Element trkseg = trk.getChild("trkseg", NS_GPX_1_1);
 		@SuppressWarnings("unchecked")
 		List<Element> trkpts = trkseg.getChildren("trkpt", NS_GPX_1_1);
 		for (Element trkpt : trkpts) {			
-			// <trkpt lat="47.015954000" lon="7.455408000"><ele>563.0</ele><time>2012-01-01T15:45:47Z</time></trkpt>
 			double latitude = Double.parseDouble(trkpt.getAttributeValue("lat"));
 			double longitude = Double.parseDouble(trkpt.getAttributeValue("lon"));
 			Position position = new Position(latitude, longitude);
@@ -150,6 +165,22 @@ public class GpxReader implements ActivityReader {
 				distance += measurement.getPointToPointDistance();
 				trackpoint.addAttribute(new DistanceAttribute(distance));
 			}
+			
+			Element extensions = trkpt.getChild("extensions", NS_GPX_1_1);
+			if (extensions != null) {
+				Element trackPointExtensions = fuzzyGetExtensionChild(extensions, "TrackPointExtension");
+				if (trackPointExtensions != null) {
+					Element hr = fuzzyGetExtensionChild(trackPointExtensions, "hr");
+					if (hr != null) {
+						try {
+							int bpm = Integer.parseInt(hr.getTextTrim());
+							trackpoint.addAttribute(new HeartRateAttribute(bpm));
+						} catch (NumberFormatException e) {
+							// ignore
+						}
+					}
+				}
+			}
 
 			track.addTrackpoint(trackpoint);
 			
@@ -159,6 +190,11 @@ public class GpxReader implements ActivityReader {
 		}
 		activity.addTrack(track);
 		return activity;
+	}
+
+	private Element fuzzyGetExtensionChild(Element parent, String name) {
+		Element child = parent.getChild(name, NS_GPX); 
+		return child != null ? child : parent.getChild(name, NS_GPX_EXTENSIONS);
 	}
 
 	private Date parseTime(Element trk) {
