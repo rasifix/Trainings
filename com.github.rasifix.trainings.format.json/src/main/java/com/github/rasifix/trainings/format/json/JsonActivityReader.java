@@ -24,10 +24,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.github.rasifix.saj.JsonReader;
-import com.github.rasifix.saj.dom.JsonArray;
-import com.github.rasifix.saj.dom.JsonModelBuilder;
-import com.github.rasifix.saj.dom.JsonObject;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.ActivityImpl;
@@ -52,21 +52,19 @@ public class JsonActivityReader implements ActivityReader {
 	}
 
 	public Activity readActivity(Reader reader) throws IOException {
-		JsonModelBuilder builder = new JsonModelBuilder();
-		JsonReader jsonReader = new JsonReader(builder);
-		jsonReader.parseJson(reader);
-		return readActivity((JsonObject) builder.getResult());
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode json = mapper.readTree(reader);
+		return readActivity((ObjectNode) json);
 	}
 	
 	public Activity readActivity(InputStream inputStream) throws IOException {
-		JsonModelBuilder builder = new JsonModelBuilder();
-		JsonReader reader = new JsonReader(builder);
-		reader.parseJson(inputStream);
-		return readActivity((JsonObject) builder.getResult());
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode json = mapper.readTree(inputStream);
+		return readActivity((ObjectNode) json);
 	}
 
-	public Activity readActivity(JsonObject json) {
-		String type = json.getString("type");
+	public Activity readActivity(ObjectNode json) {
+		String type = json.path("type").asText();
 		if ("training".equals(type)) {
 			return readSimpleActivity(json);
 		}
@@ -74,83 +72,79 @@ public class JsonActivityReader implements ActivityReader {
 			throw new IllegalArgumentException("json input is not an activity");
 		}
 		
-		String id = json.getString("_id");
-		String rev = json.getString("_rev");
+		String id = json.path("_id").asText();
+		String rev = json.path("_rev").asText();
 		
-		json = json.getObject("activity");
+		ObjectNode activityNode = (ObjectNode) json.get("activity");
 
-		Date startTime = parse(json.getString("date"));
+		Date startTime = parse(activityNode.path("date").asText());
 
 		ActivityImpl activity = new ActivityImpl(startTime);
 		activity.setId(id);
 		activity.setRevision(rev);
 
-		JsonArray equipments = json.getArray("equipments");
+		ArrayNode equipments = (ArrayNode) activityNode.path("equipments");
 		if (equipments != null) {
-			for (int i = 0; i < equipments.size(); i++) {
-				JsonObject jsonEquipment = equipments.getObject(i);
+			for (JsonNode jsonEquipment : equipments) {
 				Equipment equipment = new Equipment();
-				equipment.setId(jsonEquipment.getString("id"));
-				equipment.setName(jsonEquipment.getString("name"));
-				equipment.setBrand(jsonEquipment.getString("brand"));
-				equipment.setDateOfPurchase(parseDate(jsonEquipment.getString("dateOfPurchase")));
+				equipment.setId(jsonEquipment.path("id").asText());
+				equipment.setName(jsonEquipment.path("name").asText());
+				equipment.setBrand(jsonEquipment.path("brand").asText());
+				equipment.setDateOfPurchase(parseDate(jsonEquipment.path("dateOfPurchase").asText()));
 				activity.addEquipment(equipment);
 			}
 		}
 		
-		JsonArray tracks = json.getArray("tracks");
-		for (int i = 0; i < tracks.size(); i++) {
-			JsonObject jsonTrack = tracks.getObject(i);
-			Date trackStart = parse(jsonTrack.getString("startTime"));
+		ArrayNode tracks = (ArrayNode) activityNode.path("tracks");
+		for (JsonNode jsonTrack : tracks) {
+			Date trackStart = parse(jsonTrack.path("startTime").asText());
 
 			Track track = new Track(trackStart);
-			track.setSport(jsonTrack.getString("sport"));
+			track.setSport(jsonTrack.path("sport").asText());
 
-			JsonArray trackpoints = jsonTrack.getArray("trackpoints");
-			for (int j = 0; j < trackpoints.size(); j++) {
-				JsonObject jsonTrackpoint = trackpoints.getObject(j);
-
-				long elapsedTime = (long) jsonTrackpoint.getDouble("elapsed");
+			ArrayNode trackpoints = (ArrayNode) jsonTrack.path("trackpoints");
+			for (JsonNode jsonTrackpoint : trackpoints) {
+				long elapsedTime = (long) jsonTrackpoint.path("elapsed").asDouble();
 				Trackpoint trackpoint = new Trackpoint(elapsedTime);
 
-				if (jsonTrackpoint.containsKey("pos")) {
-					JsonObject jsonPos = jsonTrackpoint.getObject("pos");
+				if (jsonTrackpoint.has("pos")) {
+					JsonNode jsonPos = jsonTrackpoint.path("pos");
 					trackpoint.addAttribute(new PositionAttribute(jsonPos
-							.getDouble("lat"), jsonPos.getDouble("lng")));
+							.path("lat").asDouble(), jsonPos.path("lng").asDouble()));
 				}
 
-				if (jsonTrackpoint.containsKey("alt")) {
+				if (jsonTrackpoint.has("alt")) {
 					trackpoint.addAttribute(new AltitudeAttribute(
-							jsonTrackpoint.getDouble("alt")));
+							jsonTrackpoint.path("alt").asDouble()));
 				}
 
-				if (jsonTrackpoint.containsKey("hr")) {
+				if (jsonTrackpoint.has("hr")) {
 					trackpoint.addAttribute(new HeartRateAttribute(
-							jsonTrackpoint.getInt("hr")));
+							jsonTrackpoint.path("hr").asInt()));
 				}
 
-				if (jsonTrackpoint.containsKey("distance")) {
+				if (jsonTrackpoint.has("distance")) {
 					trackpoint.addAttribute(new DistanceAttribute(
-							jsonTrackpoint.getDouble("distance")));
+							jsonTrackpoint.path("distance").asDouble()));
 				}
 
-				if (jsonTrackpoint.containsKey("speed")) {
+				if (jsonTrackpoint.has("speed")) {
 					trackpoint.addAttribute(new SpeedAttribute(jsonTrackpoint
-							.getDouble("speed")));
+							.path("speed").asDouble()));
 				}
 
-				if (jsonTrackpoint.containsKey("power")) {
+				if (jsonTrackpoint.has("power")) {
 					trackpoint.addAttribute(new PowerAttribute(jsonTrackpoint
-							.getDouble("power")));
+							.path("power").asDouble()));
 				}
 
-				if (jsonTrackpoint.containsKey("cadence")) {
+				if (jsonTrackpoint.has("cadence")) {
 					trackpoint.addAttribute(new CadenceAttribute(jsonTrackpoint
-							.getInt("cadence")));
+							.path("cadence").asInt()));
 				}
 				
-				if (jsonTrackpoint.containsKey("place")) {
-					trackpoint.addAttribute(new PlaceNameAttribute(jsonTrackpoint.getString("place")));
+				if (jsonTrackpoint.has("place")) {
+					trackpoint.addAttribute(new PlaceNameAttribute(jsonTrackpoint.path("place").asText()));
 				}
 
 				track.addTrackpoint(trackpoint);
@@ -162,12 +156,12 @@ public class JsonActivityReader implements ActivityReader {
 		return activity;
 	}
 
-	private Activity readSimpleActivity(JsonObject json) {
-		String id = json.getString("id");
-		String sport = json.getString("sport");
-		int duration = json.getInt("duration");
-		int distance = json.getInt("distance");
-		Date startTime = parse(json.getString("date"));
+	private Activity readSimpleActivity(ObjectNode json) {
+		String id = json.path("id").asText();
+		String sport = json.path("sport").asText();
+		int duration = json.path("duration").asInt();
+		int distance = json.path("distance").asInt();
+		Date startTime = parse(json.path("date").asText());
 		
 		TracklessActivity activity = new TracklessActivity(startTime);
 		activity.setId(id);

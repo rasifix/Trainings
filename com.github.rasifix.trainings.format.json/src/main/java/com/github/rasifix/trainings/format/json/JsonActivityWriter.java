@@ -19,15 +19,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import com.github.rasifix.saj.JsonOutputHandler;
-import com.github.rasifix.saj.JsonWriter;
-import com.github.rasifix.saj.dom.JsonModelBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Equipment;
@@ -60,214 +60,204 @@ public class JsonActivityWriter implements ActivityWriter {
 		writeActivity(activity, writer);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> writeActivity(Activity activity) {
-		JsonModelBuilder builder = new JsonModelBuilder();
-		writeActivity(activity, builder);
-		return (Map<String, Object>) builder.getResult();
+	public ObjectNode writeActivity(Activity activity) {
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode node = mapper.createObjectNode();
+		writeActivity(activity, node, mapper);
+		return node;
 	}
 	
 	public void writeActivity(Activity activity, Writer out) throws IOException {
-		JsonWriter writer = new JsonWriter(out);
-		writer.setPrettyPrint(false);
-		writeActivity(activity, writer);
-		writer.close();
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode node = mapper.createObjectNode();
+		writeActivity(activity, node, mapper);
+		mapper.writeValue(out, node);
 	}
 	
-	protected void writeActivity(Activity activity, JsonOutputHandler writer) {
-		writer.startObject();
-		
-		writer.member("date", format(activity.getStartTime()));
+	protected void writeActivity(Activity activity, ObjectNode node, ObjectMapper mapper) {
+		node.put("date", format(activity.getStartTime()));
 		
 		if (activity.getSport() != null) {
-			writer.member("sport", activity.getSport().toUpperCase());
+			node.put("sport", activity.getSport().toUpperCase());
 		}
 		
-		outputSummary(writer, activity);
-		
-		writer.startMember("equipments");
-		outputEquipments(writer, activity.getEquipments());
-		writer.endMember();
-		
-		writer.startMember("tracks");
-		outputTracks(writer, activity.getTracks());
-		writer.endMember();
-		
-		writer.endObject();
+		node.set("summary", outputSummary(activity, mapper));
+		node.set("equipments", outputEquipments(activity.getEquipments(), mapper));		
+		node.set("tracks", outputTracks(activity.getTracks(), mapper));
 	}
 	
-	private void outputSummary(JsonOutputHandler writer, HasSummary summary) {
-		writer.startMember("summary");
-		writer.startObject();
+	private ObjectNode outputSummary(HasSummary summary, ObjectMapper mapper) {
+		ObjectNode node = mapper.createObjectNode();
 		
 		if (summary.getSport() != null) {
-			writer.member("sport", summary.getSport());
+			node.put("sport", summary.getSport());
 		}
 		
 		if (summary.getDuration() != 0) {
-			writer.member("totalTime", Math.round(summary.getDuration()));
+			node.put("totalTime", Math.round(summary.getDuration()));
 		}
 		
 		if (summary.getDistance() != 0) {
-			writer.member("distance", summary.getDistance());
+			node.put("distance", summary.getDistance());
 		}
 		
 		if (summary.getSpeed() != null) {
-			writer.member("speed", summary.getSpeed(), SPEED_PRECISION);
+			node.put("speed", format(summary.getSpeed(), SPEED_PRECISION));
 		}
 		
 		if (!summary.getPlaces().isEmpty()) {
-			writer.startMember("places");
-			writer.startArray();
+			ArrayNode places = mapper.createArrayNode();
 			for (String place : summary.getPlaces()) {
-				writer.value(place);
+				places.add(place);
 			}
-			writer.endArray();
-			writer.endMember();
+			node.set("places", places);
 		}
 
 		AvgMaxSummary hrSummary = summary.getSummary(HeartRateAttribute.getDefaultSummaryBuilder());
 		if (hrSummary != null) {
-			writer.startMember("hr");
-			writeAvgMaxSummary(writer, hrSummary);
-			writer.endMember();
+			node.set("hr", writeAvgMaxSummary(hrSummary, mapper));
 		}
 		
 		AvgMaxSummary cadenceSummary = summary.getSummary(CadenceAttribute.getDefaultSummaryBuilder());
 		if (cadenceSummary != null) {
-			writer.startMember("cadence");
-			writeAvgMaxSummary(writer, cadenceSummary);
-			writer.endMember();
+			node.set("cadence", writeAvgMaxSummary(cadenceSummary, mapper));
 		}
 		
 		AltitudeSummary altSummary = summary.getSummary(AltitudeAttribute.getDefaultSummaryBuilder());
 		if (altSummary != null) {
-			writer.startMember("alt");
-			outputAltitudeSummary(writer, altSummary);
-			writer.endMember();
+			node.set("alt", outputAltitudeSummary(altSummary, mapper));
 		}
-
-		writer.endObject();
-		writer.endMember();
+		
+		return node;
 	}
 
-	private void outputAltitudeSummary(JsonOutputHandler writer, AltitudeSummary altSummary) {
-		writer.startObject();
-		writer.member("min", altSummary.getMin());
-		writer.member("avg", altSummary.getAvg());
-		writer.member("max", altSummary.getMax());
-		writer.member("gain", altSummary.getAltGain());
-		writer.member("loss", altSummary.getAltLoss());
-		writer.member("start", altSummary.getStartAltitude());
-		writer.member("end", altSummary.getEndAltitude());
-		writer.endObject();
+	private ObjectNode outputAltitudeSummary(AltitudeSummary altSummary, ObjectMapper mapper) {
+		ObjectNode result = mapper.createObjectNode();
+		result.put("min", altSummary.getMin());
+		result.put("avg", altSummary.getAvg());
+		result.put("max", altSummary.getMax());
+		result.put("gain", altSummary.getAltGain());
+		result.put("loss", altSummary.getAltLoss());
+		result.put("start", altSummary.getStartAltitude());
+		result.put("end", altSummary.getEndAltitude());
+		return result;
 	}
 
-	private void writeAvgMaxSummary(JsonOutputHandler writer, AvgMaxSummary summary) {
-		writer.startObject();
-		writer.member("avg", summary.getAvg());
-		writer.member("max", summary.getMax());
-		writer.endObject();
+	private ObjectNode writeAvgMaxSummary(AvgMaxSummary summary, ObjectMapper mapper) {
+		ObjectNode result = mapper.createObjectNode();
+		result.put("avg", summary.getAvg());
+		result.put("max", summary.getMax());
+		return result;
 	}
 
-	private void outputEquipments(JsonOutputHandler writer, Collection<Equipment> equipments) {
-		writer.startArray();
+	private ArrayNode outputEquipments(Collection<Equipment> equipments, ObjectMapper mapper) {
+		ArrayNode result = mapper.createArrayNode();
 		for (Equipment equipment : equipments) {
-			writer.startObject();
-			writer.member("id", equipment.getId());
-			writer.member("name", equipment.getName());
-			writer.member("brand", equipment.getBrand());
-			writer.member("dateOfPurchase", formatDate(equipment.getDateOfPurchase()));
-			writer.endObject();
+			result.add(outputEquipment(equipment, mapper));
 		}
-		writer.endArray();
+		return result;
 	}
 	
-	private void outputTracks(final JsonOutputHandler writer, final List<Track> tracks) {
-		writer.startArray();
+	private ObjectNode outputEquipment(Equipment equipment, ObjectMapper mapper) {
+		ObjectNode result = mapper.createObjectNode();
+		result.put("id", equipment.getId());
+		result.put("name", equipment.getName());
+		result.put("brand", equipment.getBrand());
+		result.put("dateOfPurchase", formatDate(equipment.getDateOfPurchase()));
+		return result;
+	}
+	
+	private ArrayNode outputTracks(final List<Track> tracks, ObjectMapper mapper) {
+		ArrayNode result = mapper.createArrayNode();
 		
 		for (final Track track : tracks) {
-			output(writer, track);
+			result.add(outputTrack(track, mapper));
 		}
 		
-		writer.endArray();
+		return result;
 	}
 
-	private void output(final JsonOutputHandler writer, final Track track) {
-		writer.startObject();
+	private ObjectNode outputTrack(final Track track, ObjectMapper mapper) {
+		ObjectNode result = mapper.createObjectNode();
 		
-		writer.member("startTime", format(track.getStartTime()));
+		result.put("startTime", format(track.getStartTime()));
 		
 		if (track.getSport() != null) {
-			writer.member("sport", track.getSport());
+			result.put("sport", track.getSport());
 		}
 		
-		outputSummary(writer, track);
+		result.set("summary", outputSummary(track, mapper));
+		result.set("trackpoints", outputTrackpoints(track.getTrackpoints(), mapper));
 		
-		writer.startMember("trackpoints");
-		writer.startArray();
-		for (final Trackpoint trackpoint : track.getTrackpoints()) {
-			outputTrackpoint(writer, trackpoint);
+		return result;
+	}
+	
+	private ArrayNode outputTrackpoints(final List<Trackpoint> trackpoints, ObjectMapper mapper) {
+		ArrayNode result = mapper.createArrayNode();
+		for (final Trackpoint trackpoint : trackpoints) {
+			result.add(outputTrackpoint(trackpoint, mapper));
 		}
-		writer.endArray();
-		writer.endMember();
-		
-		writer.endObject();
+		return result;
 	}
 
-	private void outputTrackpoint(final JsonOutputHandler writer, final Trackpoint trackpoint) {
-		writer.startObject();
+	private ObjectNode outputTrackpoint(final Trackpoint trackpoint, ObjectMapper mapper) {
+		ObjectNode node = mapper.createObjectNode();
 		
-		writer.member("elapsed", trackpoint.getElapsedTime());
+		node.put("elapsed", trackpoint.getElapsedTime());
 		
 		if (trackpoint instanceof LapPoint) {
-			writer.member("type", "lappoint");
+			node.put("type", "lappoint");
 		}
 		
 		if (trackpoint.hasAttribute(PositionAttribute.class)) {
-			writer.startMember("pos");
-			writer.startObject();
-			writer.member("lat", trackpoint.getPosition().getLatitude(), LAT_LON_PRECISION);
-			writer.member("lng", trackpoint.getPosition().getLongitude(), LAT_LON_PRECISION);
-			writer.endObject();
-			writer.endMember();
+			ObjectNode positionNode = mapper.createObjectNode(); 
+			positionNode.put("lat", format(trackpoint.getPosition().getLatitude(), LAT_LON_PRECISION));
+			positionNode.put("lng", format(trackpoint.getPosition().getLongitude(), LAT_LON_PRECISION));
+			node.set("pos", positionNode);
 		}
 		
 		if (trackpoint.hasAttribute(AltitudeAttribute.class)) {
 			Double altitude = trackpoint.getAttribute(AltitudeAttribute.class).getValue();
-			writer.member("alt", altitude, ALTITUDE_PRECISION);
+			node.put("alt", format(altitude, ALTITUDE_PRECISION));
 		}
 		
 		if (trackpoint.hasAttribute(HeartRateAttribute.class)) {
-			writer.member("hr", trackpoint.getAttribute(HeartRateAttribute.class).getValue());
+			node.put("hr", trackpoint.getAttribute(HeartRateAttribute.class).getValue());
 		}
 		
 		if (trackpoint.hasAttribute(DistanceAttribute.class)) {
 			Double distance = trackpoint.getAttribute(DistanceAttribute.class).getValue();
-			writer.member("distance", distance, DISTANCE_PRECISION);
+			node.put("distance", format(distance, DISTANCE_PRECISION));
 		}
 		
 		if (trackpoint.hasAttribute(SpeedAttribute.class)) {
 			Double speed = trackpoint.getAttribute(SpeedAttribute.class).getValue();
-			writer.member("speed", speed, SPEED_PRECISION);
+			node.put("speed", format(speed, SPEED_PRECISION));
 		}
 		
 		if (trackpoint.hasAttribute(PowerAttribute.class)) {
 			Double power = trackpoint.getAttribute(PowerAttribute.class).getValue();
-			writer.member("power", power, POWER_PRECISION);
+			node.put("power", format(power, POWER_PRECISION));
 		}
 		
 		if (trackpoint.hasAttribute(CadenceAttribute.class)) {
 			Integer cadence = trackpoint.getAttribute(CadenceAttribute.class).getValue();
-			writer.member("cadence", cadence);
+			node.put("cadence", cadence);
 		}
 		
 		if (trackpoint.hasAttribute(PlaceNameAttribute.class)) {
 			String placeName = trackpoint.getAttribute(PlaceNameAttribute.class).getValue();
-			writer.member("place", placeName);
+			node.put("place", placeName);
 		}
 		
-		writer.endObject();
+		return node;
+	}
+	
+	private String format(double value, int fractionDigits) {
+		DecimalFormat format = new DecimalFormat();
+		format.setGroupingUsed(false);
+		format.setMaximumFractionDigits(fractionDigits);
+		return format.format(value);
 	}
 	
 	private String format(Date time) {
