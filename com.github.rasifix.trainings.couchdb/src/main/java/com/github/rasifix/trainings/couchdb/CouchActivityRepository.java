@@ -7,23 +7,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.osgi.service.component.ComponentContext;
 
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.github.rasifix.lazycouch.CouchDatabase;
 import com.github.rasifix.lazycouch.CouchQuery;
 import com.github.rasifix.lazycouch.CouchServer;
 import com.github.rasifix.lazycouch.Document;
 import com.github.rasifix.lazycouch.LazyCouchFactory;
 import com.github.rasifix.lazycouch.RowMapper;
-import com.github.rasifix.saj.dom.JsonModelBuilder;
-import com.github.rasifix.saj.dom.JsonObject;
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.ActivityKey;
 import com.github.rasifix.trainings.ActivityRepository;
@@ -32,6 +29,10 @@ import com.github.rasifix.trainings.format.json.JsonActivityReader;
 import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Equipment;
+
+import aQute.bnd.annotation.component.Activate;
+import aQute.bnd.annotation.component.Component;
+import aQute.bnd.annotation.component.Reference;
 
 @Component(properties={ "host=localhost", "port=5984" })
 public class CouchActivityRepository implements ActivityRepository, ActivityExporter, EquipmentRepository {
@@ -64,7 +65,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		CouchDatabase db = server.getDatabase("trainings");
 		Document doc = toDocument(activity);
 		db.put(doc);
-		return new CouchActivityKey(new URL("http", host, port, "/trainings"), doc.getString("_id"));
+		return new CouchActivityKey(new URL("http", host, port, "/trainings"), doc.getId());
 	}
 	
 	@Override
@@ -80,8 +81,8 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		return view.query(new RowMapper<ActivityOverview>() {
 			@Override
 			public ActivityOverview mapRow(String id, Object key, Object value) {
-				Date date = parseDate((String) key);
-				return new ActivityOverviewImpl(id, date, (JsonObject) value);
+				Date date = parseDate(((TextNode) key).asText());
+				return new ActivityOverviewImpl(id, date, (ObjectNode) value);
 			}
 		});
 	}
@@ -95,9 +96,9 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 
 		private final String id;
 		private final Date date;
-		private final JsonObject value;
+		private final ObjectNode value;
 
-		public ActivityOverviewImpl(String id, Date date, JsonObject value) {
+		public ActivityOverviewImpl(String id, Date date, ObjectNode value) {
 			this.id = id;
 			this.date = date;
 			this.value = value;
@@ -115,26 +116,26 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 
 		@Override
 		public String getSport() {
-			return value.getString("sport");
+			return value.path("sport").asText();
 		}
 
 		@Override
 		public long getDuration() {
-			return value.getInt("totalTime");
+			return value.path("totalTime").asInt();
 		}
 
 		@Override
 		public int getDistance() {
-			return (int) Math.round(value.getDouble("distance"));
+			return (int) Math.round(value.path("distance").asDouble());
 		}
 		
 		@Override
 		public Integer getAverageHeartRate() {
-			if (value.containsKey("avgHr")) {
-				return value.getInt("avgHr");
-			} else if (value.containsKey("hr")) {
-				JsonObject hr = value.getObject("hr");
-				return hr.getInt("avg");
+			if (value.has("avgHr")) {
+				return value.path("avgHr").asInt();
+			} else if (value.has("hr")) {
+				JsonNode hr = value.path("hr");
+				return hr.path("avg").asInt();
 			}
 			return null;
 		}
@@ -155,7 +156,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 
 	private Document toDocument(Activity activity) {
 		JsonActivityWriter writer = new JsonActivityWriter();
-		Map<String, Object> jsonActivity = writer.writeActivity(activity);
+		ObjectNode jsonActivity = writer.writeActivity(activity);
 		Document doc = new Document(generateUUID());
 		if (activity.getId() != null) {
 			doc.put("_id", activity.getId());
@@ -164,7 +165,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 			doc.put("_rev", activity.getRevision());
 		}
 		doc.put("type", "activity");
-		doc.put("activity", jsonActivity);
+		doc.set("activity", jsonActivity);
 		return doc;
 	}
 	
@@ -177,7 +178,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	
 	private Activity fromDocument(Document doc) {
 		JsonActivityReader reader = new JsonActivityReader();
-		return reader.readActivity(doc);
+		return reader.readActivity(doc.getNode());
 	}
 
 	private String generateUUID() {
@@ -228,8 +229,8 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		return view.query(new RowMapper<Equipment>() {
 			@Override
 			public Equipment mapRow(String id, Object key, Object value) {
-				JsonObject jsonObject = (JsonObject) value;
-				return parseEquipment(id, jsonObject.getString("_rev"), jsonObject);
+				ObjectNode jsonObject = (ObjectNode) value;
+				return parseEquipment(id, jsonObject.path("_rev").asText(), jsonObject);
 			}
 		});
 	}
@@ -244,40 +245,39 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 			document.put("_rev", equipment.getRevision());
 		}
 		
-		JsonModelBuilder builder = new JsonModelBuilder();
-		builder.startObject();
-		builder.member("name", equipment.getName());
-		builder.member("brand", equipment.getBrand());
-		builder.member("dateOfPurchase", format(equipment.getDateOfPurchase()));
-		builder.endObject();
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectNode node = mapper.createObjectNode();
+		node.put("name", equipment.getName());
+		node.put("brand", equipment.getBrand());
+		node.put("dateOfPurchase", format(equipment.getDateOfPurchase()));
 		
-		document.put("equipment", builder.getResult());
+		document.set("equipment", node);
 		
 		return document;
 	}
 	
 	private Equipment fromEquipmentDocument(Document document) {
-		String type = document.getString("type");
+		String type = document.path("type").asText();
 		if (!"equipment".equals(type)) {
 			throw new IllegalArgumentException("given document is not an equipment document");
 		}
 		
-		JsonObject jsonObject = document.getObject("equipment");
+		ObjectNode jsonObject = (ObjectNode) document.path("equipment");
 		
 		return parseEquipment(document.getId(), document.getRev(), jsonObject);
 	}
 
-	private Equipment parseEquipment(String id, String rev, JsonObject jsonObject) {
+	private Equipment parseEquipment(String id, String rev, ObjectNode jsonObject) {
 		Equipment equipment = new Equipment();
 		equipment.setId(id);
 		equipment.setRevision(rev);
 		
-		equipment.setName(jsonObject.getString("name"));
-		equipment.setBrand(jsonObject.getString("brand"));
+		equipment.setName(jsonObject.path("name").asText());
+		equipment.setBrand(jsonObject.path("brand").asText());
 		if (jsonObject.get("dateOfPurchase") != null) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-				equipment.setDateOfPurchase(format.parse(jsonObject.getString("dateOfPurchase")));
+				equipment.setDateOfPurchase(format.parse(jsonObject.path("dateOfPurchase").asText()));
 			} catch (ParseException e) {
 				throw new IllegalArgumentException("cannot parse date", e);
 			}

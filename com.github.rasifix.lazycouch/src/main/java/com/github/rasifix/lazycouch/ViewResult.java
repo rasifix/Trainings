@@ -4,23 +4,23 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.github.rasifix.saj.dom.JsonArray;
-import com.github.rasifix.saj.dom.JsonObject;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class ViewResult {
 	
-	private final JsonObject result;
+	private final ObjectNode result;
 
-	public ViewResult(JsonObject result) {
+	public ViewResult(ObjectNode result) {
 		this.result = result;
 	}
 	
 	public List<Row> getRows() {
 		List<Row> list = new LinkedList<ViewResult.Row>();
 		
-		JsonArray array = result.getArray("rows");
+		ArrayNode array = (ArrayNode) result.path("rows");
 		for (Object next : array) {
-			list.add(new Row((JsonObject) next));
+			list.add(new Row((ObjectNode) next));
 		}
 		
 		return list;
@@ -29,21 +29,22 @@ public class ViewResult {
 	public Collection<DocumentRevision> map(RowMapper<DocumentRevision> mapper) {
 		Collection<DocumentRevision> result = new LinkedList<DocumentRevision>();
 		for (Row row : getRows()) {
-			result.add(mapper.mapRow(row.getId(), row.getKey(), row.getValue()));
+			Object key = row.getKey();
+			result.add(mapper.mapRow(row.getId(), key, row.getValue()));
 		}
 		return result;
 	}
 	
 	public static class Row {
 
-		private final JsonObject row;
+		private final ObjectNode row;
 
-		Row(JsonObject row) {
+		Row(ObjectNode row) {
 			this.row = row;
 		}
 		
 		public String getId() {
-			return row.getString("id");
+			return row.path("id").asText();
 		}
 		
 		public Object getKey() {

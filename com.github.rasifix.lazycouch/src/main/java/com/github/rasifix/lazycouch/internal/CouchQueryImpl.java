@@ -18,12 +18,10 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.rasifix.lazycouch.CouchQuery;
 import com.github.rasifix.lazycouch.RowMapper;
-import com.github.rasifix.saj.JsonReader;
-import com.github.rasifix.saj.dom.JsonArray;
-import com.github.rasifix.saj.dom.JsonModelBuilder;
-import com.github.rasifix.saj.dom.JsonObject;
 
 class CouchQueryImpl implements CouchQuery {
 	
@@ -134,19 +132,16 @@ class CouchQueryImpl implements CouchQuery {
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
 			
-			JsonModelBuilder builder = new JsonModelBuilder();
-			JsonReader reader = new JsonReader(builder);
-			reader.parseJson(entity.getContent());
-			
-			JsonObject viewResult = (JsonObject) builder.getResult();
-			JsonArray rows = (JsonArray) viewResult.get("rows");
+			ObjectMapper objectMapper = new ObjectMapper();
+			JsonNode viewResult = objectMapper.readTree(entity.getContent());
+
+			JsonNode rows = viewResult.path("rows");
 
 			List<T> result = new LinkedList<T>();
-			for (Object row : rows) {
-				JsonObject rowObject = (JsonObject) row;
-				String id = rowObject.getString("id");
-				Object key = rowObject.get("key");
-				Object value = rowObject.get("value");
+			for (JsonNode row : rows) {
+				String id = row.path("id").asText();
+				JsonNode key = row.get("key");
+				JsonNode value = row.get("value");
 				result.add(mapper.mapRow(id, key, value));
 			}
 			return result;

@@ -1,10 +1,12 @@
--buildpath: com.github.rasifix.trainings.core;version=latest,\
-	com.github.rasifix.saj;version=latest,\
+-buildpath: \
+	com.github.rasifix.trainings.core;version=latest,\
 	com.github.rasifix.trainings.format.json;version=latest,\
 	com.github.rasifix.lazycouch;version=latest,\
 	osgi.cmpn,\
 	org.apache.httpcomponents.httpclient,\
 	org.apache.httpcomponents.httpcore,\
-	biz.aQute.bnd.annotation
+	biz.aQute.bnd.annotation,\
+	com.fasterxml.jackson.core.jackson-core;version=2.7,\
+	com.fasterxml.jackson.core.jackson-databind;version=2.7
 Export-Package: com.github.rasifix.trainings.couchdb
 Service-Component: com.github.rasifix.trainings.couchdb.*

@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -26,6 +27,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.rasifix.lazycouch.CouchDatabase;
 import com.github.rasifix.lazycouch.CouchQuery;
 import com.github.rasifix.lazycouch.Document;
@@ -34,10 +40,6 @@ import com.github.rasifix.lazycouch.NotFoundException;
 import com.github.rasifix.lazycouch.RowMapper;
 import com.github.rasifix.lazycouch.UpdateConflictException;
 import com.github.rasifix.lazycouch.ViewResult;
-import com.github.rasifix.saj.JsonReader;
-import com.github.rasifix.saj.JsonWriter;
-import com.github.rasifix.saj.dom.JsonModelBuilder;
-import com.github.rasifix.saj.dom.JsonObject;
 
 public class CouchDatabaseImpl implements CouchDatabase {
 
@@ -77,15 +79,15 @@ public class CouchDatabaseImpl implements CouchDatabase {
 			HttpResponse response = client.execute(request);
 			HttpEntity entity = response.getEntity();
 			
-			JsonModelBuilder builder = new JsonModelBuilder();
-			JsonReader reader = new JsonReader(builder);
-			reader.parseJson(entity.getContent());
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode result = mapper.readTree(entity.getContent());
 			
-			JsonObject result = (JsonObject) builder.getResult();
 			Document doc = new Document(id);
 			
-			for (Entry<String, Object> entry : result.entrySet()) {
-				doc.put(entry.getKey(), entry.getValue());
+			Iterator<Entry<String, JsonNode>> fields = result.fields();
+			while (fields.hasNext()) {
+				Entry<String, JsonNode> entry = fields.next();
+				doc.set(entry.getKey(), entry.getValue());
 			}
 			
 			return doc;
@@ -106,8 +108,8 @@ public class CouchDatabaseImpl implements CouchDatabase {
 			HttpEntity responseEntitity = response.getEntity();
 			if (responseEntitity != null) {
 				String responseString = EntityUtils.toString(responseEntitity);
-				JsonObject result = parseJson(responseString);
-				doc.put("_rev", result.getString("rev"));
+				JsonNode result = parseJson(responseString);
+				doc.put("_rev", result.path("rev").asText());
 			}
 			
 		} catch (UnsupportedEncodingException e) {
@@ -117,7 +119,7 @@ public class CouchDatabaseImpl implements CouchDatabase {
 		}
 	}
 
-	protected static JsonObject parseJson(HttpResponse response) throws IOException {
+	protected static JsonNode parseJson(HttpResponse response) throws IOException {
 		HttpEntity responseEntitity = response.getEntity();
 		if (responseEntitity != null) {
 			return parseJson(EntityUtils.toString(responseEntitity));
@@ -126,18 +128,19 @@ public class CouchDatabaseImpl implements CouchDatabase {
 		
 	}
 
-	private static JsonObject parseJson(String responseString) throws IOException {
-		JsonModelBuilder builder = new JsonModelBuilder();
-		JsonReader reader = new JsonReader(builder);
-		reader.parseJson(responseString);
-		return (JsonObject) builder.getResult();
+	private static ObjectNode parseJson(String responseString) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode result = mapper.readTree(responseString);
+		return (ObjectNode) result;
 	}
 
-	private String toString(Document doc) {
+	private String toString(Document doc) throws JsonGenerationException, JsonMappingException, IOException {
 		final StringWriter buffer = new StringWriter();
-		JsonWriter writer = new JsonWriter(buffer);
-		doc.streamTo(writer);
-		writer.close();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writer().writeValue(buffer, doc.getNode());
+		buffer.close();
+		
 		return buffer.toString();
 	}
 
@@ -193,7 +196,7 @@ public class CouchDatabaseImpl implements CouchDatabase {
 			return result.map(new RowMapper<DocumentRevision>() {
 				@Override
 				public DocumentRevision mapRow(String id, Object key, Object value) {
-					return new DocumentRevision(id, ((JsonObject) value).getString("rev"));
+					return new DocumentRevision(id, ((ObjectNode) value).path("rev").asText());
 				}
 			});
 		} catch (URISyntaxException e) {
