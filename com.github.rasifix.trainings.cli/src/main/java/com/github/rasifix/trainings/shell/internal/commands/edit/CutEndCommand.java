@@ -2,8 +2,7 @@ package com.github.rasifix.trainings.shell.internal.commands.edit;
 
 import java.util.ListIterator;
 
-import jline.Completor;
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
@@ -11,6 +10,8 @@ import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
+
+import jline.Completor;
 
 @Component
 public class CutEndCommand implements Command {

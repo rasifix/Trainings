@@ -1,9 +1,7 @@
 package com.github.rasifix.trainings.shell.internal.commands.edit;
 
-import jline.Completor;
-import jline.NullCompletor;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
@@ -14,6 +12,9 @@ import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.AltitudeAttribute;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
+
+import jline.Completor;
+import jline.NullCompletor;
 
 @Component
 public class ElevationCorrectionCommand implements Command {

@@ -25,6 +25,9 @@ public class ActivityOverviewDTO implements ActivityRepository.ActivityOverview 
 
 	@JsonProperty("type")
 	private String sport;
+	
+	@JsonProperty("gear_id")
+	private String gearId;
 
 	@JsonCreator
 	ActivityOverviewDTO(@JsonProperty("id") String id) {
@@ -46,7 +49,13 @@ public class ActivityOverviewDTO implements ActivityRepository.ActivityOverview 
 	}
 	
 	void setSport(String sport) {
-		this.sport = sport;
+		if ("Ride".equals(sport)) {
+			this.sport = "CYCLING";
+		} else if ("Run".equals(sport)) {
+			this.sport = "RUNNING";
+		} else {
+			this.sport = sport.toUpperCase();
+		}
 	}
 
 	@Override
@@ -75,6 +84,14 @@ public class ActivityOverviewDTO implements ActivityRepository.ActivityOverview 
 	@Override
 	public Integer getAverageHeartRate() {
 		return averageHr;
+	}
+	
+	public String getGearId() {
+		return gearId;
+	}
+	
+	public void setGearId(String gearId) {
+		this.gearId = gearId;
 	}
 	
 }

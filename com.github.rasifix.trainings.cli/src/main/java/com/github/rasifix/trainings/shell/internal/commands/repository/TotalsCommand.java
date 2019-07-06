@@ -11,15 +11,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import jline.Completor;
-import jline.NullCompletor;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.ActivityRepository;
 import com.github.rasifix.trainings.ActivityRepository.ActivityOverview;
+
+import jline.Completor;
+import jline.NullCompletor;
 
 @Component
 public class TotalsCommand implements Command {

@@ -17,7 +17,8 @@
 
 package com.garmin.fit.csv;
 
-import com.garmin.fit.*;
+import com.garmin.fit.SessionMesg;
+import com.garmin.fit.SessionMesgListener;
 
 public class SessionCSVWriter implements SessionMesgListener {
    private CSVWriter csv;

@@ -17,10 +17,17 @@
 
 package com.garmin.fit.csv;
 
-import com.garmin.fit.*;
-
 import java.util.Collection;
 import java.util.Iterator;
+
+import com.garmin.fit.Factory;
+import com.garmin.fit.Field;
+import com.garmin.fit.FieldDefinition;
+import com.garmin.fit.Fit;
+import com.garmin.fit.Mesg;
+import com.garmin.fit.MesgDefinition;
+import com.garmin.fit.MesgDefinitionListener;
+import com.garmin.fit.MesgListener;
 
 public class MesgCSVWriter implements MesgListener, MesgDefinitionListener {
    private CSVWriter csv;

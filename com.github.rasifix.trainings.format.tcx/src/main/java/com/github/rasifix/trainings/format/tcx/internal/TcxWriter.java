@@ -63,7 +63,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.Format;

@@ -17,7 +17,13 @@
 
 package com.garmin.fit.csv;
 
-import com.garmin.fit.*;
+import com.garmin.fit.DateTime;
+import com.garmin.fit.EventMesg;
+import com.garmin.fit.LeftRightBalance;
+import com.garmin.fit.MesgWithEvent;
+import com.garmin.fit.MesgWithEventListener;
+import com.garmin.fit.RecordMesg;
+import com.garmin.fit.RecordMesgListener;
 
 public class RecordCSVWriter implements MesgWithEventListener, RecordMesgListener {
    private CSVWriter csv;

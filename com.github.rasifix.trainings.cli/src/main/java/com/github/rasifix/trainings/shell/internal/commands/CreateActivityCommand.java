@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import jline.Completor;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
@@ -13,7 +13,7 @@ import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.DistanceAttribute;
 
-import aQute.bnd.annotation.component.Component;
+import jline.Completor;
 
 @Component
 public class CreateActivityCommand implements Command {

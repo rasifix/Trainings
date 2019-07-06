@@ -18,8 +18,8 @@
 package com.garmin.fit;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.util.List;
 

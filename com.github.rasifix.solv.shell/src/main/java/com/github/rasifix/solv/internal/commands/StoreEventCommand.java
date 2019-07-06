@@ -1,14 +1,15 @@
 package com.github.rasifix.solv.internal.commands;
 
-import jline.Completor;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.solv.Event;
 import com.github.rasifix.solv.EventKey;
 import com.github.rasifix.solv.EventRepository;
+
+import jline.Completor;
 
 @Component
 public class StoreEventCommand implements Command {

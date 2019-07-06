@@ -3,9 +3,8 @@ package com.github.rasifix.trainings.shell.internal.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import jline.Completor;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
@@ -15,6 +14,8 @@ import com.github.rasifix.trainings.model.Position;
 import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
+
+import jline.Completor;
 
 @Component
 public class FrechetDistanceCommand implements Command {

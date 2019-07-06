@@ -1,7 +1,9 @@
 -buildpath: com.github.rasifix.trainings.core;version=latest,\
 	com.github.rasifix.trainings.integration;version=latest,\
 	com.springsource.org.jdom,\
-	biz.aQute.bnd.annotation
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0
 Private-Package: com.github.rasifix.trainings.format.tcx.internal,\
 	com.github.rasifix.trainings.format.tcx.internal.model,\
 	com.github.rasifix.trainings.format.tcx.internal.processors

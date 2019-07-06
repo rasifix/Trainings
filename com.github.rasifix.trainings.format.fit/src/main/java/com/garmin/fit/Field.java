@@ -18,13 +18,13 @@
 package com.garmin.fit;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.DataInputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.io.OutputStreamWriter;
 
 public class Field {
    protected String name;

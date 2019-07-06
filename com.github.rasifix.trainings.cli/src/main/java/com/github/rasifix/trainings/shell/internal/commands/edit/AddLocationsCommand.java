@@ -3,10 +3,9 @@ package com.github.rasifix.trainings.shell.internal.commands.edit;
 import java.util.LinkedList;
 import java.util.List;
 
-import jline.Completor;
-import jline.NullCompletor;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
@@ -16,6 +15,9 @@ import com.github.rasifix.trainings.model.Track;
 import com.github.rasifix.trainings.model.Trackpoint;
 import com.github.rasifix.trainings.model.attr.PlaceNameAttribute;
 import com.github.rasifix.trainings.model.attr.PositionAttribute;
+
+import jline.Completor;
+import jline.NullCompletor;
 
 @Component
 public class AddLocationsCommand implements Command {
@@ -39,7 +41,7 @@ public class AddLocationsCommand implements Command {
 		return new NullCompletor();
 	}
 	
-	@Reference(unbind="removeLookup", multiple=true)
+	@Reference(unbind="removeLookup", cardinality=ReferenceCardinality.MULTIPLE)
 	public void addLookup(PlaceNameLookup lookup) {
 		synchronized (lookups) {
 			lookups.add(lookup);

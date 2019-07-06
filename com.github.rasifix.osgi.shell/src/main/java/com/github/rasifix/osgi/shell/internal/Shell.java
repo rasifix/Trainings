@@ -11,13 +11,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jline.ConsoleReader;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
 import com.github.rasifix.osgi.application.Application;
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
+
+import jline.ConsoleReader;
 
 @Component(properties={ "appid=shell" })
 public class Shell implements Application, CommandRegistry, CommandContext {
@@ -36,7 +39,7 @@ public class Shell implements Application, CommandRegistry, CommandContext {
 
 	private String wdir = ".";
 	
-	@Reference(unbind="unregisterCommand", dynamic=true, multiple=true, optional=true)
+	@Reference(unbind="unregisterCommand", cardinality=ReferenceCardinality.MULTIPLE, policy=ReferencePolicy.DYNAMIC)
 	public void registerCommand(Command command) {
 		synchronized (commands) {
 			if (command.getName() == null) {

@@ -17,7 +17,8 @@
 
 package com.garmin.fit.test;
 
-import com.garmin.fit.*;
+import com.garmin.fit.Mesg;
+import com.garmin.fit.MesgListener;
 
 public class FileIdTest implements Test, MesgListener {
    private String szError = "";

@@ -17,10 +17,20 @@
 
 package com.garmin.fit.examples;
 
-import com.garmin.fit.*;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
+
+import com.garmin.fit.Decode;
+import com.garmin.fit.File;
+import com.garmin.fit.FileIdMesg;
+import com.garmin.fit.FileIdMesgListener;
+import com.garmin.fit.Fit;
+import com.garmin.fit.FitRuntimeException;
+import com.garmin.fit.Gender;
+import com.garmin.fit.Manufacturer;
+import com.garmin.fit.MesgBroadcaster;
+import com.garmin.fit.UserProfileMesg;
+import com.garmin.fit.UserProfileMesgListener;
 
 public class DecodeExample {
    private static class Listener implements FileIdMesgListener, UserProfileMesgListener {

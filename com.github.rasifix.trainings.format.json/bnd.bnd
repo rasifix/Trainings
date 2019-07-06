@@ -1,8 +1,10 @@
 -buildpath: \
-	biz.aQute.bnd.annotation,\
 	com.github.rasifix.trainings.integration;version=latest,\
 	com.fasterxml.jackson.core.jackson-databind;version=2.7,\
-	com.fasterxml.jackson.core.jackson-core;version=2.7
+	com.fasterxml.jackson.core.jackson-core;version=2.7,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0
 Bundle-Version: 1.0.0
 Private-Package: com.github.rasifix.trainings.format.json.internal
 Export-Package: com.github.rasifix.trainings.format.json;version=1.0.0

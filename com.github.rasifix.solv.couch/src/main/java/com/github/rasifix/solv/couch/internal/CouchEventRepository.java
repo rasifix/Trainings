@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.osgi.service.component.ComponentContext;
-
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.github.rasifix.lazycouch.CouchDatabase;
 import com.github.rasifix.lazycouch.CouchServer;
@@ -54,7 +53,7 @@ public class CouchEventRepository implements EventRepository {
 		Map<String, Object> jsonEvent = writer.writeEvent(event);
 		Document doc = new Document(generateUUID());
 		doc.put("type", "orienteering.event");
-		doc.put("event", jsonEvent);
+		doc.set("event", jsonEvent);
 		return doc;
 	}
 

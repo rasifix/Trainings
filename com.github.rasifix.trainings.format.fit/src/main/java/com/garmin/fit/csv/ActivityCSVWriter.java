@@ -17,7 +17,8 @@
 
 package com.garmin.fit.csv;
 
-import com.garmin.fit.*;
+import com.garmin.fit.ActivityMesg;
+import com.garmin.fit.ActivityMesgListener;
 
 public class ActivityCSVWriter implements ActivityMesgListener {
    private CSVWriter csv;

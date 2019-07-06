@@ -2,8 +2,12 @@ Private-Package: com.github.rasifix.trainings.format.fit.internal,\
 	com.garmin.fit.csv,\
 	com.garmin.fit.examples,\
 	com.garmin.fit.test
--buildpath: com.github.rasifix.trainings.core;version=latest,\
-	biz.aQute.bnd.annotation
+-buildpath: \
+	com.github.rasifix.trainings.core;version=latest,\
+	com.github.rasifix.trainings.integration;version=latest,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0
 Service-Component: com.github.rasifix.trainings.format.fit.internal.*
 Export-Package: com.garmin.fit
 Import-Package: !org.junit*,\

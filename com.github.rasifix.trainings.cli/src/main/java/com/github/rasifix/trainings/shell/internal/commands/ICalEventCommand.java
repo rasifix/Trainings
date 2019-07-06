@@ -3,15 +3,18 @@ package com.github.rasifix.trainings.shell.internal.commands;
 import java.io.IOException;
 import java.net.URL;
 
-import jline.Completor;
-import jline.NullCompletor;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.ActivityExporter;
 import com.github.rasifix.trainings.model.Activity;
+
+import jline.Completor;
+import jline.NullCompletor;
 
 @Component
 public class ICalEventCommand implements Command {
@@ -20,7 +23,7 @@ public class ICalEventCommand implements Command {
 
 	private volatile ActivityExporter exporter;
 	
-	@Reference(target="(exporter=ical)", unbind="removeExporter", dynamic=true)
+	@Reference(target="(exporter=ical)", unbind="removeExporter", policy=ReferencePolicy.DYNAMIC)
 	public void addExporter(ActivityExporter icalExporter) {
 		this.exporter = icalExporter;
 	}

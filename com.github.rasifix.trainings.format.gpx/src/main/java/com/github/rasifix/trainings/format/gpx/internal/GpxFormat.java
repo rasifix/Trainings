@@ -2,7 +2,7 @@ package com.github.rasifix.trainings.format.gpx.internal;
 
 import java.io.IOException;
 
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.format.ActivityWriter;

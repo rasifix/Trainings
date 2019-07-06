@@ -17,11 +17,12 @@
 
 package com.garmin.fit.test;
 
-import com.garmin.fit.*;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import com.garmin.fit.Decode;
+import com.garmin.fit.Fit;
 
 public class TestTool {
    public static void main(String args[]) {

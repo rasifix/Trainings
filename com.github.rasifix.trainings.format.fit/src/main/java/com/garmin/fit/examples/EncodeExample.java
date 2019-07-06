@@ -17,7 +17,10 @@
 
 package com.garmin.fit.examples;
 
-import com.garmin.fit.*;
+import com.garmin.fit.FileEncoder;
+import com.garmin.fit.FileIdMesg;
+import com.garmin.fit.FitRuntimeException;
+import com.garmin.fit.Manufacturer;
 
 public class EncodeExample {
    public static void main(String[] args) {

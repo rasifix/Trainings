@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.format.ActivityWriter;

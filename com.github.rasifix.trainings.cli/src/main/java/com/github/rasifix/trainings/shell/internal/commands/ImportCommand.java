@@ -10,16 +10,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import jline.ArgumentCompletor;
-import jline.Completor;
-import jline.FileNameCompletor;
-
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
-
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
@@ -27,6 +24,10 @@ import com.github.rasifix.trainings.format.Format;
 import com.github.rasifix.trainings.integration.resource.FileResource;
 import com.github.rasifix.trainings.integration.resource.Resource;
 import com.github.rasifix.trainings.model.Activity;
+
+import jline.ArgumentCompletor;
+import jline.Completor;
+import jline.FileNameCompletor;
 
 @Component
 public class ImportCommand implements Command {
@@ -42,7 +43,7 @@ public class ImportCommand implements Command {
 		this.context = context;
 	}
 	
-	@Reference(service=Format.class, unbind="removeFormat", dynamic=true, multiple=true)
+	@Reference(service=Format.class, unbind="removeFormat", cardinality=ReferenceCardinality.MULTIPLE, policy=ReferencePolicy.DYNAMIC)
 	public void addFormat(ServiceReference format) {
 		String id = (String) format.getProperty("com.github.rasifix.trainings.format");
 		synchronized (formats) {

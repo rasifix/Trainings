@@ -17,9 +17,9 @@
 
 package com.garmin.fit;
 
-import java.util.ArrayList;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Decodes binary to java objects.

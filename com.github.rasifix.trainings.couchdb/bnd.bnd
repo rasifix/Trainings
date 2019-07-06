@@ -2,10 +2,11 @@
 	com.github.rasifix.trainings.core;version=latest,\
 	com.github.rasifix.trainings.format.json;version=latest,\
 	com.github.rasifix.lazycouch;version=latest,\
-	osgi.cmpn,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0,\
 	org.apache.httpcomponents.httpclient,\
 	org.apache.httpcomponents.httpcore,\
-	biz.aQute.bnd.annotation,\
 	com.fasterxml.jackson.core.jackson-core;version=2.7,\
 	com.fasterxml.jackson.core.jackson-databind;version=2.7
 Export-Package: com.github.rasifix.trainings.couchdb

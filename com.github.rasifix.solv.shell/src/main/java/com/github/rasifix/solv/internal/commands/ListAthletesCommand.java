@@ -2,14 +2,15 @@ package com.github.rasifix.solv.internal.commands;
 
 import java.util.List;
 
-import jline.Completor;
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.solv.Athlete;
 import com.github.rasifix.solv.Category;
 import com.github.rasifix.solv.Event;
+
+import jline.Completor;
 
 @Component
 public class ListAthletesCommand implements Command {

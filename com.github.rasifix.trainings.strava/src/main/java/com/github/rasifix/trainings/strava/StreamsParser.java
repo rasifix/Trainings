@@ -35,7 +35,7 @@ public class StreamsParser {
 		Track track = new Track(startTime);
 		int count = streams.get(Type.time).size();
 		for (int i = 0; i < count; i++) {
-			long elapsedTime = streams.get(Type.time).get(i).asLong();
+			long elapsedTime = streams.get(Type.time).get(i).asLong() * 1000;
 			Trackpoint trackpoint = new Trackpoint(elapsedTime);
 			
 			if (streams.containsKey(Type.distance)) {
@@ -60,7 +60,7 @@ public class StreamsParser {
 			}
 			
 			if (streams.containsKey(Type.cadence)) {
-				int cadence = streams.get(Type.heartrate).get(i).asInt();
+				int cadence = streams.get(Type.cadence).get(i).asInt();
 				trackpoint.addAttribute(new CadenceAttribute(cadence));
 			}
 			

@@ -5,10 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.osgi.service.component.ComponentContext;
-
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Deactivate;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 
 import com.github.rasifix.osgi.application.Deployer;
 import com.github.rasifix.trainings.ElevationModel;
@@ -17,7 +16,7 @@ import com.github.rasifix.trainings.ElevationModel;
 public class GeoDeployer implements Deployer {
 
 	private ComponentContext context;
-
+	
 	@Activate
 	public void doActivate(ComponentContext context) {
 		System.out.println("activating GeoDeployer");
@@ -36,9 +35,8 @@ public class GeoDeployer implements Deployer {
 
 	@Override
 	public void deploy(File file) throws IOException {
-		try {
+		try {			
 			System.out.println("deploying ElevationModel from " + file.getName());
-			System.out.println("context = " + context);
 			// TODO: make transformation generally applicable
 			ArcGridElevationModel elevationModel = new ArcGridElevationModel(new FileInputStream(file));
 			TransformingElevationModel transformingModel = new TransformingElevationModel(elevationModel);

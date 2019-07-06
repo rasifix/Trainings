@@ -1,16 +1,15 @@
 package com.github.rasifix.osgi.shell.internal.commands;
 
-import jline.Completor;
-import jline.NullCompletor;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
-
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
+
+import jline.Completor;
+import jline.NullCompletor;
 
 @Component
 public class ListServicesCommand implements Command {
@@ -41,12 +40,12 @@ public class ListServicesCommand implements Command {
 	@Override
 	public Object execute(CommandContext context) throws Exception {
 		String serviceClass = context.getArguments().length == 0 ? null : context.getArguments()[0];
-		ServiceReference[] references = this.context.getBundleContext().getAllServiceReferences(serviceClass, null);
+		ServiceReference<?>[] references = this.context.getBundleContext().getAllServiceReferences(serviceClass, null);
 		if (references == null) {
 			return context.getCurrent();
 		}
 		
-		for (ServiceReference reference : references) {
+		for (ServiceReference<?> reference : references) {
 			Long serviceId = (Long) reference.getProperty("service.id");
 			String[] objectClass = (String[]) reference.getProperty("objectClass");
 			

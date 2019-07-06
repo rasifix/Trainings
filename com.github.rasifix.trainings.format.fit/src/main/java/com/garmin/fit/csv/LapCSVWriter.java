@@ -17,7 +17,8 @@
 
 package com.garmin.fit.csv;
 
-import com.garmin.fit.*;
+import com.garmin.fit.LapMesg;
+import com.garmin.fit.LapMesgListener;
 
 public class LapCSVWriter implements LapMesgListener {
    private CSVWriter csv;

@@ -3,13 +3,14 @@ package com.github.rasifix.trainings.shell.internal.commands;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
-import jline.Completor;
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.integration.resource.FileResource;
 import com.github.rasifix.trainings.model.Activity;
+
+import jline.Completor;
 
 @Component
 public class MoveCommand implements Command {

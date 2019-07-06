@@ -1,15 +1,16 @@
 package com.github.rasifix.trainings.shell.internal.commands.edit;
 
-import jline.ArgumentCompletor;
-import jline.Completor;
-import jline.NullCompletor;
-import jline.SimpleCompletor;
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
+
+import jline.ArgumentCompletor;
+import jline.Completor;
+import jline.NullCompletor;
+import jline.SimpleCompletor;
 
 @Component
 public class EditCommand implements Command {

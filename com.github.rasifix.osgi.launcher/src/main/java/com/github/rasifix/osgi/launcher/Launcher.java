@@ -62,6 +62,7 @@ public class Launcher {
 		final Map<String, String> config = new HashMap<String, String>();
 		config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "com.github.rasifix.osgi.application; version=1.0.0");
 		config.put("felix.log.level", "3");
+		config.put("felix.cm.dir", "config");
 		
 		Framework framework = getFrameworkFactory().newFramework(config);
 		framework.init();

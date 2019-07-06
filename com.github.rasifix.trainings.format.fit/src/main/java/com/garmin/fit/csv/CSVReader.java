@@ -18,12 +18,21 @@
 package com.garmin.fit.csv;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
-import com.garmin.fit.*;
+
+import com.garmin.fit.Factory;
+import com.garmin.fit.Field;
+import com.garmin.fit.FieldDefinition;
+import com.garmin.fit.Fit;
+import com.garmin.fit.Mesg;
+import com.garmin.fit.MesgDefinition;
+import com.garmin.fit.MesgDefinitionListener;
+import com.garmin.fit.MesgListener;
+import com.garmin.fit.MesgNum;
 
 public class CSVReader {
    private static final Pattern csvPattern = Pattern.compile("\"([^\"]+?)\",?|([^,]+),?|,");

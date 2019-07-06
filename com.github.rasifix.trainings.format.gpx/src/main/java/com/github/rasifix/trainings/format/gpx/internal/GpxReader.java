@@ -18,8 +18,8 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
-
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
 
 import com.github.rasifix.trainings.ElevationModel;
 import com.github.rasifix.trainings.format.ActivityReader;
@@ -43,7 +43,7 @@ public class GpxReader implements ActivityReader {
 	
 	private ElevationModel elevationModel;
 	
-	@Reference(optional=true)
+	@Reference(cardinality=ReferenceCardinality.OPTIONAL)
 	public void setElevationModel(ElevationModel elevationModel) {
 		this.elevationModel = elevationModel;
 	}

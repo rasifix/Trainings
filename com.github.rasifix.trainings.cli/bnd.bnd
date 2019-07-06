@@ -1,18 +1,19 @@
--buildpath: com.github.rasifix.lazycouch;version=latest,\
+-buildpath: \
+	com.github.rasifix.lazycouch;version=latest,\
 	com.github.rasifix.trainings.format.fit;version=latest,\
 	com.github.rasifix.osgi.shell;version=latest,\
 	com.springsource.jline,\
 	junit.osgi,\
-	biz.aQute.bnd.annotation,\
 	org.apache.httpcomponents.httpclient,\
 	org.apache.httpcomponents.httpcore,\
-	osgi.cmpn,\
-	osgi.core,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0,\
 	com.springsource.org.cyberneko.html,\
 	com.springsource.org.apache.xerces,\
 	com.springsource.org.jdom,\
-	groovy-all,\
-	com.github.rasifix.saj
+	com.github.rasifix.trainings.core;version=latest,\
+	com.github.rasifix.trainings.integration;version=latest
 Private-Package: com.github.rasifix.trainings.shell.internal.commands,\
 	com.github.rasifix.trainings.shell.internal.commands.edit,\
 	com.github.rasifix.trainings.shell.internal.commands.repository,\

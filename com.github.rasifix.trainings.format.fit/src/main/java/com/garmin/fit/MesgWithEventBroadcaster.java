@@ -17,8 +17,8 @@
 
 package com.garmin.fit;
 
-import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MesgWithEventBroadcaster implements MesgWithEventListener {
    private int MAX_GROUPS = 256;

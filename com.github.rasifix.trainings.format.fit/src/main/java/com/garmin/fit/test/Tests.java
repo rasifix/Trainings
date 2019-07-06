@@ -17,10 +17,11 @@
 
 package com.garmin.fit.test;
 
-import com.garmin.fit.*;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import com.garmin.fit.MesgBroadcaster;
 
 
 public class Tests {

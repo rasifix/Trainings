@@ -15,7 +15,7 @@
  */
 package com.github.rasifix.trainings.format.json.internal;
 
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.trainings.format.ActivityReader;
 import com.github.rasifix.trainings.format.ActivityWriter;

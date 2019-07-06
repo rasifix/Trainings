@@ -17,8 +17,11 @@
 
 package com.garmin.fit.test;
 
-import com.garmin.fit.*;
 import java.util.ArrayList;
+
+import com.garmin.fit.Field;
+import com.garmin.fit.Mesg;
+import com.garmin.fit.MesgListener;
 
 public class MesgIndexTest implements Test, MesgListener {
    private String szError = "";

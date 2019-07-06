@@ -1,8 +1,8 @@
 -buildpath: com.github.rasifix.osgi.application;version=latest,\
 	com.github.rasifix.trainings.core;version=latest,\
-	biz.aQute.bnd.annotation,\
-	osgi.cmpn,\
-	osgi.core,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0,\
 	org.geotools
 Private-Package: com.github.rasifix.trainings.geodeployer.internal
 Service-Component: com.github.rasifix.trainings.geodeployer.internal.*

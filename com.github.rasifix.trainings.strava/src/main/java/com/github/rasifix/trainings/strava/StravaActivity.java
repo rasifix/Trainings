@@ -44,32 +44,27 @@ public class StravaActivity implements Activity {
 
 	@Override
 	public int getDistance() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tracks.get(0).getDistance();
 	}
 
 	@Override
 	public int getDuration() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tracks.get(0).getDuration();
 	}
 
 	@Override
 	public Double getSpeed() {
-		// TODO Auto-generated method stub
-		return null;
+		return tracks.get(0).getSpeed();
 	}
 
 	@Override
 	public <T extends AttributeSummary<T>> T getSummary(AttributeSummaryBuilder<T> builder) {
-		// TODO Auto-generated method stub
-		return null;
+		return tracks.get(0).getSummary(builder);
 	}
 
 	@Override
 	public List<String> getPlaces() {
-		// TODO Auto-generated method stub
-		return null;
+		return tracks.get(0).getPlaces();
 	}
 
 	@Override
@@ -98,8 +93,7 @@ public class StravaActivity implements Activity {
 
 	@Override
 	public Date getEndTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Date(getStartTime().getTime() + getDuration());
 	}
 
 	@Override

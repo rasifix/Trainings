@@ -7,25 +7,30 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ConfigurationPolicy;
 
 import com.github.rasifix.trainings.ActivityKey;
 import com.github.rasifix.trainings.ActivityRepository;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Track;
 
-@Component
+@Component(configurationPolicy = ConfigurationPolicy.REQUIRE, property = "name=strava")
 public class StravaRepository implements ActivityRepository {
 
 	private static final String BASE_URI = "https://www.strava.com/api/v3/";
+	
 	private String token;
 	private DefaultHttpClient client;
 
+	@interface StravaConfig {
+		String token();
+	}
+	
 	@Activate
-	public void activate(ComponentContext context) {
-		this.token = (String) context.getProperties().get("token");
+	public void activate(StravaConfig config) throws IOException {
+		this.token = config.token();
 		this.client = new DefaultHttpClient();
 	}
 
@@ -53,6 +58,7 @@ public class StravaRepository implements ActivityRepository {
 		HttpResponse streamsResponse = client.execute(streamsRequest);
 		
 		List<Track> tracks = new StreamsParser().parseStreams(activity.getStartTime(), streamsResponse.getEntity().getContent());
+		tracks.stream().forEach(track -> track.setSport(activity.getSport()));
 		activity.getTracks().addAll(tracks);
 		
 		return activity;
@@ -60,8 +66,9 @@ public class StravaRepository implements ActivityRepository {
 
 	@Override
 	public List<ActivityOverview> findActivities(Date startDate, Date endDate) throws IOException {
-		HttpGet request = new HttpGet(BASE_URI + "activities");
+		HttpGet request = new HttpGet(BASE_URI + "activities?per_page=200");
 		request.setHeader("Authorization", "Bearer " + token);
+		
 		HttpResponse response = client.execute(request);
 		
 		ActivitiesParser parser = new ActivitiesParser();

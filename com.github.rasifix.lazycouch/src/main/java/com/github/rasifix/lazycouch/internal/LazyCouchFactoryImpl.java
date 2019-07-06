@@ -1,9 +1,10 @@
 package com.github.rasifix.lazycouch.internal;
 
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.lazycouch.CouchServer;
 import com.github.rasifix.lazycouch.LazyCouchFactory;
+
 
 @Component
 public class LazyCouchFactoryImpl implements LazyCouchFactory {

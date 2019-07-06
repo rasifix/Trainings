@@ -17,11 +17,19 @@
 
 package com.garmin.fit.csv;
 
-import com.garmin.fit.*;
-import com.garmin.fit.test.Tests;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.File;
+
+import com.garmin.fit.Decode;
+import com.garmin.fit.FileEncoder;
+import com.garmin.fit.Fit;
+import com.garmin.fit.MesgBroadcaster;
+import com.garmin.fit.MesgDefinitionListener;
+import com.garmin.fit.MesgListener;
+import com.garmin.fit.MesgWithEventListener;
+import com.garmin.fit.RecordMesgListener;
+import com.garmin.fit.test.Tests;
 
 public class CSVTool {
    public static void main(String args[]) {

@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,11 +33,7 @@ import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Equipment;
 
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
-
-@Component(properties={ "host=localhost", "port=5984" })
+@Component(properties={ "host=localhost", "port=5984", "name=local" })
 public class CouchActivityRepository implements ActivityRepository, ActivityExporter, EquipmentRepository {
 
 	private String host;

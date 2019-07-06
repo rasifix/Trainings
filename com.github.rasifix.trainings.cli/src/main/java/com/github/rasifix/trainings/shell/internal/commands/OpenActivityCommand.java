@@ -1,11 +1,12 @@
 package com.github.rasifix.trainings.shell.internal.commands;
 
-import jline.Completor;
-import jline.NullCompletor;
-import aQute.bnd.annotation.component.Component;
+import org.osgi.service.component.annotations.Component;
 
 import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
+
+import jline.Completor;
+import jline.NullCompletor;
 
 @Component
 public class OpenActivityCommand implements Command {

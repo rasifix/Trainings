@@ -26,10 +26,9 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXHandler;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
 import org.xml.sax.InputSource;
-
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
 
 import com.github.rasifix.solv.Event;
 import com.github.rasifix.solv.EventOverview;

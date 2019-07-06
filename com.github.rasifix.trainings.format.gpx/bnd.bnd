@@ -1,9 +1,12 @@
 -buildpath: \
 	com.github.rasifix.trainings.core;version=latest,\
 	com.springsource.org.jdom,\
-	biz.aQute.bnd.annotation,\
-	com.github.rasifix.trainings.integration;version=latest
-Private-Package: com.github.rasifix.trainings.format.gpx.internal
+	com.github.rasifix.trainings.integration;version=latest,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
+	osgi.cmpn;version=7.0.0
+Private-Package: com.github.rasifix.trainings.format.gpx.internal,\
+	org.gavaghan.geodesy
 Service-Component: com.github.rasifix.trainings.format.gpx.internal.*
 Import-Package: !org.junit*,\
 	*
