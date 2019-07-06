@@ -1,8 +1,0 @@
--buildpath: com.github.rasifix.lazycouch;version=latest,\
-	com.github.rasifix.solv;version=latest,\
-	com.github.rasifix.saj;version=latest,\
-	osgi.annotation;version=7.0.0,\
-	osgi.core;version=7.0.0,\
-	osgi.cmpn;version=7.0.0
-Private-Package: com.github.rasifix.solv.couch.internal
-Service-Component: com.github.rasifix.solv.couch.internal.*
