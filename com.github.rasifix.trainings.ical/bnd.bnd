@@ -1,4 +1,0 @@
--buildpath: com.github.rasifix.trainings.core; version=latest
-Private-Package: com.github.rasifix.trainings.ical.internal
-Service-Component: OSGI-INF/*.xml
-Include-Resource: OSGI-INF=src/main/resources/OSGI-INF

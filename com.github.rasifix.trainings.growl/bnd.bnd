@@ -1,3 +1,0 @@
-Bundle-Version: 1.0.0
-Private-Package: com.github.rasifix.trainings.growl.internal
-Export-Package: com.github.rasifix.trainings.growl
