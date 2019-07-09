@@ -1,8 +1,5 @@
 package com.github.rasifix.trainings.shell.internal.commands.equipment;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -15,12 +12,11 @@ import jline.Completor;
 import jline.NullCompletor;
 
 @Component
-public class ListEquipmentsCommand implements Command {
-	
-	private static final String NAME = "equipment:list";
+public class DeactivateEquipmentCommand implements Command {
 
+	private static final String NAME = "equipment:deactivate";
 	private EquipmentRepository repository;
-	
+
 	@Reference
 	public void setRepository(EquipmentRepository repository) {
 		this.repository = repository;
@@ -33,26 +29,24 @@ public class ListEquipmentsCommand implements Command {
 	
 	@Override
 	public String getUsage() {
-		return NAME;
+		return NAME + " <id>";
 	}
-
+	
 	@Override
 	public Object execute(CommandContext context) throws Exception {
-		int idx = 0;
-		for (Equipment equipment : repository.getAllEquipments()) {
-			if (!equipment.isActive()) {
-				continue;
-			}
-			System.out.format("%3d  %20s  %15s  %10s  %15s  (%s)\n", 
-					++idx, equipment.getName(), equipment.getBrand(), 
-					format(equipment.getDateOfPurchase()), 
-					equipment.getDefaultSport() != null ? equipment.getDefaultSport() : "", equipment.getId());
+		if (context.getArguments().length != 1) {
+			System.err.println(getUsage());
+			return context.getCurrent();
 		}
-		return context.getCurrent();
-	}
-
-	private String format(Date date) {
-		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+		
+		String id = context.getArgument(0);
+		
+		Equipment equipment = repository.getEquipment(id);
+		equipment.setActive(false);
+		
+		repository.addEquipment(equipment);
+				
+		return equipment;
 	}
 
 	@Override

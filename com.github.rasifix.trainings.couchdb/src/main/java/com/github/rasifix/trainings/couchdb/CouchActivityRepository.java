@@ -33,7 +33,7 @@ import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Equipment;
 
-@Component(properties={ "host=localhost", "port=5984", "name=local" })
+@Component(property= { "host=localhost", "port=5984", "name=local" } )
 public class CouchActivityRepository implements ActivityRepository, ActivityExporter, EquipmentRepository {
 
 	private String host;
@@ -49,6 +49,7 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	
 	@Activate
 	public void activate(ComponentContext context) {
+		System.out.println("activating couch repository");
 		this.host = (String) context.getProperties().get("host");
 		this.port = Integer.parseInt((String) context.getProperties().get("port"));
 		this.server = factory.open(host, port);
@@ -249,6 +250,8 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		node.put("name", equipment.getName());
 		node.put("brand", equipment.getBrand());
 		node.put("dateOfPurchase", format(equipment.getDateOfPurchase()));
+		node.put("defaultSport", equipment.getDefaultSport());
+		node.put("active", equipment.isActive());
 		
 		document.set("equipment", node);
 		
@@ -281,6 +284,10 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 				throw new IllegalArgumentException("cannot parse date", e);
 			}
 		}
+		if (jsonObject.has("defaultSport")) {
+			equipment.setDefaultSport(jsonObject.path("defaultSport").asText());
+		}
+		equipment.setActive(jsonObject.path("active").asBoolean(true));
 		return equipment;
 	}
 

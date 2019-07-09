@@ -22,7 +22,7 @@ import com.github.rasifix.osgi.shell.CommandContext;
 
 import jline.ConsoleReader;
 
-@Component(properties={ "appid=shell" })
+@Component(property={ "appid=shell" }, immediate=true)
 public class Shell implements Application, CommandRegistry, CommandContext {
 
 	private final Map<String, Command> commands = new HashMap<String, Command>();

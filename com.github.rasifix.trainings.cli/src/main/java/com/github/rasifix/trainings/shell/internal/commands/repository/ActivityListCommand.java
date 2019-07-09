@@ -41,7 +41,7 @@ public class ActivityListCommand implements Command {
 		this.context = context;
 	}
 	
-	@Reference(policy=ReferencePolicy.DYNAMIC, cardinality=ReferenceCardinality.MULTIPLE, service=ActivityRepository.class, unbind="removeRepository")
+	@Reference(policy=ReferencePolicy.DYNAMIC, cardinality=ReferenceCardinality.AT_LEAST_ONE, service=ActivityRepository.class, unbind="removeRepository")
 	public void addRepository(ServiceReference ref) {
 		String name = (String) ref.getProperty("name");
 		synchronized (repositories) {
@@ -80,6 +80,7 @@ public class ActivityListCommand implements Command {
 		Date startDate = parseDate(start);
 		Date endDate = parseDate(end);
 
+		System.out.println(repositories.keySet());
 		List<ActivityOverview> activities = getRepository(name).findActivities(startDate, endDate);
 			
 		System.out.println(activities.size() + " activities found");

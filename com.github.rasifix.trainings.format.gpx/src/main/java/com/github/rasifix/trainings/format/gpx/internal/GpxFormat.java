@@ -9,7 +9,7 @@ import com.github.rasifix.trainings.format.ActivityWriter;
 import com.github.rasifix.trainings.format.Format;
 import com.github.rasifix.trainings.integration.resource.Resource;
 
-@Component(properties={ "com.github.rasifix.trainings.format=gpx" })
+@Component(property="com.github.rasifix.trainings.format=gpx")
 public class GpxFormat implements Format {
 
 	@Override

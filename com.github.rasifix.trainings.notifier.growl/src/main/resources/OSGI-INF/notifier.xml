@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="GrowlNotifier">
-   <implementation class="com.github.rasifix.trainings.notifier.growl.GrowlNotifier"/>
-   <service>
-      <provide interface="com.github.rasifix.trainings.Notifier"/>
-   </service>
-   <property name="application" type="String" value="ActivityExporter"/>
-   <property name="password" type="String" value="abc"/>
-</scr:component>

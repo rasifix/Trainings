@@ -9,6 +9,8 @@ public class Equipment {
 	private Date dateOfPurchase;
 	private String name;
 	private String brand;
+	private boolean active;
+	private String defaultSport;
 
 	public String getId() {
 		return id;
@@ -48,6 +50,22 @@ public class Equipment {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+	
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	
+	public void setDefaultSport(String defaultSport) {
+		this.defaultSport = defaultSport;
+	}
+	
+	public String getDefaultSport() {
+		return defaultSport;
 	}
 	
 }

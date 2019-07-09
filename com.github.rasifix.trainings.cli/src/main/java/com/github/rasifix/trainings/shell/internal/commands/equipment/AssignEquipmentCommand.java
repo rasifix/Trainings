@@ -8,6 +8,7 @@ import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.equipment.EquipmentRepository;
 import com.github.rasifix.trainings.model.Activity;
 import com.github.rasifix.trainings.model.Equipment;
+import com.github.rasifix.trainings.model.Track;
 
 import jline.Completor;
 import jline.NullCompletor;
@@ -51,6 +52,11 @@ public class AssignEquipmentCommand implements Command {
 		String equipmentId = context.getArgument(0);
 		Equipment equipment = repository.getEquipment(equipmentId);
 		if (equipment != null) {
+			if (equipment.getDefaultSport() != null) {
+				for (Track track : activity.getTracks()) {
+					track.setSport(equipment.getDefaultSport());
+				}
+			}
 			activity.addEquipment(equipment);
 		}
 		

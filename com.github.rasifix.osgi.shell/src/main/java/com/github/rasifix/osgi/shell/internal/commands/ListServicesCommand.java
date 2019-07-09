@@ -1,5 +1,8 @@
 package com.github.rasifix.osgi.shell.internal.commands;
 
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
@@ -45,7 +48,17 @@ public class ListServicesCommand implements Command {
 			return context.getCurrent();
 		}
 		
+		Predicate<ServiceReference<?>> predicate = ref -> true;
+		if (context.getArguments().length == 1) {
+			String objectClass = context.getArgument(0);
+			predicate = ref -> Arrays.stream((String[]) ref.getProperty("objectClass")).anyMatch(prop -> objectClass.equals(prop));
+		}
+		
 		for (ServiceReference<?> reference : references) {
+			if (!predicate.test(reference)) {
+				continue;
+			}
+			
 			Long serviceId = (Long) reference.getProperty("service.id");
 			String[] objectClass = (String[]) reference.getProperty("objectClass");
 			

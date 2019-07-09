@@ -1,6 +1,0 @@
-Private-Package: com.github.rasifix.trainings.notifier.growl
--buildpath: com.github.rasifix.trainings.growl;version=latest,\
-	com.github.rasifix.trainings.core;version=latest,\
-	osgi.cmpn
-Service-Component: OSGI-INF/*.xml
-Include-Resource: OSGI-INF=src/main/resources/OSGI-INF

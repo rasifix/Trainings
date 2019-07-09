@@ -29,7 +29,7 @@ import com.github.rasifix.trainings.format.tcx.TcxActivityReader;
 import com.github.rasifix.trainings.format.tcx.TcxActivityWriter;
 import com.github.rasifix.trainings.integration.resource.Resource;
 
-@Component(properties={ "com.github.rasifix.trainings.format=tcx" })
+@Component(property="com.github.rasifix.trainings.format=tcx")
 public class TcxFormat implements Format {
 
 	@Override

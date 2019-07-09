@@ -32,7 +32,7 @@ public class CreateEquipmentCommand implements Command {
 	
 	@Override
 	public String getUsage() {
-		return NAME + " <name> <brand> <date:yyyy-MM-dd";
+		return NAME + " <name> <brand> <date:yyyy-MM-dd>";
 	}
 	
 	@Override

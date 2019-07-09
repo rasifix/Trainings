@@ -12,9 +12,9 @@
 		<module>../com.github.rasifix.trainings.format.fit</module>
 		<module>../com.github.rasifix.trainings.format.gpx</module>
 		<module>../com.github.rasifix.trainings.couchdb</module>
-		<module>../com.github.rasifix.trainings.ical</module>
 		<module>../com.github.rasifix.trainings.cli</module>
 		<module>../com.github.rasifix.trainings.geodeployer</module>
+		<module>../com.github.rasifix.trainings.strava</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +34,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.6</version>
+				<version>4.1.0</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -44,11 +44,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>biz.aQute</groupId>
-			<artifactId>annotation</artifactId>
-			<version>1.50.0</version>
-		</dependency>
-	</dependencies>
 </project>

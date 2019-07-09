@@ -24,7 +24,7 @@ import com.github.rasifix.trainings.format.json.JsonActivityReader;
 import com.github.rasifix.trainings.format.json.JsonActivityWriter;
 import com.github.rasifix.trainings.integration.resource.Resource;
 
-@Component(properties={ "com.github.rasifix.trainings.format=json" })
+@Component(property="com.github.rasifix.trainings.format=json")
 public class JsonFormat implements Format {
 
 	@Override
