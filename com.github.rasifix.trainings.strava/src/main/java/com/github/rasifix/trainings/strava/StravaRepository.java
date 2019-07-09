@@ -10,7 +10,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.ConfigurationPolicy;
 
 import com.github.rasifix.trainings.ActivityKey;
 import com.github.rasifix.trainings.ActivityRepository;
@@ -33,7 +32,7 @@ public class StravaRepository implements ActivityRepository {
 	
 	@Activate
 	public void activate(ComponentContext context) throws IOException {
-		System.out.println("activating strava repository with pid = " + context.getServiceReference());
+		System.out.println("... activating strava repository with pid = " + context.getServiceReference());
 		this.token = (String) context.getProperties().get("token");
 		this.client = new DefaultHttpClient();
 		
