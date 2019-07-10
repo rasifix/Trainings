@@ -1,9 +1,0 @@
--buildpath: \
-	com.github.rasifix.solv;version=latest,\
-	com.github.rasifix.osgi.shell;version=latest,\
-	com.springsource.jline,\
-	osgi.annotation;version=7.0.0,\
-	osgi.core;version=7.0.0,\
-	osgi.cmpn;version=7.0.0
-Private-Package: com.github.rasifix.solv.internal.commands
-Service-Component: com.github.rasifix.solv.internal.commands.*
