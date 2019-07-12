@@ -59,7 +59,7 @@ public class Launcher {
 	private static Framework launchFramework() throws Exception {
 		// export com.github.rasifix.osgi.application from system bundle
 		// we need to access the package from both the launcher and the bundles
-		final Map<String, String> config = new HashMap<String, String>();
+		final Map<String, String> config = new HashMap<>();
 		config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "com.github.rasifix.osgi.application; version=1.0.0");
 		config.put("felix.log.level", "3");
 		config.put("felix.cm.dir", "config");

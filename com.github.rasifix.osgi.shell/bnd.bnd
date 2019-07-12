@@ -1,11 +1,10 @@
--buildpath: osgi.cmpn,\
+-buildpath: \
+	osgi.cmpn;version=7.0.0,\
 	com.github.rasifix.osgi.application;version=latest,\
 	osgi.annotation;version=7.0.0,\
 	osgi.core;version=7.0.0,\
-	osgi.cmpn;version=7.0.0,\
 	com.springsource.jline
 Export-Package: com.github.rasifix.osgi.shell
 Private-Package: com.github.rasifix.osgi.shell.internal,\
 	com.github.rasifix.osgi.shell.internal.commands
-Service-Component: com.github.rasifix.osgi.shell.internal.*
 Import-Package: !org.junit, *

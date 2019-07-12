@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.osgi.service.component.ComponentContext;
@@ -49,7 +50,6 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 	
 	@Activate
 	public void activate(ComponentContext context) {
-		System.out.println("activating couch repository");
 		this.host = (String) context.getProperties().get("host");
 		this.port = Integer.parseInt((String) context.getProperties().get("port"));
 		this.server = factory.open(host, port);
@@ -156,6 +156,11 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 
 	private Document toDocument(Activity activity) {
 		JsonActivityWriter writer = new JsonActivityWriter();
+		
+		if (!activity.getEquipments().isEmpty()) {
+			
+		}
+		
 		ObjectNode jsonActivity = writer.writeActivity(activity);
 		Document doc = new Document(generateUUID());
 		if (activity.getId() != null) {
@@ -220,6 +225,11 @@ public class CouchActivityRepository implements ActivityRepository, ActivityExpo
 		CouchDatabase db = server.getDatabase("trainings");
 		Document doc = db.get(id);
 		return fromEquipmentDocument(doc);
+	}
+	
+	@Override
+	public Optional<Equipment> findEquipment(String brand, String name) throws IOException {
+		return getAllEquipments().stream().filter(e -> e.getBrand().equalsIgnoreCase(brand) && e.getName().equalsIgnoreCase(name)).findFirst();
 	}
 	
 	@Override

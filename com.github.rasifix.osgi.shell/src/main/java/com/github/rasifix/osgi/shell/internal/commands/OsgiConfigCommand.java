@@ -3,14 +3,12 @@ package com.github.rasifix.osgi.shell.internal.commands;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Dictionary;
 import java.util.Enumeration;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Properties;
 
 import org.osgi.framework.InvalidSyntaxException;
-import org.osgi.framework.ServiceReference;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Component;
@@ -50,6 +48,10 @@ public class OsgiConfigCommand implements Command {
 			reloadConfig();
 		} else if (args.length == 1) {
 			showConfig(args[0]);
+		} else if (args.length == 3 && "delete".equals(args[0])) {
+			configAdmin.getConfiguration(args[1], null).delete();
+		} else if (args.length == 3) {
+			updateConfig(args[0], args[1], args[2]);
 		}
 				
 		return context.getCurrent();
@@ -59,14 +61,17 @@ public class OsgiConfigCommand implements Command {
         for (File file : new File("load").listFiles()) {
         	String pid = file.getName().substring(0, file.getName().length() - 4);
         	System.out.println("updating config for " + pid);
-        	Configuration config = configAdmin.getConfiguration(pid);
+        	Configuration config = configAdmin.getConfiguration(pid, null);
         	Properties props = new Properties();
         	
         	try (FileReader reader = new FileReader(file)) {
         		props.load(reader);
         	}
         	
-        	config.update(props);
+        	Hashtable<String, Object> ht = new Hashtable<>();
+        	props.forEach((key, value) -> ht.put((String) key, value));
+        	
+        	config.update(ht);
         }
 	}
 
@@ -84,7 +89,7 @@ public class OsgiConfigCommand implements Command {
 			return;
 		}
 		
-		Configuration configuration = configAdmin.getConfiguration(pid);
+		Configuration configuration = configAdmin.getConfiguration(pid, null);
 		System.out.println("configuration for pid " + pid);
 		Dictionary<String, Object> properties = configuration.getProperties();
 		Enumeration<String> en = properties.keys();
@@ -92,6 +97,17 @@ public class OsgiConfigCommand implements Command {
 			String prop = en.nextElement();
 			System.out.println("  " + prop + " = " + properties.get(prop));
 		}
+	}
+
+	private void updateConfig(String pid, String key, String value) throws IOException, InvalidSyntaxException {
+		Configuration configuration = configAdmin.getConfiguration(pid, null);
+		System.out.println("update configuration for pid " + pid);
+		Dictionary<String, Object> properties = configuration.getProperties();
+		if (properties == null) {
+			properties = new Hashtable<>();
+		}
+		properties.put(key, value);
+		configuration.update(properties);
 	}
 
 	@Override

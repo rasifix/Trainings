@@ -20,7 +20,7 @@ public class DeleteCommand implements Command {
 	
 	private ActivityRepository repository;
 
-	@Reference
+	@Reference(target = "(name=local)")
 	public void setActivityRepository(ActivityRepository repository) {
 		this.repository = repository;
 	}

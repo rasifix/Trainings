@@ -28,7 +28,7 @@ public class ActivityOverviewDTO implements ActivityRepository.ActivityOverview 
 	
 	@JsonProperty("gear_id")
 	private String gearId;
-
+	
 	@JsonCreator
 	ActivityOverviewDTO(@JsonProperty("id") String id) {
 		this.id = id;

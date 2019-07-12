@@ -21,7 +21,7 @@ public class ListEquipmentsCommand implements Command {
 
 	private EquipmentRepository repository;
 	
-	@Reference
+	@Reference(target = "(name=local)")
 	public void setRepository(EquipmentRepository repository) {
 		this.repository = repository;
 	}

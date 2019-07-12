@@ -1,9 +1,13 @@
 package com.github.rasifix.trainings.shell.internal.commands.repository;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.osgi.framework.ServiceReference;
 import org.osgi.service.component.ComponentContext;
@@ -17,6 +21,9 @@ import com.github.rasifix.osgi.shell.Command;
 import com.github.rasifix.osgi.shell.CommandContext;
 import com.github.rasifix.trainings.ActivityRepository;
 import com.github.rasifix.trainings.ActivityRepository.ActivityOverview;
+import com.github.rasifix.trainings.equipment.EquipmentRepository;
+import com.github.rasifix.trainings.model.Activity;
+import com.github.rasifix.trainings.model.Equipment;
 
 import jline.Completor;
 import jline.NullCompletor;
@@ -80,6 +87,7 @@ public class RepoSyncCommand implements Command {
 			
 			ActivityRepository source = getRepository(src);
 			ActivityRepository destination = getRepository(dst);
+			EquipmentRepository equipmentsRepo = destination instanceof EquipmentRepository ? (EquipmentRepository) destination : null;
 			
 			if (source != null && destination != null) {
 				List<ActivityOverview> srcList = source.findActivities(null, null);
@@ -92,13 +100,40 @@ public class RepoSyncCommand implements Command {
 					ActivityOverview dstActivity = match(srcActivity, dstList);
 					if (dstActivity == null) {
 						System.out.println("sync missing: " + srcActivity.getActivityId() + " " + srcActivity.getSport() + " " + srcActivity.getDate() + " " + srcActivity.getDistance() + " " + formatDuration(srcActivity.getDuration()));
-						destination.addActivity(source.getActivity(srcActivity.getActivityId()));
+						Activity activity = source.getActivity(srcActivity.getActivityId());
+						
+						if (equipmentsRepo != null) {
+							List<Equipment> equipments = match(activity.getEquipments(), equipmentsRepo);
+							activity.getEquipments().clear();
+							equipments.forEach(equipment -> activity.addEquipment(equipment));
+						} else {
+							activity.getEquipments().clear();
+						}
+						
+						destination.addActivity(activity);
 					}
 				}
 			}
 		}
 		
 		return ctx.getCurrent();
+	}
+
+	private List<Equipment> match(Collection<Equipment> equipments, EquipmentRepository repository) {
+		return equipments.stream()
+				.map(equipment -> match(equipment, repository))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toList());
+	}
+	
+	private Optional<Equipment> match(Equipment equipment, EquipmentRepository repository) {
+		try {
+			return repository.findEquipment(equipment.getBrand(), equipment.getName());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Optional.empty();
+		}
 	}
 
 	private String formatDuration(long duration) {

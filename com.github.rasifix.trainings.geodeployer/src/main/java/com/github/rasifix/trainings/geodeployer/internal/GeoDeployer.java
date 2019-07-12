@@ -19,7 +19,6 @@ public class GeoDeployer implements Deployer {
 	
 	@Activate
 	public void doActivate(ComponentContext context) {
-		System.out.println("activating GeoDeployer");
 		this.context = context;
 	}
 	
@@ -36,7 +35,7 @@ public class GeoDeployer implements Deployer {
 	@Override
 	public void deploy(File file) throws IOException {
 		try {			
-			System.out.println("deploying ElevationModel from " + file.getName());
+			System.out.println("... deploying ElevationModel from " + file.getName());
 			// TODO: make transformation generally applicable
 			ArcGridElevationModel elevationModel = new ArcGridElevationModel(new FileInputStream(file));
 			TransformingElevationModel transformingModel = new TransformingElevationModel(elevationModel);

@@ -39,7 +39,7 @@ public class ShapeFileDeployer implements Deployer {
 		FileDataStore store = FileDataStoreFinder.getDataStore(file);
 		SimpleFeatureSource features = store.getFeatureSource();
 		
-		System.out.println("deploying PlaceNameLookup from " + file.getName());
+		System.out.println("... deploying PlaceNameLookup from " + file.getName());
 		
 		PlaceNameLookup lookup = new ShapeFilePlaceNameLookup(features);
 		PlaceNameLookup transformingLookup = new TransformingPlaceNameLookup(lookup);

@@ -1,16 +1,16 @@
 -buildpath: \
-	osgi.annotation;version=6.0.1,\
-	osgi.core;version=6.0,\
-	osgi.cmpn;version=6.0,\
+	osgi.cmpn;version=7.0.0,\
+	osgi.annotation;version=7.0.0,\
+	osgi.core;version=7.0.0,\
 	com.github.rasifix.trainings.core;version=latest,\
 	org.apache.httpcomponents.httpclient,\
 	org.apache.httpcomponents.httpcore,\
 	com.fasterxml.jackson.core.jackson-core,\
 	com.fasterxml.jackson.core.jackson-databind,\
 	com.fasterxml.jackson.core.jackson-annotations,\
-	org.apache.servicemix.bundles.junit
-
-Bundle-Version: 0.0.0.${tstamp}
+	org.apache.servicemix.bundles.junit,\
+	com.github.rasifix.osgi.shell;version=latest,\
+	com.springsource.jline
 Private-Package: \
 	com.github.rasifix.trainings.strava,\
 	com.github.rasifix.trainings.strava.dto
