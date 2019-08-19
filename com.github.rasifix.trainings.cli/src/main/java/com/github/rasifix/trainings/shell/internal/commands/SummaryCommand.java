@@ -1,5 +1,7 @@
 package com.github.rasifix.trainings.shell.internal.commands;
 
+import static java.util.stream.Collectors.joining;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,6 +38,7 @@ public class SummaryCommand implements Command {
 			System.out.println(format(activity.getStartTime()) + " " + activity.getSport());
 			System.out.println("total time     = " + activity.getDuration());
 			System.out.println("total distance = " + activity.getDistance());
+			System.out.println("equipments     = " + activity.getEquipments().stream().map(e -> e.getName()).collect(joining(",")));
 			System.out.println();
 			System.out.println(pluralize(activity.getTrackCount(), "track", "tracks"));
 			for (Track track : activity.getTracks()) {

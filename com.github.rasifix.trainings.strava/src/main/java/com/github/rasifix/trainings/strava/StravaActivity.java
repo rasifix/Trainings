@@ -1,7 +1,6 @@
 package com.github.rasifix.trainings.strava;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +17,8 @@ public class StravaActivity implements Activity {
 	private String sport;
 	private List<Track> tracks = new LinkedList<>();
 	private Date startTime;
+	private String gearId;
+	private Collection<Equipment> equipments = new LinkedList<>();
 
 	public StravaActivity(String id) {
 		this.id = id;
@@ -98,12 +99,20 @@ public class StravaActivity implements Activity {
 
 	@Override
 	public Collection<Equipment> getEquipments() {
-		return Collections.emptyList();
+		return equipments;
 	}
 
 	@Override
 	public void addEquipment(Equipment equipment) {
-		throw new UnsupportedOperationException();
+		this.equipments.add(equipment);
+	}
+
+	public void setGearId(String gearId) {
+		this.gearId = gearId;
+	}
+	
+	public String getGearId() {
+		return gearId;
 	}
 
 }

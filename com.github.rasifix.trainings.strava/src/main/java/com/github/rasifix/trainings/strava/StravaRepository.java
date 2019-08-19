@@ -57,7 +57,7 @@ public class StravaRepository implements ActivityRepository, EquipmentRepository
 		HttpResponse activityResponse = client.execute(activityRequest);
 		
 		ActivityParser parser = new ActivityParser();
-		Activity activity = parser.parseActivity(activityResponse.getEntity().getContent());
+		StravaActivity activity = parser.parseActivity(activityResponse.getEntity().getContent());
 		
 		HttpGet streamsRequest = new HttpGet(BASE_URI + "activities/" + activityId + "/streams/latlng,time,distance,altitude,heartrate,cadence");
 		streamsRequest.setHeader("Authorization", "Bearer " + token);
@@ -66,6 +66,11 @@ public class StravaRepository implements ActivityRepository, EquipmentRepository
 		List<Track> tracks = new StreamsParser().parseStreams(activity.getStartTime(), streamsResponse.getEntity().getContent());
 		tracks.stream().forEach(track -> track.setSport(activity.getSport()));
 		activity.getTracks().addAll(tracks);
+		
+		if (activity.getGearId() != null) {
+			Equipment equipment = getEquipment(activity.getGearId());
+			activity.addEquipment(equipment);
+		}
 		
 		return activity;
 	}

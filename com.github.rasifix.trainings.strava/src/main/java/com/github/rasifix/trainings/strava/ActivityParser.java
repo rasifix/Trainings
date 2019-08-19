@@ -9,13 +9,14 @@ import com.github.rasifix.trainings.strava.dto.ActivityOverviewDTO;
 
 public class ActivityParser {
 	
-	public Activity parseActivity(InputStream is) throws IOException {
+	public StravaActivity parseActivity(InputStream is) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ActivityOverviewDTO overview = mapper.readValue(is, ActivityOverviewDTO.class);
 		
 		StravaActivity result = new StravaActivity(overview.getActivityId());
 		result.setSport(overview.getSport());
 		result.setStartTime(overview.getDate());
+		result.setGearId(overview.getGearId());
 		
 		return result;
 	}
