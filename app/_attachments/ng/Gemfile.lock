@@ -40,7 +40,7 @@ GEM
     guard-rake (0.0.7)
       guard
       rake
-    json (1.7.5)
+    json (2.3.1)
     listen (0.6.0)
     lumberjack (1.0.2)
     method_source (0.8.1)
